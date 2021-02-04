@@ -1,40 +1,55 @@
-use regex::Regex;
-use rand::prelude::*;
-use std::error::Error;
-use std::io;
-use std::fs;
+#![feature(proc_macro_hygiene, decl_macro)]
 
-fn main() -> Result<(), Box<dyn Error>> {
-    let mut rng = thread_rng();
-    let mut reader = csv::ReaderBuilder::new()
-        .has_headers(false)
-        .delimiter(b'\t')
-        .from_path("sentences.csv")?;
+#[macro_use] extern crate rocket;
 
-    let mut records: Vec<_> = reader.records().into_iter().collect();
-    records.shuffle(&mut rng);
+use rocket::Config;
+use rocket_contrib::{serve::StaticFiles, templates::Template};
+use std::env;
+use std::collections::HashMap;
 
-    'sentence: for result in records {
-        let jap_sentence = &result?[1];
-        let known_kanji = fs::read_to_string("known_kanji.txt")?;
-        let re = Regex::new(r"[\p{Han}]")?;
-        let mut score = 0;
+mod sentences;
 
-        for group in re.captures_iter(jap_sentence) {
-            if known_kanji.contains(&group[0]) {
-                score += 1;
-            } else {
-                // This sentence has kanji they still don't know
-                continue 'sentence;
-            }
-        }
-        if score >= 1 {
-            // Test the user
-            println!("\n{}", jap_sentence);
-            let stdin = io::stdin();
-            let mut input = String::new();
-            stdin.read_line(&mut input)?;
-        }
-    }
-    Ok(())
+use sentences::*;
+
+#[get("/")]
+fn index() -> Template {
+    let context: HashMap<String, String> = HashMap::new();
+    Template::render("index", context)
+}
+
+#[post("/sentences")]
+fn post_sentences() -> String {
+    get_sentences().unwrap().iter().map(|x| x.join(";")).collect::<Vec<_>>().join("|")
+}
+
+fn configure() -> Config {
+    let mut config = Config::active().expect("could not load configuration");
+    /*config
+        .set_secret_key(env::var("SECRET_KEY").unwrap())
+        .unwrap();*/
+    // Configure Rocket to use the PORT env var or fall back to 8000
+    let port = if let Ok(port_str) = env::var("PORT") {
+        port_str.parse().expect("could not parse PORT")
+    } else {
+        8000
+    };
+    config.set_port(port);
+    config
+}
+
+fn rocket() -> rocket::Rocket {
+    rocket::custom(configure())
+        .mount(
+            "/",
+            routes![index, post_sentences],
+        )
+        .mount("/styles", StaticFiles::from("static/styles"))
+        .mount("/scripts", StaticFiles::from("static/scripts"))
+        .mount("/fonts", StaticFiles::from("static/fonts"))
+        .mount("/", StaticFiles::from("static/icons").rank(20))
+        .attach(Template::fairing())
+}
+
+fn main() {
+    rocket().launch();
 }
