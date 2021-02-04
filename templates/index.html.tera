@@ -14,9 +14,11 @@
         <main>
             <div id="meaning"></div>
             <div id="question">Loading...</div>
-            <input type="text" name="" id="answer">
+            <label class="input-sizer">
+                <input type="text" id="answer" size="5">
+            </label>
         </main>
-        <button id="next">Show Answer (Enter)</button>
+        <button id="next">Show Answer</button>
     </form>
 </body>
 <script src="https://unpkg.com/wanakana"></script>
