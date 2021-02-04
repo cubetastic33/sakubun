@@ -46,6 +46,7 @@ fn rocket() -> rocket::Rocket {
         .mount("/styles", StaticFiles::from("static/styles"))
         .mount("/scripts", StaticFiles::from("static/scripts"))
         .mount("/fonts", StaticFiles::from("static/fonts"))
+        .mount("/dict", StaticFiles::from("static/dict"))
         .mount("/", StaticFiles::from("static/icons").rank(20))
         .attach(Template::fairing())
 }

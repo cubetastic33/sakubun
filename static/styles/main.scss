@@ -73,7 +73,7 @@ header {
     text-align: center;
 }
 
-#meaning {
+#meaning, #kana {
     font-size: 2em;
     height: 1em;
 }
@@ -137,4 +137,14 @@ header {
     border-bottom: 2px solid var(--accent);
     padding-bottom: calc(.25em - 1px);
     outline: none;
+}
+
+#answer.correct {
+    border-bottom-color: #43ef37;
+    color: #43ef37;
+}
+
+#answer.incorrect {
+    border-bottom-color: #ef374c;
+    color: #ef374c;
 }

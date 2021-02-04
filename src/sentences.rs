@@ -18,11 +18,18 @@ pub fn get_sentences() -> Result<Vec<[String;2]>, Box<dyn Error>> {
         let record = result?;
         let jap_sentence = &record[1];
         let eng_sentence = &record[2];
+
+        // If this sentence has characters we don't want, then don't use it
+        let filter = Regex::new(r"[０-９Ａ-Ｚａ-ｚ]")?;
+        if filter.is_match(jap_sentence) {
+            continue;
+        }
+
         let known_kanji = fs::read_to_string("known_kanji.txt")?;
-        let re = Regex::new(r"[\p{Han}]")?;
+        let kanji = Regex::new(r"[\p{Han}]")?;
         let mut score = 0;
 
-        for group in re.captures_iter(jap_sentence) {
+        for group in kanji.captures_iter(jap_sentence) {
             if known_kanji.contains(&group[0]) {
                 score += 1;
             } else {
