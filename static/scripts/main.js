@@ -29,7 +29,7 @@ $("form").submit(e => {
         // Check if answer was right
         kuroshiro.convert(jap_sentence, { mode: "normal", to: "hiragana" }).then(result => {
             $("#kana").text(result);
-            let punctuation = /[\uFF5F-\uFF65\u3000-\u303F]/ug;
+            let punctuation = /[、。！？「」『』]/ug;
             if ($("#answer").val().replace(punctuation, "") === result.replace(punctuation, "")) {
                 $("#answer").attr("class", "correct");
             } else {
