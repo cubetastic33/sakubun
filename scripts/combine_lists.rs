@@ -1,3 +1,4 @@
+use regex::Regex;
 use std::error::Error;
 use std::collections::HashMap;
 
@@ -22,12 +23,13 @@ fn main() -> Result<(), Box<dyn Error>> {
                 queue.insert(record[0].to_string(), final_records.len());
                 // Add the English sentence ID to the queue
                 queue.insert(record[1].to_string(), final_records.len());
-                final_records.push([
-                    String::new(), String::new()
-                ]);
+                // Format: Jap sentence | Eng translation | kanji in the sentence
+                final_records.push([String::new(), String::new(), String::new()]);
             }
         }
     }
+
+    let kanji = Regex::new(r"[\p{Han}]")?;
 
     // Read the files with the actual sentences and complete the queue
     for (i, file) in ["jpn_sentences.tsv", "eng_sentences.tsv"].iter().enumerate() {
@@ -42,8 +44,15 @@ fn main() -> Result<(), Box<dyn Error>> {
                 Err(err) => return Err(From::from(err)),
                 Ok(record) => {
                     if let Some(index) = queue.get(&record[0]) {
-                        // If the current sentence is in the queue
                         final_records[*index][i] = record[2].to_string();
+                        if i == 0 {
+                            // If we're in the Japanese file, also fill the kanji column
+                            final_records[*index][2] = kanji
+                                .captures_iter(&record[2])
+                                .map(|c| c[0].to_string())
+                                .collect::<Vec<_>>()
+                                .join("");
+                        }
                     }
                 }
             }
@@ -56,12 +65,15 @@ fn main() -> Result<(), Box<dyn Error>> {
         .quote_style(csv::QuoteStyle::Never)
         .from_path("sentences.csv")?;
 
+    // Regex used to filter sentences we don't want
+    let filter = Regex::new(r"[０-９Ａ-Ｚａ-ｚ]")?;
+
     // Write all the completed records to a file
     let mut id = 1;
     for record in final_records {
-        if record[0].len() > 0 && record[1].len() > 0 {
+        if record[0].len() > 0 && record[1].len() > 0 && !filter.is_match(&record[0]) {
             // If both sentences were found while completing the queue
-            writer.write_record(&[&id.to_string(), &record[0], &record[1]])?;
+            writer.write_record(&[&id.to_string(), &record[0], &record[1], &record[2]])?;
             id += 1;
         }
     }

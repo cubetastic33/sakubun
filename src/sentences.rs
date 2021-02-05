@@ -1,50 +1,35 @@
-use regex::Regex;
 use rand::prelude::*;
 use std::error::Error;
 use std::fs;
 
 pub fn get_sentences() -> Result<Vec<[String;2]>, Box<dyn Error>> {
+    // TODO allow custom number of kanji required for a sentence to be included
     let mut sentences = Vec::new();
     let mut rng = thread_rng();
-    let mut reader = csv::ReaderBuilder::new()
-        .has_headers(false)
-        .delimiter(b'\t')
-        .from_path("sentences.csv")?;
 
-    let mut records: Vec<_> = reader.records().into_iter().collect();
+    // Read the sentences and shuffle the order
+    let records  = fs::read_to_string("sentences.csv")?;
+    let mut records: Vec<_> = records.split('\n').collect();
     records.shuffle(&mut rng);
 
-    'sentence: for result in records {
-        let record = result?;
-        let jap_sentence = &record[1];
-        let eng_sentence = &record[2];
-
-        // If this sentence has characters we don't want, then don't use it
-        let filter = Regex::new(r"[０-９Ａ-Ｚａ-ｚ]")?;
-        if filter.is_match(jap_sentence) {
-            continue;
-        }
+    for result in records {
+        let record: Vec<_> = result.split('\t').collect();
+        let jap_sentence = record[1];
+        let eng_sentence = record[2];
+        let kanji_in_sentence = record[3];
 
         let known_kanji = fs::read_to_string("known_kanji.txt")?;
-        let kanji = Regex::new(r"[\p{Han}]")?;
-        let mut score = 0;
 
-        for group in kanji.captures_iter(jap_sentence) {
-            if known_kanji.contains(&group[0]) {
-                score += 1;
-            } else {
-                // This sentence has kanji they still don't know
-                continue 'sentence;
+        // If it has any of the known kanji, add it to the list
+        for kanji in known_kanji.chars() {
+            if kanji_in_sentence.contains(kanji) {
+                // Add the sentence to the list since it has kanji they know
+                sentences.push([jap_sentence.to_string(), eng_sentence.to_string()]);
+                break;
             }
         }
-        if score >= 1 {
-            // Add the sentence to the list since it has kanji they know
-            sentences.push([jap_sentence.to_string(), eng_sentence.to_string()]);
-            /*println!("\n{}", jap_sentence);
-            let stdin = io::stdin();
-            let mut input = String::new();
-            stdin.read_line(&mut input)?;*/
-        }
+
+        // Once we've collected 30 sentences, we can exit the loop
         if sentences.len() == 30 {
             break;
         }

@@ -5,8 +5,6 @@ authors = ["aravk <aravkasi@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-csv = "1.1"
-regex = "1.4"
 rand = "0.8.3"
 rocket = "0.4.6"
 rocket_contrib = { version = "0.4.6", features = ["tera_templates"] }
