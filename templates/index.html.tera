@@ -1,30 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sakubun</title>
-    <link rel="stylesheet" href="/styles/main.css">
-</head>
-<body>
-    <header>
-        作文
-    </header>
-    <form>
-        <main>
-            <div id="meaning"></div>
-            <div id="question">Loading...</div>
-            <label class="input-sizer">
-                <input type="text" id="answer" size="5">
-            </label>
-            <div id="kana"></div>
-        </main>
-        <button id="next">Show Answer</button>
-    </form>
-</body>
-<script src="https://unpkg.com/wanakana"></script>
-<script src="/scripts/kuroshiro.min.js"></script>
-<script src="/scripts/kuroshiro-analyzer-kuromoji.min.js"></script>
-<script src="/scripts/jquery-3.5.1.min.js"></script>
-<script src="/scripts/main.js"></script>
-</html>
+{% extends "layout" %}
+
+{% block content %}
+hello world
+{% endblock content %}

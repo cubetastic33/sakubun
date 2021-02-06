@@ -24,6 +24,7 @@ pub fn get_sentences() -> Result<Vec<[String;2]>, Box<dyn Error>> {
 
         // TODO allow custom number of kanji required for a sentence to be included
         if kanji_in_sentence.is_subset(&known_kanji) && kanji_in_sentence.len() >= 1 {
+            println!("{:?}", kanji_in_sentence);
             sentences.push([jap_sentence.to_string(), eng_sentence.to_string()]);
         }
         // Once we've collected 30 sentences, we can exit the loop

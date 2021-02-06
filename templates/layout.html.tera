@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sakubun</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    {% block head %}{% endblock head %}
+</head>
+<body>
+    <header>
+        <a href="/">作文</a>
+    </header>
+    <nav>
+        <a {% if page == "custom_text" %}class="active"{% endif %} href="/custom_text">
+            Custom Text
+        </a>
+        <a {% if page == "known_kanji" %}class="active"{% endif %} href="/known_kanji">
+            Known Kanji
+        </a>
+        <a {% if page == "quiz" %}class="active"{% endif %} href="/quiz">
+            Quiz
+        </a>
+    </nav>
+    {% block content %}{% endblock content %}
+</body>
+{% block javascript %}{% endblock javascript %}
+</html>

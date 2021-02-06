@@ -10,16 +10,16 @@ kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" }))
 
 // Get questions from the server
 // TODO store known kanji in localstorage
-$.post("/sentences", result => {
-    $("main").attr("data-sentences", result);
-    $("main").attr("data-index", 0);
+/*$.post("/sentences", result => {
+    $("#quiz").attr("data-sentences", result);
+    $("#quiz").attr("data-index", 0);
     $("#question").text(result.split(";")[0]);
-});
+});*/
 
 $("form").submit(e => {
     e.preventDefault();
-    let sentences = $("main").attr("data-sentences").split("|");
-    let index = $("main").attr("data-index");
+    let sentences = $("#quiz").attr("data-sentences").split("|");
+    let index = $("#quiz").attr("data-index");
     if ($("#next").text() === "Show Answer") {
         // Show the answer
         let jap_sentence = sentences[index].split(";")[0];
@@ -32,7 +32,7 @@ $("form").submit(e => {
             let punctuation = /[、。！？「」『』]/ug;
             if ($("#answer").val().replace(punctuation, "") === result.replace(punctuation, "")) {
                 $("#answer").attr("class", "correct");
-            } else {
+            } else if ($("#answer").val().length) {
                 $("#answer").attr("class", "incorrect");
             }
         });
@@ -40,10 +40,11 @@ $("form").submit(e => {
         // Go to the next question
         // TODO fetch new questions once we run out
         index++;
-        $("main").attr("data-index", index);
+        $("#quiz").attr("data-index", index);
         $("#question").text(sentences[index].split(";")[0]);
         $("#meaning, #kana").empty();
         $("#answer").val("");
+        $("#answer")[0].parentNode.dataset.value = "";
         $("#answer").attr("class", "");
         $("#next").text("Show Answer");
     }

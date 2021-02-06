@@ -12,9 +12,31 @@ mod sentences;
 use sentences::*;
 
 #[get("/")]
-fn index() -> Template {
-    let context: HashMap<String, String> = HashMap::new();
+fn get_index() -> Template {
+    let mut context = HashMap::new();
+    context.insert("page", "/");
     Template::render("index", context)
+}
+
+#[get("/known_kanji")]
+fn get_known_kanji() -> Template {
+    let mut context = HashMap::new();
+    context.insert("page", "known_kanji");
+    Template::render("known_kanji", context)
+}
+
+#[get("/quiz")]
+fn get_quiz() -> Template {
+    let mut context = HashMap::new();
+    context.insert("page", "quiz");
+    Template::render("quiz", context)
+}
+
+#[get("/custom_text")]
+fn get_custom_text() -> Template {
+    let mut context = HashMap::new();
+    context.insert("page", "custom_text");
+    Template::render("custom_text", context)
 }
 
 #[post("/sentences")]
@@ -41,7 +63,7 @@ fn rocket() -> rocket::Rocket {
     rocket::custom(configure())
         .mount(
             "/",
-            routes![index, post_sentences],
+            routes![get_index, get_known_kanji, get_quiz, get_custom_text, post_sentences],
         )
         .mount("/styles", StaticFiles::from("static/styles"))
         .mount("/scripts", StaticFiles::from("static/scripts"))

@@ -1,0 +1,75 @@
+main {
+    display: flex;
+    flex-direction: column;
+    margin: 2em 10vw 0 10vw;
+
+    label, form span {
+        margin: 1em;
+    }
+
+    input {
+        appearance: none;
+        background: none;
+        border: 2px solid var(--foreground);
+        border-radius: 5px;
+        color: var(--foreground);
+        display: block;
+        font-size: 1em;
+        padding: .5rem 1rem;
+        width: calc(100% - 3em);
+        margin: 1em auto;
+    }
+
+    input:focus {
+        border-color: var(--accent);
+        outline: none;
+    }
+
+    > div:not(#kanji) {
+        padding: .5em 1em 1em 1em;
+        display: flex;
+        justify-content: space-between;
+
+        > * {
+            padding: .5em 1em;
+        }
+    }
+}
+
+#remove {
+    background: none;
+    border-radius: 5px;
+    border: none;
+    color: var(--error);
+    cursor: pointer;
+    display: none;
+}
+
+#remove:hover {
+    background-color: var(--error);
+    color: inherit;
+}
+
+#kanji {
+    display: grid;
+    font-size: 2em;
+    grid-auto-rows: 2em;
+    grid-template-columns: repeat(auto-fill, 2em);
+
+    span {
+        text-align: center;
+    }
+
+    span:hover {
+        cursor: pointer;
+        background-color: var(--background-light);
+    }
+
+    span.selected {
+        background-color: var(--background-dark);
+    }
+
+    span.selected:hover {
+        opacity: .75;
+    }
+}

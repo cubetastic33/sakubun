@@ -1,0 +1,28 @@
+{% extends "layout" %}
+
+{% block head %}
+<link rel="stylesheet" href="/styles/known_kanji.css">
+{% endblock head %}
+
+{% block content %}
+<main>
+    <form>
+        <label for="new_kanji">Enter kanji you want to add to the list:</label>
+        <input type="text" id="new_kanji" placeholder="Eg: 愛案以育胃寒崖">
+        <span>Tip: your input can contain other characters as well, and only the kanji will be considered</span>
+    </form>
+    <div>
+        <div>
+            <span id="num_known">0</span> kanji added
+        </div>
+        <button id="remove">Remove selected</button>
+    </div>
+    <div id="kanji">
+    </div>
+</main>
+{% endblock content %}
+
+{% block javascript %}
+<script src="/scripts/jquery-3.5.1.min.js"></script>
+<script src="/scripts/known_kanji.js"></script>
+{% endblock javascript %}
