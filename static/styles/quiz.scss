@@ -1,3 +1,43 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+    position: relative;
+}
+
+#settings {
+    display: none;
+    font-size: 1.5em;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+
+    input {
+        -moz-appearance: textfield;
+        background: none;
+        border: solid var(--foreground);
+        border-width: 0 0 1px 0;
+        color: var(--foreground);
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    input:focus {
+        border-color: var(--accent);
+        outline: none;
+    }
+}
+
+#quiz_container {
+    display: none;
+}
+
 #quiz {
     background-color: var(--background-light);
     border-radius: 5px;
@@ -14,9 +54,15 @@ button {
     border: none;
     border-radius: 5px;
     color: var(--background-light);
+    cursor: pointer;
     display: block;
     padding: .75em 1.5em;
     margin: auto;
+}
+
+button:disabled {
+    cursor: default;
+    opacity: .75;
 }
 
 #meaning, #kana {

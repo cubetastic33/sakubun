@@ -1,7 +1,7 @@
 main {
     display: flex;
     flex-direction: column;
-    margin: 2em 10vw 0 10vw;
+    margin: 2em 10vw;
 
     label, form span {
         margin: 1em;
@@ -26,7 +26,7 @@ main {
     }
 
     > div:not(#kanji) {
-        padding: .5em 1em 1em 1em;
+        padding: 1em;
         display: flex;
         justify-content: space-between;
 
@@ -58,6 +58,7 @@ main {
 
     span {
         text-align: center;
+        line-height: 2em;
     }
 
     span:hover {
@@ -66,10 +67,10 @@ main {
     }
 
     span.selected {
-        background-color: var(--background-dark);
+        background-color: var(--background-darker);
     }
 
     span.selected:hover {
-        opacity: .75;
+        background-color: var(--background-dark);
     }
 }

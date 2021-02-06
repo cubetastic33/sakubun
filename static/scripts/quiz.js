@@ -1,3 +1,37 @@
+let known_kanji = new Set(localStorage.getItem("known_kanji"));
+
+if (!known_kanji.size) {
+    $("#settings div")
+        .html("Note: You haven't chosen any known kanji yet, so the quiz questions will consist only of kana");
+} else {
+    // Set the default values for min and max based on the number of kanji added
+    $("#min")[0].setAttribute("value", Math.min(3, known_kanji.size));
+    $("#max")[0].setAttribute("value", Math.min(15, known_kanji.size));
+}
+$("#settings").show();
+
+$("#settings").submit(e => {
+    e.preventDefault();
+    $("#start_quiz").prop("disabled", true);
+    // Get questions from the server
+    $.post("/sentences", {
+        "min": $("#min").val() || 0,
+        "max": $("#max").val() || 0,
+        "known_kanji": [...known_kanji].join(""),
+    }, result => {
+        if (!result.length) {
+            $("#start_quiz").prop("disabled", false);
+            alert("No results found! Please try adjusting the min and max kanji parameters and try again.");
+        } else {
+            $("#quiz").attr("data-sentences", result);
+            $("#quiz").attr("data-index", 0);
+            $("#question").text(result.split(";")[0]);
+            $("#settings").hide();
+            $("#quiz_container").show();
+        }
+    });
+});
+
 // Clear input
 $("#answer").val("");
 
@@ -8,15 +42,7 @@ wanakana.bind($("#answer")[0]);
 var kuroshiro = new Kuroshiro();
 kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" }))
 
-// Get questions from the server
-// TODO store known kanji in localstorage
-/*$.post("/sentences", result => {
-    $("#quiz").attr("data-sentences", result);
-    $("#quiz").attr("data-index", 0);
-    $("#question").text(result.split(";")[0]);
-});*/
-
-$("form").submit(e => {
+$("#quiz_container").submit(e => {
     e.preventDefault();
     let sentences = $("#quiz").attr("data-sentences").split("|");
     let index = $("#quiz").attr("data-index");

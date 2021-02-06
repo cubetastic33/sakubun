@@ -2,7 +2,7 @@
 
 #[macro_use] extern crate rocket;
 
-use rocket::Config;
+use rocket::{request::Form, Config};
 use rocket_contrib::{serve::StaticFiles, templates::Template};
 use std::env;
 use std::collections::HashMap;
@@ -10,6 +10,13 @@ use std::collections::HashMap;
 mod sentences;
 
 use sentences::*;
+
+#[derive(FromForm)]
+pub struct QuizSettings {
+    min: usize,
+    max: usize,
+    known_kanji: String,
+}
 
 #[get("/")]
 fn get_index() -> Template {
@@ -39,9 +46,9 @@ fn get_custom_text() -> Template {
     Template::render("custom_text", context)
 }
 
-#[post("/sentences")]
-fn post_sentences() -> String {
-    get_sentences().unwrap().iter().map(|x| x.join(";")).collect::<Vec<_>>().join("|")
+#[post("/sentences", data = "<quiz_settings>")]
+fn post_sentences(quiz_settings: Form<QuizSettings>) -> String {
+    get_sentences(quiz_settings).unwrap().iter().map(|x| x.join(";")).collect::<Vec<_>>().join("|")
 }
 
 fn configure() -> Config {

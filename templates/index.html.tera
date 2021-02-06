@@ -1,5 +1,5 @@
 {% extends "layout" %}
 
 {% block content %}
-hello world
+<h1>Sakubun</h1>
 {% endblock content %}

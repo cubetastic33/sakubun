@@ -5,21 +5,32 @@
 {% endblock head %}
 
 {% block content %}
-<div id="settings">
-    Must have at least <input type="number" id="min_score"> kanji
-    <button id="start_quiz">Begin</button>
-</div>
-<form>
-    <div id="quiz">
-        <div id="meaning"></div>
-        <div id="question">Loading...</div>
-        <label class="input-sizer">
-            <input type="text" id="answer" size="5">
-        </label>
-        <div id="kana"></div>
-    </div>
-    <button id="next">Show Answer</button>
-</form>
+<main>
+    <form id="settings">
+        <div>
+            Set the minimum and maximum number of unique kanji each question should have:
+            <br>
+            <br>
+            <input type="number" size="1" id="min" min="0" title="minimum">
+            -
+            <input type="number" size="1" id="max" min="0" title="maximum">
+            kanji
+        </div>
+        <br>
+        <button id="start_quiz" type="submit">Begin Quiz</button>
+    </form>
+    <form id="quiz_container">
+        <div id="quiz">
+            <div id="meaning"></div>
+            <div id="question">Loading...</div>
+            <label class="input-sizer">
+                <input type="text" id="answer" size="5">
+            </label>
+            <div id="kana"></div>
+        </div>
+        <button type="submit" id="next">Show Answer</button>
+    </form>
+</main>
 {% endblock content %}
 
 {% block javascript %}

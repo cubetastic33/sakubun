@@ -8,7 +8,7 @@
 <main>
     <form>
         <label for="new_kanji">Enter kanji you want to add to the list:</label>
-        <input type="text" id="new_kanji" placeholder="Eg: 愛案以育胃寒崖">
+        <input type="text" id="new_kanji" placeholder="Eg: 愛案以育胃寒崖" autocomplete="off">
         <span>Tip: your input can contain other characters as well, and only the kanji will be considered</span>
     </form>
     <div>
