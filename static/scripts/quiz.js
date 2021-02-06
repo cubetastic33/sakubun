@@ -1,3 +1,6 @@
+// Initialize kuroshiro
+var kuroshiro = new Kuroshiro();
+
 let known_kanji = new Set(localStorage.getItem("known_kanji"));
 
 if (!known_kanji.size) {
@@ -28,19 +31,14 @@ $("#settings").submit(e => {
             $("#question").text(result.split(";")[0]);
             $("#settings").hide();
             $("#quiz_container").show();
+            // Clear input
+            $("#answer").val("");
+            // Basic IME
+            wanakana.bind($("#answer")[0]);
+            kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" }))
         }
     });
 });
-
-// Clear input
-$("#answer").val("");
-
-// Basic IME
-wanakana.bind($("#answer")[0]);
-
-// Initialize kuroshiro
-var kuroshiro = new Kuroshiro();
-kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" }))
 
 $("#quiz_container").submit(e => {
     e.preventDefault();

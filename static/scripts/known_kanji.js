@@ -9,21 +9,23 @@ function kanji_grid() {
 
     // Fill the kanji grid
     for (let i = 0; i < known_kanji.length; i++) {
-        $("#kanji").append(`<span>${known_kanji[i]}</span>`);
+        $("#kanji").append(`<div class="selectable">${known_kanji[i]}</div>`);
     }
 
-    // Kanji selection mechanism
-    $("#kanji span").click(function () {
-        if ($(this).hasClass("selected")) {
-            $(this).removeClass("selected");
-            if (!$("#kanji span.selected").length) {
-                $("#remove").hide();
-            }
+    const ds = new DragSelect({
+        area: document.getElementById("kanji"),
+        selectables: document.getElementsByClassName("selectable"),
+        draggability: false,
+        immediateDrag: false,
+        dragKeys: { "up": [], "right": [], "down": [], "left": [] },
+        selectedClass: "selected",
+    });
+
+    ds.subscribe("callback", ({ items, _ }) => {
+        if (items.length) {
+            $("#remove").show();
         } else {
-            $(this).attr("class", "selected");
-            if (("#kanji span.selected").length) {
-                $("#remove").show();
-            }
+            $("#remove").hide();
         }
     });
 }
@@ -51,7 +53,7 @@ $("form").submit(e => {
 $("#remove").click(() => {
     // TODO confirmation screen
     let known_kanji = new Set(localStorage.getItem("known_kanji"));
-    $("#kanji span.selected").each(function () {
+    $("#kanji div.selected").each(function () {
         known_kanji.delete($(this).text());
     });
     // Save updated kanji list to localStorage

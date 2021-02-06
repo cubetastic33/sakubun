@@ -3,8 +3,13 @@ main {
     flex-direction: column;
     margin: 2em 10vw;
 
-    label, form span {
+    > p {
+        text-align: center;
+    }
+
+    label, form p {
         margin: 1em;
+        padding: 0;
     }
 
     input {
@@ -55,22 +60,24 @@ main {
     font-size: 2em;
     grid-auto-rows: 2em;
     grid-template-columns: repeat(auto-fill, 2em);
+    // Disable text selection
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
-    span {
+    div {
         text-align: center;
         line-height: 2em;
     }
 
-    span:hover {
-        cursor: pointer;
+    div:hover {
         background-color: var(--background-light);
     }
 
-    span.selected {
+    div.selected {
         background-color: var(--background-darker);
-    }
-
-    span.selected:hover {
-        background-color: var(--background-dark);
     }
 }
