@@ -45,6 +45,7 @@
 body {
     background-color: var(--background);
     color: var(--foreground);
+    font-family: sans-serif;
     margin: 0;
 }
 
@@ -80,4 +81,20 @@ header {
         color: var(--accent);
         text-decoration: none;
     }
+}
+
+button {
+    background-color: var(--accent);
+    border: none;
+    border-radius: 5px;
+    color: var(--background-light);
+    cursor: pointer;
+    display: block;
+    padding: .75em 1.5em;
+    margin: auto;
+}
+
+button:disabled {
+    cursor: default;
+    opacity: .75;
 }

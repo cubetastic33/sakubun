@@ -1,31 +1,27 @@
 {% extends "layout" %}
 
 {% block head %}
-<link rel="stylesheet" href="/styles/quiz.css">
+<link rel="stylesheet" href="/styles/custom_text.css">
 {% endblock head %}
 
 {% block content %}
-<div id="settings">
-    Must have at least <input type="number" id="min_score"> kanji
-    <button id="start_quiz">Begin</button>
-</div>
-<form>
-    <div id="quiz">
-        <div id="meaning"></div>
-        <div id="question">Loading...</div>
-        <label class="input-sizer">
-            <input type="text" id="answer" size="5">
-        </label>
-        <div id="kana"></div>
-    </div>
-    <button id="next">Show Answer</button>
-</form>
+<main>
+    <form>
+        <textarea></textarea>
+        <br>
+        <button type="submit">Go</button>
+    </form>
+    <p id="result">
+        Enter some Japanese text with kanji in the textbox above and hit go! The text will then
+        appear here, with furigana over words that have kanji you don't know yet. Note: text with
+        exceptional number+counter readings are prone to errors (like 二十歳)
+    </p>
+</main>
 {% endblock content %}
 
 {% block javascript %}
-<script src="https://unpkg.com/wanakana"></script>
 <script src="/scripts/kuroshiro.min.js"></script>
 <script src="/scripts/kuroshiro-analyzer-kuromoji.min.js"></script>
 <script src="/scripts/jquery-3.5.1.min.js"></script>
-<script src="/scripts/quiz.js"></script>
+<script src="/scripts/custom_text.js"></script>
 {% endblock javascript %}

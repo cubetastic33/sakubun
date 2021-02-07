@@ -48,22 +48,6 @@ main {
     text-align: center;
 }
 
-button {
-    background-color: var(--accent);
-    border: none;
-    border-radius: 5px;
-    color: var(--background-light);
-    cursor: pointer;
-    display: block;
-    padding: .75em 1.5em;
-    margin: auto;
-}
-
-button:disabled {
-    cursor: default;
-    opacity: .75;
-}
-
 #meaning, #kana {
     font-size: 2em;
     height: 1em;

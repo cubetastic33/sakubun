@@ -4,8 +4,10 @@ var kuroshiro = new Kuroshiro();
 let known_kanji = new Set(localStorage.getItem("known_kanji"));
 
 if (!known_kanji.size) {
-    $("#settings div")
-        .html("Note: You haven't chosen any known kanji yet, so the quiz questions will consist only of kana");
+    $("#settings div").html(
+        "Note: You haven't chosen any known kanji yet, so the quiz questions will consist only of "
+        + "kana"
+    );
 } else {
     // Set the default values for min and max based on the number of kanji added
     $("#min")[0].setAttribute("value", Math.min(3, known_kanji.size));
@@ -35,7 +37,7 @@ $("#settings").submit(e => {
             $("#answer").val("");
             // Basic IME
             wanakana.bind($("#answer")[0]);
-            kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" }))
+            kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" }));
         }
     });
 });
