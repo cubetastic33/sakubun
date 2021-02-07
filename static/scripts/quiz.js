@@ -4,7 +4,7 @@ var kuroshiro = new Kuroshiro();
 let known_kanji = new Set(localStorage.getItem("known_kanji"));
 
 if (!known_kanji.size) {
-    $("#settings div").html(
+    $("#range").html(
         "Note: You haven't chosen any known kanji yet, so the quiz questions will consist only of "
         + "kana"
     );

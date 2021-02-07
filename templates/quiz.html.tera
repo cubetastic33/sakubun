@@ -7,8 +7,8 @@
 {% block content %}
 <main>
     <form id="settings">
-        <div>
-            Set the minimum and maximum number of unique kanji each question should have:
+        <div id="range">
+            Set the minimum and maximum number of unique known kanji each question should have:
             <br>
             <br>
             <input type="number" size="1" id="min" min="0" title="minimum">
@@ -17,7 +17,34 @@
             kanji
         </div>
         <br>
+        <!--
+        <div class="grid">
+            <label class="checkbox bounce">
+                <input type="checkbox" checked>
+                <svg viewBox="0 0 21 21">
+                    <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                </svg>
+                <div>
+                    Include words that have kanji you don't know with furigana
+                </div>
+            </label>
+        </div>
+        -->
+        <label class="container">
+            Include words that have kanji you don't know with furigana
+            <input type="checkbox" id="include_unknown" checked>
+            <span class="checkmark"></span>
+        </label>
+        <br><br>
         <button id="start_quiz" type="submit">Begin Quiz</button>
+        <br>
+        <span class="warning">
+            Warning: the readings given are automatically generated, and are prone to errors.
+            Sometimes correct answers will be evaluated as incorrect (like にほん for 日本 will be
+            marked as incorrect because it expects にっぽん, but both are correct). Please take the
+            evaluations with a grain of salt! It is recommended to use this quiz with something
+            like yomi chan to make the best use of it.
+        </span>
     </form>
     <form id="quiz_container">
         <div id="quiz">

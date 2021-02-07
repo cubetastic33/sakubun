@@ -18,7 +18,7 @@ main {
     text-align: center;
     transform: translate(-50%, -50%);
 
-    input {
+    #range input {
         -moz-appearance: textfield;
         background: none;
         border: solid var(--foreground);
@@ -28,10 +28,14 @@ main {
         text-align: center;
     }
 
-    input:focus {
+    #range input:focus {
         border-color: var(--accent);
         outline: none;
     }
+}
+
+.warning {
+    font-size: 1rem;
 }
 
 #quiz_container {
@@ -123,4 +127,71 @@ main {
 #answer.incorrect {
     border-bottom-color: #ef374c;
     color: var(--error);
+}
+
+// Checkbox
+
+// Customize the label (the container)
+.container {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    text-align: right;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    // Hide the browser's default checkbox
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    // Create a custom checkbox
+    .checkmark {
+        background-color: var(--foreground);
+        border-radius: 5px;
+        position: absolute;
+        top: 3px;
+        left: 0;
+        height: 1em;
+        width: 1em;
+    }
+}
+
+.container:hover input ~ .checkmark {
+    background-color: var(--foreground-dark);
+}
+
+.container input:checked ~ .checkmark {
+    background-color: var(--accent);
+}
+
+// Create the checkmark/indicator (hidden when not checked)
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+// Show the checkmark when checked
+.container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+// Style the checkmark/indicator
+.container .checkmark:after {
+    left: 9px;
+    top: 4px;
+    width: 5px;
+    height: 11px;
+    border: solid var(--background);
+    border-width: 0 2px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

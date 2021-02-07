@@ -14,7 +14,7 @@
     <p id="result">
         Enter some Japanese text with kanji in the textbox above and hit go! The text will then
         appear here, with furigana over words that have kanji you don't know yet. Note: text with
-        exceptional number+counter readings are prone to errors (like 二十歳)
+        exceptional number + counter readings are prone to errors (like 二十歳)
     </p>
 </main>
 {% endblock content %}

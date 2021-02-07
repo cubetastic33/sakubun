@@ -9,6 +9,7 @@
         --background-dark: #1a1a1a;
         --background-darker: #141414;
         --background-light: #333333;
+        --foreground-dark: #eaeaea;
         --error: #ef374c;
     }
 }
@@ -90,6 +91,7 @@ button {
     color: var(--background-light);
     cursor: pointer;
     display: block;
+    font-weight: bold;
     padding: .75em 1.5em;
     margin: auto;
 }
