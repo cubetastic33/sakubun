@@ -1,3 +1,19 @@
+const ds = new DragSelect({
+    area: document.querySelector("main"),
+    draggability: false,
+    immediateDrag: false,
+    dragKeys: { "up": [], "right": [], "down": [], "left": [] },
+    selectedClass: "selected",
+});
+
+ds.subscribe("callback", ({ items, event }) => {
+    if (items.length) {
+        $("#remove").show();
+    } else {
+        $("#remove").hide();
+    }
+});
+
 function kanji_grid() {
     // Reset the grid
     $("#kanji").empty();
@@ -12,22 +28,7 @@ function kanji_grid() {
         $("#kanji").append(`<div class="selectable">${known_kanji[i]}</div>`);
     }
 
-    const ds = new DragSelect({
-        area: document.getElementById("kanji"),
-        selectables: document.getElementsByClassName("selectable"),
-        draggability: false,
-        immediateDrag: false,
-        dragKeys: { "up": [], "right": [], "down": [], "left": [] },
-        selectedClass: "selected",
-    });
-
-    ds.subscribe("callback", ({ items, _ }) => {
-        if (items.length) {
-            $("#remove").show();
-        } else {
-            $("#remove").hide();
-        }
-    });
+    ds.addSelectables(document.getElementsByClassName("selectable"));
 }
 
 $(document).ready(kanji_grid);

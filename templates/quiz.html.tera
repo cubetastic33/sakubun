@@ -16,34 +16,22 @@
             <input type="number" size="1" id="max" min="0" title="maximum">
             kanji
         </div>
-        <br>
-        <!--
-        <div class="grid">
-            <label class="checkbox bounce">
-                <input type="checkbox" checked>
-                <svg viewBox="0 0 21 21">
-                    <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
-                </svg>
-                <div>
-                    Include words that have kanji you don't know with furigana
-                </div>
-            </label>
-        </div>
-        -->
+        <br><br>
         <label class="container">
-            Include words that have kanji you don't know with furigana
-            <input type="checkbox" id="include_unknown" checked>
+            Enable reading evaluation
+            <input type="checkbox" id="evaluate" checked>
             <span class="checkmark"></span>
         </label>
         <br><br>
         <button id="start_quiz" type="submit">Begin Quiz</button>
         <br>
         <span class="warning">
-            Warning: the readings given are automatically generated, and are prone to errors.
-            Sometimes correct answers will be evaluated as incorrect (like にほん for 日本 will be
-            marked as incorrect because it expects にっぽん, but both are correct). Please take the
-            evaluations with a grain of salt! It is recommended to use this quiz with something
-            like yomi chan to make the best use of it.
+            Warning: the readings given are automatically generated, and occasionally have errors.
+            Sometimes correct answers will be evaluated as incorrect (like にほん for 日本, since it
+            expects にっぽん, but both are correct). It works in over 90% of the cases, but
+            take the evaluations with a grain of salt. It is highly recommended to use this quiz in
+            conjunction with something like
+            <a href="https://foosoft.net/projects/yomichan/">yomichan</a> to get the best experience.
         </span>
     </form>
     <form id="quiz_container">

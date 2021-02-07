@@ -9,6 +9,10 @@ main {
     position: relative;
 }
 
+a {
+    color: #5ba0ea;
+}
+
 #settings {
     display: none;
     font-size: 1.5em;
@@ -35,6 +39,7 @@ main {
 }
 
 .warning {
+    display: none;
     font-size: 1rem;
 }
 
@@ -48,7 +53,7 @@ main {
     align-items: center;
     flex-direction: column;
     padding: 2em;
-    margin: 2em;
+    margin-top: 2em;
     text-align: center;
 }
 
@@ -135,8 +140,6 @@ main {
 .container {
     cursor: pointer;
     display: block;
-    position: relative;
-    text-align: right;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -144,7 +147,6 @@ main {
 
     // Hide the browser's default checkbox
     input {
-        position: absolute;
         opacity: 0;
         cursor: pointer;
         height: 0;
@@ -156,8 +158,6 @@ main {
         background-color: var(--foreground);
         border-radius: 5px;
         position: absolute;
-        top: 3px;
-        left: 0;
         height: 1em;
         width: 1em;
     }

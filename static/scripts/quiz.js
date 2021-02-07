@@ -1,19 +1,72 @@
+function should_evaluate() {
+    // Returns whether evaluation is required or not
+    return known_kanji.size && $("#max").val() != 0 && $("#evaluate").is(":checked");
+}
+
 // Initialize kuroshiro
 var kuroshiro = new Kuroshiro();
 
 let known_kanji = new Set(localStorage.getItem("known_kanji"));
 
 if (!known_kanji.size) {
+    $("#settings *:not(#start_quiz):not(#range)").hide();
     $("#range").html(
         "Note: You haven't chosen any known kanji yet, so the quiz questions will consist only of "
-        + "kana"
+        + "kana<br><br>"
     );
+    localStorage.removeItem("evaluate");
 } else {
     // Set the default values for min and max based on the number of kanji added
     $("#min")[0].setAttribute("value", Math.min(3, known_kanji.size));
     $("#max")[0].setAttribute("value", Math.min(15, known_kanji.size));
 }
+
+// Restore settings from localStorage
+let settings_min = localStorage.getItem("min");
+let settings_max = localStorage.getItem("max");
+let settings_evaluate = localStorage.getItem("evaluate");
+
+if (settings_min) $("#min").val(settings_min);
+if (settings_max) $("#max").val(settings_max);
+if (settings_evaluate) $("#evaluate").prop("checked", settings_evaluate == "true");
+
+if ($("#max").val() == 0) {
+    $("#evaluate").prop("checked", false);
+    $("#settings .container, #settings .container ~ br").hide();
+}
+
+function warning(e) {
+    // Save the setting only if this is run as a callback
+    console.log(e);
+    if (e) localStorage.setItem("evaluate", $("#evaluate").is(":checked"));
+    if (should_evaluate()) {
+        $(".warning").show();
+    } else {
+        $(".warning").hide();
+    }
+}
+
+warning();
 $("#settings").show();
+$("#evaluate").change(warning);
+$("#min").change(function () {localStorage.setItem("min", $(this).val())});
+$("#max").change(function () {
+    localStorage.setItem("max", $(this).val());
+
+    if ($("#max").val() == 0) {
+        $("#settings .container, #settings .container ~ br").hide();
+        if ($("#evaluate").is(":checked")) {
+            $(".warning").hide();
+        }
+    } else {
+        $("#settings .container, #settings .container ~ br").show();
+        settings_evaluate = localStorage.getItem("evaluate");
+        if (settings_evaluate) $("#evaluate").prop("checked", settings_evaluate == "true");
+        if ($("#evaluate").is(":checked")) {
+            $(".warning").show();
+        }
+    }
+});
 
 $("#settings").submit(e => {
     e.preventDefault();
@@ -37,7 +90,11 @@ $("#settings").submit(e => {
             $("#answer").val("");
             // Basic IME
             wanakana.bind($("#answer")[0]);
-            kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" }));
+            if (should_evaluate()) {
+                kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" }));
+            } else {
+                $("#kana").hide();
+            }
         }
     });
 });
@@ -52,16 +109,18 @@ $("#quiz_container").submit(e => {
         let eng_sentence = sentences[index].split(";")[1];
         $("#meaning").text(eng_sentence);
         $("#next").text("Next");
-        // Check if answer was right
-        kuroshiro.convert(jap_sentence, { mode: "normal", to: "hiragana" }).then(result => {
-            $("#kana").text(result);
-            let punctuation = /[、。！？「」『』]/ug;
-            if ($("#answer").val().replace(punctuation, "") === result.replace(punctuation, "")) {
-                $("#answer").attr("class", "correct");
-            } else if ($("#answer").val().length) {
-                $("#answer").attr("class", "incorrect");
-            }
-        });
+        if (should_evaluate()) {
+            // Check if answer was right
+            kuroshiro.convert(jap_sentence, { mode: "normal", to: "hiragana" }).then(result => {
+                $("#kana").text(result);
+                let punct = /[、。！？「」『』]/ug;
+                if ($("#answer").val().replace(punct, "") === result.replace(punct, "")) {
+                    $("#answer").attr("class", "correct");
+                } else if ($("#answer").val().length) {
+                    $("#answer").attr("class", "incorrect");
+                }
+            });
+        }
     } else {
         // Go to the next question
         // TODO fetch new questions once we run out

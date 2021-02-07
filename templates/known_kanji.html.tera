@@ -5,6 +5,7 @@
 {% endblock head %}
 
 {% block content %}
+<button id="remove">Remove selected</button>
 <main>
     <form>
         <label for="new_kanji">Enter kanji you want to add to the list:</label>
@@ -16,10 +17,7 @@
         </p>
     </form>
     <div>
-        <div>
-            <span id="num_known">0</span> kanji added
-        </div>
-        <button id="remove">Remove selected</button>
+        <span id="num_known">0</span> kanji added
     </div>
     <p>
         Use mouse to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while selecting will toggle selection.

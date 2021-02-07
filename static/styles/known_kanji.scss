@@ -31,23 +31,22 @@ main {
     }
 
     > div:not(#kanji) {
-        padding: 1em;
-        display: flex;
-        justify-content: space-between;
-
-        > * {
-            padding: .5em 1em;
-        }
+        padding: .5em 1em;
     }
 }
 
 #remove {
-    background: none;
+    background: var(--background-dark);
     border-radius: 5px;
     border: none;
     color: var(--error);
     cursor: pointer;
     display: none;
+    position: fixed;
+    bottom: .5em;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
 }
 
 #remove:hover {
