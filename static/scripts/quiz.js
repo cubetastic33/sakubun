@@ -37,7 +37,6 @@ if ($("#max").val() == 0) {
 
 function warning(e) {
     // Save the setting only if this is run as a callback
-    console.log(e);
     if (e) localStorage.setItem("evaluate", $("#evaluate").is(":checked"));
     if (should_evaluate()) {
         $(".warning").show();
