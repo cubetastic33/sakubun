@@ -29,6 +29,8 @@ let settings_evaluate = localStorage.getItem("evaluate");
 if (settings_min) $("#min").val(settings_min);
 if (settings_max) $("#max").val(settings_max);
 if (settings_evaluate) $("#evaluate").prop("checked", settings_evaluate == "true");
+$("#max").prop("min", $("#min").val());
+$("#min").prop("max", $("#max").val());
 
 if ($("#max").val() == 0) {
     $("#evaluate").prop("checked", false);
@@ -48,9 +50,13 @@ function warning(e) {
 warning();
 $("#settings").show();
 $("#evaluate").change(warning);
-$("#min").change(function () {localStorage.setItem("min", $(this).val())});
+$("#min").change(function () {
+    localStorage.setItem("min", $(this).val());
+    $("#max").prop("min", $(this).val());
+});
 $("#max").change(function () {
     localStorage.setItem("max", $(this).val());
+    $("#min").prop("max", $(this).val());
 
     if ($("#max").val() == 0) {
         $("#settings .container, #settings .container ~ br").hide();
