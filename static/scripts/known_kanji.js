@@ -52,7 +52,12 @@ $("form").submit(e => {
 
 // Remove kanji
 $("#remove").click(() => {
-    // TODO confirmation screen
+    $("#overlay").show();
+    $("#confirmation").show("slow");
+    $("#confirmation span").text($("#kanji div.selected").length);
+});
+
+$("#confirmation button:last-child").click(() => {
     let known_kanji = new Set(localStorage.getItem("known_kanji"));
     $("#kanji div.selected").each(function () {
         known_kanji.delete($(this).text());
@@ -61,4 +66,9 @@ $("#remove").click(() => {
     localStorage.setItem("known_kanji", [...known_kanji].join(""));
     // Update kanji grid
     kanji_grid();
+    $("#confirmation").hide("slow", () => $("#overlay").hide());
+});
+
+$("#confirmation button:first-child, #overlay").click(() => {
+    $("#confirmation").hide("slow", () => $("#overlay").hide());
 });

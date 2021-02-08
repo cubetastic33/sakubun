@@ -8,6 +8,7 @@
         --accent: #1df75e;
         --background-dark: #1a1a1a;
         --background-darker: #141414;
+        --background-darkest: #000000;
         --background-light: #333333;
         --foreground-dark: #eaeaea;
         --error: #ef374c;
@@ -30,6 +31,7 @@
     --accent: #1df75e;
     --background-dark: #1a1a1a;
     --background-darker: #141414;
+    --background-darkest: #000000;
     --background-light: #333333;
     --error: #ef374c;
 }
@@ -99,4 +101,55 @@ button {
 button:disabled {
     cursor: default;
     opacity: .75;
+}
+
+// Dialogs
+
+dialog {
+    background-color: var(--background-darkest);
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 12px 8px rgba(15, 15, 15, 1);
+    color: var(--foreground);
+    display: none;
+    max-height: calc(95vmin - 2rem);
+    min-width: 50%;
+    max-width: calc(95vmin - 2rem);
+    overflow: auto;
+    padding: 1rem;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 11;
+
+    div {
+        display: flex;
+        justify-content: right;
+
+        button {
+            margin: 0;
+        }
+
+        button:first-child {
+            background: none;
+            color: var(--foreground);
+            margin: 0 1em;
+        }
+
+        button:first-child:hover {
+            background-color: var(--background);
+        }
+    }
+}
+
+#overlay {
+    background-color: #00000066;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
 }

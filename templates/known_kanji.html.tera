@@ -5,6 +5,17 @@
 {% endblock head %}
 
 {% block content %}
+<dialog id="confirmation">
+    <h3>Confirmation</h3>
+    <p>
+        Are you sure you want to delete the <span>0</span> selected kanji?
+    </p>
+    <div>
+        <button>Cancel</button>
+        <button>Yes</button>
+    </div>
+</dialog>
+<div id="overlay"></div>
 <button id="remove">Remove selected</button>
 <main>
     <form>
@@ -20,7 +31,8 @@
         <span id="num_known">0</span> kanji added
     </div>
     <p>
-        Use mouse to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while selecting will toggle selection.
+        Use mouse to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
+        selecting will toggle selection.
     </p>
     <div id="kanji">
     </div>
