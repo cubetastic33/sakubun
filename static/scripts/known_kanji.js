@@ -58,6 +58,7 @@ $("#remove").click(() => {
 });
 
 $("#confirmation button:last-child").click(() => {
+    // Remove the selected kanji
     let known_kanji = new Set(localStorage.getItem("known_kanji"));
     $("#kanji div.selected").each(function () {
         known_kanji.delete($(this).text());
@@ -66,6 +67,7 @@ $("#confirmation button:last-child").click(() => {
     localStorage.setItem("known_kanji", [...known_kanji].join(""));
     // Update kanji grid
     kanji_grid();
+    // Hide the confirmation dialog
     $("#confirmation").hide("slow", () => $("#overlay").hide());
 });
 
