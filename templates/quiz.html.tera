@@ -5,6 +5,17 @@
 {% endblock head %}
 
 {% block content %}
+<dialog id="no_results">
+    <h3>Error</h3>
+    <p>
+        No results were found with the parameters specified! Adding more known kanji can help, or
+        try changing the minimum and maximum kanji limits.
+    </p>
+    <div>
+        <button>Okay</button>
+    </div>
+</dialog>
+<div id="overlay"></div>
 <main>
     <form id="settings">
         <div id="range">
@@ -31,7 +42,8 @@
             expects にっぽん, but both are correct). It works in over 90% of the cases, but
             take the evaluations with a grain of salt. It is highly recommended to use this quiz in
             conjunction with something like
-            <a href="https://foosoft.net/projects/yomichan/">yomichan</a> to get the best experience.
+            <a href="https://foosoft.net/projects/yomichan/">yomichan</a> to get the best
+            experience.
         </span>
     </form>
     <form id="quiz_container">

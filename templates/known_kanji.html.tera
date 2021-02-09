@@ -11,7 +11,7 @@
         Are you sure you want to remove the <span>0</span> selected kanji?
     </p>
     <div>
-        <button>Cancel</button>
+        <button class="text">Cancel</button>
         <button>Yes</button>
     </div>
 </dialog>
@@ -27,6 +27,11 @@
             twice.
         </p>
     </form>
+    <section id="more_options">
+        <div>
+            <button class="text">More options</button>
+        </div>
+    </section>
     <div>
         <span id="num_known">0</span> kanji added
     </div>

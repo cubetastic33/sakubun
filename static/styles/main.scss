@@ -98,6 +98,15 @@ button {
     margin: auto;
 }
 
+button.text {
+    background: none;
+    color: var(--foreground);
+}
+
+button.text:hover {
+    background-color: var(--background-light);
+}
+
 button:disabled {
     cursor: default;
     opacity: .75;
@@ -131,14 +140,12 @@ dialog {
             margin: 0;
         }
 
-        button:first-child {
-            background: none;
-            color: var(--foreground);
+        button.text {
             margin: 0 1em;
         }
 
-        button:first-child:hover {
-            background-color: var(--background);
+        button.text {
+            background-color: var(--background-dark);
         }
     }
 }

@@ -84,7 +84,8 @@ $("#settings").submit(e => {
     }, result => {
         if (!result.length) {
             $("#start_quiz").prop("disabled", false);
-            alert("No results found! Please try adjusting the min and max kanji parameters and try again.");
+            $("#overlay").show();
+            $("#no_results").show("slow");
         } else {
             $("#quiz").attr("data-sentences", result);
             $("#quiz").attr("data-index", 0);
@@ -138,6 +139,10 @@ $("#quiz_container").submit(e => {
         $("#answer").attr("class", "");
         $("#next").text("Show Answer");
     }
+});
+
+$("#no_results button, #overlay").click(() => {
+    $("#no_results").hide("slow", () => $("#overlay").hide());
 });
 
 $("#answer").on("input", function () {
