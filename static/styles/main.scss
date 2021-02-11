@@ -43,12 +43,24 @@
     --accent: #1df75e;
 }
 
+// Fonts
+
+@font-face {
+    font-family: "Cantarell Bold";
+    src: url(/fonts/Cantarell/Cantarell-Bold.ttf);
+}
+
+@font-face {
+    font-family: "Source Sans Pro";
+    src: url(/fonts/Source_Sans_Pro/SourceSansPro-Regular.ttf);
+}
+
 // Actual styles
 
 body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: sans-serif;
+    font-family: "Source Sans Pro", sans-serif;
     margin: 0;
 }
 
@@ -93,7 +105,7 @@ button {
     color: var(--background-light);
     cursor: pointer;
     display: block;
-    font-weight: bold;
+    font-family: "Cantarell Bold";
     padding: .75em 1.5em;
     margin: auto;
 }

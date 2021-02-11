@@ -28,13 +28,54 @@
         </p>
     </form>
     <section id="more_options">
+        <button class="text">More options</button>
         <div>
-            <button class="text">More options</button>
+            <p>
+                It is HIGHLY recommended to keep a backup of your kanji list with you, so that you
+                can import it again if the browser data resets. You can use the export button below
+                to download a copy of the kanji list.
+            </p>
+            <h3>Import</h3>
+            Import from:
+            <select id="import_from">
+                <option value="anki">Anki Deck</option>
+                <option value="wanikani">WaniKani</option>
+            </select>
+            <br><br>
+            <form id="anki">
+                Export the anki deck as an apkg file and upload it here. Don't include media, since
+                they won't be used and only increase the file size.
+                <br><br>
+                <div class="grid">
+                    <label class="checkbox bounce">
+                        <input type="checkbox" id="include_unlearnt">
+                        <svg viewBox="0 0 21 21">
+                            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                        </svg>
+                        <div>Include kanji that haven't been learnt yet</div>
+                    </label>
+                </div>
+                <div class="upload">
+                    <div>No file chosen</div>
+                    <label for="file">Choose File</label>
+                    <input type="file" id="file" accept=".apkg">
+                </div>
+                <button type="submit">Upload</button>
+            </form>
+            <form id="wanikani">
+                First <input type="number" min="1">
+                <select>
+                    <option value="levels">levels</option>
+                    <option value="kanji">kanji</option>
+                </select>
+                <button type="submit" class="text">Import</button>
+            </form>
+            <h3>Export</h3>
+            To import a file that was previously exported from here, just copy paste the contents
+            of the file into the text box at the top.
+            <br><br>
+            <button id="export">Export</button>
         </div>
-        <form id="import">
-            <input type="file">
-            <button type="submit">Import</button>
-        </form>
     </section>
     <div>
         <span id="num_known">0</span> kanji added

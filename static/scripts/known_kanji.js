@@ -1,5 +1,5 @@
 const ds = new DragSelect({
-    area: document.querySelector("main"),
+    area: document.querySelector("#kanji"),
     draggability: false,
     immediateDrag: false,
     dragKeys: { "up": [], "right": [], "down": [], "left": [] },
@@ -76,9 +76,24 @@ $("#confirmation button:first-child, #overlay").click(() => {
 });
 
 // Import kanji
-$("#import").submit(function(e) {
+$("#" + $("#import_from").val()).show();
+$("#import_from").change(() => {
+    $("#anki, #wanikani").hide();
+    $("#" + $("#import_from").val()).show();
+});
+
+$("#file").siblings("div").text($("#file").val().split(/(\\|\/)/g).pop());
+$("#file").change(function () {
+    console.log(this.value);
+    $(this).siblings("div").text(this.value.split(/(\\|\/)/g).pop());
+});
+
+$("#anki").submit(function(e) {
     e.preventDefault();
-    let form_data = new FormData(this);
+    $("#anki button").prop("disabled", true);
+    let form_data = new FormData();
+    form_data.append("include_unlearnt", $("#include_unlearnt").is(":checked"));
+    form_data.append("file", $("#file")[0].files[0]);
 
     $.ajax({
         url: "/import_anki",
@@ -88,5 +103,7 @@ $("#import").submit(function(e) {
         contentType: false,
     }).done(result => {
         console.log(result);
+        // TODO preview kanji
+        $("#anki button").prop("disabled", false);
     }).fail(console.log);
 });

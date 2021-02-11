@@ -56,8 +56,7 @@ fn post_sentences(quiz_settings: Form<QuizSettings>) -> String {
 
 #[post("/import_anki", data = "<data>")]
 fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custom<String>> {
-    // this and the next check can be implemented as a request guard but it seems like just
-    // more boilerplate than necessary
+    // Validate data
     if !cont_type.is_form_data() {
         return Err(Custom(
             Status::BadRequest,
@@ -72,12 +71,13 @@ fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custo
             )
         )?;
 
+    // Read data
+    let mut include_unlearnt = String::new();
     let mut buf = Vec::new();
-    match Multipart::with_body(data.open(), boundary).into_entry().unwrap().data.read_to_end(&mut buf) {
-        // TODO check for including unlearnt kanji
-        Ok(_) => extract_kanji_from_anki_deck(Cursor::new(buf), true),
-        Err(_) => Err(Custom(Status::InternalServerError, String::from("Failed to read file"))),
-    }
+    let mut form_data = Multipart::with_body(data.open(), boundary);
+    form_data.read_entry().unwrap().unwrap().data.read_to_string(&mut include_unlearnt).unwrap();
+    form_data.read_entry().unwrap().unwrap().data.read_to_end(&mut buf).unwrap();
+    extract_kanji_from_anki_deck(Cursor::new(buf), include_unlearnt == "true")
 }
 
 /*fn process_upload(boundary: &str, data: Data) -> io::Result<Vec<u8>> {

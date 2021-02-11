@@ -7,7 +7,7 @@ main {
         text-align: center;
     }
 
-    label, form p {
+    #add_kanji label, form p {
         margin: 1em;
         padding: 0;
     }
@@ -33,6 +33,14 @@ main {
     > div:not(#kanji) {
         padding: .5em 1em;
     }
+}
+
+section > button {
+    margin: auto !important;
+}
+
+#anki, #wanikani {
+    display: none;
 }
 
 #remove {
@@ -79,4 +87,146 @@ main {
     div.selected {
         background-color: var(--background-darker);
     }
+}
+
+// Select menus
+
+select {
+    background: none;
+    border: solid var(--foreground);
+    border-width: 0 0 1px 0;
+    color: var(--foreground);
+    font-size: .9em;
+}
+
+select:focus {
+    border-color: var(--accent);
+}
+
+section {
+    padding: 1em;
+
+    button {
+        margin: 0;
+    }
+}
+
+// File selectors
+
+.upload {
+    display: flex;
+    margin: 1em 0;
+
+    div {
+        border: 1px solid var(--foreground);
+        border-radius: 5px 0 0 5px;
+        border-right-width: 0;
+        padding: .5em;
+        width: 15em;
+    }
+
+    label {
+        background-color: var(--accent);
+        border-radius: 0 5px 5px 0;
+        color: var(--background-light);
+        cursor: pointer;
+        font-family: "Cantarell Bold";
+        font-size: .9em;
+        padding: .5em 1em;
+    }
+
+    input {
+        display: none;
+    }
+}
+
+// Checkbox
+
+.checkbox {
+    --border: var(--foreground);
+    --border-hover: var(--foreground);
+    --border-active: var(--accent);
+    --tick: var(--background);
+
+    position: relative;
+
+    div {
+        position: absolute;
+        top: 0;
+        left: 28px;
+    }
+
+    input, svg {
+        width: 21px;
+        height: 21px;
+        display: block
+    }
+
+    input {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        position: relative;
+        outline: none;
+        background: var(--background);
+        border: none;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: box-shadow .3s;
+        box-shadow: inset 0 0 0 var(--s, 1px) var(--b, var(--border));
+        &:hover {
+            --s: 2px;
+            --b: var(--border-hover);
+        }
+        &:checked {
+            --b: var(--border-active);
+        }
+    }
+
+    svg {
+        pointer-events: none;
+        fill: none;
+        stroke-width: 2px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke: var(--stroke, var(--border-active));
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 21px;
+        height: 21px;
+        transform: scale(var(--scale, 1)) translateZ(0);
+    }
+
+    &.bounce {
+        --stroke: var(--tick);
+        input {
+            &:checked {
+                --s: 11px;
+                & + svg {
+                    animation: bounce .4s linear forwards .2s;
+                }
+            }
+        }
+        svg {
+            --scale: 0;
+        }
+    }
+}
+
+@keyframes bounce {
+    50% {
+        transform: scale(1.2);
+    }
+    75% {
+        transform: scale(.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.grid {
+    display: grid;
 }
