@@ -77,6 +77,10 @@ fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custo
     let mut form_data = Multipart::with_body(data.open(), boundary);
     form_data.read_entry().unwrap().unwrap().data.read_to_string(&mut include_unlearnt).unwrap();
     form_data.read_entry().unwrap().unwrap().data.read_to_end(&mut buf).unwrap();
+    // The maximum allowed file size is 4 MiB
+    if buf.len() > 4194304 {
+        return Err(Custom(Status::PayloadTooLarge, String::from("File too large")));
+    }
     extract_kanji_from_anki_deck(Cursor::new(buf), include_unlearnt == "true")
 }
 

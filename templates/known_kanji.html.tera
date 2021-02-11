@@ -44,7 +44,8 @@
             <br><br>
             <form id="anki">
                 Export the anki deck as an apkg file and upload it here. Don't include media, since
-                they won't be used and only increase the file size.
+                they won't be used and only increase the file size. The maximum allowed file size
+                is 4 MiB.
                 <br><br>
                 <div class="grid">
                     <label class="checkbox bounce">
@@ -60,6 +61,7 @@
                     <label for="file">Choose File</label>
                     <input type="file" id="file" accept=".apkg">
                 </div>
+                <div>The file is too large! The maximum allowed size is 4 MiB.</div>
                 <button type="submit">Upload</button>
             </form>
             <form id="wanikani">

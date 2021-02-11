@@ -84,7 +84,13 @@ $("#import_from").change(() => {
 
 $("#file").siblings("div").text($("#file").val().split(/(\\|\/)/g).pop());
 $("#file").change(function () {
-    console.log(this.value);
+    if ($("#file")[0].files[0].size > 2097152) {
+        $("#file").parent().attr("class", "upload error");
+        $("#anki button").prop("disabled", true);
+    } else {
+        $("#file").parent().attr("class", "upload");
+        $("#anki button").prop("disabled", false);
+    }
     $(this).siblings("div").text(this.value.split(/(\\|\/)/g).pop());
 });
 
@@ -93,6 +99,12 @@ $("#anki").submit(function(e) {
     $("#anki button").prop("disabled", true);
     let form_data = new FormData();
     form_data.append("include_unlearnt", $("#include_unlearnt").is(":checked"));
+    if ($("#file")[0].files[0].size > 4194304) {
+        $("#file").parent().attr("class", "upload error");
+        return;
+    } else {
+        $("#file").parent().attr("class", "upload");
+    }
     form_data.append("file", $("#file")[0].files[0]);
 
     $.ajax({
