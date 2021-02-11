@@ -14,6 +14,22 @@ ds.subscribe("callback", ({ items, event }) => {
     }
 });
 
+const preview_ds = new DragSelect({
+    area: document.querySelector("#preview_kanji"),
+    draggability: false,
+    immediateDrag: false,
+    dragKeys: { "up": [], "right": [], "down": [], "left": [] },
+    selectedClass: "selected",
+});
+
+preview_ds.subscribe("callback", ({ items, event }) => {
+    if (items.length) {
+        $("#remove_from_preview").show();
+    } else {
+        $("#remove_from_preview").hide();
+    }
+});
+
 function kanji_grid() {
     // Reset the grid
     $("#kanji").empty();
@@ -28,51 +44,70 @@ function kanji_grid() {
         $("#kanji").append(`<div class="selectable">${known_kanji[i]}</div>`);
     }
 
-    ds.addSelectables(document.getElementsByClassName("selectable"));
+    ds.addSelectables(document.querySelectorAll("#kanji .selectable"));
 }
 
 $(document).ready(kanji_grid);
 
-// Add kanji
-$("#add_kanji").submit(e => {
-    e.preventDefault();
+function add_kanji(text) {
     let known_kanji = new Set(localStorage.getItem("known_kanji"));
     // Regex to identify kanji
     let re = /[\u3400-\u4DB5\u4E00-\u9FCB\uF900-\uFA6A]/ug;
-    for (let kanji of $("#new_kanji").val().matchAll(re)) {
+    for (let kanji of text.matchAll(re)) {
         known_kanji.add(kanji[0]);
     }
     // Save updated kanji list to localStorage
     localStorage.setItem("known_kanji", [...known_kanji].join(""));
-    // Reset the input field
-    $("#new_kanji").val("");
     // Update kanji grid
     kanji_grid();
+}
+
+// Add kanji
+$("#add_kanji").submit(e => {
+    e.preventDefault();
+    add_kanji($("#new_kanji").val());
+    // Reset the input field
+    $("#new_kanji").val("");
 });
 
 // Remove kanji
 $("#remove").click(() => {
-    $("#overlay").show();
+    $("#confirmation").attr("data-grid", "kanji");
+    $("#confirmation + .overlay").show();
     $("#confirmation").show("slow");
     $("#confirmation span").text($("#kanji div.selected").length);
 });
 
 $("#confirmation button:last-child").click(() => {
     // Remove the selected kanji
-    let known_kanji = new Set(localStorage.getItem("known_kanji"));
-    $("#kanji div.selected").each(function () {
-        known_kanji.delete($(this).text());
-    });
-    // Save updated kanji list to localStorage
-    localStorage.setItem("known_kanji", [...known_kanji].join(""));
-    // Update kanji grid
-    kanji_grid();
+    if ($("#confirmation").attr("data-grid") === "kanji") {
+        let known_kanji = new Set(localStorage.getItem("known_kanji"));
+        $("#kanji div.selected").each(function () {
+            known_kanji.delete($(this).text());
+        });
+        // Save updated kanji list to localStorage
+        localStorage.setItem("known_kanji", [...known_kanji].join(""));
+        // Update kanji grid
+        kanji_grid();
+    } else {
+        $("#remove_from_preview").hide();
+        $("#preview_kanji div.selected").remove();
+        $("#num_preview").text($("#preview_kanji div").length);
+    }
     // Hide the confirmation dialog
-    $("#confirmation").hide("slow", () => $("#overlay").hide());
+    $("#confirmation").hide("slow", () => $("#confirmation + .overlay").hide());
 });
 
-$("#confirmation button:first-child, #overlay").click(() => {
-    $("#confirmation").hide("slow", () => $("#overlay").hide());
+// Event handlers to close dialogs
+$("dialog").each(function () {
+    $(`#${this.id} .close, #${this.id} + .overlay`).click(() => {
+        $(this).hide("slow", () => $(`#${this.id} + .overlay`).hide());
+        if (this.id === "preview") {
+            // If the preview dialog was closed, reset the previewed kanji
+            $("#preview_kanji").empty();
+            $("#remove_from_preview").hide();
+        }
+    });
 });
 
 // Import kanji
@@ -114,10 +149,44 @@ $("#anki").submit(function(e) {
         processData: false,
         contentType: false,
     }).done(result => {
-        console.log(result);
-        // TODO preview kanji
+        // Enable the import button again
         $("#anki button").prop("disabled", false);
+        if (!result.length) {
+            // No kanji were found
+            $("#no_kanji_found + .overlay").show();
+            $("#no_kanji_found").show("slow");
+            return;
+        }
+        // Preview kanji
+
+        // Show the preview dialog
+        $("#preview + .overlay").show();
+        $("#preview").show("slow");
+        // Reset the grid
+        $("#preview_kanji").empty();
+        // Show the number of kanji added
+        $("#num_preview").text(result.length);
+        // Fill the kanji grid
+        for (let i = 0; i < result.length; i++) {
+            $("#preview_kanji").append(`<div class="selectable">${result[i]}</div>`);
+        }
+        preview_ds.addSelectables(document.querySelectorAll("#preview .selectable"));
     }).fail(console.log);
+});
+
+$("#remove_from_preview").click(() => {
+    $("#confirmation").attr("data-grid", "preview_kanji");
+    $("#confirmation + .overlay").show();
+    $("#confirmation").show("slow");
+    $("#confirmation span").text($("#preview_kanji div.selected").length);
+});
+
+$("#preview button:last-child").click(() => {
+    // Add the kanji
+    add_kanji($("#preview_kanji").text());
+    $("#preview_kanji").empty();
+    $("#remove_from_preview").hide();
+    $("#preview").hide("slow", () => $("#preview + .overlay").hide());
 });
 
 // Export kanji

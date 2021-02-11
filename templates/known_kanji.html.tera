@@ -11,12 +11,43 @@
         Are you sure you want to remove the <span>0</span> selected kanji?
     </p>
     <div>
-        <button class="text">Cancel</button>
+        <button class="text close">Cancel</button>
         <button>Yes</button>
     </div>
 </dialog>
-<div id="overlay"></div>
-<button id="remove">Remove selected</button>
+<!--
+    We have multiple overlay elements so that we can bind each of them to close the right dialog
+    when clicked. We can't just close all dialogs when an overlay is clicked because we have to
+    wait for the dialog hiding animation to get over first. This can be implemented with a single
+    overlay using some dynamic JavaScript, but I thought this was easier.
+-->
+<div class="overlay"></div>
+<dialog id="no_kanji_found">
+    <h3>Error</h3>
+    <p>No kanji could be extracted from the file</p>
+    <div>
+        <button class="close">Okay</button>
+    </div>
+</dialog>
+<div class="overlay"></div>
+<dialog id="preview">
+    <h3>Preview</h3>
+    <p>
+        Previewing <span id="num_preview">0</span> kanji
+    </p>
+    <p>
+        Use mouse to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
+        selecting will toggle selection.
+    </p>
+    <div id="preview_kanji" class="kanji_grid"></div>
+    <div>
+        <button class="text close">Cancel</button>
+        <button>Import</button>
+    </div>
+</dialog>
+<div class="overlay"></div>
+<button id="remove_from_preview" class="remove">Remove selected</button>
+<button id="remove" class="remove">Remove selected</button>
 <main>
     <form id="add_kanji">
         <label for="new_kanji">Enter kanji you want to add to the list:</label>
@@ -86,8 +117,7 @@
         Use mouse to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
         selecting will toggle selection.
     </p>
-    <div id="kanji">
-    </div>
+    <div id="kanji" class="kanji_grid"></div>
 </main>
 {% endblock content %}
 

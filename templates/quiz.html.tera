@@ -12,10 +12,10 @@
         try changing the minimum and maximum kanji limits.
     </p>
     <div>
-        <button>Okay</button>
+        <button class="close">Okay</button>
     </div>
 </dialog>
-<div id="overlay"></div>
+<div class="overlay"></div>
 <main>
     <form id="settings">
         <div id="range">

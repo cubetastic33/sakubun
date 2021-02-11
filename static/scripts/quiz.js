@@ -141,8 +141,11 @@ $("#quiz_container").submit(e => {
     }
 });
 
-$("#no_results button, #overlay").click(() => {
-    $("#no_results").hide("slow", () => $("#overlay").hide());
+// Event handlers to close dialogs
+$("dialog").each(function () {
+    $(`#${this.id} .close, #${this.id} + .overlay`).click(() => {
+        $(this).hide("slow", () => $(`#${this.id} + .overlay`).hide());
+    });
 });
 
 $("#answer").on("input", function () {

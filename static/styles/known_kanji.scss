@@ -43,7 +43,7 @@ section > button {
     display: none;
 }
 
-#remove {
+.remove {
     background: var(--background-dark);
     border-radius: 5px;
     border: none;
@@ -57,12 +57,35 @@ section > button {
     z-index: 9;
 }
 
-#remove:hover {
+#remove_from_preview {
+    bottom: 2em;
+    z-index: 11;
+}
+
+#confirmation {
+    z-index: 13;
+}
+
+#confirmation + .overlay {
+    z-index: 12;
+}
+
+#preview > div:last-child {
+    position: sticky;
+    bottom: 0;
+    z-index: 11;
+
+    button.text:not(:hover) {
+        background-color: var(--background-darkest);
+    }
+}
+
+.remove:hover {
     background-color: var(--error);
     color: inherit;
 }
 
-#kanji {
+.kanji_grid {
     display: grid;
     font-size: 2em;
     grid-auto-rows: 2em;
@@ -87,6 +110,10 @@ section > button {
     div.selected {
         background-color: var(--background-darker);
     }
+}
+
+#preview_kanji {
+    margin-bottom: 1em;
 }
 
 // Select menus

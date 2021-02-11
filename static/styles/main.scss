@@ -144,7 +144,7 @@ dialog {
     transform: translate(-50%, -50%);
     z-index: 11;
 
-    div {
+    > div {
         display: flex;
         justify-content: right;
 
@@ -152,17 +152,21 @@ dialog {
             margin: 0;
         }
 
+        button:not(.text) {
+            color: var(--background-darkest);
+        }
+
         button.text {
             margin: 0 1em;
         }
 
-        button.text {
+        button.text:hover {
             background-color: var(--background-dark);
         }
     }
 }
 
-#overlay {
+.overlay {
     background-color: #00000066;
     display: none;
     position: fixed;
