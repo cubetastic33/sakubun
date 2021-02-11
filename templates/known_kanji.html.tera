@@ -18,7 +18,7 @@
 <div id="overlay"></div>
 <button id="remove">Remove selected</button>
 <main>
-    <form>
+    <form id="add_kanji">
         <label for="new_kanji">Enter kanji you want to add to the list:</label>
         <input type="text" id="new_kanji" placeholder="Eg: 愛案以育胃寒崖" autocomplete="off">
         <p>
@@ -31,6 +31,10 @@
         <div>
             <button class="text">More options</button>
         </div>
+        <form id="import">
+            <input type="file">
+            <button type="submit">Import</button>
+        </form>
     </section>
     <div>
         <span id="num_known">0</span> kanji added

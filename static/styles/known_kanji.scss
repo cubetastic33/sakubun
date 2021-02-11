@@ -12,7 +12,7 @@ main {
         padding: 0;
     }
 
-    input {
+    > form input {
         appearance: none;
         background: none;
         border: 2px solid var(--foreground);

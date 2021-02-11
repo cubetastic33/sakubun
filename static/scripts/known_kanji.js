@@ -34,7 +34,7 @@ function kanji_grid() {
 $(document).ready(kanji_grid);
 
 // Add kanji
-$("form").submit(e => {
+$("#add_kanji").submit(e => {
     e.preventDefault();
     let known_kanji = new Set(localStorage.getItem("known_kanji"));
     // Regex to identify kanji
@@ -73,4 +73,20 @@ $("#confirmation button:last-child").click(() => {
 
 $("#confirmation button:first-child, #overlay").click(() => {
     $("#confirmation").hide("slow", () => $("#overlay").hide());
+});
+
+// Import kanji
+$("#import").submit(function(e) {
+    e.preventDefault();
+    let form_data = new FormData(this);
+
+    $.ajax({
+        url: "/import_anki",
+        type: "POST",
+        data: form_data,
+        processData: false,
+        contentType: false,
+    }).done(result => {
+        console.log(result);
+    }).fail(console.log);
 });

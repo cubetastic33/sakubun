@@ -2,10 +2,13 @@
 
 #[macro_use] extern crate rocket;
 
-use rocket::{request::Form, Config};
+use io::Read;
+use multipart::server::Multipart;
+use rocket::{http::{ContentType, Status}, request::Form, response::status::Custom, Config, Data};
 use rocket_contrib::{serve::StaticFiles, templates::Template};
 use std::env;
 use std::collections::HashMap;
+use std::io::{self, Cursor};
 
 mod sentences;
 
@@ -51,6 +54,67 @@ fn post_sentences(quiz_settings: Form<QuizSettings>) -> String {
     get_sentences(quiz_settings).unwrap().iter().map(|x| x.join(";")).collect::<Vec<_>>().join("|")
 }
 
+#[post("/import_anki", data = "<data>")]
+fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custom<String>> {
+    // this and the next check can be implemented as a request guard but it seems like just
+    // more boilerplate than necessary
+    if !cont_type.is_form_data() {
+        return Err(Custom(
+            Status::BadRequest,
+            "Content-Type not multipart/form-data".into()
+        ));
+    }
+
+    let (_, boundary) = cont_type.params().find(|&(k, _)| k == "boundary").ok_or_else(
+            || Custom(
+                Status::BadRequest,
+                "`Content-Type: multipart/form-data` boundary param not provided".into()
+            )
+        )?;
+
+    let mut buf = Vec::new();
+    match Multipart::with_body(data.open(), boundary).into_entry().unwrap().data.read_to_end(&mut buf) {
+        // TODO check for including unlearnt kanji
+        Ok(_) => extract_kanji_from_anki_deck(Cursor::new(buf), true),
+        Err(_) => Err(Custom(Status::InternalServerError, String::from("Failed to read file"))),
+    }
+}
+
+/*fn process_upload(boundary: &str, data: Data) -> io::Result<Vec<u8>> {
+   let mut out = Vec::new();
+
+   Multipart::with_body(data.open(), boundary).into_entry().unwrap();
+
+    // saves all fields, any field longer than 10kB goes to a temporary directory
+    // Entries could implement FromData though that would give zero control over
+    // how the files are saved; Multipart would be a good impl candidate though
+    match Multipart::with_body(data.open(), boundary).save().temp() {
+        Full(entries) => process_entries(entries, &mut out)?,
+        Partial(partial, reason) => {
+            writeln!(out, "Request partially processed: {:?}", reason)?;
+            if let Some(field) = partial.partial {
+                writeln!(out, "Stopped on field: {:?}", field.source.headers)?;
+            }
+
+            process_entries(partial.entries, &mut out)?
+        },
+        Error(e) => return Err(e),
+    }
+
+    Ok(out)
+}
+
+fn process_entries(entries: Entries, mut out: &mut Vec<u8>) -> io::Result<()> {
+    /*{
+        let stdout = io::stdout();
+        let tee = StdoutTee::new(&mut out, &stdout);
+        entries.write_debug(tee)?;
+    }*/
+    entries.fields
+
+    writeln!(out, "Entries processed")
+}*/
+
 fn configure() -> Config {
     let mut config = Config::active().expect("could not load configuration");
     /*config
@@ -70,7 +134,14 @@ fn rocket() -> rocket::Rocket {
     rocket::custom(configure())
         .mount(
             "/",
-            routes![get_index, get_known_kanji, get_quiz, get_custom_text, post_sentences],
+            routes![
+                get_index,
+                get_known_kanji,
+                get_quiz,
+                get_custom_text,
+                post_sentences,
+                post_import_anki,
+            ],
         )
         .mount("/styles", StaticFiles::from("static/styles"))
         .mount("/scripts", StaticFiles::from("static/scripts"))
