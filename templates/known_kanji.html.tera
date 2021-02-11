@@ -35,7 +35,7 @@
                 can import it again if the browser data resets. You can use the export button below
                 to download a copy of the kanji list.
             </p>
-            <h3>Import</h3>
+            <h2>Import</h2>
             Import from:
             <select id="import_from">
                 <option value="anki">Anki Deck</option>
@@ -72,8 +72,8 @@
                 </select>
                 <button type="submit" class="text">Import</button>
             </form>
-            <h3>Export</h3>
-            To import a file that was previously exported from here, just copy paste the contents
+            <h2>Export</h2>
+            To import a file that was previously exported from here, just copy-paste the contents
             of the file into the text box at the top.
             <br><br>
             <button id="export">Export</button>

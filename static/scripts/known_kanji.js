@@ -119,3 +119,22 @@ $("#anki").submit(function(e) {
         $("#anki button").prop("disabled", false);
     }).fail(console.log);
 });
+
+// Export kanji
+
+function download(filename, text) {
+    // Download a file
+    var element = document.createElement("a");
+    element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+    element.setAttribute("download", filename);
+    element.style.display = "none";
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+$("#export").click(() => {
+    let d = new Date();
+    let filename = `sakubun_kanji_list_${d.getFullYear()}_${d.getMonth() + 1}_${d.getDate()}.txt`;
+    download(filename, localStorage.getItem("known_kanji"))
+});
