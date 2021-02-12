@@ -48,12 +48,10 @@
     </form>
     <form id="quiz_container">
         <div id="quiz">
-            <div id="meaning"></div>
-            <div id="question">Loading...</div>
-            <label class="input-sizer">
-                <input type="text" id="answer" size="5">
-            </label>
+            <div id="question"></div>
+            <textarea type="text" id="answer" rows="1"></textarea>
             <div id="kana"></div>
+            <div id="meaning"></div>
         </div>
         <button type="submit" id="next">Show Answer</button>
     </form>

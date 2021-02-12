@@ -1,7 +1,6 @@
 main {
     display: flex;
     flex-direction: column;
-    margin: 2em 10vw;
 
     > p {
         text-align: center;
@@ -289,5 +288,67 @@ select:focus {
     }
     100% {
         transform: scale(1);
+    }
+}
+
+// Media queries
+
+@media screen and (max-width: 750px) {
+    .kanji_grid {
+        font-size: 1.75rem;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    main {
+        font-size: .9rem;
+
+        #add_kanji label, form p {
+            margin: 0;
+        }
+
+        > form input {
+            margin-left: 0;
+            width: calc(100% - 2em);
+        }
+
+        > div:not(#kanji) {
+            padding: .5em 0;
+        }
+    }
+
+    section {
+        padding: 0;
+    }
+
+    #new_kanji {
+        border-width: 1px;
+    }
+
+    .kanji_grid {
+        font-size: 5.5vw;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .upload {
+        flex-direction: column;
+
+        div {
+            border-radius: 5px 5px 0 0;
+            border-width: 1px 1px 0 1px;
+            width: auto;
+        }
+
+        label {
+            border-radius: 0 0 5px 5px;
+            text-align: center;
+        }
+    }
+}
+
+@media screen and (max-width: 300px) {
+    main {
+        font-size: 5vw;
     }
 }

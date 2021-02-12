@@ -80,11 +80,11 @@
                 <br><br>
                 <div class="grid">
                     <label class="checkbox bounce">
-                        <input type="checkbox" id="include_unlearnt">
+                        <input type="checkbox" id="include_unlearned">
                         <svg viewBox="0 0 21 21">
                             <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
                         </svg>
-                        <div>Include kanji that haven't been learnt yet</div>
+                        <div>Include unlearned kanji</div>
                     </label>
                 </div>
                 <div class="upload">

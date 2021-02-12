@@ -94,6 +94,7 @@ $("#settings").submit(e => {
             $("#quiz_container").show();
             // Clear input
             $("#answer").val("");
+            resize_answer_box();
             // Basic IME
             wanakana.bind($("#answer")[0]);
             if (should_evaluate()) {
@@ -148,6 +149,12 @@ $("dialog").each(function () {
     });
 });
 
-$("#answer").on("input", function () {
-    this.parentNode.dataset.value = this.value;
-});
+// Auto-resize height of answer box
+function resize_answer_box() {
+    let elem = $("#answer")[0];
+    $(elem).css("height", "auto");
+    $(elem).css("height", elem.scrollHeight + "px");
+}
+resize_answer_box();
+$("#answer").on("input", resize_answer_box);
+$(window).resize(resize_answer_box);

@@ -16,11 +16,7 @@ a {
 #settings {
     display: none;
     font-size: 1.5em;
-    position: absolute;
-    left: 50%;
-    top: 50%;
     text-align: center;
-    transform: translate(-50%, -50%);
 }
 
 .warning {
@@ -38,24 +34,38 @@ a {
     align-items: center;
     flex-direction: column;
     padding: 2em;
-    margin-top: 2em;
+    margin-top: 0em;
     text-align: center;
 }
 
-#meaning, #kana {
-    font-size: 2em;
-    height: 1em;
+#answer, #meaning, #kana {
+    font-size: 1.75em;
+}
+
+#kana {
+    margin-bottom: .5em;
 }
 
 #question {
-    font-size: 2.5em;
-    margin: .5em 0;
+    font-size: 2.25em;
+    margin: 0;
 }
 
 #answer {
+    background: none;
     border-bottom: 1px solid var(--foreground);
+    border-width: 0 0 1px 0;
     color: var(--foreground);
+    font-family: sans-serif;
+    width: 100%;
+    overflow: hidden;
+    margin: .5em;
+    padding: 2px;
     text-align: center;
+}
+
+#answer:focus {
+    padding-bottom: 1px !important;
 }
 
 // Fancy stuff to resize input based on content size
@@ -67,6 +77,8 @@ a {
     position: relative;
     font-size: 2em;
     margin-bottom: .5em;
+    overflow: hidden;
+    height: 2em;
 
     &.stacked {
         padding: .5em;
@@ -143,8 +155,8 @@ a {
         background-color: var(--foreground);
         border-radius: 5px;
         position: absolute;
-        height: 1em;
-        width: 1em;
+        height: 1.5rem;
+        width: 1.5rem;
     }
 }
 
@@ -179,4 +191,46 @@ a {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+// Media queries
+
+@media screen and (max-width: 800px) {
+    #settings, input[type=number] {
+        font-size: 1.25rem !important;
+    }
+
+    .warning {
+        font-size: .9rem;
+    }
+
+    button {
+        font-size: .8rem;
+    }
+
+    #question {
+        font-size: 1.75rem;
+    }
+
+    #answer, #meaning, #kana {
+        font-size: 1.25rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    #quiz {
+        padding: .5em;
+    }
+
+    button {
+        font-size: .7rem;
+    }
+
+    #question {
+        font-size: 1.5rem;
+    }
+
+    #answer, #meaning, #kana {
+        font-size: 1.1rem;
+    }
 }

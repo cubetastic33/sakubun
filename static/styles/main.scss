@@ -98,6 +98,10 @@ header {
     }
 }
 
+main {
+    padding: 2em 10vw;
+}
+
 button {
     background-color: var(--accent);
     border: none;
@@ -197,4 +201,12 @@ dialog {
     height: 100%;
     width: 100%;
     z-index: 10;
+}
+
+// Media queries
+
+@media screen and (max-width: 750px) {
+    main {
+        padding: 1.5em;
+    }
 }

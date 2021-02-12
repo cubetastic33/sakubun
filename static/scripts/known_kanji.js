@@ -169,7 +169,7 @@ $("#anki").submit(e => {
     e.preventDefault();
     $("#anki button").prop("disabled", true);
     let form_data = new FormData();
-    form_data.append("include_unlearnt", $("#include_unlearnt").is(":checked"));
+    form_data.append("include_unlearned", $("#include_unlearned").is(":checked"));
     if ($("#file")[0].files[0].size > 4194304) {
         $("#file").parent().attr("class", "upload error");
         return;
