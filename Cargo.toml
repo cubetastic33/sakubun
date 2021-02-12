@@ -11,5 +11,5 @@ rocket = "0.4.6"
 rocket_contrib = { version = "0.4.6", features = ["tera_templates"] }
 multipart = "0.17.1"
 zip = { version = "0.5.9", default-features = false, features = ["deflate"] }
-rusqlite = "0.24.2"
+rusqlite = { version = "0.24.2", features = ["bundled"] }
 uuid = { version = "0.8.2", features = ["v4"] }
