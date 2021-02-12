@@ -73,10 +73,12 @@ $("#max").change(function () {
     }
 });
 
-$("#settings").submit(e => {
-    e.preventDefault();
-    $("#start_quiz").prop("disabled", true);
-    // Get questions from the server
+// Should only be true the first time get_questions() is run
+var init = true;
+
+function get_questions() {
+    let known_kanji = new Set(localStorage.getItem("known_kanji"));
+
     $.post("/sentences", {
         "min": $("#min").val() || 0,
         "max": $("#max").val() || 0,
@@ -84,7 +86,9 @@ $("#settings").submit(e => {
     }, result => {
         if (!result.length) {
             $("#start_quiz").prop("disabled", false);
-            $("#overlay").show();
+            $("#quiz_container").hide();
+            $("#settings").show();
+            $("#no_results + .overlay").show();
             $("#no_results").show("slow");
         } else {
             $("#quiz").attr("data-sentences", result);
@@ -94,20 +98,37 @@ $("#settings").submit(e => {
             $("#quiz_container").show();
             // Clear input
             $("#answer").val("");
+            $("#kana, #meaning").empty();
             resize_answer_box();
-            // Basic IME
-            wanakana.bind($("#answer")[0]);
-            if (should_evaluate()) {
-                kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" }));
+            if (init) {
+                // Basic IME
+                wanakana.bind($("#answer")[0]);
+                if (should_evaluate()) {
+                    kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" })).then(() => {
+                        $("#next").prop("disabled", false);
+                    });
+                } else {
+                    $("#kana").hide();
+                    $("#next").prop("disabled", false);
+                }
+                init = false;
             } else {
-                $("#kana").hide();
+                $("#next").prop("disabled", false);
             }
         }
     });
+}
+
+$("#settings").submit(e => {
+    e.preventDefault();
+    $("#start_quiz, #next").prop("disabled", true);
+    // Get questions from the server
+    get_questions();
 });
 
 $("#quiz_container").submit(e => {
     e.preventDefault();
+    $("#next").prop("disabled", true);
     let sentences = $("#quiz").attr("data-sentences").split("|");
     let index = $("#quiz").attr("data-index");
     if ($("#next").text() === "Show Answer") {
@@ -116,6 +137,7 @@ $("#quiz_container").submit(e => {
         let eng_sentence = sentences[index].split(";")[1];
         $("#meaning").text(eng_sentence);
         $("#next").text("Next");
+        $("#next").prop("disabled", false);
         if (should_evaluate()) {
             // Check if answer was right
             kuroshiro.convert(jap_sentence, { mode: "normal", to: "hiragana" }).then(result => {
@@ -130,15 +152,20 @@ $("#quiz_container").submit(e => {
         }
     } else {
         // Go to the next question
-        // TODO fetch new questions once we run out
         index++;
-        $("#quiz").attr("data-index", index);
-        $("#question").text(sentences[index].split(";")[0]);
-        $("#meaning, #kana").empty();
-        $("#answer").val("");
-        $("#answer")[0].parentNode.dataset.value = "";
-        $("#answer").attr("class", "");
-        $("#next").text("Show Answer");
+        if (index < sentences.length) {
+            $("#quiz").attr("data-index", index);
+            $("#question").text(sentences[index].split(";")[0]);
+            $("#meaning, #kana").empty();
+            $("#answer").val("");
+            $("#answer")[0].parentNode.dataset.value = "";
+            $("#answer").attr("class", "");
+            $("#next").text("Show Answer");
+            $("#next").prop("disabled", false);
+        } else {
+            // We've run out of questions, so fetch new ones
+            get_questions();
+        }
     }
 });
 
