@@ -35,12 +35,35 @@ main {
     }
 }
 
+section {
+    padding: 0 1em;
+
+    button {
+        font-size: .7rem;
+        margin: 0;
+    }
+
+    hr {
+        margin-top: 1.5em;
+    }
+}
+
 section > button {
+    font-size: .8rem;
     margin: auto !important;
+}
+
+section > div {
+    display: none;
 }
 
 #anki, #wanikani {
     display: none;
+}
+
+#wanikani input {
+    font-size: .9em;
+    margin: 0 .9em 0 .5em;
 }
 
 .remove {
@@ -121,7 +144,7 @@ section > button {
 select {
     background: none;
     border: solid var(--foreground);
-    border-width: 0 0 1px 0;
+    border-width: 0 0 2px 0;
     color: var(--foreground);
     font-size: .9em;
 }
@@ -130,17 +153,10 @@ select:focus {
     border-color: var(--accent);
 }
 
-section {
-    padding: 1em;
-
-    button {
-        margin: 0;
-    }
-}
-
 // File selector
 
 .upload {
+    font-size: .9em;
     display: flex;
     margin: 1em 0;
 
@@ -162,8 +178,8 @@ section {
         color: var(--background-light);
         cursor: pointer;
         font-family: "Cantarell Bold";
-        font-size: .9em;
-        padding: calc(.5em + 2px) 1em;
+        font-size: .8em;
+        padding: calc(.7em + 2px) 1em;
     }
 
     input {

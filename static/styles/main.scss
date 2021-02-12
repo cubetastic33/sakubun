@@ -124,6 +124,28 @@ button:disabled {
     opacity: .7;
 }
 
+// Number inputs
+
+input[type=number] {
+    -moz-appearance: textfield;
+    background: none;
+    border: solid var(--foreground);
+    border-width: 0 0 2px 0;
+    color: var(--foreground);
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+input[type=number]:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+input[type=number]:not(:placeholder-shown):invalid {
+    border-color: var(--error);
+    box-shadow: none;
+}
+
 // Dialogs
 
 dialog {

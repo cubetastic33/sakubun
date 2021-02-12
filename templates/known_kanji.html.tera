@@ -36,7 +36,7 @@
         Previewing <span id="num_preview">0</span> kanji
     </p>
     <p>
-        Use mouse to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
+        Drag to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
         selecting will toggle selection.
     </p>
     <div id="preview_kanji" class="kanji_grid"></div>
@@ -96,25 +96,28 @@
                 <button type="submit">Upload</button>
             </form>
             <form id="wanikani">
-                First <input type="number" min="1">
+                First <input type="number" size="2" min="1" max="60" value="10" required>
                 <select>
                     <option value="levels">levels</option>
                     <option value="kanji">kanji</option>
                 </select>
-                <button type="submit" class="text">Import</button>
+                <br><br>
+                <button type="submit">Import</button>
             </form>
+            <hr>
             <h2>Export</h2>
             To import a file that was previously exported from here, just copy-paste the contents
             of the file into the text box at the top.
             <br><br>
             <button id="export">Export</button>
+            <hr>
         </div>
     </section>
     <div>
         <span id="num_known">0</span> kanji added
     </div>
     <p>
-        Use mouse to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
+        Drag to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
         selecting will toggle selection.
     </p>
     <div id="kanji" class="kanji_grid"></div>

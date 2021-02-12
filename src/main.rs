@@ -9,6 +9,7 @@ use rocket_contrib::{serve::StaticFiles, templates::Template};
 use std::env;
 use std::collections::HashMap;
 use std::io::{self, Cursor};
+use std::fs;
 
 mod sentences;
 
@@ -19,6 +20,12 @@ pub struct QuizSettings {
     min: usize,
     max: usize,
     known_kanji: String,
+}
+
+#[derive(FromForm)]
+pub struct WaniKaniImport {
+    number: usize,
+    method: String,
 }
 
 #[get("/")]
@@ -84,46 +91,18 @@ fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custo
     extract_kanji_from_anki_deck(Cursor::new(buf), include_unlearnt == "true")
 }
 
-/*fn process_upload(boundary: &str, data: Data) -> io::Result<Vec<u8>> {
-   let mut out = Vec::new();
-
-   Multipart::with_body(data.open(), boundary).into_entry().unwrap();
-
-    // saves all fields, any field longer than 10kB goes to a temporary directory
-    // Entries could implement FromData though that would give zero control over
-    // how the files are saved; Multipart would be a good impl candidate though
-    match Multipart::with_body(data.open(), boundary).save().temp() {
-        Full(entries) => process_entries(entries, &mut out)?,
-        Partial(partial, reason) => {
-            writeln!(out, "Request partially processed: {:?}", reason)?;
-            if let Some(field) = partial.partial {
-                writeln!(out, "Stopped on field: {:?}", field.source.headers)?;
-            }
-
-            process_entries(partial.entries, &mut out)?
-        },
-        Error(e) => return Err(e),
+#[post("/import_wanikani", data = "<import_settings>")]
+fn post_import_wanikani(import_settings: Form<WaniKaniImport>) -> Result<String, Custom<String>> {
+    let wanikani_kanji = fs::read_to_string("wanikani.txt").unwrap();
+    match import_settings.method.as_str() {
+        "levels" => Ok(wanikani_kanji.split("\n").collect::<Vec<_>>()[..import_settings.number].join("")),
+        "kanji" => Ok(wanikani_kanji.chars().filter(|c| c != &'\n').take(import_settings.number).collect()),
+        _ => Err(Custom(Status::BadRequest, String::from("Method must be one of `levels` or `kanji`"))),
     }
-
-    Ok(out)
 }
-
-fn process_entries(entries: Entries, mut out: &mut Vec<u8>) -> io::Result<()> {
-    /*{
-        let stdout = io::stdout();
-        let tee = StdoutTee::new(&mut out, &stdout);
-        entries.write_debug(tee)?;
-    }*/
-    entries.fields
-
-    writeln!(out, "Entries processed")
-}*/
 
 fn configure() -> Config {
     let mut config = Config::active().expect("could not load configuration");
-    /*config
-        .set_secret_key(env::var("SECRET_KEY").unwrap())
-        .unwrap();*/
     // Configure Rocket to use the PORT env var or fall back to 8000
     let port = if let Ok(port_str) = env::var("PORT") {
         port_str.parse().expect("could not parse PORT")
@@ -145,6 +124,7 @@ fn rocket() -> rocket::Rocket {
                 get_custom_text,
                 post_sentences,
                 post_import_anki,
+                post_import_wanikani,
             ],
         )
         .mount("/styles", StaticFiles::from("static/styles"))

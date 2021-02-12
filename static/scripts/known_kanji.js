@@ -52,7 +52,7 @@ $(document).ready(kanji_grid);
 function add_kanji(text) {
     let known_kanji = new Set(localStorage.getItem("known_kanji"));
     // Regex to identify kanji
-    let re = /[\u3400-\u4DB5\u4E00-\u9FCB\uF900-\uFA6A]/ug;
+    let re = /[\u3005\u3400-\u4DB5\u4E00-\u9FCB\uF900-\uFA6A]/gu;
     for (let kanji of text.matchAll(re)) {
         known_kanji.add(kanji[0]);
     }
@@ -110,11 +110,24 @@ $("dialog").each(function () {
     });
 });
 
+// More options
+
+$("#more_options > button").click(() => {
+    $("#more_options > div").toggle();
+    let text = $("#more_options > button").text().split(" ")[0];
+    $("#more_options > button").text((text === "More" ? "Less" : "More") + " options");
+});
+
 // Import kanji
 $("#" + $("#import_from").val()).show();
 $("#import_from").change(() => {
     $("#anki, #wanikani").hide();
     $("#" + $("#import_from").val()).show();
+});
+
+$("#wanikani input").prop("max", $("#wanikani select").val() === "levels" ? "60" : "2055");
+$("#wanikani select").change(function () {
+    $("#wanikani input").prop("max", $(this).val() === "levels" ? "60" : "2055");
 });
 
 $("#file").siblings("div").text($("#file").val().split(/(\\|\/)/g).pop());
@@ -129,7 +142,30 @@ $("#file").change(function () {
     $(this).siblings("div").text(this.value.split(/(\\|\/)/g).pop());
 });
 
-$("#anki").submit(function(e) {
+function preview_kanji(kanji) {
+    if (!kanji.length) {
+        // No kanji were found
+        $("#no_kanji_found + .overlay").show();
+        $("#no_kanji_found").show("slow");
+        return;
+    }
+    // Preview kanji
+
+    // Show the preview dialog
+    $("#preview + .overlay").show();
+    $("#preview").show("slow");
+    // Reset the grid
+    $("#preview_kanji").empty();
+    // Show the number of kanji added
+    $("#num_preview").text(kanji.length);
+    // Fill the kanji grid
+    for (let i = 0; i < kanji.length; i++) {
+        $("#preview_kanji").append(`<div class="selectable">${kanji[i]}</div>`);
+    }
+    preview_ds.addSelectables(document.querySelectorAll("#preview .selectable"));
+}
+
+$("#anki").submit(e => {
     e.preventDefault();
     $("#anki button").prop("disabled", true);
     let form_data = new FormData();
@@ -151,26 +187,20 @@ $("#anki").submit(function(e) {
     }).done(result => {
         // Enable the import button again
         $("#anki button").prop("disabled", false);
-        if (!result.length) {
-            // No kanji were found
-            $("#no_kanji_found + .overlay").show();
-            $("#no_kanji_found").show("slow");
-            return;
-        }
-        // Preview kanji
+        preview_kanji(result);
+    }).fail(console.log);
+});
 
-        // Show the preview dialog
-        $("#preview + .overlay").show();
-        $("#preview").show("slow");
-        // Reset the grid
-        $("#preview_kanji").empty();
-        // Show the number of kanji added
-        $("#num_preview").text(result.length);
-        // Fill the kanji grid
-        for (let i = 0; i < result.length; i++) {
-            $("#preview_kanji").append(`<div class="selectable">${result[i]}</div>`);
-        }
-        preview_ds.addSelectables(document.querySelectorAll("#preview .selectable"));
+$("#wanikani").submit(e => {
+    e.preventDefault();
+    $("#wanikani button").prop("disabled", true);
+    $.post("/import_wanikani", {
+        number: $("#wanikani input").val(),
+        method: $("#wanikani select").val(),
+    }).done(result => {
+        // Enable the import button again
+        $("#wanikani button").prop("disabled", false);
+        preview_kanji(result);
     }).fail(console.log);
 });
 

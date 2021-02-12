@@ -21,21 +21,6 @@ a {
     top: 50%;
     text-align: center;
     transform: translate(-50%, -50%);
-
-    #range input {
-        -moz-appearance: textfield;
-        background: none;
-        border: solid var(--foreground);
-        border-width: 0 0 1px 0;
-        color: var(--foreground);
-        font-size: 1.5rem;
-        text-align: center;
-    }
-
-    #range input:focus {
-        border-color: var(--accent);
-        outline: none;
-    }
 }
 
 .warning {
