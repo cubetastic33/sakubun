@@ -1,1 +1,1 @@
-web: ./target/release/dysmey
+web: ./target/release/sakubun
