@@ -76,6 +76,15 @@ $("#max").change(function () {
 // Should only be true the first time get_questions() is run
 var init = true;
 
+function show_quiz() {
+    $("#settings").hide();
+    $("#quiz_container").show();
+    // Clear input
+    $("#answer").val("");
+    $("#kana, #meaning").empty();
+    resize_answer_box();
+}
+
 function get_questions() {
     let known_kanji = new Set(localStorage.getItem("known_kanji"));
 
@@ -94,26 +103,24 @@ function get_questions() {
             $("#quiz").attr("data-sentences", result);
             $("#quiz").attr("data-index", 0);
             $("#question").text(result.split(";")[0]);
-            $("#settings").hide();
-            $("#quiz_container").show();
-            // Clear input
-            $("#answer").val("");
-            $("#kana, #meaning").empty();
-            resize_answer_box();
             if (init) {
                 // Basic IME
                 wanakana.bind($("#answer")[0]);
                 if (should_evaluate()) {
                     kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" })).then(() => {
                         $("#next").prop("disabled", false);
+                        show_quiz();
                     });
                 } else {
                     $("#kana").hide();
                     $("#next").prop("disabled", false);
+                    show_quiz();
                 }
                 init = false;
             } else {
                 $("#next").prop("disabled", false);
+                // Reset answer
+                show_quiz();
             }
         }
     });
@@ -158,8 +165,8 @@ $("#quiz_container").submit(e => {
             $("#question").text(sentences[index].split(";")[0]);
             $("#meaning, #kana").empty();
             $("#answer").val("");
-            $("#answer")[0].parentNode.dataset.value = "";
             $("#answer").attr("class", "");
+            resize_answer_box();
             $("#next").text("Show Answer");
             $("#next").prop("disabled", false);
         } else {

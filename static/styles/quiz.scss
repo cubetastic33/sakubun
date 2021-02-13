@@ -78,12 +78,12 @@ a {
 }
 
 #answer.correct {
-    border-bottom-color: #43ef37;
-    color: #43ef37;
+    border-bottom-color: var(--success);
+    color: var(--success);
 }
 
 #answer.incorrect {
-    border-bottom-color: #ef374c;
+    border-bottom-color: var(--error);
     color: var(--error);
 }
 
@@ -108,20 +108,23 @@ a {
 
     // Create a custom checkbox
     .checkmark {
-        background-color: var(--foreground);
+        border: 1px solid var(--foreground);
         border-radius: 5px;
+        padding: 1px;
         position: absolute;
         height: 1.5rem;
         width: 1.5rem;
     }
 }
 
-.container:hover input ~ .checkmark {
-    background-color: var(--foreground-dark);
+.container:hover input:not(:checked) ~ .checkmark {
+    border-width: 2px;
+    padding: 0;
 }
 
 .container input:checked ~ .checkmark {
     background-color: var(--accent);
+    border-color: var(--accent);
 }
 
 // Create the checkmark/indicator (hidden when not checked)

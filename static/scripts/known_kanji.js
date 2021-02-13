@@ -31,6 +31,8 @@ preview_ds.subscribe("callback", ({ items, event }) => {
 });
 
 function kanji_grid() {
+    // Remove any previously added selectables
+    ds.removeSelectables(document.querySelectorAll("#kanji .selectable"));
     // Reset the grid
     $("#kanji").empty();
     $("#remove").hide();
@@ -154,6 +156,8 @@ function preview_kanji(kanji) {
     // Show the preview dialog
     $("#preview + .overlay").show();
     $("#preview").show("slow");
+    // Remove any previously added selectables
+    preview_ds.removeSelectables(document.querySelectorAll("#preview .selectable"));
     // Reset the grid
     $("#preview_kanji").empty();
     // Show the number of kanji added

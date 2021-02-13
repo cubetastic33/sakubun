@@ -4,23 +4,39 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --background: #212121;
-        --foreground: #ffffff;
-        --accent: #1df75e;
+        --foreground: #fff;
+        --accent: #eea0c1;
         --background-dark: #1a1a1a;
-        --background-darker: #141414;
-        --background-darkest: #000000;
-        --background-light: #333333;
-        --foreground-dark: #eaeaea;
+        --background-dark-transparent: #1a1a1acc;
+        --background-extreme: #000;
+        --background-extreme-transparent: #000c;
+        --background-light: #333;
+        --shadow: rgba(15, 15, 15, 1);
+        --button: #f0267d;
+        --button-hover: #ea0065;
+        --remove: #fbb2d1;
+        --remove-hover: #ef374c;
         --error: #ef374c;
+        --success: #43ef37;
     }
 }
 
 // System light theme
 @media (prefers-color-scheme: light) {
     :root {
-        --background: #ffffff;
-        --foreground: #000000;
-        --accent: #1df75e;
+        --background: #fff;
+        --foreground: #000;
+        --accent: #ff2983;
+        --background-dark: #ffeef5;
+        --background-extreme: #fff;
+        --background-light: #ffdbea;
+        --shadow: rgba(15, 15, 15, .25);
+        --button: #ffb6b6;
+        --button-hover: #fca1a1;
+        --remove: #ef374c;
+        --remove-hover: #d31329;
+        --error: #f00;
+        --success: #16bf22;
     }
 }
 
@@ -38,9 +54,19 @@
 
 // Forced light theme
 .light {
-    --background: #ffffff;
-    --foreground: #000000;
-    --accent: #1df75e;
+    --background: #fff;
+    --foreground: #000;
+    --accent: #ff2983;
+    --background-dark: #ffeef5;
+    --background-extreme: #fff;
+    --background-light: #ffdbea;
+    --shadow: rgba(15, 15, 15, .25);
+    --button: #ffb6b6;
+    --button-hover: #fca1a1;
+    --remove: #ef374c;
+    --remove-hover: #d31329;
+    --error: #f00;
+    --success: #16bf22;
 }
 
 // Fonts
@@ -82,7 +108,8 @@ nav {
     }
 
     a:hover {
-        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.14), 0 0 10px 0 rgba(0, 0, 0, 0.12), 0 0 4px -1px rgba(0, 0, 0, 0.3);
+        border-bottom-width: 2px;
+        border-bottom-color: var(--button);
     }
 }
 
@@ -103,10 +130,10 @@ main {
 }
 
 button {
-    background-color: var(--accent);
+    background-color: var(--button);
     border: none;
     border-radius: 5px;
-    color: var(--background-light);
+    color: var(--foreground);
     cursor: pointer;
     display: block;
     font-family: "Cantarell Bold";
@@ -114,12 +141,16 @@ button {
     margin: auto;
 }
 
+button:not(:disabled):hover {
+    background-color: var(--button-hover);
+}
+
 button.text {
     background: none;
     color: var(--foreground);
 }
 
-button.text:hover {
+button.text:not(:disabled):hover {
     background-color: var(--background-light);
 }
 
@@ -153,10 +184,10 @@ input[type=number]:not(:placeholder-shown):invalid {
 // Dialogs
 
 dialog {
-    background-color: var(--background-darkest);
+    background-color: var(--background-extreme);
     border: none;
     border-radius: 5px;
-    box-shadow: 0px 0px 12px 8px rgba(15, 15, 15, 1);
+    box-shadow: 0px 0px 12px 8px var(--shadow);
     color: var(--foreground);
     display: none;
     max-height: calc(95vh - 2rem);
@@ -176,10 +207,6 @@ dialog {
 
         button {
             margin: 0;
-        }
-
-        button:not(.text) {
-            color: var(--background-darkest);
         }
 
         button.text {

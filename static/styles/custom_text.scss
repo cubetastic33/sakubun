@@ -8,7 +8,7 @@ textarea {
 }
 
 textarea:focus {
-    border-color: var(--accent);
+    border-color: var(--button);
     border-width: 2px;
     outline: none;
     padding: calc(1em - 1px);

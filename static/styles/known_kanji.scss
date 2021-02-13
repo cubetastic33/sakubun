@@ -66,10 +66,10 @@ section > div {
 }
 
 .remove {
-    background: var(--background-dark);
+    background: var(--remove);
     border-radius: 5px;
     border: none;
-    color: var(--error);
+    color: var(--background);
     cursor: pointer;
     display: none;
     position: fixed;
@@ -97,14 +97,17 @@ section > div {
     bottom: 0;
     z-index: 11;
 
-    button.text:not(:hover) {
-        background-color: var(--background-darkest);
+    button.text {
+        background-color: var(--background-extreme-transparent);
+    }
+
+    button.text:hover {
+        background-color: var(--background-dark-transparent);
     }
 }
 
 .remove:hover {
-    background-color: var(--error);
-    color: inherit;
+    background-color: var(--remove-hover) !important;
 }
 
 .kanji_grid {
@@ -131,7 +134,11 @@ section > div {
     }
 
     div.selected {
-        background-color: var(--background-darker);
+        background-color: var(--button);
+    }
+
+    div.selected:hover {
+        background-color: var(--button-hover);
     }
 }
 
@@ -173,13 +180,16 @@ select:focus {
     }
 
     label {
-        background-color: var(--accent);
+        background-color: var(--button);
         border-radius: 0 5px 5px 0;
-        color: var(--background-light);
         cursor: pointer;
         font-family: "Cantarell Bold";
         font-size: .8em;
         padding: calc(.7em + 2px) 1em;
+    }
+
+    label:hover {
+        background-color: var(--button-hover);
     }
 
     input {
