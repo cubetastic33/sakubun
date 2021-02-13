@@ -159,9 +159,9 @@ dialog {
     box-shadow: 0px 0px 12px 8px rgba(15, 15, 15, 1);
     color: var(--foreground);
     display: none;
-    max-height: calc(95vmin - 2rem);
+    max-height: calc(95vh - 2rem);
     min-width: 50%;
-    max-width: calc(95vmin - 2rem);
+    max-width: calc(95vw - 2rem);
     overflow: auto;
     padding: 1rem;
     position: fixed;
@@ -205,8 +205,20 @@ dialog {
 
 // Media queries
 
+@media screen and (max-width: 1000px) {
+    dialog {
+        width: 75vw;
+    }
+}
+
 @media screen and (max-width: 750px) {
     main {
         padding: 1.5em;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    dialog {
+        width: 90vw;
     }
 }

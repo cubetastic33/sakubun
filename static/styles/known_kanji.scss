@@ -112,6 +112,7 @@ section > div {
     font-size: 2em;
     grid-auto-rows: 2em;
     grid-template-columns: repeat(auto-fill, 2em);
+    justify-content: center;
     // Disable text selection
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -326,7 +327,7 @@ select:focus {
     }
 
     .kanji_grid {
-        font-size: 5.5vw;
+        font-size: 1.25rem;
     }
 }
 

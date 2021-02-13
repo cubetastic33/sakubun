@@ -182,12 +182,14 @@ function resize_answer_box() {
     $(elem).css("height", "auto");
     $(elem).css("height", elem.scrollHeight + "px");
 }
-resize_answer_box();
+
 $("#answer").on("input", resize_answer_box);
+$(window).resize(resize_answer_box);
+
+// Pressing enter in the answer box should submit
 $("#answer").keypress(e => {
     if (e.key === "Enter") {
         e.preventDefault();
         $("#quiz").submit();
     }
 });
-$(window).resize(resize_answer_box);
