@@ -184,4 +184,10 @@ function resize_answer_box() {
 }
 resize_answer_box();
 $("#answer").on("input", resize_answer_box);
+$("#answer").keypress(e => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        $("#quiz").submit();
+    }
+});
 $(window).resize(resize_answer_box);
