@@ -6,7 +6,6 @@ main h1 {
 }
 
 h2 {
-    text-decoration: underline;
     font-size: 1.6rem;
 }
 
@@ -27,8 +26,12 @@ b {
 }
 
 a {
-    color: #007bff;
-    text-decoration: none;
+    color: var(--link);
+}
+
+footer {
+    background-color: var(--background-dark);
+    padding: .5em 1em;
 }
 
 // Mock ups
@@ -46,6 +49,7 @@ a {
 }
 
 #choose_file, #upload, #import {
+    cursor: default;
     display: inline-block;
     font-size: .8rem;
     padding: .4rem 1rem;
@@ -53,13 +57,90 @@ a {
 }
 
 #choose_file:hover, #upload:hover, #import:hover {
-    cursor: default;
     background-color: var(--button);
 }
 
-#custom_text {
-    border: 1px solid var(--foreground);
+.card {
+    background-color: var(--card);
+    border-radius: 5px;
+    display: flex;
+    padding: 1em;
+
+    h2 {
+        margin: 0;
+    }
+}
+
+#quiz > div:last-child {
+    background-color: var(--background);
+    border-radius: 5px;
+    color: var(--foreground);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 30vw;
+    margin-left: 1em;
+}
+
+#custom_text > p {
+    background-color: var(--background);
     border-radius: 5px;
     font-size: 1.3em;
-    padding: 1em;
+    padding: .5em;
+    min-width: 30vw;
+    margin: 0 1em 0 0;
+}
+
+#question {
+    font-size: 2em;
+}
+
+#answer, #kana, #meaning {
+    font-size: 1.5em;
+}
+
+textarea:disabled {
+    background: none;
+    color: var(--success);
+    border-bottom: solid var(--success);
+    border-width: 0 0 1px 0;
+    font-family: sans-serif;
+    width: calc(100% - 2em);
+    overflow: hidden;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+#meaning, #question {
+    margin: .5em 0;
+}
+
+// Media queries
+
+@media screen and (max-width: 900px) {
+    .card {
+        flex-direction: column;
+    }
+
+    #quiz > div:last-child, #custom_text > p {
+        margin: 0;
+    }
+
+    #custom_text h2 {
+        margin-top: 1em;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    p, ul {
+        font-size: 1em;
+    }
+
+    #question {
+        font-size: 1.7em;
+    }
+
+    #answer, #kana, #meaning {
+        font-size: 1.1em;
+    }
 }
