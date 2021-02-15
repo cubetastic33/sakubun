@@ -1,5 +1,112 @@
 {% extends "layout" %}
 
+{% block head %}
+<link rel="stylesheet" href="/styles/index.css">
+{% endblock head %}
+
 {% block content %}
-<h1>Sakubun</h1>
+<main>
+    <h1>Sakubun</h1>
+    <p>
+        Sakubun is intended to be a tool to help people practice kanji and improve their
+        vocabulary. The main target audience is people who are learning kanji, but don't yet know
+        enough to practice using real world material like news articles, manga, or light novels.
+    </p>
+    <p>
+        The way sakubun solves the problem of too many unknown kanji is by storing a list of what
+        kanji you've learnt so far, so that it can give you practice sentences that use <i>only
+        those kanji</i>.
+    </p>
+    <h2>Creating a list of known kanji:</h2>
+    <p>
+        The list of known kanji can be edited by going to <a href="/known_kanji">this</a> page,
+        which can also be accessed by clicking the "known kanji" button in the top bar.
+    </p>
+    <p>
+        The most straightforward way to add new kanji is by simply typing into the bar and hitting enter.
+    </p>
+    <div id="add_kanji">亜哀挨愛曖悪握圧扱宛嵐</div>
+    <p>
+        You don't need to worry about duplicated letters, and if you want, you can copy-paste a list
+        from some other webpage (like KANJIDAMAGE, for example). You don't have to sanitize the
+        input by removing non-kanji text, because everything other than kanji will automatically be
+        ignored.
+    </p>
+    <p>
+        However, this method can become tedious when you know a lot of kanji. If you use anki or
+        WaniKani, then the process of adding kanji can be much easier.
+    </p>
+    <h3>Anki</h3>
+    <p>
+        Click the "More options" button, and a bunch of import and export options will show up. Make
+        sure Anki is selected in the "Import from" dropdown menu, and click the
+        <button id="choose_file">Choose File</button> button to upload the apkg file. If you don't
+        have an apkg file, instructions for exporting the Anki deck in Anki desktop and AnkiDroid
+        are given below.
+    </p>
+    <b>
+        IMPORTANT: Unless the "include unlearned" button is checked, only kanji that are in
+        your learned queue in the deck will be included. If your apkg does not include scheduling
+        information, make sure this option is checked.
+    </b>
+    <p>
+        Once you click <button id="upload">Upload</button>, a dialog will show up with all the kanji that
+        were found. Here you can remove kanji that you don't want, and then click the Import button
+        to import the kanji. Kanji will not get added twice, so don't worry about duplicates.
+    </p>
+    <h4>Anki desktop</h4>
+    <p>
+        Either click the cog icon next to the deck name in the deck list and then click export, or
+        go to File > Export. Then select the format as "Anki Deck Package (*.apkg)", and choose
+        which deck to include. Do NOT include media, because it increases the file size, and won't
+        be used by sakubun anyway. You can include scheduling information, because sakubun will let
+        you import just the cards you've learnt so far.
+    </p>
+    <h4>AnkiDroid</h4>
+    <p>
+        From the main menu in the decks screen:
+    </p>
+    <ul>
+        <li>Long tap on the deck you wish to export</li>
+        <li>Long tap on the deck you wish to export</li>
+        <li>Tap Export</li>
+        <li>
+            Don't include media, but include scheduling if you want to import only learnt cards
+        </li>
+        <li>Save it to a file which you can then upload from within sakubun</li>
+    </ul>
+    <h3>WaniKani</h3>
+    <p>
+        If you're learning kanji using WaniKani, you can add your known kanji in the same order -
+        click the "More options: button, and a bunch of import and export options will show up.
+        Select WaniKani in the "Import from" dropdown menu, and you'll get a textbox and a dropdown
+        menu. If you want to import the first 5 levels, for example, select the "levels" option in
+        the dropdown and enter "5" in the textbox, and click <button id="import">Import</button>.
+    </p>
+    <h2>Usage on mobile:</h2>
+    <p>
+        Sakubun is designed to work well on both small and large sized screens, but the kanji list
+        editor works better on desktop due to limitations of touch on mobiles. If you want to remove
+        items from your kanji list and you're having trouble, it's recommended to export the list,
+        open it on desktop and edit it there. You can then import the new list on your mobile.
+    </p>
+    <h2>Quiz:</h2>
+    <p>
+        You can use the quiz even without setting up a kanji list, and your questions will be
+        comprised entirely of kana. This is useful if you just want to practice reading kana. Once
+        you have a kanji list, you'll be allowed to tinker with some settings - you can set minimum
+        and maximum limits for how many unique kanji should be in each question, and whether the
+        automated reading checker should be enabled.
+    </p>
+    <p>
+        Once you start the quiz, a maximum of 30 questions will be fetched, and once you run out,
+        new questions will automatically be fetched from the server.
+    </p>
+    <h2>Custom Text:</h2>
+    <p>
+        Finally, sakubun also has a tool which lets you practice using your own custom text. For
+        example, you can copy-paste text form a news article or a wikipedia page, and all the words
+        that have kanji not present in your kanji list will get furigana.
+    </p>
+</main>
 {% endblock content %}
