@@ -144,13 +144,15 @@ header {
     }
 
     ul {
+        background-color: var(--background);
+        border-radius: 5px;
         cursor: default;
         display: flex;
         align-items: center;
         align-content: center;
         list-style-type: none;
         margin: 0;
-        padding: 0;
+        padding: .25rem;
         position: absolute;
         right: .5em;
         top: .5em;
@@ -164,18 +166,18 @@ header {
             width: 32px;
             height: 32px;
             margin: 0 5px;
-        }
 
-        li svg {
-            fill: var(--accent);
+            svg {
+                fill: var(--accent);
+            }
         }
 
         li:hover {
             background-color: var(--accent);
-        }
 
-        li:hover svg {
-            fill: var(--background);
+            svg {
+                fill: var(--background);
+            }
         }
 
         li:not(.active) {
@@ -184,6 +186,8 @@ header {
     }
 
     ul.open {
+        box-shadow: 0px 0px 4px 2px var(--shadow);
+
         li {
             display: flex;
         }
@@ -307,10 +311,24 @@ dialog {
     main {
         padding: 1.5em;
     }
+
+    dialog button, .remove {
+        font-size: .75em;
+    }
 }
 
 @media screen and (max-width: 600px) {
     dialog {
         width: 90vw;
+    }
+
+    dialog button, .remove {
+        font-size: .6em;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    dialog button, .remove {
+        font-size: 2vw;
     }
 }

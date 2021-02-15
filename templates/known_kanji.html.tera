@@ -67,24 +67,23 @@
                 to download a copy of the kanji list.
             </p>
             <h2>Import</h2>
-            Import from:
+            <label for="import_from">Import from:</label>
             <select id="import_from">
                 <option value="anki">Anki Deck</option>
                 <option value="wanikani">WaniKani</option>
             </select>
             <br><br>
             <form id="anki">
-                Export the anki deck as an apkg file and upload it here. Don't include media, since
-                they won't be used and only increase the file size. The maximum allowed file size
-                is 4 MiB.
+                Export the anki deck as an apkg file and upload it here. Don't include media. The
+                maximum allowed file size is 4 MiB.
                 <br><br>
                 <div class="grid">
                     <label class="checkbox bounce">
-                        <input type="checkbox" id="include_unlearned">
+                        <input type="checkbox" id="only_learnt">
                         <svg viewBox="0 0 21 21">
                             <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
                         </svg>
-                        <div>Include unlearned kanji</div>
+                        <span>Only learnt kanji</span>
                     </label>
                 </div>
                 <div class="upload">

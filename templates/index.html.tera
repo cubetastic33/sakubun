@@ -45,9 +45,8 @@
         are given below.
     </p>
     <b>
-        IMPORTANT: Unless the "include unlearned" button is checked, only kanji that are in
-        your learned queue in the deck will be included. If your apkg does not include scheduling
-        information, make sure this option is checked.
+        If the "Only learnt kanji" option is checked, only cards that are in the learnt queue will
+        be considered. This requires the file to have the scheduling information.
     </b>
     <p>
         Once you click <button id="upload">Upload</button>, a dialog will show up with all the kanji that
@@ -58,9 +57,8 @@
     <p>
         Either click the cog icon next to the deck name in the deck list and then click export, or
         go to File > Export. Then select the format as "Anki Deck Package (*.apkg)", and choose
-        which deck to include. Do NOT include media, because it increases the file size, and won't
-        be used by sakubun anyway. You can include scheduling information, because sakubun will let
-        you import just the cards you've learnt so far.
+        which deck to include. Don't include media, because it increases the file size, and won't
+        be used by sakubun anyway.
     </p>
     <h4>AnkiDroid</h4>
     <p>
@@ -70,9 +68,6 @@
         <li>Long tap on the deck you wish to export</li>
         <li>Long tap on the deck you wish to export</li>
         <li>Tap Export</li>
-        <li>
-            Don't include media, but include scheduling if you want to import only learnt cards
-        </li>
         <li>Save it to a file which you can then upload from within sakubun</li>
     </ul>
     <h3>WaniKani</h3>
@@ -80,8 +75,8 @@
         If you're learning kanji using WaniKani, you can add your known kanji in the same order -
         click the "More options: button, and a bunch of import and export options will show up.
         Select WaniKani in the "Import from" dropdown menu, and you'll get a textbox and a dropdown
-        menu. If you want to import the first 5 levels, for example, select the "levels" option in
-        the dropdown and enter "5" in the textbox, and click <button id="import">Import</button>.
+        menu. If you want to import the first 200 kanji for example, select the "kanji" option in
+        the dropdown and enter "200" in the textbox, and click <button id="import">Import</button>.
     </p>
     <h2>Usage on mobile:</h2>
     <p>
@@ -106,7 +101,31 @@
     <p>
         Finally, sakubun also has a tool which lets you practice using your own custom text. For
         example, you can copy-paste text form a news article or a wikipedia page, and all the words
-        that have kanji not present in your kanji list will get furigana.
+        that have kanji not present in your kanji list will get furigana. For example, if your kanji
+        list is 都欠京日本国当時近, the output might look something like this:
+    </p>
+    <p id="custom_text">
+        <ruby>都</ruby>、もしくは<ruby>京</ruby>ともいい、<ruby>歴史<rp>(</rp><rt>れきし</rt><rp>)</rp></ruby><ruby>的<rp>(</rp><rt>てき</rt><rp>)</rp></ruby>には794<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby><ruby>以降<rp>(</rp><rt>いこう</rt><rp>)</rp></ruby><ruby>日本</ruby>の<ruby>首都<rp>(</rp><rt>しゅと</rt><rp>)</rp></ruby>であった<ruby>平安京<rp>(</rp><rt>へいあんきょう</rt><rp>)</rp></ruby>で、<ruby>当時</ruby>は<ruby>日本</ruby>の<ruby>政治<rp>(</rp><rt>せいじ</rt><rp>)</rp></ruby>・<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>の<ruby>中心<rp>(</rp><rt>ちゅうしん</rt><rp>)</rp></ruby><ruby>地<rp>(</rp><rt>ち</rt><rp>)</rp></ruby>であった。1869<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby>（<ruby>明治<rp>(</rp><rt>めいじ</rt><rp>)</rp></ruby><ruby>元年<rp>(</rp><rt>がんねん</rt><rp>)</rp></ruby>）には、<ruby>京都</ruby>に<ruby>首都<rp>(</rp><rt>しゅと</rt><rp>)</rp></ruby>としての<ruby>位置付<rp>(</rp><rt>いちづ</rt><rp>)</rp></ruby>けを<ruby>残<rp>(</rp><rt>のこ</rt><rp>)</rp></ruby>したまま<ruby>国</ruby>の<ruby>政治<rp>(</rp><rt>せいじ</rt><rp>)</rp></ruby>の<ruby>中枢<rp>(</rp><rt>ちゅうすう</rt><rp>)</rp></ruby><ruby>機能<rp>(</rp><rt>きのう</rt><rp>)</rp></ruby>を<ruby>東京<rp>(</rp><rt>とうきょう</rt><rp>)</rp></ruby>に<ruby>移転<rp>(</rp><rt>いてん</rt><rp>)</rp></ruby>（<ruby>東京<rp>(</rp><rt>とうきょう</rt><rp>)</rp></ruby><ruby>奠都<rp>(</rp><rt>てんと</rt><rp>)</rp></ruby>）したため、<ruby>現在<rp>(</rp><rt>げんざい</rt><rp>)</rp></ruby>も<ruby>日本</ruby>の<ruby>首都<rp>(</rp><rt>しゅと</rt><rp>)</rp></ruby>は<ruby>京都</ruby>であるという<ruby>解釈<rp>(</rp><rt>かいしゃく</rt><rp>)</rp></ruby>をされる<ruby>場合<rp>(</rp><rt>ばあい</rt><rp>)</rp></ruby>もある。なお、<ruby>日本</ruby>の<ruby>首都<rp>(</rp><rt>しゅと</rt><rp>)</rp></ruby>を<ruby>定<rp>(</rp><rt>さだ</rt><rp>)</rp></ruby>める<ruby>法律<rp>(</rp><rt>ほうりつ</rt><rp>)</rp></ruby>は<ruby>現存<rp>(</rp><rt>げんそん</rt><rp>)</rp></ruby>しない。
+    </p>
+    <h2>Important Warning:</h2>
+    <p>
+        The readings given in the quiz and custom text pages are automatically generated,
+        and are sometimes susceptible to errors. Occasionally, correct answers in the quiz will be
+        evaluated as incorrect (like にほん for 日本, since it expects にっぽん, but both are
+        correct). It works in over 90% of the cases, but take the evaluations with a grain of salt.
+        It is highly recommended to use the quiz in conjunction with something like yomichan to get
+        the best experience. The furigana in the custom text page can also have wrong readings
+        sometimes for cases that are exceptions, like 二十歳.
     </p>
 </main>
 {% endblock content %}
+
+{% block javascript %}
+<script>
+    $("#themes li").click(function () {
+        $("body").attr("class", this.id);
+        $("#themes li").removeClass("active");
+        $(this).addClass("active");
+    });
+</script>
+{% endblock javascript %}

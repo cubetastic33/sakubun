@@ -4,7 +4,7 @@
 
 use io::Read;
 use multipart::server::Multipart;
-use rocket::{http::{ContentType, Status}, request::Form, response::status::Custom, Config, Data};
+use rocket::{http::{ContentType, Status, Cookies}, request::Form, response::status::Custom, Config, Data};
 use rocket_contrib::{serve::StaticFiles, templates::Template};
 use std::env;
 use std::collections::HashMap;
@@ -28,32 +28,34 @@ pub struct WaniKaniImport {
     method: String,
 }
 
-#[get("/")]
-fn get_index() -> Template {
+fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, &'a str> {
     let mut context = HashMap::new();
-    context.insert("page", "/");
-    Template::render("index", context)
+    context.insert("theme", match cookies.get("theme") {
+        Some(cookie) => cookie.value(),
+        None => "system",
+    });
+    context.insert("page", page);
+    context
+}
+
+#[get("/")]
+fn get_index(cookies: Cookies) -> Template {
+    Template::render("index", create_context(&cookies, "/"))
 }
 
 #[get("/known_kanji")]
-fn get_known_kanji() -> Template {
-    let mut context = HashMap::new();
-    context.insert("page", "known_kanji");
-    Template::render("known_kanji", context)
+fn get_known_kanji(cookies: Cookies) -> Template {
+    Template::render("known_kanji", create_context(&cookies, "known_kanji"))
 }
 
 #[get("/quiz")]
-fn get_quiz() -> Template {
-    let mut context = HashMap::new();
-    context.insert("page", "quiz");
-    Template::render("quiz", context)
+fn get_quiz(cookies: Cookies) -> Template {
+    Template::render("quiz", create_context(&cookies, "quiz"))
 }
 
 #[get("/custom_text")]
-fn get_custom_text() -> Template {
-    let mut context = HashMap::new();
-    context.insert("page", "custom_text");
-    Template::render("custom_text", context)
+fn get_custom_text(cookies: Cookies) -> Template {
+    Template::render("custom_text", create_context(&cookies, "custom_text"))
 }
 
 #[post("/sentences", data = "<quiz_settings>")]
@@ -79,16 +81,16 @@ fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custo
         )?;
 
     // Read data
-    let mut include_unlearned = String::new();
+    let mut only_learnt = String::new();
     let mut buf = Vec::new();
     let mut form_data = Multipart::with_body(data.open(), boundary);
-    form_data.read_entry().unwrap().unwrap().data.read_to_string(&mut include_unlearned).unwrap();
+    form_data.read_entry().unwrap().unwrap().data.read_to_string(&mut only_learnt).unwrap();
     form_data.read_entry().unwrap().unwrap().data.read_to_end(&mut buf).unwrap();
     // The maximum allowed file size is 4 MiB
     if buf.len() > 4194304 {
         return Err(Custom(Status::PayloadTooLarge, String::from("File too large")));
     }
-    extract_kanji_from_anki_deck(Cursor::new(buf), include_unlearned == "true")
+    extract_kanji_from_anki_deck(Cursor::new(buf), only_learnt == "true")
 }
 
 #[post("/import_wanikani", data = "<import_settings>")]

@@ -38,7 +38,7 @@ pub fn get_sentences(quiz_settings: Form<QuizSettings>) -> Result<Vec<[String;2]
     Ok(sentences)
 }
 
-pub fn extract_kanji_from_anki_deck(data: Cursor<Vec<u8>>, include_unlearned: bool) -> Result<String, Custom<String>> {
+pub fn extract_kanji_from_anki_deck(data: Cursor<Vec<u8>>, only_learnt: bool) -> Result<String, Custom<String>> {
     // An apkg file is just a zip file, so unzip it
     if let Ok(mut zip) = zip::ZipArchive::new(data) {
         // Get the database file
@@ -63,8 +63,8 @@ pub fn extract_kanji_from_anki_deck(data: Cursor<Vec<u8>>, include_unlearned: bo
                  * otherwise as a secondary option we take the flds column.
                  *
                  * The queue column in the cards table tells us if the card is already learnt, is
-                 * being learnt, or has never been seen before. if the include_unlearned parameter
-                 * is false, we should only consider cards that are in queue 2 (learnt).
+                 * being learnt, or has never been seen before. if the only_learnt parameter is
+                 * true, we should only consider cards that are in queue 2 (learnt).
                  *
                  * Despite the DISTINCT clause, it is still necessary to filter duplicates because
                  * different notes of the same kanji could be in different queues.
@@ -75,7 +75,7 @@ pub fn extract_kanji_from_anki_deck(data: Cursor<Vec<u8>>, include_unlearned: bo
                 ).unwrap();
                 let mut rows = statement.query(NO_PARAMS).unwrap();
                 while let Some(row) = rows.next().unwrap() {
-                    if include_unlearned || row.get::<_, i32>(0).unwrap() == 2 {
+                    if !only_learnt || row.get::<_, i32>(0).unwrap() == 2 {
                         let mut no_kanji_found = true;
                         // Check for string type because it could also be integer
                         if let Ok(sfld) = row.get::<_, String>(1) {

@@ -51,3 +51,15 @@ a {
     padding: .4rem 1rem;
     margin: 0;
 }
+
+#choose_file:hover, #upload:hover, #import:hover {
+    cursor: default;
+    background-color: var(--button);
+}
+
+#custom_text {
+    border: 1px solid var(--foreground);
+    border-radius: 5px;
+    font-size: 1.3em;
+    padding: 1em;
+}
