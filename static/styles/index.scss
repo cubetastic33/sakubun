@@ -19,6 +19,8 @@ h4 {
 
 p, ul {
     font-size: 1.25rem;
+    text-align: justify;
+    line-height: 1.4em;
 }
 
 b {
@@ -52,7 +54,7 @@ footer {
     cursor: default;
     display: inline-block;
     font-size: .8rem;
-    padding: .4rem 1rem;
+    padding: .3rem .7rem;
     margin: 0;
 }
 
@@ -82,13 +84,19 @@ footer {
     margin-left: 1em;
 }
 
-#custom_text > p {
+#custom_text > div:first-child {
     background-color: var(--background);
     border-radius: 5px;
+    display: flex;
+    align-items: center;
     font-size: 1.3em;
     padding: .5em;
     min-width: 30vw;
     margin: 0 1em 0 0;
+
+    p {
+        margin: 0;
+    }
 }
 
 #question {
@@ -118,16 +126,16 @@ textarea:disabled {
 // Media queries
 
 @media screen and (max-width: 900px) {
-    .card {
+    #quiz {
         flex-direction: column;
     }
 
-    #quiz > div:last-child, #custom_text > p {
-        margin: 0;
+    #custom_text {
+        flex-direction: column-reverse;
     }
 
-    #custom_text h2 {
-        margin-top: 1em;
+    #quiz > div:last-child, #custom_text > div:first-child {
+        margin: 0;
     }
 }
 

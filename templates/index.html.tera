@@ -8,21 +8,23 @@
 <main>
     <h1>Sakubun</h1>
     <p>
-        Sakubun is intended to be a tool to help people practice kanji and improve their
+        Sakubun is intended to be a tool to help people practice kanji and improve their Japanese
         vocabulary. The main target audience is people who are learning kanji, but don't yet know
-        enough to practice using real world material like news articles, manga, or light novels.
+        enough to practice efficiently using real world material like news articles, manga, or light
+        novels.
     </p>
     <p>
         The way sakubun solves the problem of too many unknown kanji is by storing a list of what
         kanji you've learnt so far, so that it can give you practice sentences that use <i>only
         those kanji</i>.
     </p>
+    <br>
     <div id="quiz" class="card">
         <div>
             <h2>Quiz</h2>
             <p>
-                There are over 130K sentences with translations you can practice from. The sentences are
-                taken from the <a href="https://tatoeba.org/">tatoeba project</a>.
+                There are over 130K sentences with translations you can practice from. The sentences
+                are taken from the <a href="https://tatoeba.org/">tatoeba project</a>.
             </p>
         </div>
         <div>
@@ -34,24 +36,30 @@
     </div>
     <br><br>
     <div id="custom_text" class="card">
-        <p>
-            <ruby>都</ruby>、もしくは<ruby>京</ruby>ともいい、<ruby>歴史<rp>(</rp><rt>れきし</rt><rp>)</rp></ruby><ruby>的<rp>(</rp><rt>てき</rt><rp>)</rp></ruby>には794<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby><ruby>以降<rp>(</rp><rt>いこう</rt><rp>)</rp></ruby><ruby>日本</ruby>の<ruby>首都<rp>(</rp><rt>しゅと</rt><rp>)</rp></ruby>であった<ruby>平安京<rp>(</rp><rt>へいあんきょう</rt><rp>)</rp></ruby>で、<ruby>当時</ruby>は<ruby>日本</ruby>の<ruby>政治<rp>(</rp><rt>せいじ</rt><rp>)</rp></ruby>・<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>の<ruby>中心<rp>(</rp><rt>ちゅうしん</rt><rp>)</rp></ruby><ruby>地<rp>(</rp><rt>ち</rt><rp>)</rp></ruby>であった。
-        </p>
+        <div>
+            <p>
+                <ruby>都</ruby>、もしくは<ruby>京</ruby>ともいい、<ruby>歴史<rp>(</rp><rt>れきし</rt><rp>)</rp></ruby><ruby>的<rp>(</rp><rt>てき</rt><rp>)</rp></ruby>には794<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby><ruby>以降<rp>(</rp><rt>いこう</rt><rp>)</rp></ruby><ruby>日本</ruby>の<ruby>首都<rp>(</rp><rt>しゅと</rt><rp>)</rp></ruby>であった<ruby>平安京<rp>(</rp><rt>へいあんきょう</rt><rp>)</rp></ruby>で、<ruby>当時</ruby>は<ruby>日本</ruby>の<ruby>政治<rp>(</rp><rt>せいじ</rt><rp>)</rp></ruby>・<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>の<ruby>中心<rp>(</rp><rt>ちゅうしん</rt><rp>)</rp></ruby><ruby>地<rp>(</rp><rt>ち</rt><rp>)</rp></ruby>であった。
+            </p>
+        </div>
         <div>
             <h2>Custom Text</h2>
             <p>
                 Practice using your own text - only words that have kanji you don't know yet will
-                get furigana.
+                have furigana.
             </p>
         </div>
     </div>
+    <br><br>
+    <hr>
+    <br>
     <h2>Creating a list of known kanji:</h2>
     <p>
         The list of known kanji can be edited by going to <a href="/known_kanji">this</a> page,
         which can also be accessed by clicking the "known kanji" button in the top bar.
     </p>
     <p>
-        The most straightforward way to add new kanji is by simply typing into the bar and hitting enter.
+        The most straightforward way to add new kanji is by simply typing into the bar and hitting
+        enter.
     </p>
     <div id="add_kanji">亜哀挨愛曖悪握圧扱宛嵐</div>
     <p>

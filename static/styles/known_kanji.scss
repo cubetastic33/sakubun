@@ -121,6 +121,7 @@ section > div {
     grid-auto-rows: 2em;
     grid-template-columns: repeat(auto-fill, 2em);
     justify-content: center;
+    // The margin is useful on touch devices for scrolling
     margin: 0 1em;
     // Disable text selection
     -webkit-touch-callout: none;
