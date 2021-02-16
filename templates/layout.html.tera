@@ -13,9 +13,15 @@
     <header role="banner">
         <a href="/">作文</a>
         <div aria-label="theme selector">
-            <button title="dark theme" aria-label="dark theme" id="dark" class="material-icons {% if theme == "dark" %}active{% endif %}">dark_mode</button>
-            <button title="light theme" aria-label="light theme" id="light" class="material-icons {% if theme == "light" %}active{% endif %}">light_mode</button>
-            <button title="system theme" aria-label="system theme" id="system" class="material-icons {% if theme == "system" %}active{% endif %}">settings_brightness</button>
+            <button id="dark" title="dark theme" aria-label="dark theme" {% if theme == "dark" %}class="active"{% endif %}>
+                <span class="material-icons">dark_mode</span>
+            </button>
+            <button id="light" title="light theme" aria-label="light theme" {% if theme == "light" %}class="active"{% endif %}>
+                <span class="material-icons">light_mode</span>
+            </button>
+            <button id="system" title="system theme" aria-label="system theme" {% if theme == "system" %}class="active"{% endif %}>
+                <span class="material-icons">settings_brightness</span>
+            </button>
         </div>
     </header>
     <nav>
