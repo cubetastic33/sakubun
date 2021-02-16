@@ -65,6 +65,11 @@ section > div {
     margin: 0 .9em 0 .5em;
 }
 
+#remove_all {
+    background-color: var(--error);
+    margin: auto;
+}
+
 .remove {
     background: var(--remove);
     border-radius: 5px;

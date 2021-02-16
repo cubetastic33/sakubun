@@ -74,15 +74,24 @@ $("#add_kanji").submit(e => {
 
 // Remove kanji
 $("#remove").click(() => {
-    $("#confirmation").attr("data-grid", "kanji");
     $("#confirmation + .overlay").show();
-    $("#confirmation").show("slow");
-    $("#confirmation span").text($("#kanji div.selected").length);
+    $("#confirmation").attr("data-grid", "kanji").show("slow");
+    $("#confirmation span").text(`the ${$("#kanji div.selected").length} selected`);
+});
+
+$("#remove_all").click(() => {
+    $("#confirmation + .overlay").show();
+    $("#confirmation").attr("data-grid", "all").show("slow");
+    let num_kanji = new Set(localStorage.getItem("known_kanji")).size;
+    $("#confirmation span").text(`all ${num_kanji}`);
 });
 
 $("#confirmation button:last-child").click(() => {
     // Remove the selected kanji
-    if ($("#confirmation").attr("data-grid") === "kanji") {
+    if ($("#confirmation").attr("data-grid") === "all") {
+        localStorage.removeItem("known_kanji");
+        kanji_grid();
+    } else if ($("#confirmation").attr("data-grid") === "kanji") {
         let known_kanji = new Set(localStorage.getItem("known_kanji"));
         $("#kanji div.selected").each(function () {
             known_kanji.delete($(this).text());
@@ -212,7 +221,7 @@ $("#remove_from_preview").click(() => {
     $("#confirmation").attr("data-grid", "preview_kanji");
     $("#confirmation + .overlay").show();
     $("#confirmation").show("slow");
-    $("#confirmation span").text($("#preview_kanji div.selected").length);
+    $("#confirmation span").text(`the ${$("#preview_kanji div.selected").length} selected`);
 });
 
 $("#preview button:last-child").click(() => {

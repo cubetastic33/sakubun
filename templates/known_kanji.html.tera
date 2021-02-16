@@ -8,7 +8,7 @@
 <dialog id="confirmation">
     <h3>Confirmation</h3>
     <p>
-        Are you sure you want to remove the <span>0</span> selected kanji?
+        Are you sure you want to remove <span></span> kanji?
     </p>
     <div>
         <button class="text close">Cancel</button>
@@ -109,6 +109,9 @@
             of the file into the text box at the top.
             <br><br>
             <button id="export">Export</button>
+            <hr>
+            <br>
+            <button id="remove_all">Remove All Kanji</button>
             <hr>
         </div>
     </section>
