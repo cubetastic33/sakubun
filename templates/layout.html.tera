@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sakubun lets you improve your kanji skills by giving you practice specifically with the kanji you've already learned">
+    <meta name="description" content="Sakubun improves your Japanese vocabulary and kanji skills with practice that's customized to your needs.">
     <title>Sakubun</title>
     <link rel="stylesheet" href="/styles/main.css">
     {% block head %}{% endblock head %}
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <noscript>
+        <link rel="stylesheet" href="/styles/noscript.css">
+    </noscript>
     <script data-host="https://microanalytics.io" data-dnt="false" src="https://microanalytics.io/js/script.js" id="ZwSg9rf6GA" async defer></script>
 </head>
 <body {% if theme != "system" %}class="{{ theme }}"{% endif %}>
+    <noscript>Error: Sakubun requires JavaScript to function</noscript>
     <header role="banner">
         <a href="/">作文</a>
         <div aria-label="theme selector">
