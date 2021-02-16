@@ -118,14 +118,6 @@ header {
         text-decoration: none;
     }
 
-    button {
-        background: none;
-        padding: .25em;
-        position: absolute;
-        right: 1.5em;
-        top: 1.5em;
-    }
-
     ul {
         background-color: var(--background);
         border-radius: 5px;
@@ -188,7 +180,7 @@ button {
     color: var(--foreground);
     cursor: pointer;
     display: block;
-    font-family: "Cantarell Bold";
+    font-family: "Cantarell Bold", sans-serif;
     padding: .75em 1.5em;
     margin: auto;
 }
@@ -221,6 +213,7 @@ input[type=number] {
     color: var(--foreground);
     font-size: 1.5rem;
     text-align: center;
+    width: 3rem;
 }
 
 input[type=number]:focus {
@@ -239,7 +232,7 @@ dialog {
     background-color: var(--background-extreme);
     border: none;
     border-radius: 5px;
-    box-shadow: 0px 0px 12px 8px var(--shadow);
+    box-shadow: 0 0 12px 8px var(--shadow);
     color: var(--foreground);
     display: none;
     max-height: calc(95vh - 2rem);
@@ -255,7 +248,7 @@ dialog {
 
     > div {
         display: flex;
-        justify-content: right;
+        justify-content: flex-end;
 
         button {
             margin: 0;
