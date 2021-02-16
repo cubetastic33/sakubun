@@ -39,7 +39,7 @@ section {
 
     button {
         font-size: .7rem;
-        margin: 0;
+        margin: 0 !important;
     }
 
     hr {
@@ -67,7 +67,7 @@ section > div {
 
 #remove_all {
     background-color: var(--error);
-    margin: auto;
+    margin: auto !important;
 }
 
 .remove {

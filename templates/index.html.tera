@@ -10,7 +10,7 @@
     <p>
         Sakubun is intended to be a tool to help people practice kanji and improve their Japanese
         vocabulary. The main target audience is people who are learning kanji, but don't yet know
-        enough to practice efficiently using real world material like news articles, manga, or light
+        enough to practice efficiently using real-world material like news articles, manga, or light
         novels.
     </p>
     <p>
@@ -27,7 +27,7 @@
                 are taken from the <a href="https://tatoeba.org/">tatoeba project</a>.
             </p>
         </div>
-        <div>
+        <div title="Example quiz question">
             <div id="question">黒い猫がいる</div>
             <textarea id="answer" rows="1" disabled>くろいねこがいる</textarea>
             <div id="kana">くろいねこがいる</div>
@@ -36,7 +36,7 @@
     </div>
     <br><br>
     <div id="custom_text" class="card">
-        <div>
+        <div title="Example output">
             <p>
                 <ruby>都</ruby>、もしくは<ruby>京</ruby>ともいい、<ruby>歴史<rp>(</rp><rt>れきし</rt><rp>)</rp></ruby><ruby>的<rp>(</rp><rt>てき</rt><rp>)</rp></ruby>には794<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby><ruby>以降<rp>(</rp><rt>いこう</rt><rp>)</rp></ruby><ruby>日本</ruby>の<ruby>首都<rp>(</rp><rt>しゅと</rt><rp>)</rp></ruby>であった<ruby>平安京<rp>(</rp><rt>へいあんきょう</rt><rp>)</rp></ruby>で、<ruby>当時</ruby>は<ruby>日本</ruby>の<ruby>政治<rp>(</rp><rt>せいじ</rt><rp>)</rp></ruby>・<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>の<ruby>中心<rp>(</rp><rt>ちゅうしん</rt><rp>)</rp></ruby><ruby>地<rp>(</rp><rt>ち</rt><rp>)</rp></ruby>であった。
             </p>
@@ -61,7 +61,7 @@
         The most straightforward way to add new kanji is by simply typing into the bar and hitting
         enter.
     </p>
-    <div id="add_kanji">亜哀挨愛曖悪握圧扱宛嵐</div>
+    <div id="add_kanji" title="Example input">亜哀挨愛曖悪握圧扱宛嵐</div>
     <p>
         You don't need to worry about duplicated letters, and if you want, you can copy-paste a list
         from some other webpage (like KANJIDAMAGE, for example). You don't have to sanitize the
@@ -115,8 +115,9 @@
         the dropdown and enter "200" in the textbox, and click <button id="import">Import</button>.
     </p>
 </main>
-<footer>
+<footer role="contentinfo">
     © 2021 | Sakubun
+    <iframe src="https://ghbtns.com/github-btn.html?user=cubetastic33&repo=sakubun&type=star&count=false&size=large" frameborder="0" scrolling="0" width="73.65" height="30" title="GitHub"></iframe>
 </footer>
 {% endblock content %}
 

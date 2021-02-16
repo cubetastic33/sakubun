@@ -118,21 +118,22 @@ header {
         text-decoration: none;
     }
 
-    ul {
+    div {
         background-color: var(--background);
         border-radius: 5px;
         cursor: default;
         display: flex;
         align-items: center;
         align-content: center;
-        list-style-type: none;
-        margin: 0;
         padding: .25rem;
         position: absolute;
         right: .5em;
         top: .5em;
 
-        li {
+        button {
+            appearance: none;
+            background-color: var(--background);
+            border: none;
             border-radius: 50%;
             font-size: 24px;
             display: flex;
@@ -147,7 +148,7 @@ header {
             }
         }
 
-        li:hover {
+        button:hover {
             background-color: var(--accent);
 
             svg {
@@ -155,15 +156,15 @@ header {
             }
         }
 
-        li:not(.active) {
+        button:not(.active) {
             display: none;
         }
     }
 
-    ul.open {
+    div.open {
         box-shadow: 0px 0px 4px 2px var(--shadow);
 
-        li {
+        button {
             display: flex;
         }
     }
@@ -173,7 +174,7 @@ main {
     padding: 2em 10vw;
 }
 
-button {
+button:not(header button) {
     background-color: var(--button);
     border: none;
     border-radius: 5px;
@@ -185,7 +186,7 @@ button {
     margin: auto;
 }
 
-button:not(:disabled):hover {
+button:not(:disabled):not(header button):hover {
     background-color: var(--button-hover);
 }
 
@@ -289,7 +290,7 @@ dialog {
     }
 
     dialog button, .remove {
-        font-size: .75em;
+        font-size: .7em;
     }
 }
 
@@ -297,14 +298,24 @@ dialog {
     dialog {
         width: 90vw;
     }
+}
 
+@media screen and (max-width: 500px) {
+    #remove_from_preview {
+        transform: none;
+        left: 2em;
+        bottom: 2.25rem !important;
+    }
+}
+
+@media screen and (max-width: 400px) {
     dialog button, .remove {
         font-size: .6em;
     }
 }
 
-@media screen and (max-width: 440px) {
+@media screen and (max-width: 300px) {
     dialog button, .remove {
-        font-size: 2vw;
+        font-size: 2.5vw;
     }
 }
