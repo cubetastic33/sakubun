@@ -29,7 +29,7 @@
         </div>
         <div title="Example quiz question">
             <div id="question">黒い猫がいる</div>
-            <textarea id="answer" rows="1" disabled>くろいねこがいる</textarea>
+            <textarea id="answer" rows="1" readonly>くろいねこがいる</textarea>
             <div id="kana">くろいねこがいる</div>
             <div id="meaning">There is a black cat</div>
         </div>
