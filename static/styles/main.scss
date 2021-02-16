@@ -1,8 +1,7 @@
 // Themes
 
-// System dark theme
-@media (prefers-color-scheme: dark) {
-    :root {
+@mixin theme($dark) {
+    @if $dark {
         --background: #212123;
         --foreground: #fff;
         --accent: #eea0c1;
@@ -20,12 +19,7 @@
         --remove-hover: #ef374c;
         --error: #ef374c;
         --success: #43ef37;
-    }
-}
-
-// System light theme
-@media (prefers-color-scheme: light) {
-    :root {
+    } @else {
         --background: #fff;
         --foreground: #000;
         --accent: #ff2983;
@@ -46,46 +40,28 @@
     }
 }
 
+// System dark theme
+@media (prefers-color-scheme: dark) {
+    :root {
+        @include theme($dark: true);
+    }
+}
+
+// System light theme
+@media (prefers-color-scheme: light) {
+    :root {
+        @include theme($dark: false);
+    }
+}
+
 // Forced dark theme
 .dark {
-    --background: #212123;
-    --foreground: #fff;
-    --accent: #eea0c1;
-    --background-dark: #1a1a1a;
-    --background-dark-transparent: #1a1a1acc;
-    --background-extreme: #000;
-    --background-extreme-transparent: #000c;
-    --background-light: #333;
-    --card: #2f2f31;
-    --link: #81b7f1;
-    --shadow: rgba(15, 15, 15, 1);
-    --button: #ee3685;
-    --button-hover: #e82277;
-    --remove: #fbb2d1;
-    --remove-hover: #ef374c;
-    --error: #ef374c;
-    --success: #43ef37;
+    @include theme($dark: true);
 }
 
 // Forced light theme
 .light {
-    --background: #fff;
-    --foreground: #000;
-    --accent: #ff2983;
-    --background-dark: #ffeef5;
-    --background-dark-transparent: #ffeef5cc;
-    --background-extreme: #fff;
-    --background-extreme-transparent: #fffc;
-    --background-light: #ffdbea;
-    --card: #ffb8c5;
-    --link: #1873d4;
-    --shadow: rgba(15, 15, 15, .25);
-    --button: #ffb6b6;
-    --button-hover: #fca1a1;
-    --remove: #ef374c;
-    --remove-hover: #d31329;
-    --error: #f00;
-    --success: #16bf22;
+    @include theme($dark: false);
 }
 
 // Fonts
@@ -135,7 +111,6 @@ nav {
 header {
     padding: 0 2rem 1rem 2rem;
     font-size: 2.75em;
-    font-weight: 600;
     text-align: center;
 
     a {

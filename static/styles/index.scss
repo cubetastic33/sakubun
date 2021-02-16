@@ -144,3 +144,9 @@ textarea:disabled {
         font-size: 1.1em;
     }
 }
+
+@media screen and (max-width: 400px) {
+    #add_kanji {
+        margin: 1em 0;
+    }
+}
