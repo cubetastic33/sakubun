@@ -7,6 +7,7 @@
     <title>Sakubun</title>
     <link rel="stylesheet" href="/styles/main.css">
     {% block head %}{% endblock head %}
+    <script data-host="https://microanalytics.io" data-dnt="false" src="https://microanalytics.io/js/script.js" id="ZwSg9rf6GA" async defer></script>
 </head>
 <body {% if theme != "system" %}class="{{ theme }}"{% endif %}>
     <header>
