@@ -71,6 +71,7 @@
             <select id="import_from">
                 <option value="anki">Anki Deck</option>
                 <option value="wanikani">WaniKani</option>
+                <option value="jlpt">JLPT</option>
             </select>
             <br><br>
             <form id="anki">
@@ -99,6 +100,23 @@
                 <select>
                     <option value="levels">levels</option>
                     <option value="kanji">kanji</option>
+                </select>
+                <br><br>
+                <button type="submit">Import</button>
+            </form>
+            <form id="jlpt">
+                Note: The kanji lists for each level are taken from
+                <a href="https://www.kanshudo.com/collections/jlpt_kanji">here</a>, and might differ
+                a bit from the list you're using, since there are no standard lists. You can always
+                remove kanji that you don't know, and add additional kanji that you do.
+                <br><br>
+                JLPT level
+                <select>
+                    <option value="1">N5</option>
+                    <option value="2">N4</option>
+                    <option value="3">N3</option>
+                    <option value="4">N2</option>
+                    <option value="5">N1</option>
                 </select>
                 <br><br>
                 <button type="submit">Import</button>

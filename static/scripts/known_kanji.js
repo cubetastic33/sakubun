@@ -217,10 +217,21 @@ $("#wanikani").submit(e => {
     }).fail(console.log);
 });
 
+$("#jlpt").submit(e => {
+    e.preventDefault();
+    $("#jlpt button").prop("disabled", true);
+    $.post("/import_jlpt", {
+        level: $("#jlpt select").val(),
+    }).done(result => {
+        // Enable the import button again
+        $("#jlpt button").prop("disabled", false);
+        preview_kanji(result);
+    }).fail(console.log);
+});
+
 $("#remove_from_preview").click(() => {
-    $("#confirmation").attr("data-grid", "preview_kanji");
     $("#confirmation + .overlay").show();
-    $("#confirmation").show("slow");
+    $("#confirmation").attr("data-grid", "preview_kanji").show("slow");
     $("#confirmation span").text(`the ${$("#preview_kanji div.selected").length} selected`);
 });
 
@@ -236,7 +247,7 @@ $("#preview button:last-child").click(() => {
 
 function download(filename, text) {
     // Download a file
-    var element = document.createElement("a");
+    let element = document.createElement("a");
     element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
     element.setAttribute("download", filename);
     element.style.display = "none";

@@ -70,8 +70,8 @@
         ignored.
     </p>
     <p>
-        There are also options to import kanji from anki decks, or to add kanji in the WaniKani
-        order, which is useful if you use WaniKani.
+        There are also options to import kanji from anki decks, or in the order of WaniKani or JLPT
+        levels.
     </p>
     <h3>Anki</h3>
     <p>
@@ -107,13 +107,15 @@
         <li>Make sure media isn't selected</li>
         <li>Save it to a file which you can then upload from within sakubun</li>
     </ul>
-    <h3>WaniKani</h3>
+    <h3>WaniKani and JLPT</h3>
     <p>
         If you're learning kanji using WaniKani, you can add your known kanji in the same order -
         click the "More options" button, and a bunch of import and export options will show up.
         Select WaniKani in the "Import from" dropdown menu, and you'll get a textbox and a dropdown
         menu. If you want to import the first 200 kanji for example, select the "kanji" option in
         the dropdown and enter "200" in the textbox, and click <button id="import">Import</button>.
+        You can instead choose the JLPT option from the dropdown menu to import kanji according to
+        JLPT levels.
     </p>
 </main>
 <footer role="contentinfo">

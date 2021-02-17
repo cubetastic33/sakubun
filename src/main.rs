@@ -28,6 +28,11 @@ pub struct WaniKaniImport {
     method: String,
 }
 
+#[derive(FromForm)]
+pub struct JLPTImport {
+    level: usize,
+}
+
 fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, &'a str> {
     let mut context = HashMap::new();
     context.insert("theme", match cookies.get("theme") {
@@ -103,6 +108,12 @@ fn post_import_wanikani(import_settings: Form<WaniKaniImport>) -> Result<String,
     }
 }
 
+#[post("/import_jlpt", data = "<import_settings>")]
+fn post_import_jlpt(import_settings: Form<JLPTImport>) -> String {
+    let jlpt_kanji = fs::read_to_string("jlpt.txt").unwrap();
+    jlpt_kanji.split("\n").collect::<Vec<_>>()[..import_settings.level].join("")
+}
+
 fn configure() -> Config {
     let mut config = Config::active().expect("could not load configuration");
     // Configure Rocket to use the PORT env var or fall back to 8000
@@ -127,6 +138,7 @@ fn rocket() -> rocket::Rocket {
                 post_sentences,
                 post_import_anki,
                 post_import_wanikani,
+                post_import_jlpt,
             ],
         )
         .mount("/styles", StaticFiles::from("static/styles"))

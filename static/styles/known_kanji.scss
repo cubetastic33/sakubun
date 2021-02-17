@@ -45,6 +45,10 @@ section {
     hr {
         margin-top: 1.5em;
     }
+
+    a {
+        color: var(--link);
+    }
 }
 
 section > button {
