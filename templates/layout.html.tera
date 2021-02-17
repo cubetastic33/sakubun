@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sakubun improves your Japanese vocabulary and kanji skills with practice that's customized to your needs.">
+    <meta property="og:title" content="Sakubun">
+    <meta property="og:image" content="/android-chrome-192x192.png">
     <title>Sakubun</title>
     <link rel="stylesheet" href="/styles/main.css">
     {% block head %}{% endblock head %}
