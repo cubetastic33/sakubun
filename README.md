@@ -27,9 +27,9 @@ the quiz.
 
 ## Screenshots
 
-![Home page, on desktop](screenshots/home page.png)
-![Quiz page, on mobile with light theme](screenshots/quiz mobile.png)
-![Custom text page, on desktop](screenshots/custom text.png)
+![Home page, on desktop](screenshots/home%20page.png)
+![Custom text page, on desktop](screenshots/custom%20text.png)
+![Quiz page, on mobile with light theme](screenshots/quiz%20mobile.png)
 
 [1]: https://rocket.rs/
 [2]: https://tatoeba.org/
