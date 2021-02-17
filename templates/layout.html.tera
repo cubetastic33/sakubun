@@ -6,6 +6,7 @@
     <meta name="description" content="Sakubun improves your Japanese vocabulary and kanji skills with practice that's customized to your needs.">
     <meta property="og:title" content="Sakubun">
     <meta property="og:image" content="/android-chrome-192x192.png">
+    <meta property="og:description" content="Sakubun improves your Japanese vocabulary and kanji skills with practice that's customized to your needs.">
     <title>Sakubun</title>
     <link rel="stylesheet" href="/styles/main.css">
     {% block head %}{% endblock head %}
