@@ -60,7 +60,7 @@ section > div {
     display: none;
 }
 
-#anki, #wanikani {
+#anki, #wanikani, #jlpt {
     display: none;
 }
 
@@ -80,7 +80,7 @@ section > div {
     border: none;
     color: var(--background);
     cursor: pointer;
-    display: none;
+    display: none !important;
     position: fixed;
     bottom: .5em;
     left: 50%;
