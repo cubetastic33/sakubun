@@ -193,7 +193,7 @@ main {
     padding: 2em 10vw;
 }
 
-button:not(header button) {
+button:not(.exception) {
     background-color: var(--button);
     border: none;
     border-radius: 5px;
@@ -205,7 +205,7 @@ button:not(header button) {
     margin: auto;
 }
 
-button:not(:disabled):not(header button):hover {
+button:not(:disabled):not(.exception):hover {
     background-color: var(--button-hover);
 }
 
