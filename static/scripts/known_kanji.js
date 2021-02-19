@@ -132,16 +132,21 @@ $("#more_options > button").click(() => {
 // Import kanji
 $("#" + $("#import_from").val()).show();
 $("#import_from").change(() => {
-    $("#anki, #wanikani").hide();
+    $(".import_option").hide();
     $("#" + $("#import_from").val()).show();
 });
 
-$("#wanikani input").prop("max", $("#wanikani select").val() === "levels" ? "60" : "2055");
+$("#wanikani input").prop("max", $("#wanikani select").val() === "stages" ? "60" : "2055");
 $("#wanikani select").change(function () {
-    $("#wanikani input").prop("max", $(this).val() === "levels" ? "60" : "2055");
+    $("#wanikani input").prop("max", $(this).val() === "stages" ? "60" : "2055");
 });
 
-$("#file").siblings("div").text($("#file").val().split(/(\\|\/)/g).pop());
+$("#rtk input").prop("max", $("#rtk select").val() === "stages" ? "56" : "2200");
+$("#rtk select").change(function () {
+    $("#rtk input").prop("max", $(this).val() === "stages" ? "56" : "2200");
+});
+
+$("#file").siblings("div").text($("#file").val().split(/([\\/])/g).pop());
 $("#file").change(function () {
     if ($("#file")[0].files[0].size > 2097152) {
         $("#file").parent().attr("class", "upload error");
@@ -150,7 +155,7 @@ $("#file").change(function () {
         $("#file").parent().attr("class", "upload");
         $("#anki button").prop("disabled", false);
     }
-    $(this).siblings("div").text(this.value.split(/(\\|\/)/g).pop());
+    $(this).siblings("div").text(this.value.split(/([\\/])/g).pop());
 });
 
 function preview_kanji(kanji) {
@@ -204,27 +209,15 @@ $("#anki").submit(e => {
     }).fail(console.log);
 });
 
-$("#wanikani").submit(e => {
+$(".import_option").submit(function (e) {
     e.preventDefault();
-    $("#wanikani button").prop("disabled", true);
-    $.post("/import_wanikani", {
-        number: $("#wanikani input").val(),
-        method: $("#wanikani select").val(),
+    $(this).children("button").prop("disabled", true);
+    $.post(`/import_${this.id}`, {
+        number: $(this).children(this.id === "jlpt" ? "select" : "input").val(),
+        method: this.id === "jlpt" ? "stages" : $(this).children("select").val(),
     }).done(result => {
         // Enable the import button again
-        $("#wanikani button").prop("disabled", false);
-        preview_kanji(result);
-    }).fail(console.log);
-});
-
-$("#jlpt").submit(e => {
-    e.preventDefault();
-    $("#jlpt button").prop("disabled", true);
-    $.post("/import_jlpt", {
-        level: $("#jlpt select").val(),
-    }).done(result => {
-        // Enable the import button again
-        $("#jlpt button").prop("disabled", false);
+        $(this).children("button").prop("disabled", false);
         preview_kanji(result);
     }).fail(console.log);
 });

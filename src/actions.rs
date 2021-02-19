@@ -1,18 +1,31 @@
-use super::QuizSettings;
+use super::{OrderedImport, QuizSettings};
+use rand::prelude::*;
 use regex::Regex;
 use rocket::{http::Status, request::Form, response::status::Custom};
-use rand::prelude::*;
 use rusqlite::{Connection, NO_PARAMS};
+use std::{
+    collections::HashSet,
+    error::Error,
+    fs,
+    io::{Cursor, Read, Write},
+};
 use uuid::Uuid;
-use std::{fs, collections::HashSet, error::Error, io::{Cursor, Read, Write}};
 
-pub fn get_sentences(quiz_settings: Form<QuizSettings>) -> Result<Vec<[String;2]>, Box<dyn Error>> {
+pub enum KanjiOrder {
+    WaniKani,
+    RTK,
+    JLPT,
+}
+
+pub fn get_sentences(
+    quiz_settings: Form<QuizSettings>,
+) -> Result<Vec<[String; 2]>, Box<dyn Error>> {
     let mut sentences = Vec::new();
     let mut rng = thread_rng();
 
     let known_kanji: HashSet<_> = quiz_settings.known_kanji.chars().collect();
     // Read the sentences and shuffle the order
-    let records  = fs::read_to_string("sentences.csv")?;
+    let records = fs::read_to_string("sentences.csv")?;
     let mut records: Vec<_> = records.split('\n').collect();
     records.shuffle(&mut rng);
 
@@ -38,7 +51,10 @@ pub fn get_sentences(quiz_settings: Form<QuizSettings>) -> Result<Vec<[String;2]
     Ok(sentences)
 }
 
-pub fn extract_kanji_from_anki_deck(data: Cursor<Vec<u8>>, only_learnt: bool) -> Result<String, Custom<String>> {
+pub fn extract_kanji_from_anki_deck(
+    data: Cursor<Vec<u8>>,
+    only_learnt: bool,
+) -> Result<String, Custom<String>> {
     // An apkg file is just a zip file, so unzip it
     if let Ok(mut zip) = zip::ZipArchive::new(data) {
         // Get the database file
@@ -69,10 +85,12 @@ pub fn extract_kanji_from_anki_deck(data: Cursor<Vec<u8>>, only_learnt: bool) ->
                  * Despite the DISTINCT clause, it is still necessary to filter duplicates because
                  * different notes of the same kanji could be in different queues.
                  */
-                let mut statement = conn.prepare(
-                    "SELECT DISTINCT cards.queue, notes.sfld, notes.flds
-                     FROM cards INNER JOIN notes on notes.id = cards.nid"
-                ).unwrap();
+                let mut statement = conn
+                    .prepare(
+                        "SELECT DISTINCT cards.queue, notes.sfld, notes.flds
+                     FROM cards INNER JOIN notes on notes.id = cards.nid",
+                    )
+                    .unwrap();
                 let mut rows = statement.query(NO_PARAMS).unwrap();
                 while let Some(row) = rows.next().unwrap() {
                     if !only_learnt || row.get::<_, i32>(0).unwrap() == 2 {
@@ -98,9 +116,42 @@ pub fn extract_kanji_from_anki_deck(data: Cursor<Vec<u8>>, only_learnt: bool) ->
                 // Delete the database file
                 fs::remove_file(&file_name).unwrap();
                 // Return all the extracted kanji
-                return Ok(kanji.iter().map(|k| k.as_str()).collect::<Vec<&str>>().join(""));
+                return Ok(kanji
+                    .iter()
+                    .map(|k| k.as_str())
+                    .collect::<Vec<&str>>()
+                    .join(""));
             }
         }
     }
-    Err(Custom(Status::InternalServerError, String::from("Failed to parse apkg file")))
+    Err(Custom(
+        Status::InternalServerError,
+        String::from("Failed to parse apkg file"),
+    ))
+}
+
+pub fn kanji_in_order(
+    order: KanjiOrder,
+    import_settings: Form<OrderedImport>,
+) -> Result<String, Custom<String>> {
+    let kanji = fs::read_to_string(match order {
+        KanjiOrder::WaniKani => "wanikani.txt",
+        KanjiOrder::RTK => "rtk.txt",
+        KanjiOrder::JLPT => "jlpt.txt",
+    })
+    .unwrap();
+    if import_settings.method == "stages" {
+        Ok(kanji.split("\n").collect::<Vec<_>>()[..import_settings.number].join(""))
+    } else if import_settings.method == "kanji" {
+        Ok(kanji
+            .chars()
+            .filter(|c| c != &'\n')
+            .take(import_settings.number)
+            .collect())
+    } else {
+        Err(Custom(
+            Status::BadRequest,
+            String::from("Method must be one of `stages` or `kanji`"),
+        ))
+    }
 }

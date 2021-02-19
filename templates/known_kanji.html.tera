@@ -71,10 +71,11 @@
             <select id="import_from">
                 <option value="anki">Anki Deck</option>
                 <option value="wanikani">WaniKani</option>
+                <option value="rtk">Heisig's RTK</option>
                 <option value="jlpt">JLPT</option>
             </select>
             <br><br>
-            <form id="anki">
+            <form id="anki" class="import_option">
                 Export the anki deck as an apkg file and upload it here. Don't include media. The
                 maximum allowed file size is 4 MiB.
                 <br><br>
@@ -95,16 +96,28 @@
                 <div>The file is too large! The maximum allowed size is 4 MiB.</div>
                 <button type="submit">Upload</button>
             </form>
-            <form id="wanikani">
+            <form id="wanikani" class="import_option">
                 First <input type="number" size="2" min="1" max="60" value="10" required>
                 <select>
-                    <option value="levels">levels</option>
+                    <option value="stages">levels</option>
                     <option value="kanji">kanji</option>
                 </select>
                 <br><br>
                 <button type="submit">Import</button>
             </form>
-            <form id="jlpt">
+            <form id="rtk" class="import_option">
+                Note: The kanji order is from the sixth edition of the RTK book, taken from
+                <a href="https://docs.google.com/spreadsheets/d/1Z0BUSie8wh0JqlUejezs3EqauJuF-zKEomOQnqm9J08/edit?pref=2&pli=1#gid=0">here</a>.
+                <br><br>
+                First <input type="number" size="2" min="1" max="56" value="10" required>
+                <select>
+                    <option value="stages">lessons</option>
+                    <option value="kanji">kanji</option>
+                </select>
+                <br><br>
+                <button type="submit">Import</button>
+            </form>
+            <form id="jlpt" class="import_option">
                 Note: The kanji lists for each level are taken from
                 <a href="https://www.kanshudo.com/collections/jlpt_kanji">here</a>, and might differ
                 a bit from the list you're using, since there are no standard lists. You can always

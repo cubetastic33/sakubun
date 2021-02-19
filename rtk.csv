@@ -1,0 +1,3044 @@
+"yellow = in old RTK3, now RTK1",This table compares the numbering system of RTK1 6th Ed. and RTK3 3rd Ed. to older Editions. See Sheet 2 for explanations. (Update Dec 4th 2014: corrected one keyword.) ,,,,,,,,,
+"
+amber = not in older Eds. of RTK1 or 3
+
+",Kanji,"RTK1&3, older Editions","RTK1, 6th & RTK3 3rd Editions",6th Ed Lesson,Keywords (various older editions),Keywords RTK1 6th Ed. & RTK3 3rd Ed. (note: needs proofreading against main text),Joyo kanji? (as of 2010),ON readings,kun readings,Kanji
+,一,1,1,1,one,one,yes,イチ　　イツ,ひと・つ　　ひと,一
+,二,2,2,,two,two,yes,ニ,ふた・つ　　ふた,二
+,三,3,3,,three,three,yes,サン,みっ・つ　　み・つ　　み,三
+,四,4,4,,four,four,yes,シ,よっ・つ　　よ・つ　　よ　　よん,四
+,五,5,5,,five,five,yes,ゴ,いつ・つ　　いつ,五
+,六,6,6,,six,six,yes,ロク,むっ・つ　　む　　む・つ　　むいr,六
+,七,7,7,,seven,seven,yes,シチ,なな・つ　　なな　　なのr,七
+,八,8,8,,eight,eight,yes,ハチ,やっ・つ　　や　　や・つ　　ようr,八
+,九,9,9,,nine,nine,yes,キュウ　　ク,ここの・つ　　ここの,九
+,十,10,10,,ten,ten,yes,ジュウ　　ジッ,とお　　と,十
+,口,11,11,,mouth,mouth,yes,コウ　　ク,くち,口
+,日,12,12,,day,day,yes,ニチ　　ジツ,ひ　　か,日
+,月,13,13,,month,month,yes,ゲツ　　ガツ,つき,月
+,田,14,14,,rice field,rice field,yes,デン,た,田
+,目,15,15,,eye,eye,yes,モク　　ボクr,め　　まr,目
+,古,16,16,2,old,old,yes,コ,ふる・い　　ふる・す,古
+,吾,17,17,,I,I,no,ゴ,わ・が　　われ,吾
+,冒,18,18,,risk,risk,yes,ボウ,おか・す,冒
+,朋,19,19,,companion,companion,no,ホウ,とも,朋
+,明,20,20,,bright,bright,yes,メイ　　ミョウ,あ・かり　　あか・るい　　あか・るむ　　あか・らむ　　あき・らか　　あ・ける　　あ・く　　あ・くる　　あ・かす,明
+,唱,21,21,,chant,chant,yes,ショウ,とな・える,唱
+,晶,22,22,,sparkle,sparkle,yes,ショウ,,晶
+,品,23,23,,goods,goods,yes,ヒン,しな,品
+,呂,24,24,,spine,spine,yes,ロ,,呂
+,昌,25,25,,prosperous,prosperous,no,ショウ,まさ,昌
+,早,26,26,,early,early,yes,ソウ　　サッr,はや・い　　はや・まる　　はや・める,早
+,旭,27,27,,rising sun,rising sun,no,キョク,あさひ,旭
+,世,28,28,,generation,generation,yes,セ　　セイ,よ,世
+,胃,29,29,,stomach,stomach,yes,イ,,胃
+,旦,30,30,,nightbreak,nightbreak,yes,タン　　ダン,,旦
+,胆,31,31,,gall bladder,gall bladder,yes,タン,,胆
+,亘,32,32,,span,span,no,コウ,わた・る,亘
+,凹,33,33,,concave,concave,yes,オウ,,凹
+,凸,34,34,,convex,convex,yes,トツ,,凸
+,旧,35,35,3,olden times,olden times,yes,キュウ,,旧
+,自,36,36,,oneself,oneself,yes,ジ　　シ,みずか・ら,自
+,白,37,37,,white,white,yes,ハク　　ビャク,しろ　　しろ・い　　しらr,白
+,百,38,38,,hundred,hundred,yes,ヒャク,,百
+,中,39,39,,in,in,yes,チュウ　　ジュウ r,なか,中
+,千,40,40,,thousand,thousand,yes,セン,ち,千
+,舌,41,41,,tongue,tongue,yes,ゼツ,した,舌
+,升,42,42,,measuring box,measuring box,yes,ショウ,ます,升
+,昇,43,43,,rise up,rise up,yes,ショウ,のぼ・る,昇
+,丸,44,44,,round,round,yes,ガン,まる・い　　まる　　まる・める,丸
+,寸,45,45,,measurement,measurement,yes,スン,,寸
+,肘,2464,46,,elbow,elbow,yes,,ひじ,肘
+,専,46,47,,specialty,specialty,yes,セン,もっぱ・ら,専
+,博,47,48,,Dr.,Dr.,yes,ハク　　バクr,,博
+,占,48,49,,fortune-telling,fortune-telling,yes,セン,し・める　　うらな・う,占
+,上,49,50,,above,above,yes,ジョウ　　ショウr,うえ　　うわr　　かみ　　あ・げる　　あ・がる　　のぼ・る　　のぼ・す　　のぼ・せる,上
+,下,50,51,,below,below,yes,カ　　ゲ,した　　しも　　もと　　さ・げる　　さ・がる　　くだ・る　　くだ・す　　くだ・さる　　お・ろす　　お・りる,下
+,卓,51,52,,eminent,eminent,yes,タク,,卓
+,朝,52,53,,morning,morning,yes,チョウ,あさ,朝
+,嘲,2155,54,,derision,derision,yes,チョウ,あざけ・る,嘲
+,只,53,55,4,only,only,no,,ただ,只
+,貝,54,56,,shellfish,shellfish,yes,,かい,貝
+,唄,2178,57,,pop song,pop song,yes,,うたr,唄
+,貞,55,58,,upright,upright,yes,テイ,,貞
+,員,56,59,,employee,employee,yes,イン,,員
+,貼,2736,60,,affix,post a bill,yes,チョウ,は・る,貼
+,見,57,61,,see,see,yes,ケン,み・る　　み・える　　み・せる,見
+,児,58,62,,newborn babe,newborn babe,yes,ジ　　ニr,,児
+,元,59,63,,beginning,beginning,yes,ゲン　　ガン,もと,元
+,頁,60,64,,page,page,no,,ページ,頁
+,頑,61,65,,stubborn,stubborn,yes,ガン,,頑
+,凡,62,66,,mediocre,mediocre,yes,ボン　　ハンr,,凡
+,負,63,67,,defeat,defeat,yes,フ,ま・ける　　ま・かす　　お・う,負
+,万,64,68,,ten thousand,ten thousand,yes,マン　　バン,,万
+,句,65,69,,phrase,phrase,yes,ク,,句
+,肌,66,70,,texture,texture,yes,,はだ,肌
+,旬,67,71,,decameron,decameron,yes,ジュン　　シュン r,,旬
+,勺,68,72,,ladle,ladle,no,シャク,,勺
+,的,69,73,,bull's eye,bull's eye,yes,テキ,まと,的
+,首,70,74,,neck,neck,yes,シュ,くび,首
+,乙,71,75,5,fish guts,fish guts,yes,オツ,,乙
+,乱,72,76,,riot,riot,yes,ラン,みだ・す　　みだ・れる,乱
+,直,73,77,,straightaway,straightaway,yes,チョク　　ジキ,なお・す　　なお・る　　ただ・ちに,直
+,具,74,78,,tool,tool,yes,グ,,具
+,真,75,79,,true,true,yes,シン,ま,真
+,工,76,80,,craft,craft,yes,コウ　　ク,,工
+,左,77,81,,left,left,yes,サ,ひだり,左
+,右,78,82,,right,right,yes,ウ　　ユウ,みぎ,右
+,有,79,83,,possess,possess,yes,ユウ　　ウ,あ・る,有
+,賄,80,84,,bribe,bribe,yes,ワイ,まかな・う,賄
+,貢,81,85,,tribute,tribute,yes,コウ　　クr,みつ・ぐ,貢
+,項,82,86,,paragraph,paragraph,yes,コウ,,項
+,刀,83,87,,sword,sword,yes,トウ,かたな,刀
+,刃,84,88,,blade,blade,yes,ジン,は,刃
+,切,85,89,,cut,cut,yes,セツ　　サイr,き・る　　き・れる,切
+,召,86,90,,seduce,seduce,yes,ショウ,め・す,召
+,昭,87,91,,shining,shining,yes,ショウ,,昭
+,則,88,92,,rule,rule,yes,ソク,,則
+,副,89,93,,vice-,vice-,yes,フク,,副
+,別,90,94,,separate,separate,yes,ベツ,わか・れる,別
+,丁,91,95,,street,street,yes,チョウ　　テイ,,丁
+,町,92,96,,village,village,yes,チョウ,まち,町
+,可,93,97,,can,can,yes,カ,,可
+,頂,94,98,,place on the head,place on the head,yes,チョウ,いただ・く　　いただき,頂
+,子,95,99,6,child,child,yes,シ　　ス,こ,子
+,孔,96,100,,cavity,cavity,yes,コウ,,孔
+,了,97,101,,complete,complete,yes,リョウ,,了
+,女,98,102,,woman,woman,yes,ジョ　　ニョ　　ニョウr,おんな　　め,女
+,好,99,103,,fond,fond,yes,コウ,この・む　　す・く,好
+,如,100,104,,likeness,likeness,yes,ジョ　　ニョ,,如
+,母,101,105,,mama,mama,yes,ボ,はは,母
+,貫,102,106,,pierce,pierce,yes,カン,つらぬ・く,貫
+,兄,103,107,,elder brother,elder brother,yes,ケイ　　キョウr,あに,兄
+,呪,2169,108,,curse,curse,yes,ジュ,のろ・う,呪
+,克,104,109,,overcome,overcome,yes,コク,,克
+,小,105,110,7,little,little,yes,ショウ,ちい・さい　　こ　　お,小
+,少,106,111,,few,few,yes,ショウ,すこ・し　　すく・ない,少
+,大,107,112,,large,large,yes,ダイ　　タイ,おお　　おお・きい　　おお・いに,大
+,多,108,113,,many,many,yes,タ,おお・い,多
+,夕,109,114,,evening,evening,yes,セキ,ゆう,夕
+,汐,110,115,,eventide,eventide,no,セキ,しお,汐
+,外,111,116,,outside,outside,yes,ガイ　　ゲ,そと　　ほか　　はず・す　　はず・れる,外
+,名,112,117,,name,name,yes,メイ　　ミョウ,な,名
+,石,113,118,,stone,stone,yes,セキ　　シャク　　コクr,いし,石
+,肖,114,119,,resemblance,resemblance,yes,ショウ,,肖
+,硝,115,120,,nitrate,nitrate,yes,ショウ,,硝
+,砕,116,121,,smash,smash,yes,サイ,くだ・く　　くだ・ける,砕
+,砂,117,122,,sand,sand,yes,サ　　シャ,すな,砂
+,妬,2195,123,,jealous,jealous,yes,ト,ねた・む,妬
+,削,118,124,,plane,plane,yes,サク,けず・る,削
+,光,119,125,,ray,ray,yes,コウ,ひか・る　　ひかり,光
+,太,120,126,,plump,plump,yes,タイ　　タ,ふと・い　　ふと・る,太
+,器,121,127,,utensil,utensil,yes,キ,うつわ,器
+,臭,122,128,,stinking,stinking,yes,シュウ,くさ・い　　にお・う ,臭
+,嗅,3008,129,,sniff,sniff,yes,キュウ,か・ぐ,嗅
+,妙,123,130,,exquisite,exquisite,yes,ミョウ,,妙
+,省,124,131,,focus,focus,yes,ショウ　　セイ,かえり・みる　　はぶ・く,省
+,厚,125,132,,thick,thick,yes,コウ,あつ・い,厚
+,奇,126,133,,strange,strange,yes,キ,,奇
+,川,127,134,8,stream,stream,yes,セン,かわ,川
+,州,128,135,,state,state,yes,シュウ,す,州
+,順,129,136,,obey,obey,yes,ジュン,,順
+,水,130,137,,water,water,yes,スイ,みず,水
+,氷,131,138,,icicle,icicle,yes,ヒョウ,こおり　　ひ,氷
+,永,132,139,,eternity,eternity,yes,エイ,なが・い,永
+,泉,133,140,,spring,spring,yes,セン,いずみ,泉
+,腺,2466,141,,gland,gland,yes,セン,,腺
+,原,134,142,,meadow,meadow,yes,ゲン,はら,原
+,願,135,143,,petition,petition,yes,ガン,ねが・う,願
+,泳,136,144,,swim,swim,yes,エイ,およ・ぐ,泳
+,沼,137,145,,marsh,marsh,yes,ショウ,ぬま,沼
+,沖,138,146,,open sea,open sea,yes,チュウ,おき,沖
+,汎,2327,147,,pan-,pan-,yes,ハン,,汎
+,江,139,148,,creek,creek,yes,コウ,え,江
+,汰,2316,149,,cleanse,cleanse,yes,タ,,汰
+,汁,140,150,,soup,soup,yes,ジュウ,しる,汁
+,沙,2296,151,,grains of sand,grains of sand,yes,サ,,沙
+,潮,141,152,,tide,tide,yes,チョウ,しお,潮
+,源,142,153,,source,source,yes,ゲン,みなもと,源
+,活,143,154,,lively,lively,yes,カツ,,活
+,消,144,155,,extinguish,extinguish,yes,ショウ,け・す　　き・える,消
+,況,145,156,,but of course,but of course,yes,キョウ,,況
+,河,146,157,,river,river,yes,カ,かわ,河
+,泊,147,158,,overnight,overnight,yes,ハク,と・まる　　と・める,泊
+,湖,148,159,,lake,lake,yes,コ,みずうみ,湖
+,測,149,160,,fathom,fathom,yes,ソク,はか・る,測
+,土,150,161,,soil,soil,yes,ド　　ト,つち,土
+,吐,151,162,,spit,spit,yes,ト,は・く,吐
+,圧,152,163,,pressure,pressure,yes,アツ,,圧
+,埼,153,164,,cape,cape,yes,,さい,埼
+,垣,154,165,,hedge,hedge,yes,,かき,垣
+,填,2190,166,,stuff up,inlay,yes,テン,,填
+,圭,155,167,,squared jewel,squared jewel,no,ケイ,,圭
+,封,156,168,,seal,seal,yes,フウ　　ホウ,,封
+,涯,157,169,,horizon,horizon,yes,ガイ,,涯
+,寺,158,170,,Buddhist temple,Buddhist temple,yes,ジ,てら,寺
+,時,159,171,,time,time,yes,ジ,とき,時
+,均,160,172,,level,level,yes,キン,,均
+,火,161,173,,fire,fire,yes,カ,ひ　　ほr,火
+,炎,162,174,,inflammation,inflammation,yes,エン,ほのお,炎
+,煩,163,175,,anxiety,anxiety,yes,ハン　　ボンr,わずら・う  　わずら・わす,煩
+,淡,164,176,,thin,thin,yes,タン,あわ・い,淡
+,灯,165,177,,lamp,lamp,yes,トウ,ひ,灯
+,畑,166,178,,farm,farm,yes,,はた　　はたけ,畑
+,災,167,179,,disaster,disaster,yes,サイ,わざわ・い,災
+,灰,168,180,,ashes,ashes,yes,カイ,はい,灰
+,点,169,181,,spot,spot,yes,テン,,点
+,照,170,182,,illuminate,illuminate,yes,ショウ,て・らす　　て・る　　て・れる,照
+,魚,171,183,,fish,fish,yes,ギョ,さかな　　うお,魚
+,漁,172,184,,fishing,fishing,yes,ギョ　　リョウ,,漁
+,里,173,185,9,ri,ri,yes,リ,さと,里
+,黒,174,186,,black,black,yes,コク,くろ　　くろ・い,黒
+,墨,175,187,,black ink,black ink,yes,ボク,すみ,墨
+,鯉,176,188,,carp,carp,no,,こい,鯉
+,量,177,189,,quantity,quantity,yes,リョウ,はか・る,量
+,厘,178,190,,rin,rin,yes,リン,,厘
+,埋,179,191,,bury,bury,yes,マイ,う・める　　う・まる　　う・もれる,埋
+,同,180,192,,same,same,yes,ドウ,おな・じ,同
+,洞,181,193,,den,den,yes,ドウ,ほら,洞
+,胴,182,194,,trunk,trunk,yes,ドウ,,胴
+,向,183,195,,yonder,yonder,yes,コウ,む・く　　む・ける　　む・かう　　む・こう,向
+,尚,184,196,,esteem,esteem,yes,ショウ,,尚
+,字,185,197,,character,character,yes,ジ,あざ,字
+,守,186,198,,guard,guard,yes,シュ　　スr,まも・る　　もり,守
+,完,187,199,,perfect,perfect,yes,カン,,完
+,宣,188,200,,proclaim,proclaim,yes,セン,,宣
+,宵,189,201,,wee hours,wee hours,yes,ショウ,よい,宵
+,安,190,202,,relax,relax,yes,アン,やす・い,安
+,宴,191,203,,banquet,banquet,yes,エン,,宴
+,寄,192,204,,draw near,draw near,yes,キ,よ・せる　　よ・る,寄
+,富,193,205,,wealth,wealth,yes,フ　　フウr,と・む　　とみ,富
+,貯,194,206,,savings,savings,yes,チョ,,貯
+,木,195,207,10,tree,tree,yes,モク　　ボク,き　　こr,木
+,林,196,208,,grove,grove,yes,リン,はやし,林
+,森,197,209,,forest,forest,yes,シン,もり,森
+,桂,198,210,,Japanese Judas-tree,Japanese Judas-tree,no,ケイ,かつら,桂
+,柏,199,211,,oak,oak,no,,かしわ,柏
+,枠,200,212,,frame,frame,yes,,わく,枠
+,梢,201,213,,treetops,treetops,no,ショウ,こずえ,梢
+,棚,202,214,,shelf,shelf,yes,,たな,棚
+,杏,203,215,,apricot,apricot,no,アン,あんず,杏
+,桐,204,216,,paulownia,paulownia,no,トウ,きり,桐
+,植,205,217,,plant,plant,yes,ショク,う・える 　う・わる,植
+,椅,2480,218,,chair,chair,yes,イ,,椅
+,枯,206,219,,wither,wither,yes,コ,か・らす　　か・れる,枯
+,朴,207,220,,crude,crude,yes,ボク,,朴
+,村,208,221,,town,town,yes,ソン,むら,村
+,相,209,222,,inter-,inter-,yes,ソウ　　ショウ,あい,相
+,机,210,223,,desk,desk,yes,キ,つくえ,机
+,本,211,224,,book,book,yes,ホン,もと,本
+,札,212,225,,tag,tag,yes,サツ,ふだ,札
+,暦,213,226,,calendar,calendar,yes,レキ,こよみ,暦
+,案,214,227,,plan,plan,yes,アン,,案
+,燥,215,228,,parch,parch,yes,ソウ,,燥
+,未,216,229,,not yet,not yet,yes,ミ,,未
+,末,217,230,,extremity,extremity,yes,マツ　　バツ,すえ,末
+,昧,2445,231,,obscure,obscure,yes,マイ,,昧
+,沫,218,232,,splash,splash,no,マツ,,沫
+,味,219,233,,flavor,flavor,yes,ミ,あじ　　あじ・わう,味
+,妹,220,234,,younger sister,younger sister,yes,マイ,いもうと,妹
+,朱,221,235,,vermilion,vermilion,yes,シュ,,朱
+,株,222,236,,stocks,stocks,yes,,かぶ,株
+,若,223,237,,young,young,yes,ジャク　　ニャクr,わか・い　　も・しくわ,若
+,草,224,238,,grass,grass,yes,ソウ,くさ,草
+,苦,225,239,,suffering,suffering,yes,ク,くる・しい　　くる・しむ　　くる・しめる　　にが・い　　にが・る,苦
+,苛,2373,240,,bullying,bullying,yes,カ,,苛
+,寛,226,241,,tolerant,tolerant,yes,カン,,寛
+,薄,227,242,,dilute,dilute,yes,ハク,うす・い　　うす・める　　うす・まる　　うす・らぐ　　うす・れる,薄
+,葉,228,243,,leaf,leaf,yes,ヨウ,は,葉
+,模,229,244,,imitation,imitation,yes,ボ　　モ,,模
+,漠,230,245,,vague,vague,yes,バク,,漠
+,墓,231,246,,grave,grave,yes,ボ,はか,墓
+,暮,232,247,,livelihood,livelihood,yes,ボ,く・らす　　く・れる,暮
+,膜,233,248,,membrane,membrane,yes,マク,,膜
+,苗,234,249,,seedling,seedling,yes,ビョウ,なえ　　なわr,苗
+,兆,235,250,11,portent,portent,yes,チョウ,きざ・し　　きざ・す,兆
+,桃,236,251,,peach tree,peach tree,yes,トウ,もも,桃
+,眺,237,252,,stare,stare,yes,チョウ,なが・める,眺
+,犬,238,253,,dog,dog,yes,ケン,いぬ,犬
+,状,239,254,,status quo,status quo,yes,ジョウ,,状
+,黙,240,255,,silence,silence,yes,モク,だま・る,黙
+,然,241,256,,sort of thing,sort of thing,yes,ゼン　　ネン,,然
+,荻,242,257,,reed,reed,no,,おぎ,荻
+,狩,243,258,,hunt,hunt,yes,シュ,か・る　　か・り,狩
+,猫,244,259,,cat,cat,yes,ビョウ,ねこ,猫
+,牛,245,260,,cow,cow,yes,ギュウ,うし,牛
+,特,246,261,,special,special,yes,トク,,特
+,告,247,262,,revelation,revelation,yes,コク,つ・げる,告
+,先,248,263,,before,before,yes,セン,さき,先
+,洗,249,264,,wash,wash,yes,セン,あら・う,洗
+,介,250,265,12,jammed in,jammed in,yes,カイ,,介
+,界,251,266,,world,world,yes,カイ,,界
+,茶,252,267,,tea,tea,yes,チャ　　サ,,茶
+,脊,2071,268,,spinal column,spinal column,yes,セキ,,脊
+,合,253,269,,fit,fit,yes,ゴウ　　ガッ　　カッr,あ・う　　あ・わす　　あ・わせる,合
+,塔,254,270,,pagoda,pagoda,yes,トウ,,塔
+,王,255,271,,king,king,yes,オウ,,王
+,玉,256,272,,jewel,jewel,yes,ギョク,たま,玉
+,宝,257,273,,treasure,treasure,yes,ホウ,たから,宝
+,珠,258,274,,pearl,pearl,yes,シュ,,珠
+,現,259,275,,present,present,yes,ゲン,あらわ・す　　あらわ・れる,現
+,玩,2567,276,,toy,toy,yes,ガン,,玩
+,狂,260,277,,lunatic,lunatic,yes,キョウ,くる・う　　くる・おしい,狂
+,旺,2450,278,,effulgent,effulgent,yes,オウ,,旺
+,皇,261,279,,emperor,emperor,yes,コウ　　オウ,,皇
+,呈,262,280,,display,display,yes,テイ,,呈
+,全,263,281,,whole,whole,yes,ゼン,まった・く　　すべ・て ,全
+,栓,264,282,,plug,plug,yes,セン,,栓
+,理,265,283,,logic,logic,yes,リ,,理
+,主,266,284,,lord,lord,yes,シュ　　スr,おも　　ぬし,主
+,注,267,285,,pour,pour,yes,チュウ,そそ・ぐ,注
+,柱,268,286,,pillar,pillar,yes,チュウ,はしら,柱
+,金,269,287,,gold,gold,yes,キン　　コン,かね　　かなr,金
+,銑,270,288,,pig iron,pig iron,no,セン,,銑
+,鉢,271,289,,bowl,bowl,yes,ハチ　　ハツr,,鉢
+,銅,272,290,,copper,copper,yes,ドウ,,銅
+,釣,273,291,,angling,angling,yes,チョウ,つ・る,釣
+,針,274,292,,needle,needle,yes,シン,はり,針
+,銘,275,293,,inscription,inscription,yes,メイ,,銘
+,鎮,276,294,,tranquillize,tranquillize,yes,チン,しず・める　　しず・まる,鎮
+,道,277,295,13,road-way,road-way,yes,ドウ　　トウr,みち,道
+,導,278,296,,guidance,guidance,yes,ドウ,みちび・く,導
+,辻,279,297,,crossing,crossing,no,,つじ,辻
+,迅,280,298,,swift,swift,yes,ジン,,迅
+,造,281,299,,create,create,yes,ゾウ,つく・る,造
+,迫,282,300,,urge,urge,yes,ハク,せま・る,迫
+,逃,283,301,,escape,escape,yes,トウ,に・げる　　に・がす　　のが・す　　のが・れる,逃
+,辺,284,302,,environs,environs,yes,ヘン,べ　　あた・り,辺
+,巡,285,303,,patrol,patrol,yes,ジュン,めぐ・る,巡
+,車,286,304,,car,car,yes,シャ,くるま,車
+,連,287,305,,take along,take along,yes,レン,つら・なる　　つら・ねる　　つ・れる,連
+,軌,288,306,,rut,rut,yes,キ,,軌
+,輸,289,307,,transport,transport,yes,ユ,,輸
+,喩,3009,308,,metaphor,metaphor,yes,ユ,,喩
+,前,290,309,,in front,in front,yes,ゼン,まえ,前
+,煎,2548,310,,roast,roast,yes,セン,い・る,煎
+,各,291,311,,each,each,yes,カク,おのおの,各
+,格,292,312,,status,status,yes,カク　　コウr,,格
+,賂,2738,313,,graft,graft,yes,ロ,,賂
+,略,293,314,,abbreviation,abbreviation,yes,リャク,,略
+,客,294,315,,guest,guest,yes,キャク　　カク,,客
+,額,295,316,,forehead,forehead,yes,ガク,ひたい,額
+,夏,296,317,,summer,summer,yes,カ　　ゲr,なつ,夏
+,処,297,318,,dispose,dispose,yes,ショ,,処
+,条,298,319,,twig,twig,yes,ジョウ,,条
+,落,299,320,,fall,fall,yes,ラク,お・ちる　　お・とす,落
+,冗,300,321,14,superfluous,superfluous,yes,ジョウ,,冗
+,冥,2841,322,,Hades,Hades,yes,メイ　　ミョウ,,冥
+,軍,301,323,,army,army,yes,グン,,軍
+,輝,302,324,,radiance,radiance,yes,キ,かがや・く,輝
+,運,303,325,,carry,carry,yes,ウン,はこ・ぶ,運
+,冠,304,326,,crown,crown,yes,カン,かんむり,冠
+,夢,305,327,,dream,dream,yes,ム,ゆめ,夢
+,坑,306,328,,pit,pit,yes,コウ,,坑
+,高,307,329,,tall,tall,yes,コウ,たか・い　　たか　　たか・まる　　たか・める,高
+,享,308,330,,receive,receive,yes,キョウ,,享
+,塾,309,331,,cram school,cram school,yes,ジュク,,塾
+,熟,310,332,,mellow,mellow,yes,ジュク,う・れる,熟
+,亭,311,333,,pavilion,pavilion,yes,テイ,,亭
+,京,312,334,,capital,capital,yes,キョウ　　ケイ,,京
+,涼,313,335,,refreshing,refreshing,yes,リョウ,すず・しい　　すず・む,涼
+,景,314,336,,scenery,scenery,yes,ケイ,,景
+,鯨,315,337,,whale,whale,yes,ゲイ,くじら,鯨
+,舎,316,338,,cottage,cottage,yes,シャ,,舎
+,周,317,339,,circumference,circumference,yes,シュウ,まわ・り,周
+,週,318,340,,week,week,yes,シュウ,,週
+,士,319,341,,gentleman,gentleman,yes,シ,,士
+,吉,320,342,,good luck,good luck,yes,キチ　　キツ,,吉
+,壮,321,343,,robust,robust,yes,ソウ,,壮
+,荘,322,344,,villa,villa,yes,ソウ,,荘
+,売,323,345,,sell,sell,yes,バイ,う・る　　う・れる,売
+,学,324,346,15,study,study,yes,ガク,まな・ぶ,学
+,覚,325,347,,memorize,memorize,yes,カク,おぼ・える　　さ・ます　　さ・める,覚
+,栄,326,348,,flourish,flourish,yes,エイ,さか・える　　は・え　　は・える,栄
+,書,327,349,,write,write,yes,ショ,か・く,書
+,津,328,350,,haven,haven,yes,シン,つ,津
+,牧,329,351,,breed,breed,yes,ボク,まき,牧
+,攻,330,352,,aggression,aggression,yes,コウ,せ・める,攻
+,敗,331,353,,failure,failure,yes,ハイ,やぶ・れる,敗
+,枚,332,354,,sheet of,a sheet of,yes,マイ,,枚
+,故,333,355,,happenstance,happenstance,yes,コ,ゆえ,故
+,敬,334,356,,awe,awe,yes,ケイ,うやま・う,敬
+,言,335,357,,say,say,yes,ゲン　　ゴン,い・う　　こと,言
+,警,336,358,,admonish,admonish,yes,ケイ,,警
+,計,337,359,,plot,plot,yes,ケイ,はか・る　　はか・らう,計
+,詮,2717,360,,elucidate,elucidate,yes,セン,,詮
+,獄,338,361,,prison,prison,yes,ゴク,,獄
+,訂,339,362,,revise,revise,yes,テイ,,訂
+,訃,3010,363,,obituary,obituary,yes,フ,,訃
+,討,340,364,,chastise,chastise,yes,トウ,う・つ,討
+,訓,341,365,,instruction,instruction,yes,クン,,訓
+,詔,342,366,,imperial edict,imperial edict,yes,ショウ,みことのり,詔
+,詰,343,367,,packed,packed,yes,キツ,つ・める　　つ・まる　　つ・む,詰
+,話,344,368,,tale,tale,yes,ワ,はなし　　はな・す,話
+,詠,345,369,,recitation,recitation,yes,エイ,よ・む,詠
+,詩,346,370,,poem,poem,yes,シ,,詩
+,語,347,371,,word,word,yes,ゴ,かた・らう　　かた・る,語
+,読,348,372,,read,read,yes,ドク　　トク　　トウr,よ・む,読
+,調,349,373,,tune,tune,yes,チョウ,しら・べる　　ととの・う　　ととの・える,調
+,談,350,374,,discuss,discuss,yes,ダン,,談
+,諾,351,375,,consent,consent,yes,ダク,,諾
+,諭,352,376,,rebuke,rebuke,yes,ユ,さと・す,諭
+,式,353,377,16,style,style,yes,シキ,,式
+,試,354,378,,test,test,yes,シ,こころ・みる　　ため・す,試
+,弐,355,379,,II (two),II (two),yes,ニ,,弐
+,域,356,380,,range,range,yes,イキ,,域
+,賊,357,381,,burglar,burglar,yes,ゾク,,賊
+,栽,358,382,,plantation,plantation,yes,サイ,,栽
+,載,359,383,,load,load,yes,サイ,の・せる　　の・る,載
+,茂,360,384,,overgrown,overgrown,yes,モ,しげ・る,茂
+,戚,2882,385,,relatives,relatives,yes,セキ,,戚
+,成,361,386,,turn into,turn into,yes,セイ　　ジョウr,な・す　　な・る,成
+,城,362,387,,castle,castle,yes,ジョウ,しろ,城
+,誠,363,388,,sincerity,sincerity,yes,セイ,まこと,誠
+,威,364,389,,intimidate,intimidate,yes,イ,,威
+,滅,365,390,,destroy,destroy,yes,メツ,ほろ・びる　　ほろ・ぼす,滅
+,減,366,391,,dwindle,dwindle,yes,ゲン,へ・らす　　へ・る,減
+,蔑,2390,392,,revile,revile,yes,ベツ,さげす・む,蔑
+,桟,367,393,,scaffold,scaffold,yes,サン,,桟
+,銭,368,394,,coin,coin,yes,セン,ぜに,銭
+,浅,369,395,,shallow,shallow,yes,セン,あさ・い,浅
+,止,370,396,17,stop,stop,yes,シ,と・まる　　と・める,止
+,歩,371,397,,walk,walk,yes,ホ　　ブ　　フr,あゆ・む　　ある・く,歩
+,渉,372,398,,ford,ford,yes,ショウ,,渉
+,頻,373,399,,repeatedly,repeatedly,yes,ヒン,,頻
+,肯,374,400,,agreement,agreement,yes,コウ,,肯
+,企,375,401,,undertake,undertake,yes,キ,くわだ・てる,企
+,歴,376,402,,curriculum,curriculum,yes,レキ,,歴
+,武,377,403,,warrior,warrior,yes,ブ　　ム,,武
+,賦,378,404,,levy,levy,yes,フ,,賦
+,正,379,405,,correct,correct,yes,セイ　　ショウ,ただ・しい　　ただ・す　　まさ,正
+,証,380,406,,evidence,evidence,yes,ショウ,,証
+,政,381,407,,politics,politics,yes,セイ　　 ショウr,まつりごと,政
+,定,382,408,,determine,determine,yes,テイ　　ジョウ,さだ・か　　さだ・める　　さだ・まる,定
+,錠,383,409,,lock,lock,yes,ジョウ,,錠
+,走,384,410,,run,run,yes,ソウ,はし・る,走
+,超,385,411,,transcend,transcend,yes,チョウ,こ・す　　こ・える,超
+,赴,386,412,,proceed,proceed,yes,フ,おもむ・く,赴
+,越,387,413,,surpass,surpass,yes,エツ,こ・す　　こ・える,越
+,是,388,414,,just so,just so,yes,ゼ,,是
+,題,389,415,,topic,topic,yes,ダイ,,題
+,堤,390,416,,dike,dike,yes,テイ,つつみ,堤
+,建,391,417,,build,build,yes,ケン　　コンr,た・つ　　た・てる,建
+,鍵,2761,418,,key,key,yes,ケン,かぎ,鍵
+,延,392,419,,prolong,prolong,yes,エン,の・ばす　　の・びる　　の・べる,延
+,誕,393,420,,nativity,nativity,yes,タン,,誕
+,礎,394,421,,cornerstone,cornerstone,yes,ソ,いしずえ,礎
+,婿,395,422,,bridegroom,bridegroom,yes,セイ,むこ,婿
+,衣,396,423,18,garment,garment,yes,イ,ころも,衣
+,裁,397,424,,tailor,tailor,yes,サイ,さば・く　　た・つ,裁
+,装,398,425,,attire,attire,yes,ソウ　　ショウ,よそお・う,装
+,裏,399,426,,back,back,yes,リ,うら,裏
+,壊,400,427,,demolition,demolition,yes,カイ,こわ・す　　こわ・れる,壊
+,哀,401,428,,pathetic,pathetic,yes,アイ,あわ・れ　　あわ・れむ,哀
+,遠,402,429,,distant,distant,yes,エン　　オンr,とお・い,遠
+,猿,403,430,,monkey,monkey,yes,エン,さる,猿
+,初,404,431,,first time,first time,yes,ショ,はじ・め　　はじ・めて　　はつ　　そ・める　　うい,初
+,巾,2101,432,,towel,towel,yes,キン,,巾
+,布,405,433,,linen,linen,yes,フ,ぬの,布
+,帆,406,434,,sail,sail,yes,ハン,ほ,帆
+,幅,407,435,,hanging scroll,hanging scroll,yes,フク,はば,幅
+,帽,408,436,,cap,cap,yes,ボウ,,帽
+,幕,409,437,,curtain,curtain,yes,マク　　バク,,幕
+,幌,410,438,,canopy,canopy,no,,ほろ,幌
+,錦,411,439,,brocade,brocade,yes,キン,にしき,錦
+,市,412,440,,market,market,yes,シ,いち,市
+,柿,2481,441,,persimmon,persimmon,yes,,かき,柿
+,姉,413,442,,elder sister,elder sister,yes,シ,あね,姉
+,肺,414,443,,lungs,lungs,yes,ハイ,,肺
+,帯,415,444,,sash,sash,yes,タイ,おび　　お・びる,帯
+,滞,416,445,,stagnate,stagnate,yes,タイ,とどこお・る,滞
+,刺,417,446,,thorn,thorn,yes,シ,さ・す　　さ・さる,刺
+,制,418,447,,system,system,yes,セイ,,制
+,製,419,448,,made in...,made in...,yes,セイ,,製
+,転,420,449,,revolve,revolve,yes,テン,ころ・ぶ　　ころ・がる　　ころ・げる　　ころ・がす,転
+,芸,421,450,,technique,technique,yes,ゲイ,,芸
+,雨,422,451,,rain,rain,yes,ウ,あめ　　あまr,雨
+,雲,423,452,,cloud,cloud,yes,ウン,くも,雲
+,曇,424,453,,cloudy weather,cloudy weather,yes,ドン,くも・る,曇
+,雷,425,454,,thunder,thunder,yes,ライ,かみなり,雷
+,霜,426,455,,frost,frost,yes,ソウ,しも,霜
+,冬,427,456,,winter,winter,yes,トウ,ふゆ,冬
+,天,428,457,,heavens,heavens,yes,テン,あめ　　あまr,天
+,妖,2078,458,,bewitched,bewitched,yes,ヨウ,あや・しい,妖
+,沃,2079,459,,irrigate,irrigate,yes,ヨク,,沃
+,橋,429,460,,bridge,bridge,yes,キョウ,はし,橋
+,嬌,430,461,,attractive,attractive,no,キョウ,,嬌
+,立,431,462,,stand up,stand up,yes,リツ　　リュウr,た・つ　　た・てる,立
+,泣,432,463,,cry,cry,yes,キュウ,な・く,泣
+,章,433,464,,badge,badge,yes,ショウ,,章
+,競,434,465,,vie,vie,yes,キョウ　　ケイ,きそ・う　　せ・る,競
+,帝,435,466,,sovereign,sovereign,yes,テイ,,帝
+,諦,2716,467,,give up,renunciation,yes,テイ,あきら・める,諦
+,童,436,468,,juvenile,juvenile,yes,ドウ,わらべ,童
+,瞳,437,469,,pupil,pupil,yes,ドウ,ひとみ,瞳
+,鐘,438,470,,bell,bell,yes,ショウ,かね,鐘
+,商,439,471,,make a deal,make a deal,yes,ショウ,あきな・う,商
+,嫡,440,472,,legitimate wife,legitimate wife,yes,チャク,,嫡
+,適,441,473,,suitable,suitable,yes,テキ,,適
+,滴,442,474,,drip,drip,yes,テキ,しずく　　したた・る,滴
+,敵,443,475,,enemy,enemy,yes,テキ,かたき,敵
+,匕,444,476,,spoon,spoon,no,ヒ,さじ,匕
+,叱,2179,477,,scold,scold,yes,シツ,しか・る,叱
+,匂,2147,478,,aroma,aroma,yes,,にお・う,匂
+,頃,2791,479,,about that time,about that time,yes,,ころ,頃
+,北,445,480,,north,north,yes,ホク,きた,北
+,背,446,481,,stature,stature,yes,ハイ,せ　　せい　　そむ・く　　そむ・ける,背
+,比,447,482,,compare,compare,yes,ヒ,くら・べる,比
+,昆,448,483,,descendants,descendants,yes,コン,,昆
+,皆,449,484,,all,all,yes,カイ,みな,皆
+,楷,3011,485,,block letters,block letters,yes,カイ,,楷
+,諧,3012,486,,orderliness,orderliness,yes,カイ,,諧
+,混,450,487,,mix,mix,yes,コン,ま・ぜる　　ま・ざる　　ま・じる　　こ・む,混
+,渇,451,488,,thirst,thirst,yes,カツ,かわ・く,渇
+,謁,452,489,,audience,audience,yes,エツ,,謁
+,褐,453,490,,brown,brown,yes,カツ,,褐
+,喝,454,491,,hoarse,hoarse,yes,カツ,,喝
+,葛,2398,492,,kudzu,kudzu,yes,カツ,くず,葛
+,旨,455,493,,delicious,delicious,yes,シ,むね,旨
+,脂,456,494,,fat,fat,yes,シ,あぶら,脂
+,詣,2715,495,,visit a shrine,visit a shrine,yes,ケイ,もう・でる,詣
+,壱,457,496,,I (one),I (one),yes,イチ,,壱
+,毎,458,497,,every,every,yes,マイ,,毎
+,敏,459,498,,cleverness,cleverness,yes,ビン,,敏
+,梅,460,499,,plum,plum,yes,バイ,うめ,梅
+,海,461,500,,sea,sea,yes,カイ,うみ,海
+,乞,462,501,,beg,beg,yes,,こ・う,乞
+,乾,463,502,,drought,drought,yes,カン,かわ・かす　　かわ・く,乾
+,腹,464,503,,abdomen,abdomen,yes,フク,はら,腹
+,複,465,504,,duplicate,duplicate,yes,フク,,複
+,欠,466,505,,lack,lack,yes,ケツ,か・く　　か・ける,欠
+,吹,467,506,,blow,blow,yes,スイ,ふ・く,吹
+,炊,468,507,,cook,cook,yes,スイ,た・く,炊
+,歌,469,508,,song,song,yes,カ,うた・う　　うた,歌
+,軟,470,509,,soft,soft,yes,ナン,やわ・らか　　やわ・らかい,軟
+,次,471,510,,next,next,yes,ジ　　シ,つ・ぐ　　つぎ,次
+,茨,472,511,,briar,briar,yes,,いばらr,茨
+,資,473,512,,assets,assets,yes,シ,,資
+,姿,474,513,,figure,figure,yes,シ,すがた,姿
+,諮,475,514,,consult with,consult with,yes,シ,はか・る,諮
+,賠,476,515,19,compensation,compensation,yes,バイ,,賠
+,培,477,516,,cultivate,cultivate,yes,バイ,つちか・う,培
+,剖,478,517,,divide,divide,yes,ボウ,,剖
+,音,479,518,,sound,sound,yes,オン　　イン,おと　　ね,音
+,暗,480,519,,darkness,darkness,yes,アン,くら・い,暗
+,韻,481,520,,rhyme,rhyme,yes,イン,,韻
+,識,482,521,,discriminating,discriminating,yes,シキ,,識
+,鏡,483,522,,mirror,mirror,yes,キョウ,かがみ,鏡
+,境,484,523,,boundary,boundary,yes,キョウ　　ケイr,さかい,境
+,亡,485,524,,deceased,deceased,yes,ボウ　　モウr,な・い,亡
+,盲,486,525,,blind,blind,yes,モウ,,盲
+,妄,487,526,,delusion,delusion,yes,モウ　　ボウ,,妄
+,荒,488,527,,laid waste,laid waste,yes,コウ,あら・い　　あ・らす　　あ・れる,荒
+,望,489,528,,ambition,ambition,yes,ボウ　　モウ,のぞ・む,望
+,方,490,529,,direction,direction,yes,ホウ,かた,方
+,妨,491,530,,disturb,disturb,yes,ボウ,さまた・げる,妨
+,坊,492,531,,boy,boy,yes,ボウ　 ボッr,,坊
+,芳,493,532,,perfumed,perfumed,yes,ホウ,かんば・しい,芳
+,肪,494,533,,obese,obese,yes,ボウ,,肪
+,訪,495,534,,call on,call on,yes,ホウ,おとず・れる　　たず・ねる,訪
+,放,496,535,,set free,set free,yes,ホウ,はな・す　　はな・つ　　はな・れる　　ほう・る ,放
+,激,497,536,,violent,violent,yes,ゲキ,はげ・しい,激
+,脱,498,537,,undress,undress,yes,ダツ,ぬ・ぐ　　ぬ・げる,脱
+,説,499,538,,rumor / explanation,explanation,yes,セツ　　ゼイr,と・く,説
+,鋭,500,539,,pointed,pointed,yes,エイ,するど・い,鋭
+,曽,501,540,,formerly,formerly,yes,ソウ　　ゾr,,曽
+,増,502,541,,increase,increase,yes,ゾウ,ふ・える　　ふ・やす　　ま・す,増
+,贈,503,542,,presents,presents,yes,ゾウ　　ソウr,おく・る,贈
+,東,504,543,,east,east,yes,トウ,ひがし,東
+,棟,505,544,,ridgepole,ridgepole,yes,トウ,むね　　むなr,棟
+,凍,506,545,,frozen,frozen,yes,トウ,こお・る　　こご・える,凍
+,妊,507,546,,pregnancy,pregnancy,yes,ニン,,妊
+,廷,508,547,,courts,courts,yes,テイ,,廷
+,染,509,548,20,dye,dye,yes,セン,そ・まる　　そ・める　　し・み　　し・みる,染
+,燃,510,549,,burn,burn,yes,ネン,も・える　　も・やす　　も・す,燃
+,賓,511,550,,V.I.P.,V.I.P.,yes,ヒン,,賓
+,歳,512,551,,year-end,year-end,yes,サイ　　セイr,,歳
+,県,513,552,,prefecture,prefecture,yes,ケン,,県
+,栃,514,553,,horse chestnut,horse chestnut,yes,,とち,栃
+,地,515,554,21,ground,ground,yes,チ　　ジ,,地
+,池,516,555,,pond,pond,yes,チ,いけ,池
+,虫,517,556,,insect,insect,yes,チュウ,むし,虫
+,蛍,518,557,,lightning bug,lightning bug,yes,ケイ,ほたる,蛍
+,蛇,519,558,,snake,snake,yes,ジャ　　ダ,へび,蛇
+,虹,520,559,,rainbow,rainbow,yes,,にじ,虹
+,蝶,521,560,,butterfly,butterfly,no,チョウ,,蝶
+,独,522,561,,single,single,yes,ドク,ひと・り,独
+,蚕,523,562,,silkworm,silkworm,yes,サン,かいこ,蚕
+,風,524,563,,wind,wind,yes,フウ　　フr,かぜ　　かざr,風
+,己,525,564,,self,self,yes,コ　　キ,おのれ,己
+,起,526,565,,rouse,rouse,yes,キ,お・きる　　お・こす　　お・こる,起
+,妃,527,566,,queen,queen,yes,ヒ,,妃
+,改,528,567,,reformation,reformation,yes,カイ,あらた・まる　　あらた・める,改
+,記,529,568,,scribe,scribe,yes,キ,しる・す,記
+,包,530,569,,wrap,wrap,yes,ホウ,つつ・む,包
+,胞,531,570,,placenta,placenta,yes,ホウ,,胞
+,砲,532,571,,cannon,cannon,yes,ホウ,,砲
+,泡,533,572,,bubbles,bubble,yes,ホウ,あわ,泡
+,亀,534,573,,tortoise,tortoise,yes,キ,かめ,亀
+,電,535,574,,electricity,electricity,yes,デン,,電
+,竜,536,575,,dragon,dragon,yes,リュウ,たつ,竜
+,滝,537,576,,waterfall,waterfall,yes,,たき,滝
+,豚,538,577,,pork,pork,yes,トン,ぶた,豚
+,逐,539,578,,pursue,pursue,yes,チク,,逐
+,遂,540,579,,consummate,consummate,yes,スイ,と・げる,遂
+,家,541,580,,house,house,yes,カ　　ケ,いえ　　や,家
+,嫁,542,581,,marry into,marry into,yes,カ,よめ　　とつ・ぐ,嫁
+,豪,543,582,,overpowering,overpowering,yes,ゴウ,,豪
+,腸,544,583,,intestines,intestines,yes,チョウ,,腸
+,場,545,584,,location,location,yes,ジョウ,ば,場
+,湯,546,585,,hot water,hot water,yes,トウ,ゆ,湯
+,羊,547,586,,sheep,sheep,yes,ヨウ,ひつじ,羊
+,美,548,587,,beauty,beauty,yes,ビ,うつく・しい,美
+,洋,549,588,,ocean,ocean,yes,ヨウ,,洋
+,詳,550,589,,detailed,detailed,yes,ショウ,くわ・しい,詳
+,鮮,551,590,,fresh,fresh,yes,セン,あざ・やか,鮮
+,達,552,591,,accomplished,accomplished,yes,タツ,,達
+,羨,553,592,,envious,envious,yes,セン,うらや・ましい　　うらや・む,羨
+,差,554,593,,distinction,distinction,yes,サ,さ・す,差
+,着,555,594,,don,don,yes,チャク　　ジャクr,き・る　　き・せる　　つ・く　　つ・ける,着
+,唯,556,595,,solely,solely,yes,ユイ　　イr,,唯
+,堆,2185,596,,piled high,piled high,yes,タイ,,堆
+,椎,2505,597,,sweet oak,sweet oak,yes,ツイ,,椎
+,誰,2712,598,,who?,who?,yes,,だれ,誰
+,焦,557,599,,char,char,yes,ショウ,こ・げる　　こ・がす　　こ・がれる　　あせ・る,焦
+,礁,558,600,,reef,reef,yes,ショウ,,礁
+,集,559,601,,gather,gather,yes,シュウ,あつ・まる　　あつ・める　　つど・う,集
+,准,560,602,,quasi-,quasi-,yes,ジュン,,准
+,進,561,603,,advance,advance,yes,シン,すす・む　　すす・める,進
+,雑,562,604,,miscellaneous,miscellaneous,yes,ザツ　　ゾウ,,雑
+,雌,563,605,,feminine,female,yes,シ,めす　　め,雌
+,準,564,606,,semi-,semi-,yes,ジュン,,準
+,奮,565,607,,stirred up,stirred up,yes,フン,ふる・う,奮
+,奪,566,608,,rob,rob,yes,ダツ,うば・う,奪
+,確,567,609,,assurance,assurance,yes,カク,たし・か　　たし・かめる,確
+,午,568,610,,noon,noon,yes,ゴ,,午
+,許,569,611,,permit,permit,yes,キョ,ゆる・す,許
+,歓,570,612,,delight,delight,yes,カン,,歓
+,権,571,613,,authority,authority,yes,ケン　　ゴンr,,権
+,観,572,614,,outlook,outlook,yes,カン,,観
+,羽,573,615,,feathers,feathers,yes,ウ,は　　はね,羽
+,習,574,616,,learn,learn,yes,シュウ,なら・う,習
+,翌,575,617,,the following,the following,yes,ヨク,,翌
+,曜,576,618,,weekday,weekday,yes,ヨウ,,曜
+,濯,577,619,,laundry,laundry,yes,タク,,濯
+,曰,578,620,22,sayeth,sayeth,no,,いわ・く,曰
+,困,579,621,,quandary,quandary,yes,コン,こま・る,困
+,固,580,622,,harden,harden,yes,コ,かた・い　　かた・まる　　かた・める,固
+,錮,3013,623,,weld,weld,yes,コ,,錮
+,国,581,624,,country,country,yes,コク,くに,国
+,団,582,625,,group,group,yes,ダン　　トンr,,団
+,因,583,626,,cause,cause,yes,イン,よ・る,因
+,姻,584,627,,matrimony,matrimony,yes,イン,,姻
+,咽,2159,628,,windpipe,windpipe,yes,イン,,咽
+,園,585,629,,park,park,yes,エン,その,園
+,回,586,630,,-times,-times,yes,カイ　　エr,まわ・す　　まわ・る,回
+,壇,587,631,,podium,podium,yes,ダン　タンr,,壇
+,店,588,632,,store,store,yes,テン,みせ,店
+,庫,589,633,,warehouse,warehouse,yes,コ　　クr,,庫
+,庭,590,634,,courtyard,courtyard,yes,テイ,にわ,庭
+,庁,591,635,,government office,government office,yes,チョウ,,庁
+,床,592,636,,bed,bed,yes,ショウ,とこ　　ゆか,床
+,麻,593,637,,hemp,hemp,yes,マ,あさ,麻
+,磨,594,638,,grind,grind,yes,マ,みが・く,磨
+,心,595,639,,heart,heart,yes,シン,こころ,心
+,忘,596,640,,forget,forget,yes,ボウ,わす・れる,忘
+,恣,3014,641,,selfish,selfish,yes,シ,,恣
+,忍,597,642,,endure,endure,yes,ニン,しの・ぶ　　しの・ばせる,忍
+,認,598,643,,acknowledge,acknowledge,yes,ニン,みと・める,認
+,忌,599,644,,mourning,mourning,yes,キ,い・む　　い・まわしい,忌
+,志,600,645,,intention,intention,yes,シ,こころざし　　こころざ・す,志
+,誌,601,646,,document,document,yes,シ,,誌
+,芯,2368,647,,wick,wick,yes,シン,,芯
+,忠,602,648,,loyalty,loyalty,yes,チュウ,,忠
+,串,603,649,,shish kebab,shish kebab,yes,,くし,串
+,患,604,650,,afflicted,afflicted,yes,カン,わずら・う,患
+,思,605,651,,think,think,yes,シ,おも・う,思
+,恩,606,652,,grace,grace,yes,オン,,恩
+,応,607,653,,apply,apply,yes,オウ,こた・える ,応
+,意,608,654,,idea,idea,yes,イ,,意
+,臆,2460,655,,cowardice,cowardice,yes,オク,,臆
+,想,609,656,,concept,concept,yes,ソウ　　ソr,,想
+,息,610,657,,breath,breath,yes,ソク,いき,息
+,憩,611,658,,recess,recess,yes,ケイ,いこ・い　　いこ・う,憩
+,恵,612,659,,favor,favor,yes,エ　　ケイ,めぐ・む,恵
+,恐,613,660,,fear,fear,yes,キョウ,おそ・れる　　おそ・ろしい,恐
+,惑,614,661,,beguile,beguile,yes,ワク,まど・う,惑
+,感,615,662,,emotion,emotion,yes,カン,,感
+,憂,616,663,,melancholy,melancholy,yes,ユウ,う・い　　うれ・い　　うれ・える,憂
+,寡,617,664,,widow,widow,yes,カ,,寡
+,忙,618,665,,busy,busy,yes,ボウ,いそが・しい,忙
+,悦,619,666,,ecstasy,ecstasy,yes,エツ,,悦
+,恒,620,667,,constancy,constancy,yes,コウ,,恒
+,悼,621,668,,lament,lament,yes,トウ,いた・む,悼
+,悟,622,669,,enlightenment,enlightenment,yes,ゴ,さと・る,悟
+,怖,623,670,,dreadful,dreadful,yes,フ,こわ・い,怖
+,慌,624,671,,disconcerted,disconcerted,yes,コウ,あわ・てる　　あわ・ただしい,慌
+,悔,625,672,,repent,repent,yes,カイ,く・いる　　くや・しい　　く・やむ,悔
+,憎,626,673,,hate,hate,yes,ゾウ,にく・む　　にく・い　　にく・しみ　　にく・らしい,憎
+,慣,627,674,,accustomed,accustomed,yes,カン,な・れる　　な・らす,慣
+,愉,628,675,,pleasure,pleasure,yes,ユ,,愉
+,惰,629,676,,lazy,lazy,yes,ダ,,惰
+,慎,630,677,,humility,humility,yes,シン,つつし・む,慎
+,憾,631,678,,remorse,remorse,yes,カン,,憾
+,憶,632,679,,recollection,recollection,yes,オク,,憶
+,惧,3015,680,,disquieting,disquieting,yes,グ,,惧
+,憧,2280,681,,yearn,yearn,yes,ショウ,あこが・れる,憧
+,憬,3016,682,,hanker,hanker,yes,ケイ,,憬
+,慕,633,683,,pining,pining,yes,ボ,した・う,慕
+,添,634,684,,annexed,annexed,yes,テン,そ・える　　そ・う,添
+,必,635,685,,invariably,invariably,yes,ヒツ,かなら・ず,必
+,泌,636,686,,ooze,ooze,yes,ヒツ　　ヒ,,泌
+,手,637,687,23,hand,hand,yes,シュ,て　　たr,手
+,看,638,688,,watch over,watch over,yes,カン,,看
+,摩,639,689,,chafe,chafe,yes,マ,,摩
+,我,640,690,,ego,ego,yes,ガ,われ　　わ,我
+,義,641,691,,righteousness,righteousness,yes,ギ,,義
+,議,642,692,,deliberation,deliberation,yes,ギ,,議
+,犠,643,693,,sacrifice,sacrifice,yes,ギ,,犠
+,抹,644,694,,rub,rub,yes,マツ,,抹
+,拭,2254,695,,wipe,wipe,yes,ショク,ぬぐ・う　　ふ・く,拭
+,拉,3017,696,,yank,yank,yes,ラ,,拉
+,抱,645,697,,embrace,embrace,yes,ホウ,だ・く　　いだ・く　　かか・える,抱
+,搭,646,698,,board,board,yes,トウ,,搭
+,抄,647,699,,extract,extract,yes,ショウ,,抄
+,抗,648,700,,confront,confront,yes,コウ,,抗
+,批,649,701,,criticism,criticism,yes,ヒ,,批
+,招,650,702,,beckon,beckon,yes,ショウ,まね・く,招
+,拓,651,703,,clear the land,clear the land,yes,タク,,拓
+,拍,652,704,,clap,clap,yes,ハク　　ヒョウr,,拍
+,打,653,705,,strike,strike,yes,ダ,う・つ,打
+,拘,654,706,,arrest,arrest,yes,コウ,,拘
+,捨,655,707,,discard,discard,yes,シャ,す・てる,捨
+,拐,656,708,,kidnap,kidnap,yes,カイ,,拐
+,摘,657,709,,pinch,pinch,yes,テキ,つ・む,摘
+,挑,658,710,,challenge,challenge,yes,チョウ,いど・む,挑
+,指,659,711,,finger,finger,yes,シ,ゆび　　さ・す,指
+,持,660,712,,hold,hold,yes,ジ,も・つ,持
+,拶,2261,713,,imminent,imminent,yes,サツ,,拶
+,括,661,714,,fasten,fasten,yes,カツ,,括
+,揮,662,715,,brandish,brandish,yes,キ,,揮
+,推,663,716,,conjecture,conjecture,yes,スイ,お・す,推
+,揚,664,717,,hoist,hoist,yes,ヨウ,あ・げる　　あ・がる,揚
+,提,665,718,,propose,propose,yes,テイ,さ・げる,提
+,損,666,719,,damage,damage,yes,ソン,そこ・なう　　そこ・ねる,損
+,拾,667,720,,pick up,pick up,yes,シュウ　　ジュウ,ひろ・う,拾
+,担,668,721,,shouldering,shouldering,yes,タン,かつ・ぐ　　にな・う,担
+,拠,669,722,,foothold,foothold,yes,キョ　　コ,,拠
+,描,670,723,,sketch,sketch,yes,ビョウ,えが・く　　か・く,描
+,操,671,724,,maneuver,maneuver,yes,ソウ,あやつ・る　　みさお,操
+,接,672,725,,touch,touch,yes,セツ,つ・ぐ,接
+,掲,673,726,,put up a notice,put up a notice,yes,ケイ,かか・げる,掲
+,掛,674,727,,hang,hang,yes,,か・ける　　か・かる　　かかり,掛
+,捗,2269,728,,make headway,make headway,yes,チョク,,捗
+,研,675,729,,polish,polish,yes,ケン,と・ぐ,研
+,戒,676,730,,commandment,commandment,yes,カイ,いまし・める,戒
+,弄,2558,731,,tinker with,tinker with,yes,ロウ,もてあそ・ぶ,弄
+,械,677,732,,contraption,contraption,yes,カイ,,械
+,鼻,678,733,,nose,nose,yes,ビ,はな,鼻
+,刑,679,734,,punish,punish,yes,ケイ,,刑
+,型,680,735,,mold,mould,yes,ケイ,かた,型
+,才,681,736,,genius,genius,yes,サイ,,才
+,財,682,737,,property,property,yes,ザイ　　サイr,,財
+,材,683,738,,lumber,lumber,yes,ザイ,,材
+,存,684,739,,suppose,suppose,yes,ソン　　ゾン,,存
+,在,685,740,,exist,exist,yes,ザイ,あ・る,在
+,乃,686,741,,from,from,no,ナイ,の,乃
+,携,687,742,,portable,portable,yes,ケイ,たずさ・える　　たずさ・わる,携
+,及,688,743,,reach out,reach out,yes,キュウ,およ・び　　およ・ぶ　　およ・ぼす ,及
+,吸,689,744,,suck,suck,yes,キュウ,す・う,吸
+,扱,690,745,,handle,handle,yes,,あつか・う,扱
+,丈,691,746,,length,length,yes,ジョウ,たけ,丈
+,史,692,747,,history,history,yes,シ,,史
+,吏,693,748,,officer,officer,yes,リ,,吏
+,更,694,749,,grow late,grow late,yes,コウ,さら　　ふ・かす　　ふ・ける,更
+,硬,695,750,,stiff,stiff,yes,コウ,かた・い,硬
+,梗,2498,751,,spiny,spiny,yes,コウ,,梗
+,又,696,752,,or again,or again,yes,,また,又
+,双,697,753,,pair,pair,yes,ソウ,ふた,双
+,桑,698,754,,mulberry,mulberry,yes,ソウ,くわ,桑
+,隻,699,755,,vessels,vessels,yes,セキ,,隻
+,護,700,756,,safeguard,safeguard,yes,ゴ,,護
+,獲,701,757,,seize,seize,yes,カク,え・る,獲
+,奴,702,758,,guy,guy,yes,ド,,奴
+,怒,703,759,,angry,angry,yes,ド,いか・る　　おこ・る,怒
+,友,704,760,,friend,friend,yes,ユウ,とも,友
+,抜,705,761,,slip out,slip out,yes,バツ,ぬ・く　　ぬ・ける　　ぬ・かす　　ぬ・かる,抜
+,投,706,762,,throw,throw,yes,トウ,な・げる,投
+,没,707,763,,drown,drown,yes,ボツ,,没
+,股,2454,764,,thigh,thigh,yes,コ,また,股
+,設,708,765,,establishment,establishment,yes,セツ,もう・ける,設
+,撃,709,766,,beat,beat,yes,ゲキ,う・つ,撃
+,殻,710,767,,husk,husk,yes,カク,から,殻
+,支,711,768,,branch,branch,yes,シ,ささ・える,支
+,技,712,769,,skill,skill,yes,ギ,わざ,技
+,枝,713,770,,bough,bough,yes,シ,えだ,枝
+,肢,714,771,,limb,limb,yes,シ,,肢
+,茎,715,772,,stalk,stalk,yes,ケイ,くき,茎
+,怪,716,773,,suspicious,suspicious,yes,カイ,あや・しい　　あや・しむ,怪
+,軽,717,774,,lightly,lightly,yes,ケイ,かる・い　　かろ・やか,軽
+,叔,718,775,,uncle,uncle,yes,シュク,,叔
+,督,719,776,,coach,coach,yes,トク,,督
+,寂,720,777,,loneliness,loneliness,yes,ジャク　　セキr,さび・しい　　さび　　さび・れる,寂
+,淑,721,778,,graceful,graceful,yes,シュク,,淑
+,反,722,779,,anti-,anti-,yes,ハン　　ホン　　タンr,そ・らす　　そ・る,反
+,坂,723,780,,slope,slope,yes,ハン,さか,坂
+,板,724,781,,plank,plank,yes,ハン　　バン,いた,板
+,返,725,782,,return,return,yes,ヘン,かえ・す　　かえ・る,返
+,販,726,783,,marketing,marketing,yes,ハン,,販
+,爪,727,784,,claw,claw,yes,,つめ　　つまr,爪
+,妥,728,785,,gentle,gentle,yes,ダ,,妥
+,乳,729,786,,milk,milk,yes,ニュウ,ち　　ちち,乳
+,浮,730,787,,floating,floating,yes,フ,う・かぶ　　う・かべる　　う・かれる　　う・く,浮
+,淫,2298,788,,lewd,lewd,yes,イン,みだ・ら,淫
+,将,731,789,,leader,leader,yes,ショウ,,将
+,奨,732,790,,exhort,exhort,yes,ショウ,,奨
+,采,2090,791,,grab,grab,yes,サイ,,采
+,採,733,792,,pick,pick,yes,サイ,と・る,採
+,菜,734,793,,vegetable,vegetable,yes,サイ,な,菜
+,受,735,794,,accept,accept,yes,ジュ,う・ける　　う・かる,受
+,授,736,795,,impart,impart,yes,ジュ,さず・かる　　さず・ける,授
+,愛,737,796,,love,love,yes,アイ,,愛
+,曖,2437,797,,equivocal,unclear,yes,アイ,,曖
+,払,738,798,,pay,pay,yes,フツ,はら・う,払
+,広,739,799,,wide,wide,yes,コウ,ひろ・い　　ひろ・がる　　ひろ・げる　　ひろ・まる　　ひろ・める,広
+,勾,2148,800,,flexed,hooked,yes,コウ,,勾
+,拡,740,801,,broaden,broaden,yes,カク,,拡
+,鉱,741,802,,mineral,mineral,yes,コウ,,鉱
+,弁,742,803,,valve,valve,yes,ベン,,弁
+,雄,743,804,,masculine,male,yes,ユウ,おす　　お,雄
+,台,744,805,,pedestal,pedestal,yes,ダイ　　タイ,,台
+,怠,745,806,,neglect,neglect,yes,タイ,おこた・る　　なま・ける,怠
+,治,746,807,,reign,reign,yes,ジ　　チ,おさ・まる　　おさ・める　　なお・す　　なお・る,治
+,冶,2137,808,,metallurgy,metallurgy,yes,ヤ,,冶
+,始,747,809,,commence,commence,yes,シ,はじ・まる　　はじ・める,始
+,胎,748,810,,womb,womb,yes,タイ,,胎
+,窓,749,811,,window,window,yes,ソウ,まど,窓
+,去,750,812,,gone,gone,yes,キョ　　コ,さ・る,去
+,法,751,813,,method,method,yes,ホウ　　ハッ　　ホッr,,法
+,会,752,814,,meeting,meeting,yes,カイ　　エ,あ・う,会
+,至,753,815,,climax,climax,yes,シ,いた・る,至
+,室,754,816,,room,room,yes,シツ,むろ,室
+,到,755,817,,arrival,arrival,yes,トウ,,到
+,致,756,818,,doth,doth,yes,チ,いた・す,致
+,互,757,819,,mutually,mutually,yes,ゴ,たが・い,互
+,棄,758,820,,abandon,abandon,yes,キ,,棄
+,育,759,821,,bring up,bring up,yes,イク,そだ・てる　　そだ・つ　　はぐく・む ,育
+,撤,760,822,,remove,remove,yes,テツ,,撤
+,充,761,823,,allot,allot,yes,ジュウ,あ・てる,充
+,銃,762,824,,gun,gun,yes,ジュウ,,銃
+,硫,763,825,,sulfur,sulfur,yes,リュウ,,硫
+,流,764,826,,current,current,yes,リュウ　　ルr,なが・す　　なが・れる,流
+,允,765,827,,license,license,no,イン,,允
+,唆,766,828,,tempt,tempt,yes,サ,そそのか・す,唆
+,出,767,829,24,exit,exit,yes,シュツ　　スイr,だ・す　　で・る,出
+,山,768,830,,mountain,mountain,yes,サン,やま,山
+,拙,769,831,,bungling,bungling,yes,セツ,つたな・い,拙
+,岩,770,832,,boulder,boulder,yes,ガン,いわ,岩
+,炭,771,833,,charcoal,charcoal,yes,タン,すみ,炭
+,岐,772,834,,branch off,branch off,yes,キ,,岐
+,峠,773,835,,mountain peak,mountain pass,yes,,とうげ,峠
+,崩,774,836,,crumble,crumble,yes,ホウ,くず・す　　くず・れる,崩
+,密,775,837,,secrecy,secrecy,yes,ミツ,,密
+,蜜,776,838,,honey,honey,yes,ミツ,,蜜
+,嵐,777,839,,storm,storm,yes,,あらし,嵐
+,崎,778,840,,promontory,promontory,yes,,さき,崎
+,崖,2227,841,,bluffs,bluffs,yes,ガイ,がけ,崖
+,入,779,842,,enter,enter,yes,ニュウ,はい・る　　い・れる　　い・る,入
+,込,780,843,,crowded,crowded,yes,,こ・む　　こ・める,込
+,分,781,844,,part,part,yes,ブン　　フン　　ブ,わ・かる　　わ・ける　　わ・かれる　　わ・かつ,分
+,貧,782,845,,poverty,poverty,yes,ヒン　　ビン,まず・しい,貧
+,頒,783,846,,partition,partition,yes,ハン,,頒
+,公,784,847,,public,public,yes,コウ,おおやけ,公
+,松,785,848,,pine tree,pine tree,yes,ショウ,まつ,松
+,翁,786,849,,venerable old man,venerable old man,yes,オウ,,翁
+,訟,787,850,,sue,sue,yes,ショウ,,訟
+,谷,788,851,,valley,valley,yes,コク,たに,谷
+,浴,789,852,,bathe,bathe,yes,ヨク,あ・びる　　あ・びせる,浴
+,容,790,853,,contain,contain,yes,ヨウ,,容
+,溶,791,854,,melt,melt,yes,ヨウ,と・く　　と・ける　　と・かす,溶
+,欲,792,855,,longing,longing,yes,ヨク,ほ・しい　　ほっ・する,欲
+,裕,793,856,,abundant,abundant,yes,ユウ,,裕
+,鉛,794,857,,lead (metal),lead (metal),yes,エン,なまり,鉛
+,沿,795,858,,run alongside,run alongside,yes,エン,そ・う,沿
+,賞,796,859,25,prize,prize,yes,ショウ,,賞
+,党,797,860,,party,party,yes,トウ,,党
+,堂,798,861,,public chamber,hall,yes,ドウ,,堂
+,常,799,862,,usual,usual,yes,ジョウ,つね　　とこ,常
+,裳,800,863,,skirt,skirt,no,ショウ,も,裳
+,掌,801,864,,manipulate,manipulate,yes,ショウ,,掌
+,皮,802,865,,pelt,pelt,yes,ヒ,かわ,皮
+,波,803,866,,waves,waves,yes,ハ,なみ,波
+,婆,804,867,,old woman,old woman,yes,バ,,婆
+,披,805,868,,expose,expose,yes,ヒ,,披
+,破,806,869,,rend,rend,yes,ハ,やぶ・る　　やぶ・れる,破
+,被,807,870,,incur,incur,yes,ヒ,こうむ・る,被
+,残,808,871,,remainder,remainder,yes,ザン,のこ・す　　のこ・る,残
+,殉,809,872,,martyrdom,martyrdom,yes,ジュン,,殉
+,殊,810,873,,particularly,particularly,yes,シュ,こと,殊
+,殖,811,874,,augment,augment,yes,ショク,ふ・える　　ふ・やす,殖
+,列,812,875,,file,file,yes,レツ,,列
+,裂,813,876,,split,split,yes,レツ,さ・く　　さ・ける,裂
+,烈,814,877,,ardent,ardent,yes,レツ,,烈
+,死,815,878,,death,death,yes,シ,し・ぬ,死
+,葬,816,879,,interment,interment,yes,ソウ,ほうむ・る,葬
+,瞬,817,880,,wink,wink,yes,シュン,またた・く,瞬
+,耳,818,881,,ear,ear,yes,ジ,みみ,耳
+,取,819,882,,take,take,yes,シュ,と・る,取
+,趣,820,883,,gist,gist,yes,シュ,おもむき,趣
+,最,821,884,,utmost,utmost,yes,サイ,もっと・も,最
+,撮,822,885,,snapshot,snapshot,yes,サツ,と・る,撮
+,恥,823,886,,shame,shame,yes,チ,は・ずかしい　　はじ　　は・じらう　　は・じる,恥
+,職,824,887,,post,post,yes,ショク,,職
+,聖,825,888,,holy,holy,yes,セイ,,聖
+,敢,826,889,,daring,daring,yes,カン,,敢
+,聴,827,890,,listen,listen,yes,チョウ,き・く,聴
+,懐,828,891,,pocket,pocket,yes,カイ,なつ・かしい　　なつ・かしむ　　なつ・く　　なつ・ける　　ふところ,懐
+,慢,829,892,,ridicule,ridicule,yes,マン,,慢
+,漫,830,893,,loose,loose,yes,マン,,漫
+,買,831,894,,buy,buy,yes,バイ,か・う,買
+,置,832,895,,placement,placement,yes,チ,お・く,置
+,罰,833,896,,penalty,penalty,yes,バツ　　バチ,,罰
+,寧,834,897,,rather,rather,yes,ネイ,,寧
+,濁,835,898,,voiced,voiced,yes,ダク,にご・す　　にご・る,濁
+,環,836,899,,ring,ring,yes,カン,,環
+,還,837,900,,send back,send back,yes,カン,,還
+,夫,838,901,,husband,husband,yes,フ　　フウr,おっと,夫
+,扶,839,902,,aid,aid,yes,フ,,扶
+,渓,840,903,,mountain stream,mountain stream,yes,ケイ,,渓
+,規,841,904,,standard,standard,yes,キ,,規
+,替,842,905,,exchange,exchange,yes,タイ,か・える　　か・わる,替
+,賛,843,906,,approve,approve,yes,サン,,賛
+,潜,844,907,,submerge,submerge,yes,セン,もぐ・る　　ひそ・む,潜
+,失,845,908,,lose,lose,yes,シツ,うしな・う,失
+,鉄,846,909,,iron,iron,yes,テツ,,鉄
+,迭,847,910,,alternate,alternate,yes,テツ,,迭
+,臣,848,911,,retainer,retainer,yes,シン　　ジン,,臣
+,姫,849,912,,princess,princess,yes,,ひめ,姫
+,蔵,850,913,,storehouse,storehouse,yes,ゾウ,くら,蔵
+,臓,851,914,,entrails,entrails,yes,ゾウ,,臓
+,賢,852,915,,intelligent,intelligent,yes,ケン,かしこ・い,賢
+,腎,2453,916,,kidney,kidney,yes,ジン,,腎
+,堅,853,917,,strict,strict,yes,ケン,かた・い,堅
+,臨,854,918,,look to,look to,yes,リン,のぞ・む,臨
+,覧,855,919,,perusal,perusal,yes,ラン,,覧
+,巨,856,920,,gigantic,gigantic,yes,キョ,,巨
+,拒,857,921,,repel,repel,yes,キョ,こば・む,拒
+,力,858,922,,power,power,yes,リョク　　リキ,ちから,力
+,男,859,923,,male,man,yes,ダン　　ナン,おとこ,男
+,労,860,924,,labor,labor,yes,ロウ,,労
+,募,861,925,,recruit,recruit,yes,ボ,つの・る,募
+,劣,862,926,,inferiority,inferiority,yes,レツ,おと・る,劣
+,功,863,927,,achievement,achievement,yes,コウ　　クr,,功
+,勧,864,928,,persuade,persuade,yes,カン,すす・める,勧
+,努,865,929,,toil,toil,yes,ド,つと・める,努
+,勃,2858,930,,erection,uprising,yes,ボツ,,勃
+,励,866,931,,encourage,encourage,yes,レイ,はげ・ます　　はげ・む,励
+,加,867,932,,add,add,yes,カ,くわ・える　　くわ・わる,加
+,賀,868,933,,congratulations,congratulations,yes,ガ,,賀
+,架,869,934,,erect,erect,yes,カ,か・かる　　か・ける,架
+,脇,870,935,,armpit,armpit,yes,,わき,脇
+,脅,871,936,,threaten,threaten,yes,キョウ,おど・す　　おど・かす　　おびや・かす,脅
+,協,872,937,,co-,co-,yes,キョウ,,協
+,行,873,938,,going,going,yes,コウ　　ギョウ　　アンr,い・く　　ゆ・く　　おこな・う,行
+,律,874,939,,rhythm,rhythm,yes,リツ 　　リチr,,律
+,復,875,940,,restore,restore,yes,フク,,復
+,得,876,941,,gain,gain,yes,トク,う・る　　え・る,得
+,従,877,942,,accompany,accompany,yes,ジュウ　　ジュ　　ショウr,したが・う　　したが・える,従
+,徒,878,943,,junior,junior,yes,ト,,徒
+,待,879,944,,wait,wait,yes,タイ,ま・つ,待
+,往,880,945,,journey,journey,yes,オウ,,往
+,征,881,946,,subjugate,subjugate,yes,セイ,,征
+,径,882,947,,diameter,diameter,yes,ケイ,,径
+,彼,883,948,,he,he,yes,ヒ,かれ　　かのr,彼
+,役,884,949,,duty,duty,yes,ヤク　　エキ,,役
+,徳,885,950,,benevolence,benevolence,yes,トク,,徳
+,徹,886,951,,penetrate,penetrate,yes,テツ,,徹
+,徴,887,952,,indications,indications,yes,チョウ,,徴
+,懲,888,953,,penal,penal,yes,チョウ,こ・らす　　こ・らしめる　　こ・りる,懲
+,微,889,954,,delicate,delicate,yes,ビ,,微
+,街,890,955,,boulevard,boulevard,yes,ガイ　　カイr,まち,街
+,桁,2483,956,,girder,girder,yes,,けた,桁
+,衡,891,957,,equilibrium,equilibrium,yes,コウ,,衡
+,稿,892,958,26,draft,draft,yes,コウ,,稿
+,稼,893,959,,earnings,earnings,yes,カ,かせ・ぐ,稼
+,程,894,960,,extent,extent,yes,テイ,ほど,程
+,税,895,961,,tax,tax,yes,ゼイ,,税
+,稚,896,962,,immature,immature,yes,チ,,稚
+,和,897,963,,harmony,harmony,yes,ワ　　オr,なご・む　　なご・やか　　やわ・らぐ　　やわ・らげる,和
+,移,898,964,,shift,shift,yes,イ,うつ・す　　うつ・る,移
+,秒,899,965,,second,second,yes,ビョウ,,秒
+,秋,900,966,,autumn,autumn,yes,シュウ,あき,秋
+,愁,901,967,,distress,distress,yes,シュウ,うれ・い　　うれ・える,愁
+,私,902,968,,private,private,yes,シ,わたくし　　わたし,私
+,秩,903,969,,regularity,regularity,yes,チツ,,秩
+,秘,904,970,,secret,secret,yes,ヒ,ひ・める,秘
+,称,905,971,,appellation,appellation,yes,ショウ,,称
+,利,906,972,,profit,profit,yes,リ,き・く,利
+,梨,907,973,,pear tree,pear tree,yes,,なし,梨
+,穫,908,974,,harvest,harvest,yes,カク,,穫
+,穂,909,975,,ear of a plant,ear of a plant,yes,スイ,ほ,穂
+,稲,910,976,,rice plant,rice plant,yes,トウ,いね　　いなr,稲
+,香,911,977,,incense,incense,yes,コウ　　キョウr,か　　かお・り　　かお・る,香
+,季,912,978,,seasons,seasons,yes,キ,,季
+,委,913,979,,committee,committee,yes,イ,ゆだ・ねる ,委
+,秀,914,980,,excel,excel,yes,シュウ,ひい・でる,秀
+,透,915,981,,transparent,transparent,yes,トウ,す・かす　　す・く　　す・ける,透
+,誘,916,982,,entice,entice,yes,ユウ,さそ・う,誘
+,稽,2088,983,,training,training,yes,ケイ,,稽
+,穀,917,984,,cereals,cereals,yes,コク,,穀
+,菌,918,985,,germ,germ,yes,キン,,菌
+,萎,2355,986,,numb,numb,yes,イ,な・える,萎
+,米,919,987,,rice,rice,yes,ベイ　　マイ,こめ,米
+,粉,920,988,,flour,flour,yes,フン,こな　　こ,粉
+,粘,921,989,,sticky,sticky,yes,ネン,ねば・る,粘
+,粒,922,990,,grains,grains,yes,リュウ,つぶ,粒
+,粧,923,991,,cosmetics,cosmetics,yes,ショウ,,粧
+,迷,924,992,,astray,astray,yes,メイ,まよ・う,迷
+,粋,925,993,,chic,chic,yes,スイ,いき,粋
+,謎,2709,994,,riddle,riddle,yes,,なぞ,謎
+,糧,926,995,,provisions,provisions,yes,リョウ　　ロウr,かて,糧
+,菊,927,996,,chrysanthemum,chrysanthemum,yes,キク,,菊
+,奥,928,997,,core,core,yes,オウ,おく,奥
+,数,929,998,,number,number,yes,スウ　　スr,かず　　かぞ・える,数
+,楼,930,999,,watchtower,watchtower,yes,ロウ,,楼
+,類,931,1000,,sort,sort,yes,ルイ,たぐ・い ,類
+,漆,932,1001,,lacquer,lacquer,yes,シツ,うるし,漆
+,膝,2461,1002,,knee,knee,yes,,ひざ,膝
+,様,933,1003,,Esq.,Esq.,yes,ヨウ,さま,様
+,求,934,1004,,request,request,yes,キュウ,もと・める,求
+,球,935,1005,,ball,ball,yes,キュウ,たま,球
+,救,936,1006,,salvation,salvation,yes,キュウ,すく・う,救
+,竹,937,1007,,bamboo,bamboo,yes,チク,たけ,竹
+,笑,938,1008,,laugh,laugh,yes,ショウ,わら・う　　え・む,笑
+,笠,939,1009,,bamboo hat,bamboo hat,no,,かさ,笠
+,笹,940,1010,,bamboo grass,bamboo grass,no,,ささ,笹
+,箋,2991,1011,,stationary,stationery,yes,セン,,箋
+,筋,941,1012,,muscle,muscle,yes,キン,すじ,筋
+,箱,942,1013,,box,box,yes,,はこ,箱
+,筆,943,1014,,writing brush,writing brush,yes,ヒツ,ふで,筆
+,筒,944,1015,,cylinder,cylinder,yes,トウ,つつ,筒
+,等,945,1016,,etc.,etc.,yes,トウ,ひと・しい,等
+,算,946,1017,,calculate,calculate,yes,サン,,算
+,答,947,1018,,solution,solution,yes,トウ,こた・え　　こた・える,答
+,策,948,1019,,scheme,scheme,yes,サク,,策
+,簿,949,1020,,register,register,yes,ボ,,簿
+,築,950,1021,,fabricate,fabricate,yes,チク,きず・く,築
+,篭,2638,1022,,cage,basket,no,ロウ,こ・もる　　かご,篭
+,人,951,1023,27,person,person,yes,ジン　　ニン,ひと,人
+,佐,952,1024,,assistant,assistant,yes,サ,,佐
+,侶,2121,1025,,partner,partner,yes,リョ,,侶
+,但,953,1026,,however,however,yes,,ただ・し,但
+,住,954,1027,,dwell,dwell,yes,ジュウ,す・む　　す・まう,住
+,位,955,1028,,rank,rank,yes,イ,くらい,位
+,仲,956,1029,,go-between,go-between,yes,チュウ,なか,仲
+,体,957,1030,,body,body,yes,タイ　　テイ,からだ,体
+,悠,958,1031,,remote,remote,yes,ユウ,,悠
+,件,959,1032,,affair,affair,yes,ケン,,件
+,仕,960,1033,,attend,attend,yes,シ　　ジr,つか・える,仕
+,他,961,1034,,other,other,yes,タ,ほか ,他
+,伏,962,1035,,prostrated,prostrated,yes,フク,ふ・す　　ふ・せる,伏
+,伝,963,1036,,transmit,transmit,yes,デン,つた・える　　つた・わる　　つた・う,伝
+,仏,964,1037,,Buddha,Buddha,yes,ブツ,ほとけ,仏
+,休,965,1038,,rest,rest,yes,キュウ,やす・む　　やす・まる　　やす・める,休
+,仮,966,1039,,provisional,provisional,yes,カ　　ケr,かり,仮
+,伎,2122,1040,,performing artist,performing artist,yes,キ,,伎
+,伯,967,1041,,chief,chief,yes,ハク,,伯
+,俗,968,1042,,vulgar,vulgar,yes,ゾク,,俗
+,信,969,1043,,faith,faith,yes,シン,,信
+,佳,970,1044,,excellent,excellent,yes,カ,,佳
+,依,971,1045,,reliant,reliant,yes,イ　　エr,,依
+,例,972,1046,,example,example,yes,レイ,たと・える,例
+,個,973,1047,,individual,individual,yes,コ,,個
+,健,974,1048,,healthy,healthy,yes,ケン,すこ・やか,健
+,側,975,1049,,side,side,yes,ソク,がわ ,側
+,侍,976,1050,,waiter,waiter,yes,ジ,さむらい,侍
+,停,977,1051,,halt,halt,yes,テイ,,停
+,値,978,1052,,price,price,yes,チ,あたい　　ね,値
+,倣,979,1053,,emulate,emulate,yes,ホウ,なら・う,倣
+,傲,3018,1054,,arrogance,arrogance,yes,ゴウ,,傲
+,倒,980,1055,,overthrow,overthrow,yes,トウ,たお・す　　たお・れる,倒
+,偵,981,1056,,spy,spy,yes,テイ,,偵
+,僧,982,1057,,Buddhist priest,Buddhist priest,yes,ソウ,,僧
+,億,983,1058,,hundred million,hundred million,yes,オク,,億
+,儀,984,1059,,ceremony,ceremony,yes,ギ,,儀
+,償,985,1060,,reparation,reparation,yes,ショウ,つぐな・う,償
+,仙,986,1061,,hermit,hermit,yes,セン,,仙
+,催,987,1062,,sponsor,sponsor,yes,サイ,もよお・す,催
+,仁,988,1063,,humanity,humanity,yes,ジン　　ニr,,仁
+,侮,989,1064,,scorn,scorn,yes,ブ,あなど・る,侮
+,使,990,1065,,use,use,yes,シ,つか・う,使
+,便,991,1066,,convenience,convenience,yes,ベン　　ビン,たよ・り,便
+,倍,992,1067,,double,double,yes,バイ,,倍
+,優,993,1068,,tenderness,tenderness,yes,ユウ,やさ・しい　　すぐ・れる,優
+,伐,994,1069,,fell,fell,yes,バツ,,伐
+,宿,995,1070,,inn,inn,yes,シュク,やど　　やど・す　　やど・る,宿
+,傷,996,1071,,wound,wound,yes,ショウ,きず　　いた・む　　いた・める,傷
+,保,997,1072,,protect,protect,yes,ホ,たも・つ,保
+,褒,998,1073,,praise,praise,yes,ホウ,ほ・める,褒
+,傑,999,1074,,greatness,greatness,yes,ケツ,,傑
+,付,1000,1075,,adhere,adhere,yes,フ,つ・く　　つ・ける,付
+,符,1001,1076,,token,token,yes,フ,,符
+,府,1002,1077,,municipality,municipality,yes,フ,,府
+,任,1003,1078,,responsibility,responsibility,yes,ニン,まか・す　　まか・せる,任
+,賃,1004,1079,,fare,fare,yes,チン,,賃
+,代,1005,1080,,substitute,substitute,yes,ダイ　　タイ,か・える　　か・わる　　しろ　　よ,代
+,袋,1006,1081,,sack,sack,yes,タイ,ふくろ,袋
+,貸,1007,1082,,lend,lend,yes,タイ,か・す,貸
+,化,1008,1083,,change,change,yes,カ　　ケ,ば・かす　　ば・ける,化
+,花,1009,1084,,flower,flower,yes,カ,はな,花
+,貨,1010,1085,,freight,freight,yes,カ,,貨
+,傾,1011,1086,,lean,lean,yes,ケイ,かたむ・く　　かたむ・ける,傾
+,何,1012,1087,,what,what,yes,カ,なに　　なんr,何
+,荷,1013,1088,,baggage,baggage,yes,カ,に,荷
+,俊,1014,1089,,sagacious,sagacious,yes,シュン,,俊
+,傍,1015,1090,,bystander,bystander,yes,ボウ,かたわ・ら,傍
+,俺,2058,1091,,myself,myself,yes,,おれ,俺
+,久,1016,1092,,long time,long time,yes,キュウ　　クr,ひさ・しい,久
+,畝,1017,1093,,furrow,furrow,yes,,うね　,畝
+,囚,1018,1094,,captured,captured,yes,シュウ,,囚
+,内,1019,1095,,inside,inside,yes,ナイ　　ダイr,うち,内
+,丙,1020,1096,,third class,third class,yes,ヘイ,,丙
+,柄,1021,1097,,design,design,yes,ヘイ,がら　　え,柄
+,肉,1022,1098,,meat,meat,yes,ニク,,肉
+,腐,1023,1099,,rot,rot,yes,フ,くさ・る　　くさ・れる　　くさ・らす,腐
+,座,1024,1100,,sit,sit,yes,ザ,すわ・る,座
+,挫,2845,1101,,sprain,sprain,yes,ザ,,挫
+,卒,1025,1102,,graduate,graduate,yes,ソツ,,卒
+,傘,1026,1103,,umbrella,umbrella,yes,サン,かさ,傘
+,匁,1027,1104,28,monme,monme,no,,もんめ,匁
+,以,1028,1105,,by means of,by means of,yes,イ,,以
+,似,1029,1106,,similar,similar,yes,ジ,に・る,似
+,併,1030,1107,,join,join,yes,ヘイ,あわ・せる,併
+,瓦,1031,1108,,tile,tile,yes,ガ,かわら,瓦
+,瓶,1032,1109,,flower pot,flower pot,yes,ビン,,瓶
+,宮,1033,1110,,Shinto shrine,Shinto shrine,yes,キュウ　　グウ　　クr,みや,宮
+,営,1034,1111,,occupation,occupation,yes,エイ,いとな・む,営
+,善,1035,1112,,virtuous,virtuous,yes,ゼン,よ・い,善
+,膳,2468,1113,,dining tray,dining tray,yes,ゼン,,膳
+,年,1036,1114,,year,year,yes,ネン,とし,年
+,夜,1037,1115,,night,night,yes,ヤ,よ　　よる,夜
+,液,1038,1116,,fluid,fluid,yes,エキ,,液
+,塚,1039,1117,,hillock,hillock,yes,,つか,塚
+,幣,1040,1118,,cash,cash,yes,ヘイ,,幣
+,蔽,2358,1119,,cover over,cover over,yes,ヘイ,,蔽
+,弊,1041,1120,,abuse,abuse,yes,ヘイ,,弊
+,喚,1042,1121,,yell,yell,yes,カン,,喚
+,換,1043,1122,,interchange,interchange,yes,カン,か・える　　か・わる,換
+,融,1044,1123,,dissolve,dissolve,yes,ユウ,,融
+,施,1045,1124,29,alms,alms,yes,シ　　セ,ほどこ・す,施
+,旋,1046,1125,,rotation,rotation,yes,セン,,旋
+,遊,1047,1126,,play,play,yes,ユウ　　ユr,あそ・ぶ,遊
+,旅,1048,1127,,trip,trip,yes,リョ,たび,旅
+,勿,1049,1128,,not,not,no,モチ,,勿
+,物,1050,1129,,thing,thing,yes,ブツ　　モツ,もの,物
+,易,1051,1130,,easy,easy,yes,エキ　　イ,やさ・しい,易
+,賜,1052,1131,,grant,grant,yes,シ,たまわ・る,賜
+,尿,1053,1132,,urine,urine,yes,ニョウ,,尿
+,尼,1054,1133,,nun,nun,yes,ニ,あま,尼
+,尻,2220,1134,,buttocks,buttocks,yes,,しり,尻
+,泥,1055,1135,,mud,mud,yes,デイ,どろ,泥
+,塀,1056,1136,,fence,fence,yes,へい,,塀
+,履,1057,1137,,footgear,footgear,yes,リ,は・く,履
+,屋,1058,1138,,roof,roof,yes,オク,や,屋
+,握,1059,1139,,grip,grip,yes,アク,にぎ・る,握
+,屈,1060,1140,,yield,yield,yes,クツ,,屈
+,掘,1061,1141,,dig,dig,yes,クツ,ほ・る,掘
+,堀,1062,1142,,ditch,ditch,yes,,ほり,堀
+,居,1063,1143,,reside,reside,yes,キョ,い・る,居
+,据,1064,1144,,set,set,yes,,す・える　　す・わる,据
+,裾,2624,1145,,hem,hem,yes,,すそ,裾
+,層,1065,1146,,stratum,stratum,yes,ソウ,,層
+,局,1066,1147,,bureau,bureau,yes,キョク,,局
+,遅,1067,1148,,slow,slow,yes,チ,おそ・い　　おく・れる　　おく・らす,遅
+,漏,1068,1149,,leak,leak,yes,ロウ,も・らす　　も・る　　も・れる,漏
+,刷,1069,1150,,printing,printing,yes,サツ,す・る,刷
+,尺,1070,1151,,shaku,shaku,yes,シャク,,尺
+,尽,1071,1152,,exhaust,exhaust,yes,ジン,つ・かす　　つ・くす　　つ・きる,尽
+,沢,1072,1153,,swamp,swamp,yes,タク,さわ,沢
+,訳,1073,1154,,translate,translate,yes,ヤク,わけ,訳
+,択,1074,1155,,choose,choose,yes,タク,,択
+,昼,1075,1156,,daytime,daytime,yes,チュウ,ひる,昼
+,戸,1076,1157,,door,door,yes,コ,と,戸
+,肩,1077,1158,,shoulder,shoulder,yes,ケン,かた,肩
+,房,1078,1159,,tassel,tassel,yes,ボウ,ふさ,房
+,扇,1079,1160,,fan,fan,yes,セン,おうぎ,扇
+,炉,1080,1161,,hearth,hearth,yes,ロ,,炉
+,戻,1081,1162,,re-,re-,yes,レイ,もど・す　　もど・る,戻
+,涙,1082,1163,,tears,tears,yes,ルイ,なみだ,涙
+,雇,1083,1164,,employ,employ,yes,コ,やと・う,雇
+,顧,1084,1165,,look back,look back,yes,コ,かえり・みる,顧
+,啓,1085,1166,,disclose,disclose,yes,ケイ,,啓
+,示,1086,1167,30,show,show,yes,ジ　　シ,しめ・す,示
+,礼,1087,1168,,salutation,salutation,yes,レイ　　ライ,,礼
+,祥,1088,1169,,auspicious,auspicious,yes,ショウ,,祥
+,祝,1089,1170,,celebrate,celebrate,yes,シュク　　シュウr,いわ・う,祝
+,福,1090,1171,,blessing,blessing,yes,フク,,福
+,祉,1091,1172,,welfare,welfare,yes,シ,,祉
+,社,1092,1173,,company,company,yes,シャ,やしろ,社
+,視,1093,1174,,inspection,inspection,yes,シ,,視
+,奈,1094,1175,,Nara,Nara,yes,ナ,,奈
+,尉,1095,1176,,military officer,military officer,yes,イ,,尉
+,慰,1096,1177,,consolation,consolation,yes,イ,なぐさ・む　　なぐさ・める,慰
+,款,1097,1178,,goodwill,goodwill,yes,カン,,款
+,禁,1098,1179,,prohibition,prohibition,yes,キン,,禁
+,襟,1099,1180,,collar,collar,yes,キン,えり,襟
+,宗,1100,1181,,religion,religion,yes,シュウ　　ソウ,,宗
+,崇,1101,1182,,adore,adore,yes,スウ,,崇
+,祭,1102,1183,,ritual,ritual,yes,サイ,まつ・り　　まつ・る,祭
+,察,1103,1184,,guess,guess,yes,サツ,,察
+,擦,1104,1185,,grate,grate,yes,サツ,す・る　　す・れる,擦
+,由,1105,1186,,wherefore,wherefore,yes,ユ　　ユウ　 ユイr,よし,由
+,抽,1106,1187,,pluck,pluck,yes,チュウ,,抽
+,油,1107,1188,,oil,oil,yes,ユ,あぶら,油
+,袖,1108,1189,,sleeve,sleeve,yes,シュウ,そで,袖
+,宙,1109,1190,,mid-air,mid-air,yes,チュウ,,宙
+,届,1110,1191,,deliver,deliver,yes,,とど・く　　とど・ける,届
+,笛,1111,1192,,flute,flute,yes,テキ,ふえ,笛
+,軸,1112,1193,,axis,axis,yes,ジク,,軸
+,甲,1113,1194,,armor,armor,yes,コウ　　カン,,甲
+,押,1114,1195,,push,push,yes,オウ,お・す　　お・さえる,押
+,岬,1115,1196,,headland,headland,yes,,みさき,岬
+,挿,1116,1197,,insert,insert,yes,ソウ,さ・す,挿
+,申,1117,1198,,speaketh,speaketh,yes,シン,もう・す,申
+,伸,1118,1199,,expand,expand,yes,シン,の・ばす　　の・びる　　の・べる ,伸
+,神,1119,1200,,gods,gods,yes,シン　　ジン,かみ　　かん　　こうr,神
+,捜,1120,1201,,search,search,yes,ソウ,さが・す,捜
+,果,1121,1202,,fruit,fruit,yes,カ,は・たす　　は・て　　は・てる,果
+,菓,1122,1203,,candy,confectionary,yes,カ,,菓
+,課,1123,1204,,chapter,chapter,yes,カ,,課
+,裸,1124,1205,,naked,naked,yes,ラ,はだか,裸
+,斤,1125,1206,31,ax,ax,yes,キン,,斤
+,析,1126,1207,,chop,chop,yes,セキ,,析
+,所,1127,1208,,place,place,yes,ショ,ところ,所
+,祈,1128,1209,,pray,pray,yes,キ,いの・る,祈
+,近,1129,1210,,near,near,yes,キン,ちか・い,近
+,折,1130,1211,,fold,fold,yes,セツ,お・る　　お・れる　　おり,折
+,哲,1131,1212,,philosophy,philosophy,yes,テツ,,哲
+,逝,1132,1213,,departed,departed,yes,セイ,ゆ・く　　い・く,逝
+,誓,1133,1214,,vow,vow,yes,セイ,ちか・う,誓
+,斬,2092,1215,,chop off,chop off,yes,ザン,,斬
+,暫,1134,1216,,temporarily,temporarily,yes,ザン,き・る,暫
+,漸,1135,1217,,steadily,steadily,yes,ゼン,,漸
+,断,1136,1218,,severance,severance,yes,ダン,ことわ・る　　た・つ,断
+,質,1137,1219,,substance,substance,yes,シツ　　シチ　　チr,,質
+,斥,1138,1220,,reject,reject,yes,セキ,,斥
+,訴,1139,1221,,accusation,accusation,yes,ソ,うった・える,訴
+,昨,1140,1222,,yesterday,yesterday,yes,サク,,昨
+,詐,1141,1223,,lie,lie,yes,サ,,詐
+,作,1142,1224,,make,make,yes,サク　　サ,つく・る,作
+,雪,1143,1225,,snow,snow,yes,セツ,ゆき,雪
+,録,1144,1226,,record,record,yes,ロク,,録
+,剥,2145,1227,,peel off,peel off,yes,ハク,は・がす　　は・ぐ　　は・げる　　は・がれる,剥
+,尋,1145,1228,,inquire,inquire,yes,ジン,たず・ねる,尋
+,急,1146,1229,,hurry,hurry,yes,キュウ,いそ・ぐ,急
+,穏,1147,1230,,calm,calm,yes,オン,おだ・やか,穏
+,侵,1148,1231,,encroach,encroach,yes,シン,おか・す,侵
+,浸,1149,1232,,immersed,immersed,yes,シン,ひた・す　　ひた・る,浸
+,寝,1150,1233,,lie down,lie down,yes,シン,ね・る　　ね・かす,寝
+,婦,1151,1234,,lady,lady,yes,フ,,婦
+,掃,1152,1235,,sweep,sweep,yes,ソウ,は・く,掃
+,当,1153,1236,,hit,hit,yes,トウ,あ・たる　　あ・てる,当
+,彙,2997,1237,,glossary,glossary,yes,イ,,彙
+,争,1154,1238,,contend,contend,yes,ソウ,あらそ・う,争
+,浄,1155,1239,,clean,clean,yes,ジョウ,,浄
+,事,1156,1240,,matter,matter,yes,ジ　　ズr,こと,事
+,唐,1157,1241,,T'ang,T'ang,yes,トウ,から,唐
+,糖,1158,1242,,sugar,sugar,yes,トウ,,糖
+,康,1159,1243,,sane,sane,yes,コウ,,康
+,逮,1160,1244,,apprehend,apprehend,yes,タイ,,逮
+,伊,1161,1245,,Italy,Italy,no,イ,,伊
+,君,1162,1246,,old boy,old boy,yes,クン,きみ,君
+,群,1163,1247,,flock,flock,yes,グン,む・れ　　む・れる　　むらr,群
+,耐,1164,1248,,proof,-proof,yes,タイ,た・える,耐
+,需,1165,1249,,demand,demand,yes,ジュ,,需
+,儒,1166,1250,,Confucian,Confucian,yes,ジュ,,儒
+,端,1167,1251,,edge,edge,yes,タン,はし　　は　　はた,端
+,両,1168,1252,,both,both,yes,リョウ,,両
+,満,1169,1253,,full,full,yes,マン,み・たす　　み・ちる,満
+,画,1170,1254,,brush-stroke,brush-stroke,yes,ガ　　カク,,画
+,歯,1171,1255,,tooth,tooth,yes,シ,は,歯
+,曲,1172,1256,,bend,bend,yes,キョク,ま・げる　　ま・がる,曲
+,曹,1173,1257,,cadet,cadet,yes,ソウ,,曹
+,遭,1174,1258,,encounter,encounter,yes,ソウ,あ・う,遭
+,漕,1175,1259,,rowing,rowing,no,ソウ,こ・ぐ,漕
+,槽,1176,1260,,vat,vat,yes,ソウ,,槽
+,斗,1177,1261,,Big Dipper,Big Dipper,yes,ト,,斗
+,料,1178,1262,,fee,fee,yes,リョウ,,料
+,科,1179,1263,,department,department,yes,カ,,科
+,図,1180,1264,,map,map,yes,ズ　　ト,はか・る,図
+,用,1181,1265,,utilize,utilize,yes,ヨウ,もち・いる,用
+,庸,1182,1266,,comfortable,comfortable,yes,ヨウ,,庸
+,備,1183,1267,,equip,equip,yes,ビ,そな・える　　さな・わる,備
+,昔,1184,1268,32,once upon a time,once upon a time,yes,セキ　　シャクr,むかし,昔
+,錯,1185,1269,,confused,confused,yes,サク,,錯
+,借,1186,1270,,borrow,borrow,yes,シャク,か・りる,借
+,惜,1187,1271,,pity,pity,yes,セキ,お・しむ　　お・しい,惜
+,措,1188,1272,,set aside,set aside,yes,ソ,,措
+,散,1189,1273,,scatter,scatter,yes,サン,ち・る　　ち・らす　　ち・らかす　　ち・らかる,散
+,廿,1190,1274,,twenty,twenty,no,,にじゅう,廿
+,庶,1191,1275,,commoner,commoner,yes,ショ,,庶
+,遮,1192,1276,,intercept,intercept,yes,シャ,さえぎ・る,遮
+,席,1193,1277,,seat,seat,yes,セキ,,席
+,度,1194,1278,,degrees,degrees,yes,ド　　ト　　タクr,たび,度
+,渡,1195,1279,,transit,transit,yes,ト,わた・す　　わた・る,渡
+,奔,1196,1280,,bustle,bustle,yes,ホン,,奔
+,噴,1197,1281,,erupt,erupt,yes,フン,ふ・く,噴
+,墳,1198,1282,,tomb,tomb,yes,フン,,墳
+,憤,1199,1283,,aroused,aroused,yes,フン,いきどお・る,憤
+,焼,1200,1284,,bake,bake,yes,ショウ,や・く　　や・ける,焼
+,暁,1201,1285,,daybreak,daybreak,yes,ギョウ,あかつき,暁
+,半,1202,1286,,half,half,yes,ハン,なか・ば,半
+,伴,1203,1287,,consort,consort,yes,ハン　　バン,ともな・う,伴
+,畔,1204,1288,,paddy ridge,paddy ridge,yes,ハン,,畔
+,判,1205,1289,,judgment,judgment,yes,ハン　　バン,,判
+,拳,2917,1290,,fist,fist,yes,ケン,こぶし,拳
+,券,1206,1291,,ticket,ticket,yes,ケン,,券
+,巻,1207,1292,,scroll,scroll,yes,カン,まき　　ま・く,巻
+,圏,1208,1293,,sphere,sphere,yes,ケン,,圏
+,勝,1209,1294,,victory,victory,yes,ショウ,か・つ　　まさ・る,勝
+,藤,1210,1295,,wisteria,wisteria,yes,トウ,ふじ,藤
+,謄,1211,1296,,facsimilie,facsimilie,yes,トウ,,謄
+,片,1212,1297,,one-sided,one-sided,yes,ヘン,かた,片
+,版,1213,1298,,printing block,printing block,yes,ハン,,版
+,之,1214,1299,,of,of,no,,の,之
+,乏,1215,1300,,destitution,destitution,yes,ボウ,とぼ・しい,乏
+,芝,1216,1301,,turf,turf,yes,,しば,芝
+,不,1217,1302,,negative,negative,yes,フ　　ブ,,不
+,否,1218,1303,,negate,negate,yes,ヒ,いな,否
+,杯,1219,1304,,cupfuls,cupfuls,yes,ハイ,さかずき,杯
+,矢,1220,1305,33,dart,dart,yes,シ,や,矢
+,矯,1221,1306,,rectify,rectify,yes,キョウ,た・める,矯
+,族,1222,1307,,tribe,tribe,yes,ゾク,,族
+,知,1223,1308,,know,know,yes,チ,し・る,知
+,智,1224,1309,,wisdom,wisdom,no,チ,,智
+,挨,2248,1310,,shove,shove,yes,アイ,,挨
+,矛,1225,1311,,halberd,halberd,yes,ム,ほこ,矛
+,柔,1226,1312,,tender,tender,yes,ジュウ　　ニュウ,やわ・らか　　やわ・らかい,柔
+,務,1227,1313,,task,task,yes,ム,つと・める　　つと・まる ,務
+,霧,1228,1314,,fog,fog,yes,ム,きり,霧
+,班,1229,1315,,squad,squad,yes,ハン,,班
+,帰,1230,1316,,homecoming,homecoming,yes,キ,かえ・る　　かえ・す,帰
+,弓,1231,1317,,bow,bow,yes,キュウ,ゆみ,弓
+,引,1232,1318,,pull,pull,yes,イン,ひ・く　　ひ・ける,引
+,弔,1233,1319,,condolences,condolences,yes,チョウ,とむら・う,弔
+,弘,1234,1320,,vast,vast,no,コウ,ひろ,弘
+,強,1235,1321,,strong,strong,yes,キョウ　　ゴウ,つよ・い　　つよ・まる　　つよ・める　　し・いる,強
+,弥,2241,1322,,more and more,more and more,yes,,や,弥
+,弱,1236,1323,,weak,weak,yes,ジャク,よわ・い　　よわ・まる　　よわ・める　　よわ・る,弱
+,溺,2308,1324,,drowning,drowning,yes,デキ,おぼ・れる,溺
+,沸,1237,1325,,seethe,seethe,yes,フツ,わ・く　　わ・かす,沸
+,費,1238,1326,,expense,expense,yes,ヒ,つい・やす　　つい・える,費
+,第,1239,1327,,No.,No.,yes,ダイ,,第
+,弟,1240,1328,,younger brother,younger brother,yes,テイ　　ダイ　　デr,おとうと,弟
+,巧,1241,1329,,adroit,adroit,yes,コウ,たく・み,巧
+,号,1242,1330,,nickname,nickname,yes,ゴウ,,号
+,朽,1243,1331,,decay,decay,yes,キュウ,く・ちる,朽
+,誇,1244,1332,,boast,boast,yes,コ,ほこ・る,誇
+,顎,2795,1333,,chin,chin,yes,ガク,あご,顎
+,汚,1245,1334,,dirty,dirty,yes,オ,きたな・い　　けが・す　　けが・らわしい　　けが・れる　　よご・す　　よご・れる,汚
+,与,1246,1335,,bestow,bestow,yes,ヨ,あた・える,与
+,写,1247,1336,,copy,copy,yes,シャ,うつ・す　　うつ・る,写
+,身,1248,1337,34,somebody,somebody,yes,シン,み,身
+,射,1249,1338,,shoot,shoot,yes,シャ,い・る,射
+,謝,1250,1339,,apologize,apologize,yes,シャ,あやま・る,謝
+,老,1251,1340,,old man,old man,yes,ロウ,お・いる　　ふ・ける,老
+,考,1252,1341,,consider,consider,yes,コウ,かんが・える,考
+,孝,1253,1342,,filial piety,filial piety,yes,コウ,,孝
+,教,1254,1343,,teach,teach,yes,キョウ,おし・える　　おそ・わる,教
+,拷,1255,1344,,torture,torture,yes,ゴウ,,拷
+,者,1256,1345,,someone,someone,yes,シャ,もの,者
+,煮,1257,1346,,boil,boil,yes,シャ,に・る　　に・える　　に・やす,煮
+,著,1258,1347,,renowned,renowned,yes,チョ,いちじる・しい　　あらわ・す,著
+,箸,2640,1348,,chopsticks,chopsticks,yes,,はし,箸
+,署,1259,1349,,signature,signature,yes,ショ,,署
+,暑,1260,1350,,sultry,sultry,yes,ショ,あつ・い,暑
+,諸,1261,1351,,various,various,yes,ショ,,諸
+,猪,1262,1352,,boar,boar,no,チョ,いのしし,猪
+,渚,1263,1353,,strand,strand,no,,なぎさ,渚
+,賭,1264,1354,,gamble,gamble,yes,ト,か・ける,賭
+,峡,1265,1355,,gorge,gorge,yes,キョウ,,峡
+,狭,1266,1356,,cramped,cramped,yes,キョウ,せま・い　　せば・まる　　せば・める,狭
+,挟,1267,1357,,sandwiched,sandwiched,yes,キョウ,はさ・まる　　はさ・む,挟
+,頬,2792,1358,,cheek,cheek,yes,,ほお,頬
+,追,1268,1359,,chase,chase,yes,ツイ,お・う,追
+,阜,2928,1360,,large hill,large hill,yes,フr,,阜
+,師,1269,1361,,expert,expert,yes,シ,,師
+,帥,1270,1362,,commander,commander,yes,スイ,,帥
+,官,1271,1363,,bureaucrat,bureaucrat,yes,カン,,官
+,棺,1272,1364,,coffin,coffin,yes,カン,,棺
+,管,1273,1365,,pipe,pipe,yes,カン,くだ,管
+,父,1274,1366,,father,father,yes,フ,ちち,父
+,釜,2332,1367,,cauldron,cauldron,yes,,かま,釜
+,交,1275,1368,,mingle,mingle,yes,コウ,ま・ざる　　ま・ぜる　　ま・じる　　まじ・える　　まじ・わる　　か・う　　か・わす,交
+,効,1276,1369,,merit,merit,yes,コウ,き・く,効
+,較,1277,1370,,contrast,contrast,yes,カク,,較
+,校,1278,1371,,exam,exam,yes,コウ,,校
+,足,1279,1372,,leg,leg,yes,ソク,あし　　た・す　　た・りる　　た・る,足
+,促,1280,1373,,stimulate,stimulate,yes,ソク,うなが・す,促
+,捉,2260,1374,,nab,nab,yes,ソク,とら・える,捉
+,距,1281,1375,,long-distance,long-distance,yes,キョ,,距
+,路,1282,1376,,path,path,yes,ロ,じ,路
+,露,1283,1377,,dew,dew,yes,ロ　　ロウr,つゆ,露
+,跳,1284,1378,,hop,hop,yes,チョウ,は・ねる　　と・ぶ,跳
+,躍,1285,1379,,leap,leap,yes,ヤク,おど・る,躍
+,践,1286,1380,,tread,tread,yes,セン,,践
+,踏,1287,1381,,step,step,yes,トウ,ふ・む　　ふ・まえる,踏
+,踪,3019,1382,,trail,trail,yes,ソウ,,踪
+,骨,1288,1383,,skeleton,skeleton,yes,コツ,ほね,骨
+,滑,1289,1384,,slippery,slippery,yes,カツ　　コツ ,すべ・る　　なめ・らか,滑
+,髄,1290,1385,,marrow,marrow,yes,ズイ,,髄
+,禍,1291,1386,,calamity,calamity,yes,カ,,禍
+,渦,1292,1387,,whirlpool,whirlpool,yes,カ,うず,渦
+,鍋,2757,1388,,pot,pot,yes,,なべ,鍋
+,過,1293,1389,,overdo,overdo,yes,カ,す・ぎる　　す・ごす　　あやま・ち　　あやま・つ,過
+,阪,1294,1390,35,Heights,Heights,yes,ハン,,阪
+,阿,1295,1391,,Africa,Africa,no,ア,,阿
+,際,1296,1392,,occasion,occasion,yes,サイ,きわ,際
+,障,1297,1393,,hinder,hinder,yes,ショウ,さわ・る,障
+,隙,2426,1394,,chink,chink,yes,ゲキ,すき,隙
+,随,1298,1395,,follow,follow,yes,ズイ,,随
+,陪,1299,1396,,auxiliary,auxiliary,yes,バイ,,陪
+,陽,1300,1397,,sunshine,sunshine,yes,ヨウ,,陽
+,陳,1301,1398,,line up,line up,yes,チン,,陳
+,防,1302,1399,,ward off,ward off,yes,ボウ,ふせ・ぐ,防
+,附,1303,1400,,affixed,affixed,yes,フ,,附
+,院,1304,1401,,Inst.,Inst.,yes,イン,,院
+,陣,1305,1402,,camp,camp,yes,ジン,,陣
+,隊,1306,1403,,regiment,regiment,yes,タイ,,隊
+,墜,1307,1404,,crash,crash,yes,ツイ,,墜
+,降,1308,1405,,descend,descend,yes,コウ,ふ・る　　お・りる　　お・ろす,降
+,階,1309,1406,,story,story,yes,カイ,,階
+,陛,1310,1407,,highness,highness,yes,ヘイ,,陛
+,隣,1311,1408,,neighboring,neighboring,yes,リン,となり　　とな・る,隣
+,隔,1312,1409,,isolate,isolate,yes,カク,へだ・たる　　へだ・てる,隔
+,隠,1313,1410,,conceal,conceal,yes,イン,かく・す　　かく・れる,隠
+,堕,1314,1411,,degenerate,degenerate,yes,ダ,,堕
+,陥,1315,1412,,collapse,collapse,yes,カン,おちい・る　　おとしい・れる,陥
+,穴,1316,1413,,hole,hole,yes,ケツ,あな,穴
+,空,1317,1414,,empty,empty,yes,クウ,そら　　から　　あ・く　　あ・ける,空
+,控,1318,1415,,withdraw,withdraw,yes,コウ,ひか・える,控
+,突,1319,1416,,stab,stab,yes,トツ,つ・く,突
+,究,1320,1417,,research,research,yes,キュウ,きわ・める,究
+,窒,1321,1418,,plug up,plug up,yes,チツ,,窒
+,窃,1322,1419,,stealth,stealth,yes,セツ,,窃
+,窟,2615,1420,,cavern,cavern,yes,クツ,,窟
+,窪,1323,1421,,depression,depression,no,,くぼ,窪
+,搾,1324,1422,,squeeze,squeeze,yes,サク,しぼ・る,搾
+,窯,1325,1423,,kiln,kiln,yes,ヨウ,かま,窯
+,窮,1326,1424,,hard up,hard up,yes,キュウ,きわ・める　　きわ・まる,窮
+,探,1327,1425,,grope,grope,yes,タン,さが・す　　さぐ・る,探
+,深,1328,1426,,deep,deep,yes,シン,ふか・い　　ふか・まる　　ふか・める,深
+,丘,1329,1427,,hill,hill,yes,キュウ,おか,丘
+,岳,1330,1428,,Point,Point,yes,ガク,たけ,岳
+,兵,1331,1429,,soldier,soldier,yes,ヘイ　　ヒョウ,,兵
+,浜,1332,1430,,seacoast,seacoast,yes,ヒン,はま,浜
+,糸,1333,1431,36,thread,thread,yes,シ,いと,糸
+,織,1334,1432,,weave,weave,yes,ショク　　シキ,お・る,織
+,繕,1335,1433,,darning,darning,yes,ゼン,つくろ・う,繕
+,縮,1336,1434,,shrink,shrink,yes,シュク,ちぢ・まる　　ちぢ・む　　ちぢ・める　　ちぢ・らす　　ちぢ・れる,縮
+,繁,1337,1435,,luxuriant,luxuriant,yes,ハン,,繁
+,縦,1338,1436,,vertical,vertical,yes,ジュウ,たて,縦
+,緻,3020,1437,,fine,fine,yes,チ,,緻
+,線,1339,1438,,line,line,yes,セン,,線
+,綻,2670,1439,,come apart at the seams,come apart at the seams,yes,タン,ほころ・びる,綻
+,締,1340,1440,,tighten,tighten,yes,テイ,し・まる　　し・める,締
+,維,1341,1441,,fiber,fiber,yes,イ,,維
+,羅,1342,1442,,gauze,gauze,yes,ラ,,羅
+,練,1343,1443,,practice,practice,yes,レン,ね・る,練
+,緒,1344,1444,,thong,thong,yes,ショ　　チョr,お,緒
+,続,1345,1445,,continue,continue,yes,ゾク,つづ・く　　つづ・ける,続
+,絵,1346,1446,,picture,picture,yes,カイ　　エ,,絵
+,統,1347,1447,,overall,overall,yes,トウ,す・べる,統
+,絞,1348,1448,,strangle,strangle,yes,コウ,し・まる　　し・める　　しぼ・る,絞
+,給,1349,1449,,salary,salary,yes,キュウ,,給
+,絡,1350,1450,,entwine,entwine,yes,ラク,から・まる　　から・む　　から・める ,絡
+,結,1351,1451,,tie,tie,yes,ケツ,むす・ぶ　　ゆ・う　　ゆ・わえる,結
+,終,1352,1452,,end,end,yes,シュウ,お・える　　お・わる,終
+,級,1353,1453,,class,class,yes,キュウ,,級
+,紀,1354,1454,,chronicle,chronicle,yes,キ,,紀
+,紅,1355,1455,,crimson,crimson,yes,コウ　　クr,くれない　　べに,紅
+,納,1356,1456,,settlement,settlement,yes,ノウ　　トウ　　ナ　　ナツ　　ナンr,おさ・まる　　おさ・める,納
+,紡,1357,1457,,spinning,spinning,yes,ボウ,つむ・ぐ,紡
+,紛,1358,1458,,distract,distract,yes,フン,まぎ・れる　　まぎ・らす　　まぎ・らわしい　　まぎ・らわす,紛
+,紹,1359,1459,,introduce,introduce,yes,ショウ,,紹
+,経,1360,1460,,sutra,sutra,yes,ケイ　　キョウ,へ・る,経
+,紳,1361,1461,,sire,sire,yes,シン,,紳
+,約,1362,1462,,promise,promise,yes,ヤク,,約
+,細,1363,1463,,dainty,dainty,yes,サイ,ほそ・い　　ほそ・る　　こま・か　　こま・かい,細
+,累,1364,1464,,accumulate,accumulate,yes,ルイ,,累
+,索,1365,1465,,cord,cord,yes,サク,,索
+,総,1366,1466,,general,general,yes,ソウ,,総
+,綿,1367,1467,,cotton,cotton,yes,メン,わた,綿
+,絹,1368,1468,,silk,silk,yes,ケン,きぬ,絹
+,繰,1369,1469,,winding,winding,yes,,く・る,繰
+,継,1370,1470,,inherit,inherit,yes,ケイ,つ・ぐ,継
+,緑,1371,1471,,green,green,yes,リョク　　ロクr,みどり,緑
+,縁,1372,1472,,affinity,affinity,yes,エン,ふち,縁
+,網,1373,1473,,netting,netting,yes,モウ,あみ,網
+,緊,1374,1474,,tense,tense,yes,キン,,緊
+,紫,1375,1475,,purple,purple,yes,シ,むらさき,紫
+,縛,1376,1476,,truss,truss,yes,バク,しば・る,縛
+,縄,1377,1477,,straw rope,straw rope,yes,ジョウ,なわ,縄
+,幼,1378,1478,,infancy,infancy,yes,ヨウ,おさな・い,幼
+,後,1379,1479,,behind,behind,yes,ゴ　　コウ,あと　　のち　　うし・ろ　　おく・れる,後
+,幽,1380,1480,,faint,faint,yes,ユウ,,幽
+,幾,1381,1481,,how many,how many,yes,キ,いく,幾
+,機,1382,1482,,mechanism,mechanism,yes,キ,はた,機
+,畿,2887,1483,,capital suburbs,capital suburbs,yes,キ,,畿
+,玄,1383,1484,,mysterious,mysterious,yes,ゲン,,玄
+,畜,1384,1485,,livestock,livestock,yes,チク,,畜
+,蓄,1385,1486,,amass,amass,yes,チク,たくわ・える,蓄
+,弦,1386,1487,,bowstring,bowstring,yes,ゲン,つる,弦
+,擁,1387,1488,,hug,hug,yes,ヨウ,,擁
+,滋,1388,1489,,nourishing,nourishing,yes,ジ,,滋
+,慈,1389,1490,,mercy,mercy,yes,ジ,いつく・しむ,慈
+,磁,1390,1491,,magnet,magnet,yes,ジ,,磁
+,系,1391,1492,,lineage,lineage,yes,ケイ,,系
+,係,1392,1493,,person in charge,person in charge,yes,ケイ,かか・る　　かかり,係
+,孫,1393,1494,,grandchild,grandchild,yes,ソン,まご,孫
+,懸,1394,1495,,suspend,suspend,yes,ケン　　ケr,か・ける　　か・かる,懸
+,遜,2422,1496,,modest,modest,yes,ソン,,遜
+,却,1395,1497,37,instead,instead,yes,キャク,,却
+,脚,1396,1498,,shins,shins,yes,キャク　　キャr,あし,脚
+,卸,1397,1499,,wholesale,wholesale,yes,,おろ・す　　おろし,卸
+,御,1398,1500,,honorable,honorable,yes,ゴ　　ギョ,おん,御
+,服,1399,1501,,clothing,clothing,yes,フク,,服
+,命,1400,1502,,fate,fate,yes,メイ　　ミョウ,いのち,命
+,令,1401,1503,,orders,orders,yes,レイ,,令
+,零,1402,1504,,zero,zero,yes,レイ,,零
+,齢,1403,1505,,age,age,yes,レイ,,齢
+,冷,1404,1506,,cool,cool,yes,レイ,ひ・や　　ひ・やす　　ひ・やかす　　ひ・える　　つめ・たい　　さ・ます　　さ・める,冷
+,領,1405,1507,,jurisdiction,jurisdiction,yes,リョウ,,領
+,鈴,1406,1508,,small bell,small bell,yes,レイ　　リン,すず,鈴
+,勇,1407,1509,,courage,courage,yes,ユウ,いさ・む,勇
+,湧,2284,1510,,bubble up,bubble up,yes,ユウ,わ・く,湧
+,通,1408,1511,,traffic,traffic,yes,ツウ　　ツr,とお・す　　とお・る　　かよ・う,通
+,踊,1409,1512,,jump,jump,yes,ヨウ,おど・る　　おど・り,踊
+,疑,1410,1513,,doubt,doubt,yes,ギ,うたが・う,疑
+,擬,1411,1514,,mimic,mimic,yes,ギ,,擬
+,凝,1412,1515,,congeal,congeal,yes,ギョウ,こ・る　　こ・らす,凝
+,範,1413,1516,,pattern,pattern,yes,ハン,,範
+,犯,1414,1517,,crime,crime,yes,ハン,おか・す,犯
+,氾,2301,1518,,widespread,widespread,yes,ハン,,氾
+,厄,1415,1519,,unlucky,unlucky,yes,ヤク,,厄
+,危,1416,1520,,dangerous,dangerous,yes,キ,あぶ・ない　　あや・うい　　あや・ぶむ,危
+,宛,1417,1521,,address,address,yes,,あ・てる,宛
+,腕,1418,1522,,arm,arm,yes,ワン,うで,腕
+,苑,1419,1523,,garden,garden,no,エン,その,苑
+,怨,1420,1524,,grudge,grudge,yes,オン　　エン,,怨
+,柳,1421,1525,,willow,willow,yes,リュウ,やなぎ,柳
+,卵,1422,1526,,egg,egg,yes,ラン,たまご,卵
+,留,1423,1527,,detain,detain,yes,リュウ　　ルr,と・まる　　と・める,留
+,瑠,2555,1528,,marine blue,marine blue,yes,ル,,瑠
+,貿,1424,1529,,trade,trade,yes,ボウ,,貿
+,印,1425,1530,,stamp,stamp,yes,イン,しるし,印
+,臼,2063,1531,,mortar,mortar,yes,キュウ,うす,臼
+,毀,2067,1532,,break,break,yes,キ,,毀
+,興,1426,1533,,entertain,entertain,yes,コウ　　キョウ,おこ・す　　おこ・る,興
+,酉,1427,1534,38,sign of the bird,sign of the bird,no,,とり,酉
+,酒,1428,1535,,sake,sake,yes,シュ,さけ　　さかr,酒
+,酌,1429,1536,,bartending,bartending,yes,シャク,く・む,酌
+,酎,2748,1537,,hooch,hooch,yes,チュウ,,酎
+,酵,1430,1538,,fermentation,fermentation,yes,コウ,,酵
+,酷,1431,1539,,cruel,cruel,yes,コク,,酷
+,酬,1432,1540,,repay,repay,yes,シュウ,,酬
+,酪,1433,1541,,dairy products,dairy products,yes,ラク,,酪
+,酢,1434,1542,,vinegar,vinegar,yes,サク,す,酢
+,酔,1435,1543,,drunk,drunk,yes,スイ,よ・う,酔
+,配,1436,1544,,distribute,distribute,yes,ハイ,くば・る,配
+,酸,1437,1545,,acid,acid,yes,サン,す・い,酸
+,猶,1438,1546,,waver,waver,yes,ユウ,,猶
+,尊,1439,1547,,revered,revered,yes,ソン,たっと・い　　たっと・ぶ　　とうと・い　　とうと・ぶ,尊
+,豆,1440,1548,,beans,beans,yes,トウ　　ズr,まめ,豆
+,頭,1441,1549,,head,head,yes,トウ　　ズ　　トr,あたま　　かしら,頭
+,短,1442,1550,,short,short,yes,タン,みじか・い,短
+,豊,1443,1551,,bountiful,bountiful,yes,ホウ,ゆた・か,豊
+,鼓,1444,1552,,drum,drum,yes,コ,つづみ,鼓
+,喜,1445,1553,,rejoice,rejoice,yes,キ,よろこ・ぶ,喜
+,樹,1446,1554,,timber-trees,timber-trees,yes,ジュ,,樹
+,皿,1447,1555,,dish,dish,yes,,さら,皿
+,血,1448,1556,,blood,blood,yes,ケツ,ち,血
+,盆,1449,1557,,basin,basin,yes,ボン,,盆
+,盟,1450,1558,,alliance,alliance,yes,メイ,,盟
+,盗,1451,1559,,steal,steal,yes,トウ,ぬす・む,盗
+,温,1452,1560,,warm,warm,yes,オン,あたた・か　　あたた・かい　　あたた・まる　　あたた・める,温
+,蓋,2388,1561,,lid,lid,yes,ガイ,ふた,蓋
+,監,1453,1562,,oversee,oversee,yes,カン,,監
+,濫,1454,1563,,overflow,overflow,yes,ラン,,濫
+,鑑,1455,1564,,specimen,specimen,yes,カン,かんが・みる ,鑑
+,藍,2371,1565,,indigo,indigo,yes,ラン,あい,藍
+,猛,1456,1566,,fierce,fierce,yes,モウ,,猛
+,盛,1457,1567,,boom,boom,yes,セイ　　ジョウr,さか・る　　さか・ん　　も・る,盛
+,塩,1458,1568,,salt,salt,yes,エン,しお,塩
+,銀,1459,1569,,silver,silver,yes,ギン,,銀
+,恨,1460,1570,,resentment,resentment,yes,コン,うら・む　　うら・めしい,恨
+,根,1461,1571,,root,root,yes,コン,ね,根
+,即,1462,1572,,instant,instant,yes,ソク,,即
+,爵,1463,1573,,baron,baron,yes,シャク,,爵
+,節,1464,1574,,node,node,yes,セツ　　セチr,ふし,節
+,退,1465,1575,,retreat,retreat,yes,タイ,しりぞ・く　　しりぞ・ける,退
+,限,1466,1576,,limit,limit,yes,ゲン,かぎ・る,限
+,眼,1467,1577,,eyeball,eyeball,yes,ガン　　ゲンr,まなこ,眼
+,良,1468,1578,,good,good,yes,リョウ,よ・い,良
+,朗,1469,1579,,melodious,melodious,yes,ロウ,ほが・らか,朗
+,浪,1470,1580,,wandering,wandering,yes,ロウ,,浪
+,娘,1471,1581,,daughter,daughter,yes,,むすめ,娘
+,食,1472,1582,,eat,eat,yes,ショク　　ジキr,た・べる　　く・う　　く・らう,食
+,飯,1473,1583,,meal,meal,yes,ハン,めし,飯
+,飲,1474,1584,,drink,drink,yes,イン,の・む,飲
+,飢,1475,1585,,hungry,hungry,yes,キ,う・える,飢
+,餓,1476,1586,,starve,starve,yes,ガ,,餓
+,飾,1477,1587,,decorate,decorate,yes,ショク,かざ・る,飾
+,餌,2797,1588,,feed,feed,yes,ジ,え　　えさ,餌
+,館,1478,1589,,Bldg.,Bldg.,yes,カン,やかた ,館
+,餅,2802,1590,,mochi,mochi,yes,ヘイ,もち,餅
+,養,1479,1591,,foster,foster,yes,ヨウ,やしな・う,養
+,飽,1480,1592,,sated,sated,yes,ホウ,あ・きる　　あ・かす,飽
+,既,1481,1593,,previously,previously,yes,キ,すで・に,既
+,概,1482,1594,,outline,outline,yes,ガイ,,概
+,慨,1483,1595,,rue,rue,yes,ガイ,,慨
+,平,1484,1596,39,even,even,yes,ヘイ　　ビョウ,たい・ら　　ひら,平
+,呼,1485,1597,,call,call,yes,コ,よ・ぶ,呼
+,坪,1486,1598,,two-mat area,two-mat area,yes,,つぼ,坪
+,評,1487,1599,,evaluate,evaluate,yes,ヒョウ,,評
+,刈,1488,1600,,reap,reap,yes,,か・る,刈
+,刹,2144,1601,,moment,moment,yes,サツ　　セツ,,刹
+,希,1489,1602,,hope,hope,yes,キ,,希
+,凶,1490,1603,,villain,villain,yes,キョウ,,凶
+,胸,1491,1604,,bosom,bosom,yes,キョウ,むね　　むなr,胸
+,離,1492,1605,,detach,detach,yes,リ,はな・す　　はな・れる,離
+,璃,2048,1606,,crystal,crystal,yes,リ,,璃
+,殺,1493,1607,,kill,kill,yes,サツ　　セツ　　サイr,ころ・す,殺
+,爽,2855,1608,,bracing,bracing,yes,ソウ,さわ・やか,爽
+,純,1494,1609,,genuine,genuine,yes,ジュン,,純
+,頓,2788,1610,,immediate,immediate,yes,トン,,頓
+,鈍,1495,1611,,dull,dull,yes,ドン,にぶ・い　　にぶ・る,鈍
+,辛,1496,1612,,spicy,spicy,yes,シン,から・い,辛
+,辞,1497,1613,,resign,resign,yes,ジ,や・める,辞
+,梓,1498,1614,,catalpa,catalpa,no,シ,あずさ,梓
+,宰,1499,1615,,superintend,superintend,yes,サイ,,宰
+,壁,1500,1616,,wall,wall,yes,ヘキ,かべ,壁
+,璧,3021,1617,,holed gem,holed gem,yes,ヘキ,,璧
+,避,1501,1618,,evade,evade,yes,ヒ,さ・ける,避
+,新,1502,1619,,new,new,yes,シン,あたら・しい　　あら・た　　にい,新
+,薪,1503,1620,,firewood,firewood,yes,シン,たきぎ,薪
+,親,1504,1621,,parent,parent,yes,シン,おや　　した・しい　　した・しむ,親
+,幸,1505,1622,,happiness,happiness,yes,コウ,さいわ・い　　さち　　しあわ・せ,幸
+,執,1506,1623,,tenacious,tenacious,yes,シツ　　シュウ,と・る,執
+,摯,3022,1624,,clasp,clasp,yes,シ,,摯
+,報,1507,1625,,report,report,yes,ホウ,むく・いる,報
+,叫,1508,1626,,shout,shout,yes,キョウ,さけ・ぶ,叫
+,糾,1509,1627,,twist,twist,yes,キュウ,,糾
+,収,1510,1628,,income,income,yes,シュウ,おさ・まる　　おさ・める,収
+,卑,1511,1629,,lowly,lowly,yes,ヒ,いや・しい　　いや・しむ　　いや・しめる,卑
+,碑,1512,1630,,tombstone,tombstone,yes,ヒ,,碑
+,陸,1513,1631,,land,land,yes,リク,,陸
+,睦,1514,1632,,intimate,intimate,yes,ボク,,睦
+,勢,1515,1633,,forces,forces,yes,セイ,いきお・い,勢
+,熱,1516,1634,,heat,heat,yes,ネツ,あつ・い,熱
+,菱,1517,1635,,diamond,diamond,no,,ひし,菱
+,陵,1518,1636,,mausoleum,mausoleum,yes,リョウ,みささぎ,陵
+,亥,1519,1637,,sign of the hog,sign of the hog,no,,い,亥
+,核,1520,1638,,nucleus,nucleus,yes,カク,,核
+,刻,1521,1639,,engrave,engrave,yes,コク,きざ・む,刻
+,該,1522,1640,,above-stated,above-stated,yes,ガイ,,該
+,骸,2874,1641,,remains,remains,yes,ガイ,,骸
+,劾,1523,1642,,censure,censure,yes,ガイ,,劾
+,述,1524,1643,,mention,mention,yes,ジュツ,の・べる,述
+,術,1525,1644,,art,art,yes,ジュツ,,術
+,寒,1526,1645,,cold,cold,yes,カン,さむ・い,寒
+,塞,2214,1646,,block up,block up,yes,サイ　　ソク,ふさ・がる　　ふさ・ぐ,塞
+,醸,1527,1647,,brew,brew,yes,ジョウ,かも・す,醸
+,譲,1528,1648,,defer,defer,yes,ジョウ,ゆず・る,譲
+,壌,1529,1649,,lot,lot,yes,ジョウ　,,壌
+,嬢,1530,1650,,lass,lass,yes,ジョウ,,嬢
+,毒,1531,1651,40,poison,poison,yes,ドク,,毒
+,素,1532,1652,,elementary,elementary,yes,ソ　　ス,,素
+,麦,1533,1653,,barley,barley,yes,バク,むぎ,麦
+,青,1534,1654,,blue,blue,yes,セイ　　ショウr,あお　　あお・い,青
+,精,1535,1655,,refined,refined,yes,セイ　　ショウr,,精
+,請,1536,1656,,solicit,solicit,yes,セイ　　シンr,う・ける　　こ・う,請
+,情,1537,1657,,feelings,feelings,yes,ジョウ　セイr,なさ・け,情
+,晴,1538,1658,,clear up,clear up,yes,セイ,は・れる　　は・らす,晴
+,清,1539,1659,,pure,pure,yes,セイ　　ショウr,きよ・い　　きよ・まる　　きよ・める,清
+,静,1540,1660,,quiet,quiet,yes,セイ　　ジョウr,しず　　しず・か　　しず・まる　　しず・める,静
+,責,1541,1661,,blame,blame,yes,セキ,せ・める,責
+,績,1542,1662,,exploits,exploits,yes,セキ,,績
+,積,1543,1663,,volume,volume,yes,セキ,つ・む　　つ・もる,積
+,債,1544,1664,,bond,bond,yes,サイ,,債
+,漬,1545,1665,,pickling,pickling,yes,,つ・かる　　つ・ける,漬
+,表,1546,1666,,surface,surface,yes,ヒョウ,あらわ・す　　あらわ・れる　　おもて,表
+,俵,1547,1667,,bag,bag,yes,ヒョウ,たわら,俵
+,潔,1548,1668,,undefiled,undefiled,yes,ケツ,いさぎよ・い,潔
+,契,1549,1669,,pledge,pledge,yes,ケイ,ちぎ・る,契
+,喫,1550,1670,,consume,consume,yes,キツ,,喫
+,害,1551,1671,,harm,harm,yes,ガイ,,害
+,轄,1552,1672,,control,control,yes,カツ,,轄
+,割,1553,1673,,proportion,proportion,yes,カツ,さ・く　　わり　　わ・る　　わ・れる,割
+,憲,1554,1674,,constitution,constitution,yes,ケン,,憲
+,生,1555,1675,,life,life,yes,セイ　　ショウ,い・かす　　い・きる　　い・ける　　う・まれる　　う・む　　お・う　　き　　なま　　は・える　　は・やす,生
+,星,1556,1676,,star,star,yes,セイ　　ショウr,ほし,星
+,醒,2750,1677,,awakening,awakening,yes,セイ,,醒
+,姓,1557,1678,,surname,surname,yes,セイ　　ショウ,,姓
+,性,1558,1679,,sex,sex,yes,セイ　　ショウ,,性
+,牲,1559,1680,,animal sacrifice,animal sacrifice,yes,セイ,,牲
+,産,1560,1681,,products,products,yes,サン,う・む　　う・まれる　　うぶ,産
+,隆,1561,1682,,hump,hump,yes,リュウ,,隆
+,峰,1562,1683,,summit,summit,yes,ホウ,みね,峰
+,蜂,2687,1684,,bee,bee,yes,ホウ,はち,蜂
+,縫,1563,1685,,sew,sew,yes,ホウ,ぬ・う,縫
+,拝,1564,1686,,worship,worship,yes,ハイ,おが・む,拝
+,寿,1565,1687,,longevity,longevity,yes,ジュ,ことぶき,寿
+,鋳,1566,1688,,casting,casting,yes,チュウ,い・る,鋳
+,籍,1567,1689,,enroll,enroll,yes,セキ,,籍
+,春,1568,1690,,springtime,springtime,yes,シュン,はる,春
+,椿,1569,1691,,camellia,camellia,no,,つばき,椿
+,泰,1570,1692,,peaceful,peaceful,yes,タイ,,泰
+,奏,1571,1693,,play music,play music,yes,ソウ,かな・でる,奏
+,実,1572,1694,,reality,reality,yes,ジツ,み　　みの・る,実
+,奉,1573,1695,,dedicate,dedicate,yes,ホウ　　ブr,たてまつ・る,奉
+,俸,1574,1696,,stipend,stipend,yes,ホウ,,俸
+,棒,1575,1697,,rod,rod,yes,ボウ,,棒
+,謹,1576,1698,,discreet,discreet,yes,キン,つつし・む,謹
+,僅,2116,1699,,trifle,trifle,yes,キン,わず・か,僅
+,勤,1577,1700,,diligence,diligence,yes,キン　　ゴンr,つと・まる　　つと・める,勤
+,漢,1578,1701,,Sino-,Sino-,yes,カン,,漢
+,嘆,1579,1702,,sigh,sigh,yes,タン,なげ・く　　なげ・かわしい,嘆
+,難,1580,1703,,difficult,difficult,yes,ナン,むずか・しい　　かた・い,難
+,華,1581,1704,,splendor,splendor,yes,カ　　ケr,はな,華
+,垂,1582,1705,,droop,droop,yes,スイ,た・らす　　た・れる,垂
+,唾,2165,1706,,saliva,saliva,yes,スイ,,唾
+,睡,1583,1707,,drowsy,drowsy,yes,ダ,つば,睡
+,錘,1584,1708,,spindle,spindle,no,スイ,つむ,錘
+,乗,1585,1709,,ride,ride,yes,ジョウ,の・せる　　の・る,乗
+,剰,1586,1710,,surplus,surplus,yes,ジョウ,,剰
+,今,1587,1711,41,now,now,yes,コン　　キン,いま,今
+,含,1588,1712,,include,include,yes,ガン,ふく・む　　ふく・める,含
+,貪,3023,1713,,covet,covet,yes,ドン,むさぼ・る,貪
+,吟,1589,1714,,versify,versify,yes,ギン,,吟
+,念,1590,1715,,wish,wish,yes,ネン,,念
+,捻,2251,1716,,wrenching,wrench,yes,ネン,,捻
+,琴,1591,1717,,harp,harp,yes,キン,こと,琴
+,陰,1592,1718,,shade,shade,yes,イン,かげ　　かげ・る,陰
+,予,1593,1719,,beforehand,beforehand,yes,ヨ,,予
+,序,1594,1720,,preface,preface,yes,ジョ,,序
+,預,1595,1721,,deposit,deposit,yes,ヨ,あず・かる　　あず・ける,預
+,野,1596,1722,,plains,plains,yes,ヤ,の,野
+,兼,1597,1723,,concurrently,concurrently,yes,ケン,か・ねる,兼
+,嫌,1598,1724,,dislike,dislike,yes,ケン　　ゲンr,いや　　きら・う,嫌
+,鎌,1599,1725,,sickle,sickle,yes,,かま,鎌
+,謙,1600,1726,,self-effacing,self-effacing,yes,ケン,,謙
+,廉,1601,1727,,bargain,bargain,yes,レン,,廉
+,西,1602,1728,,west,west,yes,セイ　　サイ,にし,西
+,価,1603,1729,,value,value,yes,カ,あたい,価
+,要,1604,1730,,need,need,yes,ヨウ,い・る　　かなめ ,要
+,腰,1605,1731,,loins,loins,yes,ヨウ,こし,腰
+,票,1606,1732,,ballot,ballot,yes,ヒョウ,,票
+,漂,1607,1733,,drift,drift,yes,ヒョウ,ただよ・う,漂
+,標,1608,1734,,signpost,signpost,yes,ヒョウ,,標
+,栗,1609,1735,,chestnut,chestnut,no,,くり,栗
+,慄,3024,1736,,shudder,shudder,yes,リツ,,慄
+,遷,1610,1737,,transition,transition,yes,セン,,遷
+,覆,1611,1738,,capsize,capsize,yes,フク,おお・う　　くつがえ・る　　くつがえ・す,覆
+,煙,1612,1739,,smoke,smoke,yes,エン,けむり　　けむ・い　　けむ・る,煙
+,南,1613,1740,,south,south,yes,ナン　　ナr,みなみ,南
+,楠,1614,1741,,camphor tree,camphor tree,no,,くすのき,楠
+,献,1615,1742,,offering,offering,yes,ケン　　コンr,,献
+,門,1616,1743,42,gates,gates,yes,モン,かど,門
+,問,1617,1744,,question,question,yes,モン,と・う　　と・い　　とんr,問
+,閲,1618,1745,,review,review,yes,エツ,,閲
+,閥,1619,1746,,clique,clique,yes,バツ,,閥
+,間,1620,1747,,interval,interval,yes,カン　　ケン,あいだ　　ま,間
+,闇,2777,1748,,pitch dark,pitch dark,yes,,やみ,闇
+,簡,1621,1749,,simplicity,simplicity,yes,カン,,簡
+,開,1622,1750,,open,open,yes,カイ,あ・く　　あ・ける　　ひら・く　　ひら・ける,開
+,閉,1623,1751,,closed,closed,yes,ヘイ,し・まる　　し・める　　と・じる　　と・ざす,閉
+,閣,1624,1752,,tower,tower,yes,カク,,閣
+,閑,1625,1753,,leisure,leisure,yes,カン,,閑
+,聞,1626,1754,,hear,hear,yes,ブン　　モン,き・く　　き・こえる,聞
+,潤,1627,1755,,wet,wet,yes,ジュン,うるお・う　　うるお・す　　うる・む,潤
+,欄,1628,1756,,column,column,yes,ラン,,欄
+,闘,1629,1757,,fight,fight,yes,トウ,たたか・う,闘
+,倉,1630,1758,,godown,godown,yes,ソウ,くら,倉
+,創,1631,1759,,genesis,genesis,yes,ソウ,つく・る ,創
+,非,1632,1760,,un-,un-,yes,ヒ,,非
+,俳,1633,1761,,haiku,haiku,yes,ハイ,,俳
+,排,1634,1762,,repudiate,repudiate,yes,ハイ,,排
+,悲,1635,1763,,sad,sad,yes,ヒ,かな・しい　　かな・しむ,悲
+,罪,1636,1764,,guilt,guilt,yes,ザイ,つみ,罪
+,輩,1637,1765,,comrade,comrade,yes,ハイ,,輩
+,扉,1638,1766,,front door,front door,yes,ヒ,とびら,扉
+,侯,1639,1767,,marquis,marquis,yes,コウ,,侯
+,喉,2164,1768,,throat,throat,yes,コウ,のど,喉
+,候,1640,1769,,climate,climate,yes,コウ,そうろう,候
+,決,1641,1770,,decide,decide,yes,ケツ,き・まる　　き・める,決
+,快,1642,1771,,cheerful,cheerful,yes,カイ,こころよ・い,快
+,偉,1643,1772,,admirable,admirable,yes,イ,えら・い,偉
+,違,1644,1773,,difference,difference,yes,イ,ちが・う　　ちが・える,違
+,緯,1645,1774,,horizontal,horizontal,yes,イ,,緯
+,衛,1646,1775,,defense,defense,yes,エイ,,衛
+,韓,1647,1776,,Korea,Korea,yes,カン,,韓
+,干,1648,1777,43,dry,dry,yes,カン,ほ・す　　ひ・る,干
+,肝,1649,1778,,liver,liver,yes,カン,きも,肝
+,刊,1650,1779,,publish,publish,yes,カン,,刊
+,汗,1651,1780,,sweat,sweat,yes,カン,あせ,汗
+,軒,1652,1781,,flats,flats,yes,ケン,のき,軒
+,岸,1653,1782,,beach,beach,yes,ガン,きし,岸
+,幹,1654,1783,,tree trunk,tree trunk,yes,カン,みき,幹
+,芋,1655,1784,,potato,potato,yes,,いも,芋
+,宇,1656,1785,,eaves,eaves,yes,ウ,,宇
+,余,1657,1786,,too much,too much,yes,ヨ,あま・る　　あま・す,余
+,除,1658,1787,,exclude,exclude,yes,ジョ　　ジr,のぞ・く,除
+,徐,1659,1788,,gradually,gradually,yes,ジョ,,徐
+,叙,1660,1789,,confer,confer,yes,ジョ,,叙
+,途,1661,1790,,route,route,yes,ト,,途
+,斜,1662,1791,,diagonal,diagonal,yes,シャ,なな・め,斜
+,塗,1663,1792,,paint,paint,yes,ト,ぬ・る,塗
+,束,1664,1793,,bundle,bundle,yes,ソク,たば,束
+,頼,1665,1794,,trust,trust,yes,ライ,たの・む　　たの・もしい　　たよ・る,頼
+,瀬,1666,1795,,rapids,rapids,yes,,せ,瀬
+,勅,1667,1796,,imperial order,imperial order,yes,チョク,,勅
+,疎,1668,1797,,alienate,alienate,yes,ソ,うと・い　　うと・む,疎
+,辣,3025,1798,,bitter,bitter,yes,ラツ,,辣
+,速,1669,1799,,quick,quick,yes,ソク,はや・い　　はや・める　　すみ・やか　　はや・まる ,速
+,整,1670,1800,,organize,organize,yes,セイ,ととの・う　　ととの・える,整
+,剣,1671,1801,,saber,saber,yes,ケン,つるぎ,剣
+,険,1672,1802,,precipitous,precipitous,yes,ケン,けわ・しい,険
+,検,1673,1803,,examination,examination,yes,ケン,,検
+,倹,1674,1804,,frugal,frugal,yes,ケン,,倹
+,重,1675,1805,,heavy,heavy,yes,ジュウ　　チョウ,おも・い　　かさ・なる　　かさ・ねる　　え,重
+,動,1676,1806,,move,move,yes,ドウ,うご・く　　うご・かす,動
+,腫,2467,1807,,tumor,tumor,yes,シュ,は・らす　　は・れる,腫
+,勲,1677,1808,,meritorious deed,meritorious deed,yes,クン,,勲
+,働,1678,1809,,work,work,yes,ドウ,はたら・く,働
+,種,1679,1810,,species,species,yes,シュ,たね,種
+,衝,1680,1811,,collide,collide,yes,ショウ,,衝
+,薫,1681,1812,,fragrant,fragrant,yes,クン,かお・る,薫
+,病,1682,1813,44,ill,ill,yes,ビョウ　　ヘイr,や・む　　やまい,病
+,痴,1683,1814,,stupid,stupid,yes,チ,,痴
+,痘,1684,1815,,pox,pox,yes,トウ,,痘
+,症,1685,1816,,symptoms,symptoms,yes,ショウ,,症
+,瘍,3026,1817,,carbuncle,carbuncle,yes,ヨウ,,瘍
+,痩,2577,1818,,lose weight,lose weight,yes,ソウ,や・せる,痩
+,疾,1686,1819,,rapidly,rapidly,yes,シツ,,疾
+,嫉,2202,1820,,envy,envy,yes,シツ,,嫉
+,痢,1687,1821,,diarrhea,diarrhea,yes,リ,,痢
+,痕,2578,1822,,scar,scar,yes,コン,あと,痕
+,疲,1688,1823,,tired,tired,yes,ヒ,つか・れる,疲
+,疫,1689,1824,,epidemic,epidemic,yes,エキ　　ヤクr,,疫
+,痛,1690,1825,,pain,pain,yes,ツウ,いた・い　　いた・む　　いた・める,痛
+,癖,1691,1826,,mannerism,mannerism,yes,ヘキ,くせ,癖
+,匿,1692,1827,,hide,hide,yes,トク,,匿
+,匠,1693,1828,,artisan,artisan,yes,ショウ,,匠
+,医,1694,1829,,doctor,doctor,yes,イ,,医
+,匹,1695,1830,,equal,equal,yes,ヒツ,ひき,匹
+,区,1696,1831,,ward,ward,yes,ク,,区
+,枢,1697,1832,,hinge,hinge,yes,スウ,,枢
+,殴,1698,1833,,assault,assault,yes,オウ,なぐ・る,殴
+,欧,1699,1834,,Europe,Europe,yes,オウ,,欧
+,抑,1700,1835,,repress,repress,yes,ヨク,おさ・える,抑
+,仰,1701,1836,,faceup,faceup,yes,ギョウ　　コウr,あお・ぐ　　おお・せ,仰
+,迎,1702,1837,,welcome,welcome,yes,ゲイ,むか・える,迎
+,登,1703,1838,,ascend,ascend,yes,トウ　　ト,のぼ・る,登
+,澄,1704,1839,,lucidity,lucidity,yes,チョウ,す・む　　す・ます,澄
+,発,1705,1840,,discharge,discharge,yes,ハツ　　ホツ,,発
+,廃,1706,1841,,abolish,abolish,yes,ハイ,すた・る　　すた・れる,廃
+,僚,1707,1842,,colleague,colleague,yes,リョウ,,僚
+,瞭,2582,1843,,obvious,obvious,yes,リョウ,,瞭
+,寮,1708,1844,,dormitory,dormitory,yes,リョウ,,寮
+,療,1709,1845,,heal,heal,yes,リョウ,,療
+,彫,1710,1846,45,carve,carve,yes,チョウ,ほ・る,彫
+,形,1711,1847,,shape,shape,yes,ケイ　　ギョウ,かたち　　かた,形
+,影,1712,1848,,shadow,shadow,yes,エイ,かげ,影
+,杉,1713,1849,,cedar,cedar,yes,,すぎ,杉
+,彩,1714,1850,,coloring,coloring,yes,サイ,いろど・る,彩
+,彰,1715,1851,,patent,patent,yes,ショウ,,彰
+,彦,1716,1852,,lad,lad,no,,ひこ,彦
+,顔,1717,1853,,face,face,yes,ガン,かお,顔
+,須,1718,1854,,ought,ought,yes,ス,,須
+,膨,1719,1855,,swell,swell,yes,ボウ,ふく・らむ　　ふく・れる,膨
+,参,1720,1856,,visit,visit,yes,サン,まい・る,参
+,惨,1721,1857,,wretched,wretched,yes,サン　　ザン,みじ・め,惨
+,修,1722,1858,,discipline,discipline,yes,シュウ　　シュr,おさ・まる　　おさ・める,修
+,珍,1723,1859,,rare,rare,yes,チン,めずら・しい,珍
+,診,1724,1860,,checkup,checkup,yes,シン,み・る,診
+,文,1725,1861,,sentence,sentence,yes,ブン　　モン,ふみ,文
+,対,1726,1862,,vis-a-vis,vis-a-vis,yes,タイ　　ツイ,,対
+,紋,1727,1863,,family crest,family crest,yes,モン,,紋
+,蚊,1728,1864,,mosquito,mosquito,yes,,か,蚊
+,斑,2556,1865,,speckled,speckled,yes,ハン,,斑
+,斉,1729,1866,,adjusted,adjusted,yes,セイ,,斉
+,剤,1730,1867,,dose,dose,yes,ザイ,,剤
+,済,1731,1868,,finish,finish,yes,サイ,す・む　　す・ます,済
+,斎,1732,1869,,purification,purification,yes,サイ,,斎
+,粛,1733,1870,,solemn,solemn,yes,シュク,,粛
+,塁,1734,1871,,bases,bases,yes,ルイ,,塁
+,楽,1735,1872,,music,music,yes,ガク　　ラク,たの・しい　　たの・しむ,楽
+,薬,1736,1873,,medicine,medicine,yes,ヤク,くすり,薬
+,率,1737,1874,,ratio,ratio,yes,ソツ　　リツ,ひき・いる,率
+,渋,1738,1875,,astringent,astringent,yes,ジュウ,しぶ　　しぶ・い　　しぶ・る,渋
+,摂,1739,1876,,vicarious,vicarious,yes,セツ,,摂
+,央,1740,1877,,center,center,yes,オウ,,央
+,英,1741,1878,,England,England,yes,エイ,,英
+,映,1742,1879,,reflect,reflect,yes,エイ,うつ・す　　うつ・る　　は・える,映
+,赤,1743,1880,,red,red,yes,セキ　　シャクr,あか　　あか・い　　あか・らむ　　あか・らめる,赤
+,赦,1744,1881,,pardon,pardon,yes,シャ,,赦
+,変,1745,1882,,unusual,unusual,yes,ヘン,か・える　　か・わる,変
+,跡,1746,1883,,tracks,tracks,yes,セキ,あと,跡
+,蛮,1747,1884,,barbarian,barbarian,yes,バン,,蛮
+,恋,1748,1885,,romance,romance,yes,レン,こい　　こ・う　　こい・しい,恋
+,湾,1749,1886,,gulf,gulf,yes,ワン,,湾
+,黄,1750,1887,,yellow,yellow,yes,コウ　　オウ,き　　こr,黄
+,横,1751,1888,,sideways,sideways,yes,オウ,よこ,横
+,把,1752,1889,,grasp,grasp,yes,ハ,,把
+,色,1753,1890,,color,color,yes,ショク　　シキ,いろ,色
+,絶,1754,1891,,discontinue,discontinue,yes,ゼツ,た・える　　た・つ　　た・やす,絶
+,艶,1755,1892,,glossy,glossy,yes,エン,つや,艶
+,肥,1756,1893,,fertilizer,fertilizer,yes,ヒ,こえ　　こ・える　　こ・やし　　こ・やす,肥
+,甘,1757,1894,46,sweet,sweet,yes,カン,あま・い　　あま・える　　あま・やかす,甘
+,紺,1758,1895,,navy blue,navy blue,yes,コン,,紺
+,某,1759,1896,,so-and-so,so-and-so,yes,ボウ,,某
+,謀,1760,1897,,conspire,conspire,yes,ボウ　　ムr,はか・る,謀
+,媒,1761,1898,,mediator,mediator,yes,バイ,,媒
+,欺,1762,1899,,deceit,deceit,yes,ギ,あざむ・く,欺
+,棋,1763,1900,,chess piece,chess piece,yes,キ,,棋
+,旗,1764,1901,,national flag,national flag,yes,キ,はた,旗
+,期,1765,1902,,period,period,yes,キ　　ゴr,,期
+,碁,1766,1903,,Go,Go,yes,ゴ,,碁
+,基,1767,1904,,fundamentals,fundamentals,yes,キ,もと　　もとい,基
+,甚,1768,1905,,tremendously,tremendously,yes,ジン,はなは・だ　　はなは・だしい,甚
+,勘,1769,1906,,intuition,intuition,yes,カン,,勘
+,堪,1770,1907,,withstand,withstand,yes,カン,た・える,堪
+,貴,1771,1908,,precious,precious,yes,キ,たっと・い　　たっと・ぶ　　とうと・い　　とうと・ぶ,貴
+,遺,1772,1909,,bequeath,bequeath,yes,イ　　ユイr,,遺
+,遣,1773,1910,,dispatch,dispatch,yes,ケン,つか・う　　つか・わす,遣
+,潰,2319,1911,,defile,defile,yes,カイ,つぶ・す　　つぶ・れる,潰
+,舞,1774,1912,,dance,dance,yes,ブ,ま・う　　まい,舞
+,無,1775,1913,,nothingness,nothingness,yes,ム　　ブ,な・い,無
+,組,1776,1914,47,association,association,yes,ソ,くみ　　く・む,組
+,粗,1777,1915,,coarse,coarse,yes,ソ,あら・い,粗
+,租,1778,1916,,tariff,tariff,yes,ソ,,租
+,狙,2344,1917,,aim at,aim at,yes,ソ,ねら・う,狙
+,祖,1779,1918,,ancestor,ancestor,yes,ソ,,祖
+,阻,1780,1919,,thwart,thwart,yes,ソ,はば・む,阻
+,査,1781,1920,,investigate,investigate,yes,サ,,査
+,助,1782,1921,,help,help,yes,ジョ,たす・かる　　たす・ける　　すけ,助
+,宜,1783,1922,,best regards,best regards,yes,ギ,,宜
+,畳,1784,1923,,tatami mat,tatami mat,yes,ジョウ, たたみ　　たた・む,畳
+,並,1785,1924,,row,row,yes,ヘイ,なら・ぶ　　なら・べる　　なら・びに　　なみ,並
+,普,1786,1925,,universal,universal,yes,フ,,普
+,譜,1787,1926,,musical score,musical score,yes,フ,,譜
+,湿,1788,1927,,damp,damp,yes,シツ,しめ・る　　しめ・す,湿
+,顕,1789,1928,,appear,appear,yes,ケン,,顕
+,繊,1790,1929,,slender,slender,yes,セン,,繊
+,霊,1791,1930,,spirits,spirits,yes,レイ　　リョウ,たま,霊
+,業,1792,1931,,profession,profession,yes,ギョウ　　ゴウ,わざ,業
+,撲,1793,1932,,slap,slap,yes,ボク,,撲
+,僕,1794,1933,,me,me,yes,ボク,,僕
+,共,1795,1934,,together,together,yes,キョウ,とも,共
+,供,1796,1935,,submit,submit,yes,キョウ　　クr,そな・える　　とも,供
+,異,1797,1936,,uncommon,uncommon,yes,イ,こと,異
+,翼,1798,1937,,wing,wing,yes,ヨク,つばさ,翼
+,戴,2702,1938,,accept humbly,accept humbly,yes,タイ,,戴
+,洪,1799,1939,,deluge,deluge,yes,コウ,,洪
+,港,1800,1940,,harbor,harbor,yes,コウ,みなと,港
+,暴,1801,1941,,outburst,outburst,yes,ボウ　　バクr,あば・く　　あば・れる,暴
+,爆,1802,1942,,bomb,bomb,yes,バク,,爆
+,恭,1803,1943,,respect,respect,yes,キョウ,うやうや・しい,恭
+,選,1804,1944,,elect,elect,yes,セン,えら・ぶ,選
+,殿,1805,1945,,Mr.,Mr.,yes,デン　　テン,との　　どの,殿
+,井,1806,1946,48,well,well,yes,セイ　　ショウr,い,井
+,丼,2884,1947,,domburi,donburi,yes,,どんぶり　　どんr,丼
+,囲,1807,1948,,surround,surround,yes,イ,かこ・む　　かこ・う,囲
+,耕,1808,1949,,till,till,yes,コウ,たがや・す,耕
+,亜,1809,1950,,Asia,Asia,yes,ア,,亜
+,悪,1810,1951,,bad,bad,yes,アク　　オ,わる・い,悪
+,円,1811,1952,,circle,circle,yes,エン,まる・い,円
+,角,1812,1953,,angle,angle,yes,カク,かど　　つの,角
+,触,1813,1954,,contact,contact,yes,ショク,さわ・る　　ふ・れる,触
+,解,1814,1955,,unravel,unravel,yes,カイ    ゲ,と・く　　と・かす　　と・ける,解
+,再,1815,1956,,again,again,yes,サイ　　サr,ふたた・び,再
+,講,1816,1957,,lecture,lecture,yes,コウ,,講
+,購,1817,1958,,subscription,subscription,yes,コウ,,購
+,構,1818,1959,,posture,posture,yes,コウ,かま・う　　かま・える,構
+,溝,1819,1960,,gutter,gutter,yes,コウ,みぞ,溝
+,論,1820,1961,,argument,argument,yes,ロン,,論
+,倫,1821,1962,,ethics,ethics,yes,リン,,倫
+,輪,1822,1963,,wheel,wheel,yes,リン,わ,輪
+,偏,1823,1964,,partial,partial,yes,ヘン,かたよ・る,偏
+,遍,1824,1965,,everywhere,everywhere,yes,ヘン,,遍
+,編,1825,1966,,compilation,compilation,yes,ヘン,あ・む,編
+,冊,1826,1967,,tome,tome,yes,サツ　　サク,,冊
+,柵,2507,1968,,palisade,palisade,yes,サク,,柵
+,典,1827,1969,,code,code,yes,テン,,典
+,氏,1828,1970,49,family name,family name,yes,シ,うじ,氏
+,紙,1829,1971,,paper,paper,yes,シ,かみ,紙
+,婚,1830,1972,,marriage,marriage,yes,コン,,婚
+,低,1831,1973,,lower,lower,yes,テイ,ひく・い　　ひく・まる　　ひく・める,低
+,抵,1832,1974,,resist,resist,yes,テイ,,抵
+,底,1833,1975,,bottom,bottom,yes,テイ,そこ,底
+,民,1834,1976,,people,people,yes,ミン,たみ,民
+,眠,1835,1977,,sleep,sleep,yes,ミン,ねむ・る　　ねむ・い,眠
+,捕,1836,1978,,catch,catch,yes,ホ,つか・まえる　　つか・まる　　と・る　　と・らえる　　と・らわれる,捕
+,哺,3027,1979,,suckle,suckle,yes,ホ,,哺
+,浦,1837,1980,,bay,bay,yes,,うら,浦
+,蒲,1838,1981,,bullrush,bullrush,no,,がま　　かま　　かば,蒲
+,舗,1839,1982,,shop,shop,yes,ホ,,舗
+,補,1840,1983,,supplement,supplement,yes,ホ,おぎな・う,補
+,邸,1841,1984,,residence,residence,yes,テイ,,邸
+,郭,1842,1985,,enclosure,enclosure,yes,カク,,郭
+,郡,1843,1986,,county,county,yes,グン,,郡
+,郊,1844,1987,,outskirts,outskirts,yes,コウ,,郊
+,部,1845,1988,,section,section,yes,ブ,,部
+,都,1846,1989,,metropolis,metropolis,yes,ト　　ツ,みやこ,都
+,郵,1847,1990,,mail,mail,yes,ユウ,,郵
+,邦,1848,1991,,home country,home country,yes,ホウ,,邦
+,那,2960,1992,,interrogative,interrogative,yes,ナ,,那
+,郷,1849,1993,,hometown,hometown,yes,キョウ　　ゴウ,,郷
+,響,1850,1994,,echo,echo,yes,キョウ,ひび・く,響
+,郎,1851,1995,,son,son,yes,ロウ,,郎
+,廊,1852,1996,,corridor,corridor,yes,ロウ,,廊
+,盾,1853,1997,50,shield,shield,yes,ジュン,たて,盾
+,循,1854,1998,,sequential,sequential,yes,ジュン,,循
+,派,1855,1999,,faction,faction,yes,ハ,,派
+,脈,1856,2000,,vein,vein,yes,ミャク,,脈
+,衆,1857,2001,,masses,masses,yes,シュウ　　シュr,,衆
+,逓,1858,2002,,parcel post,parcel post,yes,テイ,,逓
+,段,1859,2003,,grade,grade,yes,ダン,,段
+,鍛,1860,2004,,forge,forge,yes,タン,きた・える,鍛
+,后,1861,2005,,empress,empress,yes,コウ,,后
+,幻,1862,2006,,phantasm,phantasm,yes,ゲン,まぼろし,幻
+,司,1863,2007,,director,director,yes,シ,,司
+,伺,1864,2008,,pay respects,pay respects,yes,シ,うかが・う,伺
+,詞,1865,2009,,parts of speech,parts of speech,yes,シ,,詞
+,飼,1866,2010,,domesticate,domesticate,yes,シ,か・う,飼
+,嗣,1867,2011,,heir,heir,yes,シ,,嗣
+,舟,1868,2012,,boat,boat,yes,シュウ,ふね　　ふなr,舟
+,舶,1869,2013,,liner,liner,yes,ハク,,舶
+,航,1870,2014,,navigate,navigate,yes,コウ,,航
+,舷,2675,2015,,gunwale,gunwale,yes,ゲン,,舷
+,般,1871,2016,,carrier,carrier,yes,ハン,,般
+,盤,1872,2017,,tray,tray,yes,バン,,盤
+,搬,1873,2018,,conveyor,conveyor,yes,ハン,,搬
+,船,1874,2019,,ship,ship,yes,セン,ふね　　ふなr,船
+,艦,1875,2020,,warship,warship,yes,カン,,艦
+,艇,1876,2021,,rowboat,rowboat,yes,テイ,,艇
+,瓜,1877,2022,,melon,melon,no,カ,うり,瓜
+,弧,1878,2023,,arc,arc,yes,コ,,弧
+,孤,1879,2024,,orphan,orphan,yes,コ,,孤
+,繭,1880,2025,51,cocoon,cocoon,yes,ケン,まゆ,繭
+,益,1881,2026,,benefit,benefit,yes,エキ　　ヤクr,,益
+,暇,1882,2027,,spare time,spare time,yes,カ,ひま,暇
+,敷,1883,2028,,spread,spread,yes,フ,し・く,敷
+,来,1884,2029,,come,come,yes,ライ,く・る　　きた・す　　きた・る,来
+,気,1885,2030,,spirit,spirit,yes,キ　　ケ,,気
+,汽,1886,2031,,vapor,vapor,yes,キ,,汽
+,飛,1887,2032,,fly,fly,yes,ヒ,と・ぶ　　と・ばす,飛
+,沈,1888,2033,,sink,sink,yes,チン,しず・む　　しず・める,沈
+,枕,2472,2034,,pillow,pillow,yes,,まくら,枕
+,妻,1889,2035,,wife,wife,yes,サイ,つま,妻
+,凄,2133,2036,,nifty,nifty,yes,セイ,,凄
+,衰,1890,2037,,decline,decline,yes,スイ,おとろ・える,衰
+,衷,1891,2038,,inmost,inmost,yes,チュウ,,衷
+,面,1892,2039,,mask,mask,yes,メン,おもて　　おも　　つら,面
+,麺,2752,2040,,noodles,noodles,yes,メン,,麺
+,革,1893,2041,,leather,leather,yes,カク,かわ,革
+,靴,1894,2042,,shoes,shoes,yes,カ,くつ,靴
+,覇,1895,2043,,hegemony,hegemony,yes,ハ,,覇
+,声,1896,2044,,voice,voice,yes,セイ　　ショウr,こえ　　こわr,声
+,眉,2583,2045,,eyebrow,eyebrow,yes,ビ　　ミr,まゆ,眉
+,呉,1897,2046,,give,give,yes,ゴ,,呉
+,娯,1898,2047,,recreation,recreation,yes,ゴ,,娯
+,誤,1899,2048,,mistake,mistake,yes,ゴ,あやま・る,誤
+,蒸,1900,2049,,steam,steam,yes,ジョウ,む・す　　む・らす　　む・れる,蒸
+,承,1901,2050,,acquiesce,acquiesce,yes,ショウ,うけたまわ・る,承
+,函,1902,2051,,bin,bin,no,カン,はこ,函
+,極,1903,2052,,poles,poles,yes,キョク　　ゴク,きわ・み　　きわ・まる　　きわ・める,極
+,牙,1904,2053,52,tusk,tusk,yes,ガ　　ゲr,きば,牙
+,芽,1905,2054,,bud,bud,yes,ガ,め,芽
+,邪,1906,2055,,wicked,wicked,yes,ジャ,,邪
+,雅,1907,2056,,gracious,gracious,yes,ガ,,雅
+,釈,1908,2057,,explanation,interpretation,yes,シャク,,釈
+,番,1909,2058,,turn,turn,yes,バン,,番
+,審,1910,2059,,hearing,hearing,yes,シン,,審
+,翻,1911,2060,,flip,flip,yes,ホン,ひるがえ・す　　ひるがえ・る,翻
+,藩,1912,2061,,clan,clan,yes,ハン,,藩
+,毛,1913,2062,,fur,fur,yes,モウ,け,毛
+,耗,1914,2063,,decrease,decrease,yes,モウ　　コウr,,耗
+,尾,1915,2064,,tail,tail,yes,ビ,お,尾
+,宅,1916,2065,,home,home,yes,タク,,宅
+,託,1917,2066,,consign,consign,yes,タク,,託
+,為,1918,2067,,do,do,yes,イ,,為
+,偽,1919,2068,,falsehood,falsehood,yes,ギ,いつわ・る　　にせ,偽
+,畏,2569,2069,,apprehensive,apprehensive,yes,イ,おそ・れる,畏
+,長,1920,2070,,long,long,yes,チョウ,なが・い,長
+,張,1921,2071,,lengthen,lengthen,yes,チョウ,は・る,張
+,帳,1922,2072,,notebook,notebook,yes,チョウ,,帳
+,脹,1923,2073,,dilate,dilate,no,チョウ,,脹
+,髪,1924,2074,,hair of the head,hair of the head,yes,ハツ,かみ,髪
+,展,1925,2075,,unfold,unfold,yes,テン,,展
+,喪,1926,2076,,miss,miss,yes,ソウ,も,喪
+,巣,1927,2077,53,nest,nest,yes,ソウ,す,巣
+,単,1928,2078,,simple,simple,yes,タン,,単
+,戦,1929,2079,,war,war,yes,セン,たたか・う　　いくさ,戦
+,禅,1930,2080,,Zen,Zen,yes,ゼン,,禅
+,弾,1931,2081,,bullet,bullet,yes,ダン,たま　　はず・む　　ひ・く,弾
+,桜,1932,2082,,cherry tree,cherry tree,yes,オウ,さくら,桜
+,獣,1933,2083,,animal,animal,yes,ジュウ,けもの,獣
+,脳,1934,2084,,brain,brain,yes,ノウ,,脳
+,悩,1935,2085,,trouble,trouble,yes,ノウ,なや・む　　なや・ます,悩
+,厳,1936,2086,,stern,stern,yes,ゲン　　ゴンr,きび・しい　　おごそ・か,厳
+,鎖,1937,2087,,chain,chain,yes,サ,くさり,鎖
+,挙,1938,2088,,raise,raise,yes,キョ,あ・がる　　あ・げる,挙
+,誉,1939,2089,,reputation,reputation,yes,ヨ,ほま・れ,誉
+,猟,1940,2090,,game hunting,game hunting,yes,リョウ,,猟
+,鳥,1941,2091,,bird,bird,yes,チョウ,とり,鳥
+,鳴,1942,2092,,chirp,chirp,yes,メイ,な・く　　な・る　　な・らす,鳴
+,鶴,1943,2093,,crane,crane,yes,,つる,鶴
+,烏,1944,2094,,crow,crow,no,ウ,からす,烏
+,蔦,1945,2095,,vine,vine,no,,つた,蔦
+,鳩,1946,2096,,pigeon,pigeon,no,,はと,鳩
+,鶏,1947,2097,,chicken,chicken,yes,ケイ,にわとり,鶏
+,島,1948,2098,,island,island,yes,トウ,しま,島
+,暖,1949,2099,,warmth,warmth,yes,ダン,あたた・か　　あたた・かい　　あたた・まる　　あたた・める,暖
+,媛,1950,2100,,beautiful woman,beautiful woman,yes,エン,ひめr,媛
+,援,1951,2101,,abet,abet,yes,エン,,援
+,緩,1952,2102,,slacken,slacken,yes,カン,ゆる・い　　ゆる・む　　ゆる・める　　ゆる・やか,緩
+,属,1953,2103,,belong,belong,yes,ゾク,,属
+,嘱,1954,2104,,entrust,entrust,yes,ショク,,嘱
+,偶,1955,2105,,accidentally,accidentally,yes,グウ,,偶
+,遇,1956,2106,,interview,interview,yes,グウ,,遇
+,愚,1957,2107,,foolish,foolish,yes,グ,おろ・か,愚
+,隅,1958,2108,,corner,corner,yes,グウ,すみ,隅
+,逆,1959,2109,,inverted,inverted,yes,ギャク,さか　　さか・らう,逆
+,塑,1960,2110,,model,model,yes,ソ,,塑
+,遡,2847,2111,,go upstream,go upstream,yes,ソ,さかのぼ・る,遡
+,岡,1961,2112,,Mount,Mount,yes,,おかr,岡
+,鋼,1962,2113,,steel,steel,yes,コウ,はがね,鋼
+,綱,1963,2114,,hawser,hawser,yes,コウ,つな,綱
+,剛,1964,2115,,sturdy,sturdy,yes,ゴウ,,剛
+,缶,1965,2116,,tin can,tin can,yes,カン,,缶
+,陶,1966,2117,,pottery,pottery,yes,トウ,,陶
+,揺,1967,2118,,swing,swing,yes,ヨウ,ゆ・れる　　ゆ・る　　ゆ・らぐ　　ゆ・るぐ　　ゆ・さぶる　　ゆ・すぶる　　　ゆ・する,揺
+,謡,1968,2119,,Noh chanting,Noh chanting,yes,ヨウ,うたい　　うた・う,謡
+,鬱,3030,2120,,gloom,gloom,yes,ウツ,,鬱
+,就,1969,2121,,concerning,concerning,yes,シュウ　　ジュr,つ・く　　つ・ける,就
+,蹴,2742,2122,,kick,kick,yes,シュウ,け・る,蹴
+,懇,1970,2123,,sociable,sociable,yes,コン,ねんご・ろ,懇
+,墾,1971,2124,,groundbreaking,groundbreaking,yes,コン,,墾
+,貌,2733,2125,,countenance,countenance,yes,ボウ,,貌
+,免,1972,2126,,excuse,excuse,yes,メン,まぬか・れる,免
+,逸,1973,2127,,elude,elude,yes,イツ,,逸
+,晩,1974,2128,,nightfall,nightfall,yes,バン,,晩
+,勉,1975,2129,,exertion,exertion,yes,ベン,,勉
+,象,1976,2130,,elephant,elephant,yes,ショウ　　ゾウ,,象
+,像,1977,2131,,statue,statue,yes,ゾウ,,像
+,馬,1978,2132,54,horse,horse,yes,バ,うま　　まr,馬
+,駒,1979,2133,,pony,pony,yes,,こま,駒
+,験,1980,2134,,verification,verification,yes,ケン　ゲンr,,験
+,騎,1981,2135,,equestrian,equestrian,yes,キ,,騎
+,駐,1982,2136,,parking,parking,yes,チュウ,,駐
+,駆,1983,2137,,drive,drive,yes,ク,か・ける　　か・る,駆
+,駅,1984,2138,,station,station,yes,エキ,,駅
+,騒,1985,2139,,boisterous,boisterous,yes,ソウ,さわ・ぐ,騒
+,駄,1986,2140,,burdensome,burdensome,yes,ダ,,駄
+,驚,1987,2141,,wonder,wonder,yes,キョウ,おどろ・く　　おどろ・かす,驚
+,篤,1988,2142,,fervent,fervent,yes,トク,,篤
+,罵,2699,2143,,insult,insult,yes,バ,ののし・る,罵
+,騰,1989,2144,,inflation,inflation,yes,トウ,,騰
+,虎,1990,2145,,tiger,tiger,yes,コ,とら,虎
+,虜,1991,2146,,captive,captive,yes,リョ,,虜
+,膚,1992,2147,,skin,skin,yes,フ,,膚
+,虚,1993,2148,,void,void,yes,キョ　　コr,,虚
+,戯,1994,2149,,frolic,frolic,yes,ギ,たわむ・れる,戯
+,虞,1995,2150,,uneasiness,uneasiness,yes,,おそれ,虞
+,慮,1996,2151,,prudence,prudence,yes,リョ,,慮
+,劇,1997,2152,,drama,drama,yes,ゲキ,,劇
+,虐,1998,2153,,tyrannize,tyrannize,yes,ギャク,しいた・げる,虐
+,鹿,1999,2154,,deer,deer,yes,,しか　　かr,鹿
+,麓,2839,2155,,foot of a mountain,foot of a mountain,yes,ロク,ふもと    ,麓
+,薦,2000,2156,,recommend,recommend,yes,セン,すす・める,薦
+,慶,2001,2157,,jubilation,jubilation,yes,ケイ,,慶
+,麗,2002,2158,,lovely,lovely,yes,レイ,うるわ・しい,麗
+,熊,2003,2159,,bear,bear,yes,,くま,熊
+,能,2004,2160,,ability,ability,yes,ノウ,,能
+,態,2005,2161,,attitude,attitude,yes,タイ,,態
+,寅,2006,2162,55,sign of the tiger,sign of the tiger,no,,とら,寅
+,演,2007,2163,,performance,performance,yes,エン,,演
+,辰,2008,2164,,sign of the dragon,sign of the dragon,no,,たつ,辰
+,辱,2009,2165,,embarrass,embarrass,yes,ジョク,はずかし・める,辱
+,震,2010,2166,,quake,quake,yes,シン,ふる・う　　ふる・える,震
+,振,2011,2167,,shake,shake,yes,シン,ふ・る　　ふ・るう　　ふ・れる,振
+,娠,2012,2168,,with child,with child,yes,シン,,娠
+,唇,2013,2169,,lips,lips,yes,シン,くちびる,唇
+,農,2014,2170,,agriculture,agriculture,yes,ノウ,,農
+,濃,2015,2171,,concentrated,concentrated,yes,ノウ,こ・い,濃
+,送,2016,2172,,send off,send off,yes,ソウ,おく・る,送
+,関,2017,2173,,connection,connection,yes,カン,せき　　かか・わる ,関
+,咲,2018,2174,,blossom,blossom,yes,,さ・く,咲
+,鬼,2019,2175,,ghost,ghost,yes,キ,おに,鬼
+,醜,2020,2176,,ugly,ugly,yes,シュウ,みにく・い,醜
+,魂,2021,2177,,soul,soul,yes,コン,たましい,魂
+,魔,2022,2178,,witch,witch,yes,マ,,魔
+,魅,2023,2179,,fascination,fascination,yes,ミ,,魅
+,塊,2024,2180,,clod,clod,yes,カイ,かたまり,塊
+,襲,2025,2181,,attack,attack,yes,シュウ,おそ・う,襲
+,嚇,2026,2182,56,upbraid,upbraid,yes,カク,,嚇
+,朕,2027,2183,,majestic plural,majestic plural,yes,チン,,朕
+,雰,2028,2184,,atmosphere,atmosphere,yes,フン,,雰
+,箇,2029,2185,,item,item,yes,カ,,箇
+,錬,2030,2186,,tempering,tempering,yes,レン,,錬
+,遵,2031,2187,,abide by,abide by,yes,ジュン,,遵
+,罷,2032,2188,,quit,quit,yes,ヒ,,罷
+,屯,2033,2189,,barracks,barracks,yes,トン,,屯
+,且,2034,2190,,moreover,moreover,yes,,か・つ,且
+,藻,2035,2191,,seaweed,seaweed,yes,ソウ,も,藻
+,隷,2036,2192,,slave,slave,yes,レイ,,隷
+,癒,2037,2193,,healing,healing,yes,ユ,い・やす 　　い・える ,癒
+,璽,2075,2194,,imperial seal,imperial seal,yes,ジ,,璽
+,潟,2039,2195,,lagoon,lagoon,yes,タン,,潟
+,丹,2038,2196,,cinnabar,cinnabar,yes,,かた,丹
+,丑,2040,2197,,sign of the cow,sign of the cow,no,,うし,丑
+,羞,3029,2198,,humiliate,humiliate,yes,シュウ,,羞
+,卯,2041,2199,,sign of the hare,sign of the hare,no,,う,卯
+,巳,2042,2200,,sign of the snake,sign of the snake,no,,み,巳
+,此,2043,2201,RTK3 New Prim,this here,this here,no,,,此
+,柴,2044,2202,,brushwood,brushwood,no,,,柴
+,些,2046,2203,,whit,whit,no,,,些
+,砦,2045,2204,,fort,fort,no,,,砦
+,髭,2047,2205,,beard,beard,no,,,髭
+,禽,2049,2206,,fowl,fowl,no,,,禽
+,檎,2050,2207,,apple,apple,no,,,檎
+,憐,2051,2208,,sympathize with,sympathize with,no,,,憐
+,燐,2052,2209,,phosphorus,phosphorus,no,,,燐
+,麟,2053,2210,,camelopard,camelopard,no,,,麟
+,鱗,2054,2211,,scaled,scaled,no,,,鱗
+,奄,2055,2212,,encompassing,encompassing,no,,,奄
+,庵,2056,2213,,hermitage,hermitage,no,,,庵
+,掩,2057,2214,,shrouded,shrouded,no,,,掩
+,悛,2059,2215,,make amends,make amends,no,,,悛
+,駿,2060,2216,,steed,steed,no,,,駿
+,峻,2061,2217,,steep,steep,no,,,峻
+,竣,2062,2218,,complete a job,complete a job,no,,,竣
+,犀,2069,2219,,rhinoceros,rhinoceros,no,,,犀
+,皐,2070,2220,,lunar month,lunar month,no,,,皐
+,畷,2072,2221,,rice-field footpath,rice-field footpath,no,,,畷
+,綴,2073,2222,,mend,mend,no,,,綴
+,鎧,2076,2223,,suit of armor,suit of armor,no,,,鎧
+,凱,2077,2224,,triumph,triumph,no,,,凱
+,呑,2080,2225,,quaff,quaff,no,,,呑
+,韮,2081,2226,,leek,leek,no,,,韮
+,籤,2082,2227,,lottery,lottery,no,,,籤
+,懺,2083,2228,,penitential,penitential,no,,,懺
+,芻,2084,2229,,hay,hay,no,,,芻
+,雛,2085,2230,,chick,chick,no,,,雛
+,趨,2086,2231,,scurry,scurry,no,,,趨
+,尤,2087,2232,,understandably,understandably,no,,,尤
+,厖,2089,2233,,immense,immense,no,,,厖
+,或,2091,2234,,a  (a certain),a  (a certain),no,,,或
+,兎,2093,2235,,rabbit,rabbit,no,,,兎
+,也,2094,2236,,est,est,no,,,也
+,巴,2096,2237,,comma-design,comma-design,no,,,巴
+,疋,2098,2238,,critters,critters,no,,,疋
+,菫,2099,2239,,violet,violet,no,,,菫
+,曼,2100,2240,,mandala,mandala,no,,,曼
+,云,2102,2241,,quote,quote,no,,,云
+,莫,2105,2242,,shalt,shalt,no,,,莫
+,而,3006,2243,,and then,and then,no,,,而
+,倭,2106,2244,Major Prim Elements,Yamato,Yamato,no,,,倭
+,侠,2107,2245,,chivalry,chivalry,no,,,侠
+,倦,2108,2246,,fed up,fed up,no,,,倦
+,俄,2110,2247,,abrupt,abrupt,no,,,俄
+,佃,2111,2248,,work a field,work a field,no,,,佃
+,仔,2113,2249,,animal offspring,animal offspring,no,,,仔
+,仇,2114,2250,,foe,foe,no,,,仇
+,伽,2115,2251,,look after,look after,no,,,伽
+,儲,2118,2252,,make a profit,make a profit,no,,,儲
+,僑,2120,2253,,emigrant,emigrant,no,,,僑
+,倶,2124,2254,,mate,mate,no,,,倶
+,侃,2123,2255,,integrity,forthright,no,,,侃
+,偲,2129,2256,,memorial,memorial,no,,,偲
+,侭,2125,2257,,as is,as is,no,,,侭
+,脩,2130,2258,,dried meat,dried meat,no,,,脩
+,倅,2131,2259,,my son,my son,no,,,倅
+,做,2132,2260,,make do,make do,no,,,做
+,冴,2134,2261,,sharp,sharp,no,,,冴
+,凋,2135,2262,,wilt,wilt,no,,,凋
+,凌,2136,2263,,pull through,pull through,no,,,凌
+,凛,2138,2264,,stately,stately,no,,,凛
+,凧,2139,2265,,kite,kite,no,,,凧
+,凪,2140,2266,,lull,lull,no,,,凪
+,夙,2141,2267,,earlybird,earlybird,no,,,夙
+,鳳,2142,2268,,phoenix,phoenix,no,,,鳳
+,剽,9998,2269,,(not in),menace,no,,,剽
+,劉,2143,2270,,slaughter,slaughter,no,,,劉
+,剃,2146,2271,,shave,shave,no,,,剃
+,厭,2149,2272,,despondent,despondent,no,,,厭
+,雁,2150,2273,,wild goose,wild goose,no,,,雁
+,贋,2151,2274,,counterfeit,counterfeit,no,,,贋
+,厨,2152,2275,,kitchen,kitchen,no,,,厨
+,仄,2153,2276,,insinuate,insinuate,no,,,仄
+,哨,2154,2277,,scout,scout,no,,,哨
+,咎,2156,2278,,reprehend,reprehend,no,,,咎
+,囁,2157,2279,,whisper,whisper,no,,,囁
+,喋,2158,2280,,chatter,chatter,no,,,喋
+,嘩,2160,2281,,quarrel,quarrel,no,,,嘩
+,噂,2161,2282,,gossip,gossip,no,,,噂
+,咳,2162,2283,,cough,cough,no,,,咳
+,喧,2163,2284,,clamor,clamor,no,,,喧
+,叩,2166,2285,,bash,bash,no,,,叩
+,嘘,2167,2286,,fib,fib,no,,,嘘
+,啄,2168,2287,,peck at,peck at,no,,,啄
+,吠,2170,2288,,barking,barking,no,,,吠
+,吊,2171,2289,,dangle,dangle,no,,,吊
+,噛,2172,2290,,chew,chew,no,,,噛
+,叶,2173,2291,,within my ability,within my ability,no,,,叶
+,吻,2174,2292,,sides of the mouth,sides of the mouth,no,,,吻
+,吃,2175,2293,,stammer,stammer,no,,,吃
+,噺,2176,2294,,spin a tale,spin a tale,no,,,噺
+,噌,2177,2295,,miso,miso,no,,,噌
+,邑,2180,2296,,city walls,city walls,no,,,邑
+,呆,2181,2297,,dumbfounded,dumbfounded,no,,,呆
+,喰,2182,2298,,ingest,ingest,no,,,喰
+,埴,2183,2299,,clay,clay,no,,,埴
+,坤,2184,2300,,authochthonous,authochthonous,no,,,坤
+,壕,2186,2301,,dugout,dugout,no,,,壕
+,垢,2187,2302,,blemish,blemish,no,,,垢
+,坦,2188,2303,,flat,flat,no,,,坦
+,埠,2189,2304,,wharf,wharf,no,,,埠
+,堰,2191,2305,,dam,dam,no,,,堰
+,堵,2192,2306,,railing,railing,no,,,堵
+,嬰,2193,2307,,suckling infant,suckling infant,no,,,嬰
+,姦,2194,2308,,violate,violate,no,,,姦
+,婢,2196,2309,,handmaiden,handmaiden,no,,,婢
+,婉,2197,2310,,well finished,well finished,no,,,婉
+,娼,2198,2311,,harlot,harlot,no,,,娼
+,妓,2199,2312,,courtesan,courtesan,no,,,妓
+,娃,2200,2313,,fair,fair,no,,,娃
+,姪,2201,2314,,niece,niece,no,,,姪
+,嬬,2203,2315,,mistress,mistress,no,,,嬬
+,姥,2204,2316,,aged woman,aged woman,no,,,姥
+,姑,2205,2317,,mother-in-law,mother-in-law,no,,,姑
+,姐,2206,2318,,young miss,young miss,no,,,姐
+,嬉,2207,2319,,overjoyed,overjoyed,no,,,嬉
+,孕,2208,2320,,expecting,expecting,no,,,孕
+,孜,2209,2321,,assiduous,assiduous,no,,,孜
+,宥,2210,2322,,soothe,soothe,no,,,宥
+,寓,2211,2323,,imply,imply,no,,,寓
+,宏,2212,2324,,extensive,extensive,no,,,宏
+,牢,2213,2325,,jail,jail,no,,,牢
+,宋,2215,2326,,Sung dynasty,Sung dynasty,no,,,宋
+,宍,2216,2327,,venison,venison,no,,,宍
+,屠,2217,2328,,butchering,butchering,no,,,屠
+,屁,2218,2329,,fart,fart,no,,,屁
+,屑,2219,2330,,rubbish,rubbish,no,,,屑
+,屡,2221,2331,,frequently,frequently,no,,,屡
+,屍,2222,2332,,corpse,corpse,no,,,屍
+,屏,2223,2333,,folding screen,folding screen,no,,,屏
+,嵩,2224,2334,,high-reaching,high-reaching,no,,,嵩
+,崚,2225,2335,,rugged mountains,rugged mountains,no,,,崚
+,嶺,2228,2336,,mountaintop,mountaintop,no,,,嶺
+,嵌,2229,2337,,fit into,fit into,no,,,嵌
+,帖,2231,2338,,quire,quire,no,,,帖
+,幡,2232,2339,,banner,banner,no,,,幡
+,幟,2233,2340,,pennant,pennant,no,,,幟
+,庖,2234,2341,,cleaver,cleaver,no,,,庖
+,廓,2235,2342,,licensed quarters,licensed quarters,no,,,廓
+,庇,2236,2343,,overhang,overhang,no,,,庇
+,鷹,2237,2344,,hawk,hawk,no,,,鷹
+,庄,2238,2345,,shire,shire,no,,,庄
+,廟,2239,2346,,tomb sanctuary,tomb sanctuary,no,,,廟
+,彊,2240,2347,,strengthen,strengthen,no,,,彊
+,弛,2242,2348,,loosen,loosen,no,,,弛
+,粥,2243,2349,,rice gruel,rice gruel,no,,,粥
+,挽,2244,2350,,lathe,lathe,no,,,挽
+,撞,2245,2351,,bump into,bump into,no,,,撞
+,扮,2246,2352,,disguise,disguise,no,,,扮
+,捏,9998,2353,,(not in),fabrication,no,,,捏
+,掴,2249,2354,,clutch,clutch,no,,,掴
+,捺,2250,2355,,impress,impress,no,,,捺
+,掻,2252,2356,,scratch,scratch,no,,,掻
+,撰,2253,2357,,assortment,assortment,no,,,撰
+,揃,2255,2358,,muster,muster,no,,,揃
+,捌,2256,2359,,deal with,deal with,no,,,捌
+,按,2259,2360,,press down on,press down on,no,,,按
+,播,2262,2361,,disseminate,disseminate,no,,,播
+,揖,2263,2362,,interpretation,collect,no,,,揖
+,托,2264,2363,,receptable,receptacle,no,,,托
+,捧,2265,2364,,dedicate,devote,no,,,捧
+,撚,2266,2365,,twirl,twirl,no,,,撚
+,挺,2267,2366,,counter for tools,counter for tools,no,,,挺
+,擾,2268,2367,,commotion,commotion,no,,,擾
+,撫,2270,2368,,petting,petting,no,,,撫
+,撒,2271,2369,,sprinkle,sprinkle,no,,,撒
+,擢,2272,2370,,outstanding,outstanding,no,,,擢
+,摺,2258,2371,,rubbing,rubbing,no,,,摺
+,捷,2273,2372,,spoils,spoils,no,,,捷
+,抉,2274,2373,,gouge out,gouge out,no,,,抉
+,怯,2275,2374,,wince,wince,no,,,怯
+,惟,2276,2375,,ponder,ponder,no,,,惟
+,惚,2277,2376,,infatuation,infatuation,no,,,惚
+,怜,2278,2377,,quickwitted,quickwitted,no,,,怜
+,惇,2279,2378,,considerate,considerate,no,,,惇
+,恰,2281,2379,,as if,as if,no,,,恰
+,恢,2282,2380,,enlarge,enlarge,no,,,恢
+,悌,2283,2381,,respect for elders,respect for elders,no,,,悌
+,澪,2285,2382,,canal,canal,no,,,澪
+,洸,2286,2383,,glistening,glistening,no,,,洸
+,滉,2287,2384,,bounding main,bounding main,no,,,滉
+,漱,2288,2385,,gargle,gargle,no,,,漱
+,洲,2289,2386,,continent,continent,no,,,洲
+,洵,2290,2387,,swirling waters,swirling waters,no,,,洵
+,滲,2291,2388,,seep,seep,no,,,滲
+,洒,2292,2389,,rinse,rinse,no,,,洒
+,沐,2293,2390,,douse,douse,no,,,沐
+,泪,2294,2391,,teardrops,teardrops,no,,,泪
+,渾,2295,2392,,gushing,gushing,no,,,渾
+,涜,2297,2393,,blaspheme,blaspheme,no,,,涜
+,梁,2299,2394,,roofbeam,roofbeam,no,,,梁
+,澱,2300,2395,,sediment,sediment,no,,,澱
+,洛,2302,2396,,old Kyoto,old Kyoto,no,,,洛
+,汝,2303,2397,,thou,thou,no,,,汝
+,漉,2304,2398,,filter,filter,no,,,漉
+,瀕,2305,2399,,on the verge of,on the verge of,no,,,瀕
+,濠,2306,2400,,moat,moat,no,,,濠
+,溌,2307,2401,,spray,spray,no,,,溌
+,湊,2309,2402,,port,port,no,,,湊
+,淋,2310,2403,,solitude,solitude,no,,,淋
+,浩,2311,2404,,abounding,abounding,no,,,浩
+,汀,2312,2405,,water’s edge,water’s edge,no,,,汀
+,鴻,2313,2406,,large goose,large goose,no,,,鴻
+,潅,2314,2407,,souse,souse,no,,,潅
+,溢,2315,2408,,brimming,brimming,no,,,溢
+,湛,2317,2409,,inundate,inundate,no,,,湛
+,淳,2318,2410,,immaculate,immaculate,no,,,淳
+,渥,2320,2411,,moisten,moisten,no,,,渥
+,灘,2321,2412,,rough seas,rough seas,no,,,灘
+,汲,2322,2413,,draw water,draw water,no,,,汲
+,瀞,2323,2414,,river pool,river pool,no,,,瀞
+,溜,2324,2415,,cumulation,cumulation,no,,,溜
+,渕,2325,2416,,abyss,abyss,no,,,渕
+,沌,2326,2417,,chaos,chaos,no,,,沌
+,濾,2328,2418,,strainer,strainer,no,,,濾
+,濡,2329,2419,,drench,drench,no,,,濡
+,淀,2330,2420,,eddy,eddy,no,,,淀
+,涅,2331,2421,,fabrication,black soil,no,,,涅
+,斧,2333,2422,,hatchet,hatchet,no,,,斧
+,爺,2334,2423,,grandpa,grandpa,no,,,爺
+,猾,2335,2424,,sly,sly,no,,,猾
+,猥,2336,2425,,indecent,indecent,no,,,猥
+,狡,2337,2426,,cunning,cunning,no,,,狡
+,狸,2338,2427,,racoon dog,racoon dog,no,,,狸
+,狼,2339,2428,,wolf,wolf,no,,,狼
+,狽,2340,2429,,flustered,flustered,no,,,狽
+,狗,2341,2430,,pup,pup,no,,,狗
+,狐,2342,2431,,fox,fox,no,,,狐
+,狛,2343,2432,,a-un,a-un,no,,,狛
+,獅,2345,2433,,lion,lion,no,,,獅
+,狒,2346,2434,,baboon,baboon,no,,,狒
+,莨,2347,2435,,tobacco,tobacco,no,,,莨
+,茉,2348,2436,,jasmine,jasmine,no,,,茉
+,莉,2349,2437,,hawthorn,hawthorn,no,,,莉
+,苺,2350,2438,,strawberry,strawberry,no,,,苺
+,萩,2351,2439,,bush clover,bush clover,no,,,萩
+,藝,2352,2440,,technique (old),technique (old),no,,,藝
+,薙,2353,2441,,trim,trim,no,,,薙
+,蓑,2354,2442,,straw raincoat,straw raincoat,no,,,蓑
+,苔,2356,2443,,moss,moss,no,,,苔
+,蕩,2357,2444,,prodigal,prodigal,no,,,蕩
+,蔓,2359,2445,,tendril,tendril,no,,,蔓
+,蓮,2360,2446,,lotus,lotus,no,,,蓮
+,芙,2361,2447,,lotus flower,lotus flower,no,,,芙
+,蓉,2362,2448,,lotus blossom,lotus blossom,no,,,蓉
+,蘭,2363,2449,,orchid,orchid,no,,,蘭
+,芦,2364,2450,,hollow reed,hollow reed,no,,,芦
+,薯,2365,2451,,yam,yam,no,,,薯
+,菖,2366,2452,,iris,iris,no,,,菖
+,蕉,2367,2453,,banana,banana,no,,,蕉
+,蕎,2369,2454,,buckwheat,buckwheat,no,,,蕎
+,蕗,2370,2455,,butterbur,butterbur,no,,,蕗
+,茄,2372,2456,,eggplant,eggplant,no,,,茄
+,蔭,2374,2457,,behind the scenes,behind the scenes,no,,,蔭
+,蓬,2375,2458,,wormwood,wormwood,no,,,蓬
+,芥,2376,2459,,mustard,mustard,no,,,芥
+,萌,2377,2460,,germinate,germinate,no,,,萌
+,葡,2378,2461,,grape,grape,no,,,葡
+,萄,2379,2462,,grape vine,grape vine,no,,,萄
+,蘇,2380,2463,,resurrect,resurrect,no,,,蘇
+,蕃,2381,2464,,grow wild,grow wild,no,,,蕃
+,苓,2382,2465,,cocklebur,cocklebur,no,,,苓
+,菰,2383,2466,,rush mat,rush mat,no,,,菰
+,蒙,2384,2467,,darken,darken,no,,,蒙
+,茅,2385,2468,,grassy reed,grassy reed,no,,,茅
+,芭,2386,2469,,plantain,plantain,no,,,芭
+,苅,2387,2470,,mow,mow,no,,,苅
+,葱,2389,2471,,onion,onion,no,,,葱
+,葵,2391,2472,,hollyhock,hollyhock,no,,,葵
+,葺,2392,2473,,shingling,shingling,no,,,葺
+,蕊,2393,2474,,stamen,stamen,no,,,蕊
+,茸,2394,2475,,mushroom,mushroom,no,,,茸
+,蒔,2395,2476,,sowing,sowing,no,,,蒔
+,芹,2396,2477,,parsley,parsley,no,,,芹
+,苫,2397,2478,,thatching,thatching,no,,,苫
+,蒼,2399,2479,,pale blue,pale blue,no,,,蒼
+,藁,2400,2480,,straw,straw,no,,,藁
+,蕪,2401,2481,,turnip,turnip,no,,,蕪
+,藷,2402,2482,,sweet potato,sweet potato,no,,,藷
+,薮,2403,2483,,quack,quack,no,,,薮
+,蒜,2404,2484,,garlic,garlic,no,,,蒜
+,蕨,2405,2485,,bracken,bracken,no,,,蕨
+,蔚,2406,2486,,grow plentiful,grow plentiful,no,,,蔚
+,茜,2407,2487,,madder red,madder red,no,,,茜
+,莞,2408,2488,,candle rush,candle rush,no,,,莞
+,蒐,2409,2489,,collector,collector,no,,,蒐
+,菅,2410,2490,,sedge,sedge,no,,,菅
+,葦,2411,2491,,ditch reed,ditch reed,no,,,葦
+,迪,2412,2492,,Way,Way,no,,,迪
+,辿,2413,2493,,track down,track down,no,,,辿
+,這,2414,2494,,crawl,crawl,no,,,這
+,迂,2415,2495,,detour,detour,no,,,迂
+,遁,2416,2496,,elude,shirk,no,,,遁
+,逢,2417,2497,,tryst,tryst,no,,,逢
+,遥,2418,2498,,far off,far off,no,,,遥
+,遼,2419,2499,,remote,faraway,no,,,遼
+,逼,2420,2500,,pressing,pressing,no,,,逼
+,迄,2421,2501,,until,until,no,,,迄
+,逗,2423,2502,,standstill,standstill,no,,,逗
+,鄭,2425,2503,,courtesy,courtesy,no,,,鄭
+,隕,9998,2504,,(not in),falling,no,,,隕
+,隈,2427,2505,,nook,nook,no,,,隈
+,憑,2428,2506,,possessed,possessed,no,,,憑
+,惹,2429,2507,,attract,attract,no,,,惹
+,悉,2430,2508,,without exception,without exception,no,,,悉
+,忽,2431,2509,,instantaneously,instantaneously,no,,,忽
+,惣,2432,2510,,firstborn son,firstborn son,no,,,惣
+,愈,2433,2511,,in the nick of time,in the nick of time,no,,,愈
+,恕,2434,2512,,sensitive,sensitive,no,,,恕
+,昴,2435,2513,,overarching,overarching,no,,,昴
+,晋,2436,2514,,progress,progress,no,,,晋
+,晟,2438,2515,,aglow,aglow,no,,,晟
+,暈,2439,2516,,halo,halo,no,,,暈
+,暉,2440,2517,,glitter,glitter,no,,,暉
+,旱,2441,2518,,dry weather,dry weather,no,,,旱
+,晏,2442,2519,,clear skies,clear skies,no,,,晏
+,晨,2443,2520,,morrow,morrow,no,,,晨
+,晒,2444,2521,,bleaching,bleaching,no,,,晒
+,晃,2446,2522,,limpid,limpid,no,,,晃
+,曝,2447,2523,,air out,air out,no,,,曝
+,曙,2448,2524,,dawn,dawn,no,,,曙
+,昂,2449,2525,,elevate,elevate,no,,,昂
+,昏,2451,2526,,dusk,dusk,no,,,昏
+,晦,2452,2527,,last day of the month,last day of the month,no,,,晦
+,膿,2455,2528,,pus,pus,no,,,膿
+,腑,2456,2529,,viscera,viscera,no,,,腑
+,胱,2457,2530,,bladder,bladder,no,,,胱
+,胚,2458,2531,,embryo,embryo,no,,,胚
+,肛,2459,2532,,anus,anus,no,,,肛
+,脆,2462,2533,,fragile,fragile,no,,,脆
+,肋,2463,2534,,rib,rib,no,,,肋
+,腔,2465,2535,,body cavity,body cavity,no,,,腔
+,肱,2469,2536,,armrest,armrest,no,,,肱
+,胡,2470,2537,,uncivilized,uncivilized,no,,,胡
+,楓,2471,2538,,maple tree,maple tree,no,,,楓
+,楊,2473,2539,,purple willow,purple willow,no,,,楊
+,椋,2474,2540,,Oriental elm,Oriental elm,no,,,椋
+,榛,2475,2541,,hazel,hazel,no,,,榛
+,櫛,2476,2542,,comb,comb,no,,,櫛
+,槌,2477,2543,,wooden hammer,wooden hammer,no,,,槌
+,樵,2478,2544,,mallet,mallet,no,,,樵
+,梯,2479,2545,,ladder,ladder,no,,,梯
+,柑,2482,2546,,citrus tree,citrus tree,no,,,柑
+,杭,2484,2547,,picket,picket,no,,,杭
+,柊,2485,2548,,holly,holly,no,,,柊
+,柚,2486,2549,,citron,citron,no,,,柚
+,椀,2487,2550,,wooden bowl,wooden bowl,no,,,椀
+,栂,2488,2551,,hemlock,hemlock,no,,,栂
+,柾,2489,2552,,spindle tree,spindle tree,no,,,柾
+,榊,2490,2553,,sacred Shinto tree,sacred tree,no,,,榊
+,樫,2491,2554,,evergreen oak,evergreen oak,no,,,樫
+,槙,2492,2555,,Chinese black pine,black pine,no,,,槙
+,楢,2493,2556,,Japanese oak,Japanese oak,no,,,楢
+,橘,2494,2557,,mandarin orange,mandarin orange,no,,,橘
+,桧,2495,2558,,Japanese cypress,Japanese cypress,no,,,桧
+,棲,2496,2559,,roost,roost,no,,,棲
+,栖,2497,2560,,nestle,nestle,no,,,栖
+,桔,2499,2561,,bellflower,bellflower,no,,,桔
+,杜,2500,2562,,temple grove,temple grove,no,,,杜
+,杷,2501,2563,,grain rake,grain rake,no,,,杷
+,梶,2502,2564,,oar,oar,no,,,梶
+,杵,2503,2565,,wooden pestle,wooden pestle,no,,,杵
+,杖,2504,2566,,cane,cane,no,,,杖
+,樽,2506,2567,,barrel,barrel,no,,,樽
+,櫓,2508,2568,,turret,turret,no,,,櫓
+,橿,2509,2569,,sturdy oak,sturdy oak,no,,,橿
+,杓,2510,2570,,wooden ladle,wooden ladle,no,,,杓
+,李,2511,2571,,damson,damson,no,,,李
+,棉,2512,2572,,raw cotton,raw cotton,no,,,棉
+,楯,2513,2573,,escutcheon,escutcheon,no,,,楯
+,榎,2514,2574,,hackberry,hackberry,no,,,榎
+,樺,2515,2575,,birch,birch,no,,,樺
+,槍,2516,2576,,lance,lance,no,,,槍
+,柘,2517,2577,,wild mulberry,wild mulberry,no,,,柘
+,梱,2518,2578,,bale,bale,no,,,梱
+,枇,2519,2579,,loquat,loquat,no,,,枇
+,樋,2520,2580,,downspout,downspout,no,,,樋
+,橇,2521,2581,,sled,sled,no,,,橇
+,槃,2522,2582,,enjoyment,enjoyment,no,,,槃
+,栞,2523,2583,,bookmark,bookmark,no,,,栞
+,椰,2524,2584,,coconut tree,coconut tree,no,,,椰
+,檀,2525,2585,,sandalwood,sandalwood,no,,,檀
+,樗,2526,2586,,plotosid,sumac,no,,,樗
+,槻,2527,2587,,zelkova,zelkova,no,,,槻
+,椙,2528,2588,,cryptomeria,cryptomeria,no,,,椙
+,彬,2529,2589,,copious,copious,no,,,彬
+,桶,2530,2590,,bucket,bucket,no,,,桶
+,楕,2531,2591,,ellipse,ellipse,no,,,楕
+,樒,2532,2592,,star-anise,star-anise,no,,,樒
+,毬,2533,2593,,furball,furball,no,,,毬
+,燿,2534,2594,,twinkle,twinkle,no,,,燿
+,燎,2535,2595,,watchfire,watchfire,no,,,燎
+,炬,2536,2596,,torch,torch,no,,,炬
+,焚,2537,2597,,kindle,kindle,no,,,焚
+,灸,2538,2598,,moxa,moxa,no,,,灸
+,煽,2540,2599,,fanning,fanning,no,,,煽
+,煤,2541,2600,,soot,soot,no,,,煤
+,煉,2542,2601,,firing,firing,no,,,煉
+,燦,2543,2602,,dazzling,dazzling,no,,,燦
+,灼,2544,2603,,refulgent,refulgent,no,,,灼
+,烙,2545,2604,,branding,branding,no,,,烙
+,焔,2546,2605,,flames,flames,no,,,焔
+,烹,2549,2606,,stew,stew,no,,,烹
+,牽,2550,2607,,tug,tug,no,,,牽
+,牝,2551,2608,,female animal,female animal,no,,,牝
+,牡,2552,2609,,male animal,male animal,no,,,牡
+,琳,2554,2610,,chime,chime,no,,,琳
+,琉,2557,2611,,lapis lazuli,lapis lazuli,no,,,琉
+,瑳,2559,2612,,burnish,burnish,no,,,瑳
+,琢,2560,2613,,hone,hone,no,,,琢
+,珊,2561,2614,,coral,coral,no,,,珊
+,瑚,2562,2615,,coral reef,coral reef,no,,,瑚
+,瑞,2563,2616,,fortunate,fortunate,no,,,瑞
+,玖,2565,2617,,jet,jet,no,,,玖
+,瑛,2566,2618,,crystal stone,crystal stone,no,,,瑛
+,玲,2568,2619,,tinkling,tinkling,no,,,玲
+,畢,2570,2620,,lastly,lastly,no,,,畢
+,畦,2571,2621,,paddy-field ridge,paddy-field ridge,no,,,畦
+,痒,2572,2622,,itch,itch,no,,,痒
+,痰,2573,2623,,phlegm,phlegm,no,,,痰
+,疹,2574,2624,,measles,measles,no,,,疹
+,痔,2575,2625,,hemorrhoids,hemorrhoids,no,,,痔
+,癌,2576,2626,,cancer,cancer,no,,,癌
+,痺,2579,2627,,paralysis,paralysis,no,,,痺
+,眸,2580,2628,,apple of the eye,apple of the eye,no,,,眸
+,眩,2581,2629,,dizzy,dizzy,no,,,眩
+,雉,2584,2630,,pheasant,pheasant,no,,,雉
+,矩,2585,2631,,carpenter’s square,carpenter’s square,no,,,矩
+,磐,2586,2632,,crag,crag,no,,,磐
+,碇,2587,2633,,grapnel,grapnel,no,,,碇
+,碧,2588,2634,,blue-green,blue-green,no,,,碧
+,硯,2589,2635,,inkstone,inkstone,no,,,硯
+,砥,2590,2636,,grindstone,grindstone,no,,,砥
+,碗,2591,2637,,teacup,teacup,no,,,碗
+,碍,2592,2638,,obstacle,obstacle,no,,,碍
+,碩,2593,2639,,illustrious,illustrious,no,,,碩
+,磯,2594,2640,,rocky beach,rocky beach,no,,,磯
+,砺,2595,2641,,whetstone,whetstone,no,,,砺
+,碓,2596,2642,,mill,mill,no,,,碓
+,禦,2597,2643,,fend off,fend off,no,,,禦
+,祷,2598,2644,,beseech,beseech,no,,,祷
+,祐,2599,2645,,ancestral tablet,ancestral tablet,no,,,祐
+,祇,2600,2646,,local god,local god,no,,,祇
+,祢,2601,2647,,ancestral shrine,ancestral shrine,no,,,祢
+,禄,2602,2648,,salarium,salarium,no,,,禄
+,禎,2603,2649,,felicitation,felicitation,no,,,禎
+,秤,2604,2650,,balancing scales,balancing scales,no,,,秤
+,黍,2605,2651,,millet,millet,no,,,黍
+,禿,2606,2652,,bald,bald,no,,,禿
+,稔,2607,2653,,bear fruit,bear fruit,no,,,稔
+,稗,2608,2654,,crabgrass,crabgrass,no,,,稗
+,穣,2609,2655,,bumper crop,bumper crop,no,,,穣
+,稜,2610,2656,,imperial authority,imperial authority,no,,,稜
+,稀,2611,2657,,sparse,sparse,no,,,稀
+,穆,2612,2658,,obeisant,obeisant,no,,,穆
+,窺,2613,2659,,peep,peep,no,,,窺
+,窄,2614,2660,,tight,tight,no,,,窄
+,穿,2616,2661,,drill,drill,no,,,穿
+,竃,2617,2662,,kitchen stove,kitchen stove,no,,,竃
+,竪,2618,2663,,longness,longness,no,,,竪
+,颯,2619,2664,,rustling,rustling,no,,,颯
+,站,2620,2665,,outpost,outpost,no,,,站
+,靖,2621,2666,,repose,repose,no,,,靖
+,妾,2622,2667,,concubine,concubine,no,,,妾
+,衿,2623,2668,,lapel,lapel,no,,,衿
+,袷,2625,2669,,lined kimono,lined kimono,no,,,袷
+,袴,2626,2670,,pleated skirt,pleated skirt,no,,,袴
+,襖,2627,2671,,sliding door,sliding door,no,,,襖
+,笙,2628,2672,,Chinese panpipe,Chinese panpipe,no,,,笙
+,筏,2629,2673,,raft,raft,no,,,筏
+,簾,2630,2674,,bamboo blinds,bamboo blinds,no,,,簾
+,箪,2631,2675,,rattan box,rattan box,no,,,箪
+,竿,2632,2676,,pole,pole,no,,,竿
+,箆,2633,2677,,spatula,spatula,no,,,箆
+,箔,2634,2678,,foil,foil,no,,,箔
+,笥,2635,2679,,wardrobe,wardrobe,no,,,笥
+,箭,2636,2680,,arrow shaft,arrow shaft,no,,,箭
+,筑,2637,2681,,ancient harp,ancient harp,no,,,筑
+,篠,2639,2682,,slender bamboo,slender bamboo,no,,,篠
+,纂,2641,2683,,redaction,redaction,no,,,纂
+,竺,2642,2684,,bamboo cane,bamboo cane,no,,,竺
+,箕,2643,2685,,winnowing fan,winnowing fan,no,,,箕
+,笈,2644,2686,,backpack,backpack,no,,,笈
+,篇,2645,2687,,livraison,livraison,no,,,篇
+,筈,2646,2688,,should,should,no,,,筈
+,簸,2647,2689,,winnow,winnow,no,,,簸
+,粕,2648,2690,,settlings,settlings,no,,,粕
+,糟,2649,2691,,lees,lees,no,,,糟
+,糊,2650,2692,,paste,paste,no,,,糊
+,籾,2651,2693,,unhulled rice,unhulled rice,no,,,籾
+,糠,2652,2694,,rice bran,rice bran,no,,,糠
+,糞,2653,2695,,excrement,excrement,no,,,糞
+,粟,2654,2696,,foxtail millet,foxtail millet,no,,,粟
+,繋,2655,2697,,link up,link up,no,,,繋
+,綸,2656,2698,,twine,twine,no,,,綸
+,絨,2657,2699,,carpet yarn,carpet yarn,no,,,絨
+,絆,2658,2700,,ties,ties,no,,,絆
+,緋,2659,2701,,scarlet,scarlet,no,,,緋
+,綜,2660,2702,,synthesis,synthesis,no,,,綜
+,紐,2661,2703,,string,string,no,,,紐
+,紘,2662,2704,,chinstrap,chinstrap,no,,,紘
+,纏,2663,2705,,summarize,summarize,no,,,纏
+,絢,2664,2706,,gorgeous,gorgeous,no,,,絢
+,繍,2665,2707,,embroidery,embroidery,no,,,繍
+,紬,2666,2708,,pongee,pongee,no,,,紬
+,綺,2667,2709,,ornate,ornate,no,,,綺
+,綾,2668,2710,,damask,damask,no,,,綾
+,絃,2669,2711,,catgut,catgut,no,,,絃
+,縞,2671,2712,,stripe,stripe,no,,,縞
+,綬,2672,2713,,gimp,gimp,no,,,綬
+,紗,2673,2714,,gossamer,gossamer,no,,,紗
+,舵,2674,2715,,rudder,rudder,no,,,舵
+,聯,2676,2716,,strung together,strung together,no,,,聯
+,聡,2677,2717,,attentive,attentive,no,,,聡
+,聘,2678,2718,,summons,summons,no,,,聘
+,耽,2679,2719,,addiction,addiction,no,,,耽
+,耶,2680,2720,,exclamation,exclamation,no,,,耶
+,蚤,2681,2721,,flea,flea,no,,,蚤
+,蟹,2682,2722,,crab,crab,no,,,蟹
+,蛋,2683,2723,,protein,protein,no,,,蛋
+,蟄,2684,2724,,hibernation,hibernation,no,,,蟄
+,蝿,2685,2725,,housefly,housefly,no,,,蝿
+,蟻,2686,2726,,ant,ant,no,,,蟻
+,蝋,2688,2727,,wax,wax,no,,,蝋
+,蝦,2689,2728,,shrimp,shrimp,no,,,蝦
+,蛸,2690,2729,,octopus,octopus,no,,,蛸
+,螺,2691,2730,,screw,screw,no,,,螺
+,蝉,2692,2731,,cicada,cicada,no,,,蝉
+,蛙,2693,2732,,frog,frog,no,,,蛙
+,蛾,2694,2733,,moth,moth,no,,,蛾
+,蛤,2695,2734,,clam,clam,no,,,蛤
+,蛭,2696,2735,,leech,leech,no,,,蛭
+,蛎,2697,2736,,oyster,oyster,no,,,蛎
+,罫,2698,2737,,ruled lines,ruled lines,no,,,罫
+,袈,2700,2738,,stole,stole,no,,,袈
+,裟,2701,2739,,monk’s sash,monk’s sash,no,,,裟
+,截,2703,2740,,incision,incision,no,,,截
+,哉,2704,2741,,I wonder,I wonder,no,,,哉
+,詢,2705,2742,,counsel,counsel,no,,,詢
+,諄,2706,2743,,polite,polite,no,,,諄
+,讐,2707,2744,,vendetta,vendetta,no,,,讐
+,諌,2708,2745,,remonstrate,remonstrate,no,,,諌
+,諒,2710,2746,,verify,verify,no,,,諒
+,讃,2711,2747,,compliment,compliment,no,,,讃
+,訊,2713,2748,,query,query,no,,,訊
+,訣,2714,2749,,split up,split up,no,,,訣
+,詫,2721,2750,,beg pardon,beg another’s pardon,no,,,詫
+,誼,2719,2751,,familiarity,familiarity,no,,,誼
+,謬,2720,2752,,fallible,fallible,no,,,謬
+,訝,9998,2753,,(not in),wary,no,,,訝
+,諺,2723,2754,,proverb,proverb,no,,,諺
+,誹,2724,2755,,slander,slander,no,,,誹
+,謂,2725,2756,,so-called,so-called,no,,,謂
+,諜,2726,2757,,secret agent,secret agent,no,,,諜
+,註,2727,2758,,footnote,footnote,no,,,註
+,譬,2728,2759,,parable,parable,no,,,譬
+,轟,2729,2760,,rumble,rumble,no,,,轟
+,輔,2730,2761,,reinforce,reinforce,no,,,輔
+,輻,2731,2762,,spoke,spoke,no,,,輻
+,輯,2732,2763,,assemble,assemble,no,,,輯
+,豹,2734,2764,,panther,panther,no,,,豹
+,賎,2735,2765,,despicable,despicable,no,,,賎
+,貰,2737,2766,,get,get,no,,,貰
+,賑,2739,2767,,bustling,bustling,no,,,賑
+,贖,9998,2768,,(not in),expiate,no,,,贖
+,躓,2740,2769,,stumble,stumble,no,,,躓
+,蹄,2741,2770,,hoof,hoof,no,,,蹄
+,蹟,2743,2771,,vestiges,vestiges,no,,,蹟
+,跨,2744,2772,,straddle,straddle,no,,,跨
+,跪,2745,2773,,kneel,kneel,no,,,跪
+,醤,2746,2774,,soy sauce,soy sauce,no,,,醤
+,醍,2747,2775,,whey,whey,no,,,醍
+,醐,2749,2776,,ghee,ghee,no,,,醐
+,醇,2751,2777,,strong sake,strong sake,no,,,醇
+,麹,2753,2778,,malt,malt,no,,,麹
+,釦,2754,2779,,button,button,no,,,釦
+,銚,2755,2780,,keg,keg,no,,,銚
+,鋤,2756,2781,,plow,plow,no,,,鋤
+,鋸,2759,2782,,hand saw,hand saw,no,,,鋸
+,錐,2760,2783,,awl,awl,no,,,錐
+,鍬,2762,2784,,hoe,hoe,no,,,鍬
+,鋲,2763,2785,,rivet,rivet,no,,,鋲
+,錫,2764,2786,,tin,tin,no,,,錫
+,錨,2765,2787,,anchor,anchor,no,,,錨
+,釘,2766,2788,,nail,nail,no,,,釘
+,鑓,2767,2789,,javelin,javelin,no,,,鑓
+,鋒,2768,2790,,sword’s point,sword’s point,no,,,鋒
+,鎚,2769,2791,,hammer,hammer,no,,,鎚
+,鉦,2770,2792,,carillion,carillion,no,,,鉦
+,錆,2771,2793,,rust,rust,no,,,錆
+,鍾,2772,2794,,cluster,cluster,no,,,鍾
+,鋏,2773,2795,,scissors,scissors,no,,,鋏
+,閃,2774,2796,,flash,flash,no,,,閃
+,悶,2775,2797,,agony,agony,no,,,悶
+,閤,2776,2798,,side gate,side gate,no,,,閤
+,雫,2778,2799,,trickle,trickle,no,,,雫
+,霞,2779,2800,,haze,haze,no,,,霞
+,翰,2780,2801,,quill,quill,no,,,翰
+,斡,2781,2802,,auspices,auspices,no,,,斡
+,鞍,2782,2803,,saddle,saddle,no,,,鞍
+,鞭,2783,2804,,whip,whip,no,,,鞭
+,鞘,2784,2805,,saddle straps,saddle straps,no,,,鞘
+,鞄,2785,2806,,briefcase,briefcase,no,,,鞄
+,靭,2786,2807,,pliable,pliable,no,,,靭
+,鞠,2787,2808,,terminate,terminate,no,,,鞠
+,顛,2789,2809,,overturn,overturn,no,,,顛
+,穎,2790,2810,,brush tip,brush tip,no,,,穎
+,頗,2793,2811,,exceedingly,exceedingly,no,,,頗
+,頌,2794,2812,,accolade,accolade,no,,,頌
+,頚,2796,2813,,neck and throat,neck and throat,no,,,頚
+,餐,2798,2814,,repast,repast,no,,,餐
+,饗,2799,2815,,feast,feast,no,,,饗
+,蝕,2800,2816,,eclipse,eclipse,no,,,蝕
+,飴,2801,2817,,sweets,sweets,no,,,飴
+,駕,2803,2818,,stretcher,stretcher,no,,,駕
+,騨,2804,2819,,piebald,piebald,no,,,騨
+,馳,2805,2820,,rush,rush,no,,,馳
+,騙,2806,2821,,cheat,cheat,no,,,騙
+,馴,2807,2822,,tame,tame,no,,,馴
+,駁,2808,2823,,rebuttal,rebuttal,no,,,駁
+,駈,2809,2824,,gallop,gallop,no,,,駈
+,驢,2810,2825,,donkey,donkey,no,,,驢
+,鰻,2811,2826,,eel,eel,no,,,鰻
+,鯛,2812,2827,,sea bream,sea bream,no,,,鯛
+,鰯,2813,2828,,sardine,sardine,no,,,鰯
+,鱒,2814,2829,,trout,trout,no,,,鱒
+,鮭,2815,2830,,salmon,salmon,no,,,鮭
+,鮪,2816,2831,,tuna,tuna,no,,,鮪
+,鮎,2817,2832,,sweet smelt,sweet smelt,no,,,鮎
+,鯵,2818,2833,,horse mackerel,horse mackerel,no,,,鯵
+,鱈,2819,2834,,cod,cod,no,,,鱈
+,鯖,2820,2835,,mackerel,mackerel,no,,,鯖
+,鮫,2821,2836,,shark,shark,no,,,鮫
+,鰹,2822,2837,,bonito,bonito,no,,,鰹
+,鰍,2823,2838,,bullhead,bullhead,no,,,鰍
+,鰐,2824,2839,,alligator,alligator,no,,,鰐
+,鮒,2825,2840,,crucian,crucian carp,no,,,鮒
+,鮨,2826,2841,,sushi,sushi,no,,,鮨
+,鰭,2827,2842,,fish fin,fish fin,no,,,鰭
+,鴎,2828,2843,,seagull,seagull,no,,,鴎
+,鵬,2829,2844,,roc,roc,no,,,鵬
+,鸚,2830,2845,,parakeet,parakeet,no,,,鸚
+,鵡,2831,2846,,parrot,parrot,no,,,鵡
+,鵜,2832,2847,,cormorant,cormorant,no,,,鵜
+,鷺,2833,2848,,heron,heron,no,,,鷺
+,鷲,2834,2849,,eagle,eagle,no,,,鷲
+,鴨,2835,2850,,wild duck,wild duck,no,,,鴨
+,鳶,2836,2851,,kite falcon,black kite,no,,,鳶
+,梟,2837,2852,,owl,owl,no,,,梟
+,塵,2838,2853,,dust,dust,no,,,塵
+,麒,2840,2854,,giraffe,giraffe,no,,,麒
+,舅,2064,2855,,father-in-law,father-in-law,no,,,舅
+,鼠,2065,2856,,mouse,mouse,no,,,鼠
+,鑿,2066,2857,,bore,bore,no,,,鑿
+,艘,2068,2858,,small craft,small craft,no,,,艘
+,瞑,2842,2859,Miscellaneous Kanji,close the eyes,close the eyes,no,,,瞑
+,暝,2843,2860,,murky,murky,no,,,暝
+,坐,2844,2861,,sitting in meditation,sitting in meditation,no,,,坐
+,朔,2846,2862,,first day of the month,first day of the month,no,,,朔
+,曳,2848,2863,,drag,tow,no,,,曳
+,洩,2849,2864,,dribble out,dribble out,no,,,洩
+,彗,2850,2865,,comet,comet,no,,,彗
+,慧,2851,2866,,astute,astute,no,,,慧
+,爾,2074,2867,,let it be,let it be,no,,,爾
+,嘉,2852,2868,,applaud,applaud,no,,,嘉
+,兇,2853,2869,,evil,evil,no,,,兇
+,兜,2854,2870,,helmet,helmet,no,,,兜
+,靄,9998,2871,,(not in),mist,no,,,靄
+,劫,2857,2872,,kalpa,kalpa,no,,,劫
+,歎,2859,2873,,bemoan,bemoan,no,,,歎
+,輿,2860,2874,,palanquin,palanquin,no,,,輿
+,歪,2862,2875,,warped,warped,no,,,歪
+,翠,2863,2876,,jade green,jade green,no,,,翠
+,黛,2864,2877,,blue-black,blue-black,no,,,黛
+,鼎,2865,2878,,tripod,tripod,no,,,鼎
+,鹵,2866,2879,,rocksalt,rocksalt,no,,,鹵
+,鹸,2867,2880,,lye,lye,no,,,鹸
+,虔,2868,2881,,reserved,reserved,no,,,虔
+,燕,2869,2882,,swallow,swallow,no,,,燕
+,嘗,2870,2883,,lick,lick,no,,,嘗
+,殆,2871,2884,,almost,almost,no,,,殆
+,牌,2873,2885,,mahjong tiles,mahjong tiles,no,,,牌
+,覗,2875,2886,,peek,peek,no,,,覗
+,齟,9998,2887,,(not in),disagree,no,,,齟
+,齬,9998,2888,,(not in),discord,no,,,齬
+,秦,2877,2889,,Manchu dynasty,Manchu dynasty,no,,,秦
+,雀,2878,2890,,sparrow,sparrow,no,,,雀
+,隼,2879,2891,,peregrine falcon,peregrine falcon,no,,,隼
+,耀,2880,2892,,shimmering,shimmering,no,,,耀
+,夷,2881,2893,,ebisu,ebisu,no,,,夷
+,嚢,2883,2894,,cyst,cyst,no,,,嚢
+,暢,2885,2895,,carefree,carefree,no,,,暢
+,廻,2886,2896,,circling,circling,no,,,廻
+,欣,2888,2897,,elation,elation,no,,,欣
+,毅,2889,2898,,stalwart,stalwart,no,,,毅
+,斯,2890,2899,,this,this,no,,,斯
+,匙,2891,2900,,wooden spoon,wooden spoon,no,,,匙
+,匡,2892,2901,,set straight,set straight,no,,,匡
+,肇,2893,2902,,founding,founding,no,,,肇
+,麿,2894,2903,,Utamaro,Utamaro,no,,,麿
+,叢,2895,2904,,conglomerate,conglomerate,no,,,叢
+,肴,2896,2905,,entreat,entreat,no,,,肴
+,斐,2897,2906,,symmetrically patterned,symmetrically patterned,no,,,斐
+,卿,2898,2907,,magistrate,magistrate,no,,,卿
+,翫,2899,2908,,fiddle with,fiddle with,no,,,翫
+,於,2900,2909,,within,within,no,,,於
+,套,2901,2910,,hackneyed,hackneyed,no,,,套
+,叛,2902,2911,,rebellion,rebellion,no,,,叛
+,尖,2903,2912,,sharp point,sharp point,no,,,尖
+,壷,2904,2913,,crock,crock,no,,,壷
+,叡,2905,2914,,sapience,sapience,no,,,叡
+,酋,2906,2915,,chieftain,chieftain,no,,,酋
+,鴬,2907,2916,,nightingale,nightingale,no,,,鴬
+,赫,2908,2917,,incandescent,incandescent,no,,,赫
+,臥,2909,2918,,supinate,supinate,no,,,臥
+,甥,2910,2919,,nephew,nephew,no,,,甥
+,瓢,2911,2920,,gourd,gourd,no,,,瓢
+,琵,2912,2921,,biwa,biwa,no,,,琵
+,琶,2913,2922,,lute,lute,no,,,琶
+,叉,2914,2923,,forked,forked,no,,,叉
+,乖,9998,2924,,(not in),disobey,no,,,乖
+,畠,2916,2925,,dry field,dry field,no,,,畠
+,圃,2918,2926,,vegetable patch,vegetable patch,no,,,圃
+,丞,2919,2927,,helping hand,helping hand,no,,,丞
+,亮,2920,2928,,translucent,translucent,no,,,亮
+,胤,2921,2929,,blood relative,blood relative,no,,,胤
+,疏,2922,2930,,transcription,transcription,no,,,疏
+,膏,2923,2931,,ointment,ointment,no,,,膏
+,魁,2924,2932,,pioneer,pioneer,no,,,魁
+,馨,2925,2933,,ambrosial,ambrosial,no,,,馨
+,牒,2926,2934,,label,label,no,,,牒
+,瞥,2927,2935,,glimpse,glimpse,no,,,瞥
+,睾,2929,2936,,testicle,testicle,no,,,睾
+,巫,2930,2937,,sorceress,sorceress,no,,,巫
+,敦,2931,2938,,empathetic,empathetic,no,,,敦
+,奎,2932,2939,,Andromeda,Andromeda,no,,,奎
+,翔,2933,2940,,soar,soar,no,,,翔
+,皓,2934,2941,,beaming,beaming,no,,,皓
+,黎,2935,2942,,tenebrous,tenebrous,no,,,黎
+,赳,2936,2943,,bold,bold,no,,,赳
+,已,2937,2944,,stop short,stop short,no,,,已
+,棘,2938,2945,,thornbush,thornbush,no,,,棘
+,祟,2945,2946,,cast a spell,haunt,no,,,祟
+,甦,2940,2947,,resuscitate,resuscitate,no,,,甦
+,剪,2941,2948,,pruning,pruning,no,,,剪
+,躾,2942,2949,,upbringing,upbringing,no,,,躾
+,夥,2943,2950,,plentiful,plentiful,no,,,夥
+,鼾,2944,2951,,snore,snore,no,,,鼾
+,陀,2955,2952,,Shakyamuni Buddha,steeply inclined,no,,,陀
+,粁,2946,2953,Western Measurements,kilometer,kilometer,no,,,粁
+,糎,2947,2954,,centimeter,centimeter,no,,,糎
+,粍,2948,2955,,millimeter,millimeter,no,,,粍
+,噸,2949,2956,,ton,ton,no,,,噸
+,哩,2950,2957,,mile,mile,no,,,哩
+,浬,2951,2958,,nautical mile,nautical mile,no,,,浬
+,吋,2952,2959,,inch,inch,no,,,吋
+,呎,2953,2960,,feet,foot,no,,,呎
+,梵,2954,2961,Phonetic Characters,brahman,brahman,no,,,梵
+,薩,2956,2962,,bodhisattva,bodhisattva,no,,,薩
+,菩,2957,2963,,bo tree,bo tree,no,,,菩
+,唖,2958,2964,,babble,babble,no,,,唖
+,牟,2961,2965,,moo,moo,no,,,牟
+,迦,2959,2966,,Sanskrit ka,Sanskrit ka,no,,,迦
+,珈,2962,2967,,jeweled hairpin,jeweled hairpin,no,,,珈
+,琲,2963,2968,,beaded hairpin,beaded hairpin,no,,,琲
+,檜,2964,2969,Old & Alt forms,Japanese cypress (old),Japanese cypress (old),no,,,檜
+,轡,2965,2970,,bridle’s bit,tinkling bell,no,,,轡
+,淵,2966,2971,,abyss (old),abyss (old),no,,,淵
+,伍,2967,2972,,V,V,no,,,伍
+,什,2968,2973,,X,X,no,,,什
+,萬,2969,2974,,ten thousand (old),ten thousand (old),no,,,萬
+,邁,2970,2975,,pass through,pass through,no,,,邁
+,燭,2539,2976,,candlelight,candlelight,no,,,燭
+,逞,2971,2977,,tough,tough,no,,,逞
+,燈,2972,2978,,lamp (old),lamp (old),no,,,燈
+,裡,2973,2979,,back (old),back (old),no,,,裡
+,薗,2974,2980,,park (alternate),park (alternate),no,,,薗
+,鋪,2975,2981,,shop (alternate),shop (alternate),no,,,鋪
+,嶋,2976,2982,,island (alternate),island (alternate),no,,,嶋
+,峯,2977,2983,,summit (alternate),summit (alternate),no,,,峯
+,埜,2979,2984,,plains (old),plains (old),no,,,埜
+,龍,2981,2985,,dragon (old),dragon (old),no,,,龍
+,寵,2982,2986,,patronage,patronage,no,,,寵
+,聾,2983,2987,,deafness,deafness,no,,,聾
+,慾,2984,2988,,longing (old),longing (old),no,,,慾
+,嶽,2987,2989,,Point (old),Point (old),no,,,嶽
+,國,2988,2990,,country (old),country (old),no,,,國
+,脛,2989,2991,,shin,shin,no,,,脛
+,勁,2990,2992,,formidable,formidable,no,,,勁
+,祀,2992,2993,,enshrine,enshrine,no,,,祀
+,祓,2993,2994,,exorcism,exorcism,no,,,祓
+,躇,2994,2995,,dither,dither,no,,,躇
+,壽,2995,2996,,longevity (old),longevity (old),no,,,壽
+,躊,2996,2997,,hesitate,hesitate,no,,,躊
+,饅,2998,2998,,bean jam,bean jam,no,,,饅
+,嘔,2999,2999,,retch,retch,no,,,嘔
+,鼈,3000,3000,,snapping turtle,snapping turtle,no,,,鼈
+,亙,2985,9999,(not in),span (old),(not in),no,,,亙
+,亨,3001,9999,(not in),go smoothly,(not in),no,,,亨
+,伶,2112,9999,(not in),minstrel,(not in),no,,,伶
+,佑,2126,9999,(not in),adjutant,(not in),no,,,佑
+,佼,2109,9999,(not in),comely,(not in),no,,,佼
+,侑,3002,9999,(not in),condone,(not in),no,,,侑
+,俣,2127,9999,(not in),fork in a road,(not in),no,,,俣
+,倖,2119,9999,(not in),bliss,(not in),no,,,倖
+,傭,2128,9999,(not in),hire,(not in),no,,,傭
+,僻,2117,9999,(not in),biased,(not in),no,,,僻
+,卜,2103,9999,(not in),augury,(not in),no,,,卜
+,喬,2104,9999,(not in),heaven-high,(not in),no,,,喬
+,孟,2872,9999,(not in),start,(not in),no,,,孟
+,尭,2095,9999,(not in),lofty,(not in),no,,,尭
+,峨,2226,9999,(not in),high mountain,(not in),no,,,峨
+,嵯,2230,9999,(not in),rocky,(not in),no,,,嵯
+,巌,2978,9999,(not in),boulder (old),(not in),no,,,巌
+,巽,2861,9999,(not in),southeast,(not in),no,,,巽
+,彪,2876,9999,(not in),mottled,(not in),no,,,彪
+,掟,3007,9999,(not in),mandate,(not in),no,,,掟
+,掠,2247,9999,(not in),pillage,(not in),no,,,掠
+,撹,2257,9999,(not in),churn up,(not in),no,,,撹
+,梧,3003,9999,(not in),parasol tree,(not in),no,,,梧
+,欝,2856,9999,(not in),depressed,(not in),no,,,欝
+,欽,3004,9999,(not in),circumspect,(not in),no,,,欽
+,煕,3005,9999,(not in),cheer,(not in),no,,,煕
+,熔,2547,9999,(not in),fuse metal,(not in),no,,,熔
+,珪,2564,9999,(not in),silicon,(not in),no,,,珪
+,瑶,2553,9999,(not in),precious stone,(not in),no,,,瑶
+,甫,2097,9999,(not in),offspring,(not in),no,,,甫
+,籠,3028,9999,(not in),cage (Joyo version),(not in),yes,ロウ,こ・もる　　かご,籠
+,聚,2939,9999,(not in),crowd,(not in),no,,,聚
+,舘,2980,9999,(not in),Bldg. (old),(not in),no,,,舘
+,舜,2915,9999,(not in),rose of Sharon,(not in),no,,,舜
+,詑,2718,9999,(not in),prevarication,(not in),no,,,詑
+,諏,2722,9999,(not in),advise,(not in),no,,,諏
+,躯,2986,9999,(not in),body (old),(not in),no,,,躯
+,郁,2424,9999,(not in),cultured,(not in),no,,,郁
+,鏑,2758,9999,(not in),arrowhead,(not in),no,,,鏑

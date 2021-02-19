@@ -1,19 +1,26 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use] extern crate rocket;
+#[macro_use]
+extern crate rocket;
 
 use io::Read;
 use multipart::server::Multipart;
-use rocket::{http::{ContentType, Status, Cookies}, request::Form, response::status::Custom, Config, Data};
+use rocket::{
+    http::{ContentType, Cookies, Status},
+    request::Form,
+    response::status::Custom,
+    Config, Data,
+};
 use rocket_contrib::{serve::StaticFiles, templates::Template};
-use std::env;
-use std::collections::HashMap;
-use std::io::{self, Cursor};
-use std::fs;
+use std::{
+    collections::HashMap,
+    env,
+    io::{self, Cursor},
+};
 
-mod sentences;
+mod actions;
 
-use sentences::*;
+use actions::*;
 
 #[derive(FromForm)]
 pub struct QuizSettings {
@@ -23,22 +30,20 @@ pub struct QuizSettings {
 }
 
 #[derive(FromForm)]
-pub struct WaniKaniImport {
+pub struct OrderedImport {
     number: usize,
     method: String,
 }
 
-#[derive(FromForm)]
-pub struct JLPTImport {
-    level: usize,
-}
-
 fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, &'a str> {
     let mut context = HashMap::new();
-    context.insert("theme", match cookies.get("theme") {
-        Some(cookie) => cookie.value(),
-        None => "system",
-    });
+    context.insert(
+        "theme",
+        match cookies.get("theme") {
+            Some(cookie) => cookie.value(),
+            None => "system",
+        },
+    );
     context.insert("page", page);
     context
 }
@@ -65,7 +70,12 @@ fn get_custom_text(cookies: Cookies) -> Template {
 
 #[post("/sentences", data = "<quiz_settings>")]
 fn post_sentences(quiz_settings: Form<QuizSettings>) -> String {
-    get_sentences(quiz_settings).unwrap().iter().map(|x| x.join(";")).collect::<Vec<_>>().join("|")
+    get_sentences(quiz_settings)
+        .unwrap()
+        .iter()
+        .map(|x| x.join(";"))
+        .collect::<Vec<_>>()
+        .join("|")
 }
 
 #[post("/import_anki", data = "<data>")]
@@ -74,44 +84,61 @@ fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custo
     if !cont_type.is_form_data() {
         return Err(Custom(
             Status::BadRequest,
-            "Content-Type not multipart/form-data".into()
+            "Content-Type not multipart/form-data".into(),
         ));
     }
 
-    let (_, boundary) = cont_type.params().find(|&(k, _)| k == "boundary").ok_or_else(
-            || Custom(
+    let (_, boundary) = cont_type
+        .params()
+        .find(|&(k, _)| k == "boundary")
+        .ok_or_else(|| {
+            Custom(
                 Status::BadRequest,
-                "`Content-Type: multipart/form-data` boundary param not provided".into()
+                "`Content-Type: multipart/form-data` boundary param not provided".into(),
             )
-        )?;
+        })?;
 
     // Read data
     let mut only_learnt = String::new();
     let mut buf = Vec::new();
     let mut form_data = Multipart::with_body(data.open(), boundary);
-    form_data.read_entry().unwrap().unwrap().data.read_to_string(&mut only_learnt).unwrap();
-    form_data.read_entry().unwrap().unwrap().data.read_to_end(&mut buf).unwrap();
+    form_data
+        .read_entry()
+        .unwrap()
+        .unwrap()
+        .data
+        .read_to_string(&mut only_learnt)
+        .unwrap();
+    form_data
+        .read_entry()
+        .unwrap()
+        .unwrap()
+        .data
+        .read_to_end(&mut buf)
+        .unwrap();
     // The maximum allowed file size is 4 MiB
     if buf.len() > 4194304 {
-        return Err(Custom(Status::PayloadTooLarge, String::from("File too large")));
+        return Err(Custom(
+            Status::PayloadTooLarge,
+            String::from("File too large"),
+        ));
     }
     extract_kanji_from_anki_deck(Cursor::new(buf), only_learnt == "true")
 }
 
 #[post("/import_wanikani", data = "<import_settings>")]
-fn post_import_wanikani(import_settings: Form<WaniKaniImport>) -> Result<String, Custom<String>> {
-    let wanikani_kanji = fs::read_to_string("wanikani.txt").unwrap();
-    match import_settings.method.as_str() {
-        "levels" => Ok(wanikani_kanji.split("\n").collect::<Vec<_>>()[..import_settings.number].join("")),
-        "kanji" => Ok(wanikani_kanji.chars().filter(|c| c != &'\n').take(import_settings.number).collect()),
-        _ => Err(Custom(Status::BadRequest, String::from("Method must be one of `levels` or `kanji`"))),
-    }
+fn post_import_wanikani(import_settings: Form<OrderedImport>) -> Result<String, Custom<String>> {
+    kanji_in_order(KanjiOrder::WaniKani, import_settings)
+}
+
+#[post("/import_rtk", data = "<import_settings>")]
+fn post_import_rtk(import_settings: Form<OrderedImport>) -> Result<String, Custom<String>> {
+    kanji_in_order(KanjiOrder::RTK, import_settings)
 }
 
 #[post("/import_jlpt", data = "<import_settings>")]
-fn post_import_jlpt(import_settings: Form<JLPTImport>) -> String {
-    let jlpt_kanji = fs::read_to_string("jlpt.txt").unwrap();
-    jlpt_kanji.split("\n").collect::<Vec<_>>()[..import_settings.level].join("")
+fn post_import_jlpt(import_settings: Form<OrderedImport>) -> Result<String, Custom<String>> {
+    kanji_in_order(KanjiOrder::JLPT, import_settings)
 }
 
 fn configure() -> Config {
@@ -138,6 +165,7 @@ fn rocket() -> rocket::Rocket {
                 post_sentences,
                 post_import_anki,
                 post_import_wanikani,
+                post_import_rtk,
                 post_import_jlpt,
             ],
         )
