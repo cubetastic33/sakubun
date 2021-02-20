@@ -44,6 +44,7 @@ fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, &
             None => "system",
         },
     );
+    println!("{}", context.get("theme").unwrap());
     context.insert("page", page);
     context
 }
@@ -66,6 +67,11 @@ fn get_quiz(cookies: Cookies) -> Template {
 #[get("/custom_text")]
 fn get_custom_text(cookies: Cookies) -> Template {
     Template::render("custom_text", create_context(&cookies, "custom_text"))
+}
+
+#[get("/offline")]
+fn get_offline(cookies: Cookies) -> Template {
+    Template::render("offline", create_context(&cookies, "offline"))
 }
 
 #[post("/sentences", data = "<quiz_settings>")]
@@ -162,6 +168,7 @@ fn rocket() -> rocket::Rocket {
                 get_known_kanji,
                 get_quiz,
                 get_custom_text,
+                get_offline,
                 post_sentences,
                 post_import_anki,
                 post_import_wanikani,
@@ -173,7 +180,7 @@ fn rocket() -> rocket::Rocket {
         .mount("/scripts", StaticFiles::from("static/scripts"))
         .mount("/fonts", StaticFiles::from("static/fonts"))
         .mount("/dict", StaticFiles::from("static/dict"))
-        .mount("/", StaticFiles::from("static/icons").rank(20))
+        .mount("/", StaticFiles::from("static/pwa").rank(20))
         .attach(Template::fairing())
 }
 

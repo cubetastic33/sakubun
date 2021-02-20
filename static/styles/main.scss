@@ -69,11 +69,13 @@
 @font-face {
     font-family: "Cantarell Bold";
     src: url(/fonts/Cantarell-Bold.ttf);
+    font-display: swap;
 }
 
 @font-face {
     font-family: "Source Sans Pro";
     src: url(/fonts/SourceSansPro-Regular.ttf);
+    font-display: swap;
 }
 
 // Material Icons

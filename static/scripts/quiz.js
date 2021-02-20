@@ -123,6 +123,15 @@ function get_questions() {
                 show_quiz();
             }
         }
+    }).fail(jqXHR => {
+        if (jqXHR.status === 0) {
+            $("#quiz_container").hide();
+            $("#settings").html(
+                "You are currently offline, please try again with a working internet connection"
+            ).show();
+        } else {
+            alert("Error code " + jqXHR.status);
+        }
     });
 }
 

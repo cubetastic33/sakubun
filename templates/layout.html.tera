@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sakubun improves your Japanese vocabulary and kanji skills with practice that's customized to your needs.">
     <meta property="og:title" content="Sakubun">
-    <meta property="og:image" content="/android-chrome-192x192.png">
+    <meta property="og:image" content="/icon-192x192.png">
     <meta property="og:description" content="Sakubun improves your Japanese vocabulary and kanji skills with practice that's customized to your needs.">
+    <meta name="theme-color" content="#1a1a1a">
     <title>Sakubun</title>
     <link rel="stylesheet" href="/styles/main.css">
     {% block head %}{% endblock head %}
@@ -16,6 +17,7 @@
     <noscript>
         <link rel="stylesheet" href="/styles/noscript.css">
     </noscript>
+    <link rel="manifest" href="/manifest.json">
     <script data-host="https://microanalytics.io" data-dnt="false" src="https://microanalytics.io/js/script.js" id="ZwSg9rf6GA" async defer></script>
 </head>
 <body {% if theme != "system" %}class="{{ theme }}"{% endif %}>
@@ -49,6 +51,29 @@
 </body>
 <script src="/scripts/jquery-3.5.1.min.js"></script>
 <script>
+    function get_cookie(name) {
+        let nameEQ = name + "=";
+        let ca = document.cookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === " ") c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // Set theme when loaded from service worker
+    if (get_cookie("theme")) {
+        $("body").attr("class", get_cookie("theme"));
+        $("header button").removeClass("active");
+        $(`#${get_cookie("theme")}`).addClass("active");
+    }
+
+    $(window).on("load", () => {
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/service-worker.js");
+        }
+    });
     function reorder_theme_icons() {
         $("header div").append($("#system"))
             .append($("#dark"))
