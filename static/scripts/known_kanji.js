@@ -63,7 +63,7 @@ function add_kanji(text) {
     // Update kanji grid
     kanji_grid();
     // Analytics
-    pa.track({name: "Kanji added"});
+    pa.track({name: "kanji added"});
 }
 
 // Add kanji

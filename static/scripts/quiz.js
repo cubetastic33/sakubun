@@ -94,7 +94,7 @@ function get_questions() {
         "known_kanji": [...known_kanji].join(""),
     }, result => {
         // Analytics
-        pa.track({name: "Quiz"});
+        pa.track({name: "quiz"});
         if (!result.length) {
             // If there were no results
             $("#start_quiz").prop("disabled", false);
