@@ -125,7 +125,7 @@
         Sakubun is a PWA, which means it can be installed and used like a native app if your browser
         supports it. If you're on firefox for android, look for a home icon with a plus (+) sign in
         the URL bar. On chrome, you might see an install banner at the bottom or (if you're on
-        desktop) an install button in the URL bar. On safari, click the share button
+        desktop) an install button in the URL bar. On safari on iOS, click the share button
         (<span class="material-icons">ios_share</span>) and look for an "add to home screen" option.
         If you don't see any of these, click the menu icon in your browser and look for an install
         option. For more detailed install instructions, go
