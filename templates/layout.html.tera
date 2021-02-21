@@ -23,6 +23,9 @@
 <body {% if theme != "system" %}class="{{ theme }}"{% endif %}>
     <noscript>Error: Sakubun requires JavaScript to function</noscript>
     <header role="banner">
+        <button id="install_button" title="install" aria-label="install" class="exception">
+            <i class="material-icons">get_app</i>
+        </button>
         <a href="/">作文</a>
         <div aria-label="theme selector">
             <button id="dark" title="dark theme" aria-label="dark theme" class="exception {% if theme == "dark" %}active{% endif %}">
@@ -83,9 +86,9 @@
 
     reorder_theme_icons();
 
-    $("header button").click(function() {
+    $("header div button").click(function() {
         if ($(this).parent().hasClass("open")) {
-            $("header button").removeClass("active");
+            $("header div button").removeClass("active");
             $(this).addClass("active");
             if (this.id === "system") {
                 // Delete the cookie
@@ -101,6 +104,33 @@
         }
         $(this).parent().toggleClass("open");
     });
+
+    // Initialize deferredPrompt for use later to show browser install prompt.
+    let deferredPrompt;
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+        // Prevent the mini-infobar from appearing on mobile
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Update UI notify the user they can install the PWA
+        $("#install_button").css("display", "flex");
+        // Optionally, send analytics event that PWA install promo was shown.
+        console.log(`'beforeinstallprompt' event was fired.`);
+    });
+
+    $("#install_button").click(async () => {
+        // Hide the app provided install promotion
+        $("#install_button").hide();
+        // Show the install prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        // Optionally, send analytics event with outcome of user choice
+        console.log(`User response to the install prompt: ${outcome}`);
+        // We've used the prompt, and can't use it again, throw it away
+        deferredPrompt = null;
+    })
 </script>
 {% block javascript %}{% endblock javascript %}
 </html>

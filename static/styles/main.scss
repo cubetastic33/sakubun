@@ -146,6 +146,36 @@ header {
         text-decoration: none;
     }
 
+    button {
+        appearance: none;
+        background-color: var(--background);
+        border: none;
+        border-radius: 50%;
+        color: var(--accent);
+        display: flex;
+        justify-content: center;
+        place-items: center;
+        text-align: center;
+        width: 32px;
+        height: 32px;
+        margin: 0 5px;
+    }
+
+    button:hover {
+        background-color: var(--accent);
+        color: var(--background);
+    }
+
+    button:not(.active) {
+        display: none;
+    }
+
+    > button {
+        position: absolute;
+        left: 1em;
+        top: 1.5em;
+    }
+
     div {
         background-color: var(--background);
         border-radius: 5px;
@@ -157,29 +187,6 @@ header {
         position: absolute;
         right: .3em;
         top: .3em;
-
-        button {
-            appearance: none;
-            background-color: var(--background);
-            border: none;
-            border-radius: 50%;
-            color: var(--accent);
-            display: flex;
-            justify-content: center;
-            place-items: center;
-            width: 32px;
-            height: 32px;
-            margin: 0 5px;
-        }
-
-        button:hover {
-            background-color: var(--accent);
-            color: var(--background);
-        }
-
-        button:not(.active) {
-            display: none;
-        }
     }
 
     div.open {

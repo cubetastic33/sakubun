@@ -39,7 +39,7 @@
             "purpose": "maskable"
         }
     ],
-    "start_url": "/known_kanji",
+    "start_url": "/",
     "background_color": "#212123",
     "display": "standalone",
     "scope": "/",

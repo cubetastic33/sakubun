@@ -21,6 +21,11 @@ p, ul {
     font-size: 1.25rem;
     text-align: justify;
     line-height: 1.4em;
+
+    .material-icons {
+        position: relative;
+        top: .2em;
+    }
 }
 
 b {
@@ -127,6 +132,12 @@ textarea {
 }
 
 // Media queries
+
+@media all and (display-mode: standalone) {
+    .install {
+        display: none;
+    }
+}
 
 @media screen and (max-width: 900px) {
     #quiz {

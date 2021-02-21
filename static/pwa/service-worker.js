@@ -1,6 +1,6 @@
 "use strict";
 
-const version = "20210219::";
+const version = "20210220::";
 
 // Caches for different resources
 const core_cache_name = version + "core";
@@ -9,8 +9,8 @@ const assets_cache_name = version + "assets";
 
 // Resources that will be always be cached
 const core_cache_urls = [
+    "/",
     "/offline",
-    "/known_kanji",
     "/styles/main.css",
     "/styles/index.css",
     "/styles/known_kanji.css",

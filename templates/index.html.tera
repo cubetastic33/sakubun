@@ -18,6 +18,9 @@
         kanji you've learnt so far, so that it can give you practice sentences that use <i>only
         those kanji</i>.
     </p>
+    <p class="install">
+        While sakubun works on the web, you can <a href="#install">install</a> it if you want to.
+    </p>
     <br>
     <div id="quiz" class="card">
         <div>
@@ -116,6 +119,17 @@
         option in the dropdown and enter "200" in the textbox, and click
         <button id="import">Import</button>. You can instead choose the JLPT option from the
         dropdown menu to import kanji according to JLPT levels.
+    </p>
+    <h2 id="install" class="install">Install</h2>
+    <p class="install">
+        Sakubun is a PWA, which means it can be installed and used like a native app if your browser
+        supports it. If you're on chrome, you might see an install icon
+        (<span class="material-icons">download</span>) in the top bar of this website. On firefox
+        for android, look for a home icon with a plus (+) sign in the URL bar. On safari, click the
+        share button (<span class="material-icons">ios_share</span>) and look for an "add to home
+        screen" option. If you don't see any of these, click the menu icon in your browser and look
+        for an install option. For more detailed install instructions, go
+        <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Developer_guide/Installing#firefox_for_android">here</a>.
     </p>
 </main>
 <footer role="contentinfo">

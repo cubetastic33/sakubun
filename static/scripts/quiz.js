@@ -127,7 +127,7 @@ function get_questions() {
         if (jqXHR.status === 0) {
             $("#quiz_container").hide();
             $("#settings").html(
-                "You are currently offline, please try again with a working internet connection"
+                "You're currently offline. Try reloading once you're connected to the internet."
             ).show();
         } else {
             alert("Error code " + jqXHR.status);
