@@ -14,7 +14,6 @@ function is_superset(set, subset) {
 $("form").submit(e => {
     e.preventDefault();
     kuroshiro.convert($("textarea").val(), { mode: "furigana", to: "hiragana" }).then(result => {
-        console.log(result);
         let known_kanji = new Set(localStorage.getItem("known_kanji"));
         $("#result").html(result.replaceAll("\n", "<br>"));
 
@@ -25,5 +24,7 @@ $("form").submit(e => {
                 $(this).children().remove();
             }
         })
+        // Analytics
+        pa.track({name: "custom_text"});
     });
 });

@@ -93,13 +93,17 @@ function get_questions() {
         "max": $("#max").val() || 0,
         "known_kanji": [...known_kanji].join(""),
     }, result => {
+        // Analytics
+        pa.track({name: "quiz"});
         if (!result.length) {
+            // If there were no results
             $("#start_quiz").prop("disabled", false);
             $("#quiz_container").hide();
             $("#settings").show();
             $("#no_results + .overlay").show();
             $("#no_results").show("slow");
         } else {
+            // Show the question
             $("#quiz").attr("data-sentences", result);
             $("#quiz").attr("data-index", 0);
             $("#question").text(result.split(";")[0]);

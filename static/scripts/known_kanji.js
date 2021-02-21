@@ -62,6 +62,8 @@ function add_kanji(text) {
     localStorage.setItem("known_kanji", [...known_kanji].join(""));
     // Update kanji grid
     kanji_grid();
+    // Analytics
+    pa.track({name: "add_kanji"});
 }
 
 // Add kanji
