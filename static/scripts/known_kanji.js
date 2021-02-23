@@ -150,7 +150,7 @@ $("#rtk select").change(function () {
 
 $("#file").siblings("div").text($("#file").val().split(/([\\/])/g).pop());
 $("#file").change(function () {
-    if ($("#file")[0].files[0].size > 2097152) {
+    if ($("#file")[0].files[0].size > 4194304) {
         $("#file").parent().attr("class", "upload error");
         $("#anki button").prop("disabled", true);
     } else {
