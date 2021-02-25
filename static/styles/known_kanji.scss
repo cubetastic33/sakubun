@@ -64,7 +64,25 @@ section > div {
     display: none;
 }
 
-#wanikani input, #rtk input {
+#wanikani {
+    input {
+        background: none;
+        border: solid var(--foreground);
+        border-width: 0 0 2px 0;
+        color: var(--foreground);
+        font-size: 1.2em;
+        font-family: monospace;
+        padding: .25em .5em;
+        text-align: center;
+        width: min(80vw, 25em);
+    }
+
+    input:focus {
+        border-color: var(--accent);
+    }
+}
+
+#rtk input {
     font-size: .9em;
     margin: 0 .9em 0 .5em;
 }

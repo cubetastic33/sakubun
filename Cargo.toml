@@ -13,3 +13,6 @@ multipart = "0.17.1"
 zip = { version = "0.5.9", default-features = false, features = ["deflate"] }
 rusqlite = { version = "0.24.2", features = ["bundled"] }
 uuid = { version = "0.8.2", features = ["v4"] }
+serde = "1.0"
+serde_json = "1.0"
+reqwest = { version = "0.11", features = ["blocking", "json"] }

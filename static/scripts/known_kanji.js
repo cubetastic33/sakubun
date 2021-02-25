@@ -213,7 +213,21 @@ $("#anki").submit(e => {
     }).fail(console.log);
 });
 
-$(".import_option:not(#anki)").submit(function (e) {
+$("#wanikani").submit(e => {
+    e.preventDefault();
+    $("#wanikani button").prop("disabled", true);
+    $.post("/import_wanikani", { key: $("#api_key").val() }).done(result => {
+        // Enable the import button again
+        $("#wanikani button").prop("disabled", false);
+        preview_kanji(result, "wanikani");
+    }).fail(error => {
+        console.log(error);
+        alert("An error occurred");
+        $("#wanikani button").prop("disabled", false);
+    });
+});
+
+$(".import_option:not(#anki):not(#wanikani)").submit(function (e) {
     e.preventDefault();
     $(this).children("button").prop("disabled", true);
     $.post(`/import_${this.id}`, {

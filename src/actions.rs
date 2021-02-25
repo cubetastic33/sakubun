@@ -3,16 +3,15 @@ use rand::prelude::*;
 use regex::Regex;
 use rocket::{http::Status, request::Form, response::status::Custom};
 use rusqlite::{Connection, NO_PARAMS};
+use uuid::Uuid;
 use std::{
     collections::HashSet,
     error::Error,
     fs,
     io::{Cursor, Read, Write},
 };
-use uuid::Uuid;
 
 pub enum KanjiOrder {
-    WaniKani,
     RTK,
     JLPT,
 }
@@ -130,12 +129,84 @@ pub fn extract_kanji_from_anki_deck(
     ))
 }
 
+pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
+    // Create a variable to store the kanji
+    let mut kanji = Vec::new();
+    // reqwest client to interact with the WaniKani API
+    let client = reqwest::blocking::Client::new();
+    let mut url = String::from("https://api.wanikani.com/v2/assignments");
+    let mut ids = Vec::new();
+
+    // Fetch all the subject IDs
+    loop {
+        let mut response = client.get(&url);
+        if &url == "https://api.wanikani.com/v2/assignments" {
+            // Fetch only kanji, not radicals or vocabulary
+            response = response.query(&[("subject_types", "kanji")]);
+        }
+        let json = response
+            .bearer_auth(api_key)
+            .send()
+            .unwrap()
+            .json::<serde_json::Value>()
+            .unwrap();
+
+        if let Some(error) = json["error"].as_str() {
+            // In case the request failed
+            // The most likely cause for this is an incorrect API key
+            return Err(Custom(Status::InternalServerError, error.to_string()));
+        }
+
+        for assignment in json["data"].as_array().unwrap() {
+            if let Some(_) = assignment["data"]["passed_at"].as_str() {
+                // If the subject has been passed
+                ids.push(assignment["data"]["subject_id"].as_u64().unwrap().to_string());
+            }
+        }
+
+        // Pagination
+        url = match json["pages"]["next_url"].as_str() {
+            Some(url) => url.to_string(),
+            None => break,
+        };
+    }
+
+    url = String::from("https://api.wanikani.com/v2/subjects");
+
+    // Fetch the actual kanji
+    loop {
+        let mut response = client.get(&url);
+        if &url == "https://api.wanikani.com/v2/subjects" {
+            // From page 2 onwards, the ids will be part of the `url` variable
+            response = response.query(&[("ids", &ids.join(","))]);
+        }
+        let json = response
+            .bearer_auth(api_key)
+            .send()
+            .unwrap()
+            .json::<serde_json::Value>()
+            .unwrap();
+
+        for subject in json["data"].as_array().unwrap() {
+            kanji.push(subject["data"]["characters"].as_str().unwrap().to_string());
+        }
+
+        // Pagination
+        url = match json["pages"]["next_url"].as_str() {
+            Some(url) => {
+                url.to_string()
+            },
+            None => break,
+        };
+    }
+    Ok(kanji.join(""))
+}
+
 pub fn kanji_in_order(
     order: KanjiOrder,
     import_settings: Form<OrderedImport>,
 ) -> Result<String, Custom<String>> {
     let kanji = fs::read_to_string(match order {
-        KanjiOrder::WaniKani => "wanikani.txt",
         KanjiOrder::RTK => "rtk.txt",
         KanjiOrder::JLPT => "jlpt.txt",
     })

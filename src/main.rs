@@ -30,6 +30,11 @@ pub struct QuizSettings {
 }
 
 #[derive(FromForm)]
+struct WaniKaniAPIKey {
+    key: String,
+}
+
+#[derive(FromForm)]
 pub struct OrderedImport {
     number: usize,
     method: String,
@@ -132,9 +137,9 @@ fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custo
     extract_kanji_from_anki_deck(Cursor::new(buf), only_learnt == "true")
 }
 
-#[post("/import_wanikani", data = "<import_settings>")]
-fn post_import_wanikani(import_settings: Form<OrderedImport>) -> Result<String, Custom<String>> {
-    kanji_in_order(KanjiOrder::WaniKani, import_settings)
+#[post("/import_wanikani", data = "<api_key>")]
+fn post_import_wanikani(api_key: Form<WaniKaniAPIKey>) -> Result<String, Custom<String>> {
+    kanji_from_wanikani(&api_key.key)
 }
 
 #[post("/import_rtk", data = "<import_settings>")]

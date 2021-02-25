@@ -24,7 +24,7 @@
 <div class="overlay"></div>
 <dialog id="no_kanji_found">
     <h3>Error</h3>
-    <p>No kanji could be extracted from the file</p>
+    <p>No kanji were found</p>
     <div>
         <button class="close">Okay</button>
     </div>
@@ -97,11 +97,14 @@
                 <button type="submit">Upload</button>
             </form>
             <form id="wanikani" class="import_option">
-                First <input type="number" size="2" min="1" max="60" value="10" required>
-                <select>
-                    <option value="stages">levels</option>
-                    <option value="kanji">kanji</option>
-                </select>
+                Click <a href="https://www.wanikani.com/settings/personal_access_tokens">here</a>
+                to generate a new personal access token. You can leave all the checkboxes unchecked.
+                Copy-paste the generated token into the field below and hit import.
+                <br><br>
+                Your progress will not automatically update here, so after you've learned a bunch of
+                new kanji, you can paste the same token here again to update the list.
+                <br><br>
+                <input type="text" id="api_key" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" autocomplete="off" required>
                 <br><br>
                 <button type="submit">Import</button>
             </form>
