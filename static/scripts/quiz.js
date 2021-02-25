@@ -80,9 +80,12 @@ function show_quiz() {
     $("#settings").hide();
     $("#quiz_container").show();
     // Clear input
+    $("#meaning, #kana").empty();
     $("#answer").val("");
-    $("#kana, #meaning").empty();
+    $("#answer").attr("class", "");
     resize_answer_box();
+    $("#next").text("Show Answer");
+    $("#next").prop("disabled", false);
 }
 
 function get_questions() {
@@ -117,12 +120,10 @@ function get_questions() {
                     });
                 } else {
                     $("#kana").hide();
-                    $("#next").prop("disabled", false);
                     show_quiz();
                 }
                 init = false;
             } else {
-                $("#next").prop("disabled", false);
                 // Reset answer
                 show_quiz();
             }

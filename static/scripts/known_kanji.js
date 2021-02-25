@@ -160,7 +160,7 @@ $("#file").change(function () {
     $(this).siblings("div").text(this.value.split(/([\\/])/g).pop());
 });
 
-function preview_kanji(kanji) {
+function preview_kanji(kanji, method) {
     if (!kanji.length) {
         // No kanji were found
         $("#no_kanji_found + .overlay").show();
@@ -172,6 +172,8 @@ function preview_kanji(kanji) {
     // Show the preview dialog
     $("#preview + .overlay").show();
     $("#preview").show("slow");
+    // Set the method as a data attribute - this is used for analytics once the kanji are added
+    $("#preview").attr("data-method", method);
     // Remove any previously added selectables
     preview_ds.removeSelectables(document.querySelectorAll("#preview .selectable"));
     // Reset the grid
@@ -207,11 +209,11 @@ $("#anki").submit(e => {
     }).done(result => {
         // Enable the import button again
         $("#anki button").prop("disabled", false);
-        preview_kanji(result);
+        preview_kanji(result, "anki");
     }).fail(console.log);
 });
 
-$(".import_option").submit(function (e) {
+$(".import_option:not(#anki)").submit(function (e) {
     e.preventDefault();
     $(this).children("button").prop("disabled", true);
     $.post(`/import_${this.id}`, {
@@ -220,7 +222,7 @@ $(".import_option").submit(function (e) {
     }).done(result => {
         // Enable the import button again
         $(this).children("button").prop("disabled", false);
-        preview_kanji(result);
+        preview_kanji(result, this.id);
     }).fail(console.log);
 });
 
@@ -233,6 +235,8 @@ $("#remove_from_preview").click(() => {
 $("#preview button:last-child").click(() => {
     // Add the kanji
     add_kanji($("#preview_kanji").text());
+    // Analytics
+    pa.track({name: `[${$("#preview").attr("data-method")}] kanji added`});
     $("#preview_kanji").empty();
     $("#remove_from_preview").hide();
     $("#preview").hide("slow", () => $("#preview + .overlay").hide());
