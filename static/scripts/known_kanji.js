@@ -131,21 +131,25 @@ $("#more_options > button").click(() => {
     $("#more_options > button").text((text === "More" ? "Less" : "More") + " options");
 });
 
+$(".select li").click(function () {
+    $(this).parent().parent().removeAttr("open");
+    $(this)
+        .parent()
+        .siblings("summary")
+        .text($(this).text())
+        .attr("data-value", $(this).attr("data-value"));
+});
+
 // Import kanji
-$("#" + $("#import_from").val()).show();
-$("#import_from").change(() => {
+$("#" + $("#import_from summary").attr("data-value")).show();
+$("#import_from li").click(function () {
     $(".import_option").hide();
-    $("#" + $("#import_from").val()).show();
+    $("#" + this.dataset.value).show();
 });
 
-$("#wanikani input").prop("max", $("#wanikani select").val() === "stages" ? "60" : "2055");
-$("#wanikani select").change(function () {
-    $("#wanikani input").prop("max", $(this).val() === "stages" ? "60" : "2055");
-});
-
-$("#rtk input").prop("max", $("#rtk select").val() === "stages" ? "56" : "2200");
-$("#rtk select").change(function () {
-    $("#rtk input").prop("max", $(this).val() === "stages" ? "56" : "2200");
+$("#rtk input").prop("max", $("#rtk .select li").attr("data-value") === "stages" ? "56" : "2200");
+$("#rtk .select li").click(function () {
+    $("#rtk input").prop("max", this.dataset.value === "stages" ? "56" : "2200");
 });
 
 $("#file").siblings("div").text($("#file").val().split(/([\\/])/g).pop());
@@ -230,9 +234,15 @@ $("#wanikani").submit(e => {
 $(".import_option:not(#anki):not(#wanikani)").submit(function (e) {
     e.preventDefault();
     $(this).children("button").prop("disabled", true);
+    let number;
+    if (this.id === "jlpt") {
+        number = $(`#${this.id} summary`).attr("data-value");
+    } else {
+        number = $(this).children("input").val();
+    }
     $.post(`/import_${this.id}`, {
-        number: $(this).children(this.id === "jlpt" ? "select" : "input").val(),
-        method: this.id === "jlpt" ? "stages" : $(this).children("select").val(),
+        number: number,
+        method: this.id === "jlpt" ? "stages" : $(`#${this.id} summary`).attr("data-value"),
     }).done(result => {
         // Enable the import button again
         $(this).children("button").prop("disabled", false);

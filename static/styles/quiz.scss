@@ -56,7 +56,8 @@ a {
 
 #answer {
     background: none;
-    border-bottom: 1px solid var(--foreground);
+    border: solid var(--foreground);
+    border-radius: 0;
     border-width: 0 0 1px 0;
     color: var(--foreground);
     font-family: sans-serif;

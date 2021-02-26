@@ -179,16 +179,98 @@ section > div {
 
 // Select menus
 
-select {
-    background: none;
-    border: solid var(--foreground);
-    border-width: 0 0 2px 0;
-    color: var(--foreground);
-    font-size: .9em;
+details.select {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+    width: 125px;
+
+    summary {
+        border: solid var(--foreground);
+        border-width: 0 0 2px 0;
+        padding: 0 .25em;
+        list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    summary:after {
+        content: '';
+        display: inline-block;
+        float: right;
+        width: .5em;
+        height: .5em;
+        border-bottom: 1px solid currentColor;
+        border-left: 1px solid currentColor;
+        border-bottom-left-radius: 2px;
+        transform: rotate(45deg) translate(50%, 0%);
+        transform-origin: center center;
+        transition: transform ease-in-out 100ms
+    }
+
+    summary:focus {
+        outline: none;
+    }
+
+    ul {
+        background: var(--background);
+        box-sizing: border-box;
+        box-shadow: 0 0 8px 2px var(--shadow);
+        border-radius: 0 0 5px 5px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        list-style-type: none;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    li {
+        margin: 0;
+        padding: .25em;
+        border-bottom: 2px solid var(--background-dark);
+    }
+
+    li:last-child {
+        border-bottom: none;
+    }
 }
 
-select:focus {
-    border-color: var(--accent);
+details.select[open] {
+    z-index: 1;
+
+    summary {
+        border-color: var(--accent);
+    }
+
+    summary:before {
+        content: '';
+        display: block;
+        width: 100vw;
+        height: 100vh;
+        background: transparent;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
+
+    summary:after {
+        transform: rotate(-45deg) translate(0%, 0%);
+    }
+}
+
+#rtk .select {
+    width: 5em;
+}
+
+#jlpt .select {
+    width: 3em;
 }
 
 // File selector

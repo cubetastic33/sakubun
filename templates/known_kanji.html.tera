@@ -67,13 +67,16 @@
                 to download a copy of the kanji list.
             </p>
             <h2>Import</h2>
-            <label for="import_from">Import from:</label>
-            <select id="import_from">
-                <option value="anki">Anki Deck</option>
-                <option value="wanikani">WaniKani</option>
-                <option value="rtk">Heisig's RTK</option>
-                <option value="jlpt">JLPT</option>
-            </select>
+            <span>Import from:</span>
+            <details id="import_from" class="select">
+                <summary data-value="anki">Anki Deck</summary>
+                <ul>
+                    <li data-value="anki">Anki Deck</li>
+                    <li data-value="wanikani">WaniKani</li>
+                    <li data-value="rtk">Heisig's RTK</li>
+                    <li data-value="jlpt">JLPT</li>
+                </ul>
+            </details>
             <br><br>
             <form id="anki" class="import_option">
                 Export the anki deck as an apkg file and upload it here. Don't include media. The
@@ -113,10 +116,13 @@
                 <a href="https://docs.google.com/spreadsheets/d/1Z0BUSie8wh0JqlUejezs3EqauJuF-zKEomOQnqm9J08/edit?pref=2&pli=1#gid=0">here</a>.
                 <br><br>
                 First <input type="number" size="2" min="1" max="56" value="10" required>
-                <select>
-                    <option value="stages">lessons</option>
-                    <option value="kanji">kanji</option>
-                </select>
+                <details class="select">
+                    <summary data-value="stages">lessons</summary>
+                    <ul>
+                        <li data-value="stages">lessons</li>
+                        <li data-value="kanji">kanji</li>
+                    </ul>
+                </details>
                 <br><br>
                 <button type="submit">Import</button>
             </form>
@@ -127,13 +133,16 @@
                 remove kanji that you don't know, and add additional kanji that you do.
                 <br><br>
                 JLPT level
-                <select>
-                    <option value="1">N5</option>
-                    <option value="2">N4</option>
-                    <option value="3">N3</option>
-                    <option value="4">N2</option>
-                    <option value="5">N1</option>
-                </select>
+                <details class="select">
+                    <summary data-value="1">N5</summary>
+                    <ul>
+                        <li data-value="1">N5</li>
+                        <li data-value="2">N4</li>
+                        <li data-value="3">N3</li>
+                        <li data-value="4">N2</li>
+                        <li data-value="5">N1</li>
+                    </ul>
+                </details>
                 <br><br>
                 <button type="submit">Import</button>
             </form>

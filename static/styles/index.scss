@@ -119,6 +119,7 @@ textarea {
     background: none;
     color: var(--success);
     border-bottom: solid var(--success);
+    border-radius: 0;
     border-width: 0 0 1px 0;
     font-family: sans-serif;
     width: calc(100% - 2em);
