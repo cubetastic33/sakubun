@@ -56,13 +56,23 @@ pub fn extract_kanji_from_anki_deck(
 ) -> Result<String, Custom<String>> {
     // An apkg file is just a zip file, so unzip it
     if let Ok(mut zip) = zip::ZipArchive::new(data) {
+        // Randomly generated filename to temporarily save the database at
+        let file_name = format!("{}.db", Uuid::new_v4());
+        let mut contents = Vec::new();
         // Get the database file
-        if let Ok(mut file) = zip.by_name("collection.anki2") {
-            // We now have the sqlite3 database with the notes
-            let mut contents = Vec::new();
+        if let Ok(mut file) = zip.by_name("collection.anki21") {
+            // This deck uses the Anki 2.1 scheduler
             file.read_to_end(&mut contents).unwrap();
+        }
+        if contents.len() == 0 {
+            if let Ok(mut file) = zip.by_name("collection.anki2") {
+                // This deck doesn't use the Anki 2.1 scheduler
+                file.read_to_end(&mut contents).unwrap();
+            }
+        }
+        if contents.len() > 0 {
+            // We now have the sqlite3 database with the notes
             // Write the database to a file
-            let file_name = format!("{}.db", Uuid::new_v4());
             let mut f = fs::File::create(&file_name).unwrap();
             f.write_all(&contents).unwrap();
             if let Ok(conn) = Connection::open(&file_name) {
