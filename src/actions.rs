@@ -14,6 +14,7 @@ use std::{
 pub enum KanjiOrder {
     RTK,
     JLPT,
+    Kanken,
 }
 
 pub fn get_sentences(
@@ -219,6 +220,7 @@ pub fn kanji_in_order(
     let kanji = fs::read_to_string(match order {
         KanjiOrder::RTK => "rtk.txt",
         KanjiOrder::JLPT => "jlpt.txt",
+        KanjiOrder::Kanken => "kanken.txt",
     })
     .unwrap();
     if import_settings.method == "stages" {

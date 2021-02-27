@@ -152,6 +152,11 @@ fn post_import_jlpt(import_settings: Form<OrderedImport>) -> Result<String, Cust
     kanji_in_order(KanjiOrder::JLPT, import_settings)
 }
 
+#[post("/import_kanken", data = "<import_settings>")]
+fn post_import_kanken(import_settings: Form<OrderedImport>) -> Result<String, Custom<String>> {
+    kanji_in_order(KanjiOrder::Kanken, import_settings)
+}
+
 fn configure() -> Config {
     let mut config = Config::active().expect("could not load configuration");
     // Configure Rocket to use the PORT env var or fall back to 8000
@@ -179,6 +184,7 @@ fn rocket() -> rocket::Rocket {
                 post_import_wanikani,
                 post_import_rtk,
                 post_import_jlpt,
+                post_import_kanken,
             ],
         )
         .mount("/styles", StaticFiles::from("static/styles"))

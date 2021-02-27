@@ -74,7 +74,7 @@
     </p>
     <p>
         There are also options to import kanji from Anki decks, WaniKani, or in the order of
-        Heisig's RTK or JLPT levels.
+        Heisig's RTK, JLPT, or Kanken levels.
     </p>
     <h3>Anki</h3>
     <p>
@@ -116,14 +116,13 @@
         the "Import from" dropdown menu that shows up once you click "More options", and follow the
         instructions shown there.
     </p>
-    <h3>RTK and JLPT</h3>
+    <h3>RTK, JLPT, and Kanken</h3>
     <p>
-        You can also import kanji in the ordero of Heisig's Remembering the Kanji or JLPT levels.
-        Just select RTK/JLPT from the "Import from" dropdown menu that shows up when you click "More
-        options". You'll now get a textbox and a dropdown menu. If you want to import the first 200
-        kanji for example, select the "kanji" option in the dropdown and enter "200" in the textbox,
-        and click <button id="import">Import</button>. You can instead choose the JLPT option from
-        the dropdown menu to import kanji according to JLPT levels.
+        You can also import kanji in the ordero of Heisig's Remembering the Kanji, JLPT, or Kanken
+        levels. Just select RTK/JLPT/Kanken from the "Import from" dropdown menu that shows up when
+        you click "More options". For RTK, you'll now get a textbox and a dropdown menu. If you want
+        to import the first 200 kanji for example, select the "kanji" option in the dropdown and
+        enter "200" in the textbox, and click <button id="import">Import</button>.
     </p>
     <h2 id="install" class="install">Install</h2>
     <p class="install">

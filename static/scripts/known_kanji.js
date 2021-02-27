@@ -235,14 +235,14 @@ $(".import_option:not(#anki):not(#wanikani)").submit(function (e) {
     e.preventDefault();
     $(this).children("button").prop("disabled", true);
     let number;
-    if (this.id === "jlpt") {
-        number = $(`#${this.id} summary`).attr("data-value");
-    } else {
+    if (this.id === "rtk") {
         number = $(this).children("input").val();
+    } else {
+        number = $(`#${this.id} summary`).attr("data-value");
     }
     $.post(`/import_${this.id}`, {
         number: number,
-        method: this.id === "jlpt" ? "stages" : $(`#${this.id} summary`).attr("data-value"),
+        method: this.id === "rtk" ? $(`#${this.id} summary`).attr("data-value") : "stages",
     }).done(result => {
         // Enable the import button again
         $(this).children("button").prop("disabled", false);

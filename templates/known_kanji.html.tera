@@ -75,6 +75,7 @@
                     <li data-value="wanikani">WaniKani</li>
                     <li data-value="rtk">Heisig's RTK</li>
                     <li data-value="jlpt">JLPT</li>
+                    <li data-value="kanken">Kanken</li>
                 </ul>
             </details>
             <br><br>
@@ -141,6 +142,28 @@
                         <li data-value="3">N3</li>
                         <li data-value="4">N2</li>
                         <li data-value="5">N1</li>
+                    </ul>
+                </details>
+                <br><br>
+                <button type="submit">Import</button>
+            </form>
+            <form id="kanken" class="import_option">
+                KanKen level
+                <details class="select">
+                    <summary data-value="1">10</summary>
+                    <ul>
+                        <li data-value="1">10</li>
+                        <li data-value="2">9</li>
+                        <li data-value="3">8</li>
+                        <li data-value="4">7</li>
+                        <li data-value="5">6</li>
+                        <li data-value="6">5</li>
+                        <li data-value="7">4</li>
+                        <li data-value="8">3</li>
+                        <li data-value="9">2.5</li>
+                        <li data-value="10">2</li>
+                        <li data-value="11">1.5</li>
+                        <li data-value="12">1</li>
                     </ul>
                 </details>
                 <br><br>
