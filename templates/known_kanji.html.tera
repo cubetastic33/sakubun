@@ -100,18 +100,37 @@
                 <div>The file is too large! The maximum allowed size is 4 MiB.</div>
                 <button type="submit">Upload</button>
             </form>
-            <form id="wanikani" class="import_option">
-                Click <a href="https://www.wanikani.com/settings/personal_access_tokens">here</a>
-                to generate a new personal access token. You can leave all the checkboxes unchecked.
-                Copy-paste the generated token into the field below and hit import.
+            <div id="wanikani" class="import_option">
+                <form>
+                    Click <a href="https://www.wanikani.com/settings/personal_access_tokens">here</a>
+                    to generate a new personal access token. You can leave all the checkboxes unchecked.
+                    Copy-paste the generated token into the field below and hit import.
+                    <br><br>
+                    Your progress will not automatically update here, so after you've learned a bunch of
+                    new kanji, you can paste the same token here again to update the list.
+                    <br><br>
+                    <input type="text" id="api_key" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" autocomplete="off" required>
+                    <br><br>
+                    <button type="submit">Import</button>
+                </form>
+                <br>
+                <b>OR</b>
                 <br><br>
-                Your progress will not automatically update here, so after you've learned a bunch of
-                new kanji, you can paste the same token here again to update the list.
-                <br><br>
-                <input type="text" id="api_key" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" autocomplete="off" required>
-                <br><br>
-                <button type="submit">Import</button>
-            </form>
+                <form>
+                    Import manually:
+                    <br>
+                    First <input type="number" size="2" min="1" max="60" value="10" required>
+                    <details class="select">
+                        <summary data-value="stages">levels</summary>
+                        <ul>
+                            <li data-value="stages">levels</li>
+                            <li data-value="kanji">kanji</li>
+                        </ul>
+                    </details>
+                    <br><br>
+                    <button type="submit">Import</button>
+                </form>
+            </div>
             <form id="rtk" class="import_option">
                 Note: The kanji order is from the sixth edition of the RTK book, taken from
                 <a href="https://docs.google.com/spreadsheets/d/1Z0BUSie8wh0JqlUejezs3EqauJuF-zKEomOQnqm9J08/edit?pref=2&pli=1#gid=0">here</a>.

@@ -147,6 +147,11 @@ $("#import_from li").click(function () {
     $("#" + this.dataset.value).show();
 });
 
+$("#wanikani input").prop("max", $("#wanikani .select li").attr("data-value") === "stages" ? "60" : "2055");
+$("#wanikani .select li").click(function () {
+    $("#wanikani input").prop("max", this.dataset.value === "stages" ? "60" : "2055");
+});
+
 $("#rtk input").prop("max", $("#rtk .select li").attr("data-value") === "stages" ? "56" : "2200");
 $("#rtk .select li").click(function () {
     $("#rtk input").prop("max", this.dataset.value === "stages" ? "56" : "2200");
@@ -217,11 +222,28 @@ $("#anki").submit(e => {
     }).fail(console.log);
 });
 
-$("#wanikani").submit(e => {
+$("#wanikani form:first-child").submit(e => {
     e.preventDefault();
     $("#wanikani button").prop("disabled", true);
-    $.post("/import_wanikani", { key: $("#api_key").val() }).done(result => {
-        // Enable the import button again
+    $.post("/import_wanikani_api", { key: $("#api_key").val().trim() }).done(result => {
+        // Enable the import buttons again
+        $("#wanikani button").prop("disabled", false);
+        preview_kanji(result, "wanikani");
+    }).fail(error => {
+        console.log(error);
+        alert("An error occurred");
+        $("#wanikani button").prop("disabled", false);
+    });
+});
+
+$("#wanikani form:last-child").submit(e => {
+    e.preventDefault();
+    $("#wanikani button").prop("disabled", true);
+    $.post("/import_wanikani", {
+        number: $("#wanikani input:not(#api_key)").val(),
+        method: $(`#wanikani summary`).attr("data-value"),
+    }).done(result => {
+        // Enable the import buttons again
         $("#wanikani button").prop("disabled", false);
         preview_kanji(result, "wanikani");
     }).fail(error => {

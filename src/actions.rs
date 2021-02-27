@@ -12,6 +12,7 @@ use std::{
 };
 
 pub enum KanjiOrder {
+    WaniKani,
     RTK,
     JLPT,
     Kanken,
@@ -218,6 +219,7 @@ pub fn kanji_in_order(
     import_settings: Form<OrderedImport>,
 ) -> Result<String, Custom<String>> {
     let kanji = fs::read_to_string(match order {
+        KanjiOrder::WaniKani => "wanikani.txt",
         KanjiOrder::RTK => "rtk.txt",
         KanjiOrder::JLPT => "jlpt.txt",
         KanjiOrder::Kanken => "kanken.txt",

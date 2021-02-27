@@ -137,9 +137,14 @@ fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custo
     extract_kanji_from_anki_deck(Cursor::new(buf), only_learnt == "true")
 }
 
-#[post("/import_wanikani", data = "<api_key>")]
-fn post_import_wanikani(api_key: Form<WaniKaniAPIKey>) -> Result<String, Custom<String>> {
+#[post("/import_wanikani_api", data = "<api_key>")]
+fn post_import_wanikani_api(api_key: Form<WaniKaniAPIKey>) -> Result<String, Custom<String>> {
     kanji_from_wanikani(&api_key.key)
+}
+
+#[post("/import_wanikani", data = "<import_settings>")]
+fn post_import_wanikani(import_settings: Form<OrderedImport>) -> Result<String, Custom<String>> {
+    kanji_in_order(KanjiOrder::WaniKani, import_settings)
 }
 
 #[post("/import_rtk", data = "<import_settings>")]
@@ -181,6 +186,7 @@ fn rocket() -> rocket::Rocket {
                 get_offline,
                 post_sentences,
                 post_import_anki,
+                post_import_wanikani_api,
                 post_import_wanikani,
                 post_import_rtk,
                 post_import_jlpt,

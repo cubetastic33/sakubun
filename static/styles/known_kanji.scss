@@ -64,25 +64,23 @@ section > div {
     display: none;
 }
 
-#wanikani {
-    input {
-        background: none;
-        border: solid var(--foreground);
-        border-width: 0 0 2px 0;
-        color: var(--foreground);
-        font-size: 1.2em;
-        font-family: monospace;
-        padding: .25em .5em;
-        text-align: center;
-        width: min(80vw, 25em);
-    }
-
-    input:focus {
-        border-color: var(--accent);
-    }
+#api_key {
+    background: none;
+    border: solid var(--foreground);
+    border-width: 0 0 2px 0;
+    color: var(--foreground);
+    font-size: 1.2em;
+    font-family: monospace;
+    padding: .25em .5em;
+    text-align: center;
+    width: min(80vw, 25em);
 }
 
-#rtk input {
+#wanikani input:focus {
+    border-color: var(--accent);
+}
+
+#rtk input, #wanikani form:last-child input {
     font-size: .9em;
     margin: 0 .9em 0 .5em;
 }
@@ -265,7 +263,7 @@ details.select[open] {
     }
 }
 
-#rtk .select {
+#wanikani .select, #rtk .select {
     width: 5em;
 }
 
