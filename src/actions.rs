@@ -242,8 +242,8 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
         }
 
         for assignment in json["data"].as_array().unwrap() {
-            if let Some(_) = assignment["data"]["passed_at"].as_str() {
-                // If the subject has been passed
+            if assignment["data"]["srs_stage"].as_u64().unwrap() >= 5 {
+                // If the subject is at least at SRS stage 5
                 ids.push(assignment["data"]["subject_id"].as_u64().unwrap().to_string());
             }
         }
