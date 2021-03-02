@@ -27,7 +27,7 @@ a {
     font-size: 1rem;
 }
 
-#quiz_container {
+#quiz_container, #report {
     display: none;
 }
 
@@ -88,6 +88,45 @@ a {
     color: var(--error);
 }
 
+#buttons {
+    display: flex;
+    justify-content: center;
+
+    button {
+        margin: auto 2em;
+    }
+}
+
+#report_dialog {
+    font-size: 1.1em;
+
+    textarea, input {
+        background: none;
+        border: 2px solid var(--foreground);
+        border-radius: 5px;
+        color: var(--foreground);
+        display: block;
+        font-family: "Source Sans Pro", sans-serif;
+        font-size: 1em;
+        width: calc(100% - 1em);
+        margin: 2em auto;
+        padding: .5em;
+    }
+
+    textarea:focus, input:focus {
+        border-color: var(--accent);
+        outline: none;
+    }
+}
+
+#report_type {
+    width: 6.2em;
+}
+
+#report_dialog.no_evaluate li:last-child {
+    display: none;
+}
+
 // Checkbox
 
 // Customize the label (the container)
@@ -130,9 +169,9 @@ a {
 
 // Create the checkmark/indicator (hidden when not checked)
 .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
+    content: "";
+    position: absolute;
+    display: none;
 }
 
 // Show the checkmark when checked

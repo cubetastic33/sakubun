@@ -1,20 +1,23 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use]
-extern crate rocket;
+#[macro_use] extern crate rocket;
+#[macro_use] extern crate serde_derive;
 
 use io::Read;
 use multipart::server::Multipart;
+use postgres::{Client, NoTls};
 use rocket::{
     http::{ContentType, Cookies, Status},
     request::Form,
     response::status::Custom,
-    Config, Data,
+    Config, Data, State,
 };
 use rocket_contrib::{serve::StaticFiles, templates::Template};
+use dotenv::dotenv;
 use std::{
-    collections::HashMap,
     env,
+    sync::Mutex,
+    collections::HashMap,
     io::{self, Cursor},
 };
 
@@ -30,6 +33,14 @@ pub struct QuizSettings {
 }
 
 #[derive(FromForm)]
+pub struct Report {
+    sentence_id: i32,
+    report_type: String,
+    suggested: String,
+    comment: String,
+}
+
+#[derive(FromForm)]
 struct WaniKaniAPIKey {
     key: String,
 }
@@ -38,6 +49,23 @@ struct WaniKaniAPIKey {
 pub struct OrderedImport {
     number: usize,
     method: String,
+}
+
+#[derive(Serialize)]
+pub struct AdminReport {
+    question: String,
+    translation: String,
+    report_type: String,
+    suggested: Option<String>,
+    comment: Option<String>,
+    reported_at: String,
+}
+
+#[derive(Serialize)]
+struct AdminContext {
+    theme: String,
+    page: String,
+    reports: Vec<AdminReport>,
 }
 
 fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, &'a str> {
@@ -49,7 +77,6 @@ fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, &
             None => "system",
         },
     );
-    println!("{}", context.get("theme").unwrap());
     context.insert("page", page);
     context
 }
@@ -79,6 +106,18 @@ fn get_offline(cookies: Cookies) -> Template {
     Template::render("offline", create_context(&cookies, "offline"))
 }
 
+#[get("/admin")]
+fn get_admin(client: State<Mutex<Client>>, cookies: Cookies) -> Template {
+    Template::render("admin", AdminContext {
+        theme: String::from(match cookies.get("theme") {
+            Some(cookie) => cookie.value(),
+            None => "system",
+        }),
+        page: String::from("admin"),
+        reports: get_reports(&mut client.lock().unwrap()),
+    })
+}
+
 #[post("/sentences", data = "<quiz_settings>")]
 fn post_sentences(quiz_settings: Form<QuizSettings>) -> String {
     get_sentences(quiz_settings)
@@ -87,6 +126,11 @@ fn post_sentences(quiz_settings: Form<QuizSettings>) -> String {
         .map(|x| x.join(";"))
         .collect::<Vec<_>>()
         .join("|")
+}
+
+#[post("/report", data = "<report>")]
+fn post_report(client: State<Mutex<Client>>, report: Form<Report>) -> String {
+    save_report(&mut client.lock().unwrap(), report)
 }
 
 #[post("/import_anki", data = "<data>")]
@@ -184,7 +228,9 @@ fn rocket() -> rocket::Rocket {
                 get_quiz,
                 get_custom_text,
                 get_offline,
+                get_admin,
                 post_sentences,
+                post_report,
                 post_import_anki,
                 post_import_wanikani_api,
                 post_import_wanikani,
@@ -202,5 +248,7 @@ fn rocket() -> rocket::Rocket {
 }
 
 fn main() {
-    rocket().launch();
+    dotenv().ok();
+    let client = Client::connect(&env::var("DATABASE_URL").unwrap(), NoTls).unwrap();
+    rocket().manage(Mutex::new(client)).launch();
 }

@@ -16,6 +16,35 @@
     </div>
 </dialog>
 <div class="overlay"></div>
+<dialog id="report_dialog">
+    <h3>Report</h3>
+    <form>
+        <p>
+            Found a problem with the question? Feel like the translation could be better? Report any
+            issues you have, even minor ones, so I can look into them.
+        </p>
+        <b>Report about:</b>
+        <details id="report_type" class="select">
+            <summary data-value="translation">Translation</summary>
+            <ul>
+                <li data-value="translation">Translation</li>
+                <li data-value="question">Question</li>
+                <li data-value="reading">Reading</li>
+            </ul>
+        </details>
+        <br>
+        <h3>Reporting <span></span>:</h3>
+        <p id="reference"></p>
+        <h3>Suggested <span></span>:</h3>
+        <input id="suggested" placeholder="Optional">
+        <textarea id="comment" rows="2" maxlength="500" placeholder="Any additional comments?"></textarea>
+        <div>
+            <button type="reset" class="text close">Cancel</button>
+            <button type="submit">Report</button>
+        </div>
+    </form>
+</dialog>
+<div class="overlay"></div>
 <main>
     <form id="settings">
         <div id="range">
@@ -53,7 +82,10 @@
             <div id="kana"></div>
             <div id="meaning"></div>
         </div>
-        <button type="submit" id="next">Show Answer</button>
+        <div id="buttons">
+            <button type="submit" id="next">Show Answer</button>
+            <button type="button" id="report" class="text">Report</button>
+        </div>
     </form>
 </main>
 {% endblock content %}

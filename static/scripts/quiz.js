@@ -81,11 +81,10 @@ function show_quiz() {
     $("#quiz_container").show();
     // Clear input
     $("#meaning, #kana").empty();
-    $("#answer").val("");
-    $("#answer").attr("class", "");
+    $("#answer").val("").attr("class", "");
     resize_answer_box();
-    $("#next").text("Show Answer");
-    $("#next").prop("disabled", false);
+    $("#next").text("Show Answer").prop("disabled", false);
+    $("#report").hide();
 }
 
 function get_questions() {
@@ -109,7 +108,7 @@ function get_questions() {
             // Show the question
             $("#quiz").attr("data-sentences", result);
             $("#quiz").attr("data-index", 0);
-            $("#question").text(result.split(";")[0]);
+            $("#question").text(result.split(";")[1]);
             if (init) {
                 // Basic IME
                 wanakana.bind($("#answer")[0]);
@@ -154,14 +153,15 @@ $("#quiz_container").submit(e => {
     let index = $("#quiz").attr("data-index");
     if ($("#next").text() === "Show Answer") {
         // Show the answer
-        let jap_sentence = sentences[index].split(";")[0];
-        let eng_sentence = sentences[index].split(";")[1];
+        let jpn_sentence = sentences[index].split(";")[1];
+        let eng_sentence = sentences[index].split(";")[2];
         $("#meaning").text(eng_sentence);
-        $("#next").text("Next");
-        $("#next").prop("disabled", false);
+        $("#next").text("Next").prop("disabled", false);
+        // Show the report button
+        $("#report").show();
         if (should_evaluate()) {
             // Check if answer was right
-            kuroshiro.convert(jap_sentence, { mode: "normal", to: "hiragana" }).then(result => {
+            kuroshiro.convert(jpn_sentence, { mode: "normal", to: "hiragana" }).then(result => {
                 $("#kana").text(result);
                 let punct = /[、。！？「」『』]/ug;
                 if ($("#answer").val().replace(punct, "") === result.replace(punct, "")) {
@@ -176,18 +176,62 @@ $("#quiz_container").submit(e => {
         index++;
         if (index < sentences.length) {
             $("#quiz").attr("data-index", index);
-            $("#question").text(sentences[index].split(";")[0]);
+            $("#question").text(sentences[index].split(";")[1]);
             $("#meaning, #kana").empty();
-            $("#answer").val("");
-            $("#answer").attr("class", "");
+            $("#answer").val("").attr("class", "");
             resize_answer_box();
-            $("#next").text("Show Answer");
-            $("#next").prop("disabled", false);
+            $("#next").text("Show Answer").prop("disabled", false);
+            $("#report").hide();
         } else {
             // We've run out of questions, so fetch new ones
             get_questions();
         }
     }
+});
+
+// Report option
+function show_reference(report_type) {
+    $("#report_dialog span").text(report_type);
+    if (report_type === "translation") {
+        $("#reference").text($("#meaning").text());
+    } else if (report_type === "question") {
+        $("#reference").text($("#question").text());
+    } else if (report_type === "reading") {
+        $("#reference").text($("#kana").text());
+        $("#suggested").val($("#answer").val());
+    }
+}
+
+$("#report_type li").click(function () {
+    $("#report_type").removeAttr("open");
+    $("#report_type summary").text($(this).text()).attr("data-value", $(this).attr("data-value"));
+    show_reference($(this).attr("data-value"));
+});
+
+$("#report").click(() => {
+    $("#report_dialog + .overlay").show();
+    $("#report_dialog").attr("class", should_evaluate() ? "" : "no_evaluate").show("slow");
+    show_reference($("#report_dialog summary").attr("data-value"));
+});
+
+$("#report_dialog form").submit(e => {
+    e.preventDefault();
+    $("#report_dialog button").prop("disabled", true);
+    let id = $("#quiz").attr("data-sentences").split("|")[$("#quiz").attr("data-index")].split(";")[0];
+    $.post("/report", {
+        sentence_id: id,
+        report_type: $("#report_type summary").attr("data-value"),
+        suggested: $("#suggested").val(),
+        comment: $("#comment").val(),
+    }).done(result => {
+        $("#report_dialog button").prop("disabled", false);
+        if (result === "success") {
+            $("#report_dialog form").trigger("reset");
+            $("#report_dialog").hide("slow").then($("#report_dialog + .overlay").hide());
+        } else {
+            alert(result);
+        }
+    });
 });
 
 // Event handlers to close dialogs

@@ -1,8 +1,9 @@
-use super::{OrderedImport, QuizSettings};
+use super::{OrderedImport, QuizSettings, Report, AdminReport};
 use rand::prelude::*;
 use regex::Regex;
 use rocket::{http::Status, request::Form, response::status::Custom};
 use rusqlite::{Connection, NO_PARAMS};
+use postgres::Client;
 use uuid::Uuid;
 use std::{
     collections::HashSet,
@@ -20,7 +21,7 @@ pub enum KanjiOrder {
 
 pub fn get_sentences(
     quiz_settings: Form<QuizSettings>,
-) -> Result<Vec<[String; 2]>, Box<dyn Error>> {
+) -> Result<Vec<[String; 3]>, Box<dyn Error>> {
     let mut sentences = Vec::new();
     let mut rng = thread_rng();
 
@@ -30,11 +31,14 @@ pub fn get_sentences(
     let mut records: Vec<_> = records.split('\n').collect();
     records.shuffle(&mut rng);
 
+    // Iterate over the sentences
     for result in records {
+        // Parse the values
         let record: Vec<_> = result.split('\t').collect();
         if record.len() != 4 {
             continue;
         }
+        let id = record[0];
         let jap_sentence = record[1];
         let eng_sentence = record[2];
         let kanji_in_sentence: HashSet<_> = record[3].chars().collect();
@@ -42,14 +46,82 @@ pub fn get_sentences(
         let small_enough = kanji_in_sentence.len() <= quiz_settings.max;
 
         if kanji_in_sentence.is_subset(&known_kanji) && large_enough && small_enough {
-            sentences.push([jap_sentence.to_string(), eng_sentence.to_string()]);
+            sentences.push([id.to_string(), jap_sentence.to_string(), eng_sentence.to_string()]);
         }
         // Once we've collected 30 sentences, we can exit the loop
         if sentences.len() == 30 {
             break;
         }
     }
-    Ok(sentences)
+    Ok(sentences) }
+
+/*
+CREATE TABLE reports (
+    id serial PRIMARY KEY,
+    sentence_id INTEGER NOT NULL,
+    report_type VARCHAR NOT NULL,
+    suggested VARCHAR (500) NOT NULL,
+    comment VARCHAR (500) NOT NULL,
+    reported_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+)
+*/
+
+pub fn save_report(client: &mut Client, report: Form<Report>) -> String {
+    // Validate input
+    if report.suggested.chars().count() > 500 {
+        return String::from("Suggested value too long");
+    } else if report.comment.len() > 500 {
+        return String::from("Comment too long");
+    }
+    // Save the report
+    client.execute(
+        "INSERT INTO reports VALUES (DEFAULT, $1, $2, $3, $4, DEFAULT)",
+        &[&report.sentence_id, &report.report_type, &report.suggested, &report.comment]
+    ).unwrap();
+    String::from("success")
+}
+
+pub fn get_reports(client: &mut Client) -> Vec<AdminReport> {
+    // Variable to store the reports
+    let mut reports = Vec::new();
+    // Read the sentences
+    let records = fs::read_to_string("sentences.csv").unwrap();
+    let records: Vec<_> = records.split('\n').collect();
+    // Variable to store a queue of sentence IDs that'll be used after we've collected all of them
+    let mut sentence_ids = Vec::new();
+    // Get the reports from the database
+    for row in client.query(
+        "SELECT sentence_id, report_type, suggested, comment, reported_at FROM reports ORDER BY id DESC",
+        &[]
+    ).unwrap() {
+        sentence_ids.push(row.get::<_, i32>("sentence_id").to_string());
+        let reported_at: chrono::DateTime<chrono::Utc> = row.get("reported_at");
+        reports.push(AdminReport {
+            question: String::new(),
+            translation: String::new(),
+            report_type: row.get("report_type"),
+            suggested: row.get("suggested"),
+            comment: row.get("comment"),
+            reported_at: reported_at.to_string(),
+        });
+    }
+    // Iterate over the sentences
+    for result in records {
+        // Parse the values
+        let record: Vec<_> = result.split('\t').collect();
+        if record.len() != 4 {
+            continue;
+        }
+        // If this record's ID is in the sentence_ids vector
+        // We're doing a for loop because it could be there multiple times
+        for (index, sentence_id) in sentence_ids.iter().enumerate() {
+            if sentence_id == record[0] {
+                reports[index].question = record[1].to_string();
+                reports[index].translation = record[2].to_string();
+            }
+        }
+    }
+    reports
 }
 
 pub fn extract_kanji_from_anki_deck(

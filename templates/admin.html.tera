@@ -1,0 +1,16 @@
+{% extends "layout" %}
+
+{% block head %}
+<link rel="stylesheet" href="/styles/admin.css">
+{% endblock head %}
+
+{% block content %}
+<main>
+    <h1>Admin</h1>
+    <ul>
+        {% for report in reports %}
+            <li>{{ report.question }}</li>
+        {% endfor %}
+    </ul>
+</main>
+{% endblock content %}
