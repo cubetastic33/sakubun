@@ -6,6 +6,12 @@ tokenizer_obj = dictionary.Dictionary().create()
 mode = tokenizer.Tokenizer.SplitMode.C
 
 katakana_regex = re.compile(r"^[\u30A0-\u30FF]*$")
+dates = {
+    "二": "ふつか",
+    "四": "よっか",
+    "七": "なのか",
+    "二十": "はつか",
+}
 
 with open("sentences.csv", "r") as f:
     sentences = f.readlines()
@@ -14,6 +20,7 @@ transcribed = []
 
 for i, sentence in enumerate(sentences):
     readings = []
+    prev_token = None
     for token in tokenizer_obj.tokenize(sentence.split("\t")[1], mode):
         if "補助記号" in token.part_of_speech() or katakana_regex.match(token.surface()) or not token.reading_form():
             # Symbols shouldn't be converted
@@ -33,6 +40,11 @@ for i, sentence in enumerate(sentences):
         if token.surface() == "何":
             # Instead of the なん
             readings[-1] = "なに"
+        # Exceptional date readings
+        if token.surface() == "日" and prev_token in dates.keys():
+            readings.pop()
+            readings[-1] = dates[prev_token]
+        prev_token = token.surface()
     transcribed.append(sentence.split("\t")[0] + "\t" + "".join(readings))
     if (i + 1) % 10000 == 0:
         print(i + 1, "sentences complete")
