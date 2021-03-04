@@ -67,10 +67,8 @@
         <br>
         <span class="warning">
             Warning: the readings given are automatically generated, and occasionally have errors.
-            Sometimes correct answers will be evaluated as incorrect (like にほん for 日本, since it
-            expects にっぽん, but both are correct). It works in over 90% of the cases, but
-            take the evaluations with a grain of salt. It is highly recommended to use this quiz in
-            conjunction with something like
+            If you notice any such mistakes, feel free to use the report button so that I can fix
+            the issue. It is highly recommended to use this quiz in conjunction with something like
             <a href="https://foosoft.net/projects/yomichan/">yomichan</a> to get the best
             experience.
         </span>
@@ -92,7 +90,5 @@
 
 {% block javascript %}
 <script src="https://unpkg.com/wanakana"></script>
-<script src="/scripts/kuroshiro.min.js"></script>
-<script src="/scripts/kuroshiro-analyzer-kuromoji.min.js"></script>
 <script src="/scripts/quiz.js"></script>
 {% endblock javascript %}

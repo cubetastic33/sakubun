@@ -1,16 +1,16 @@
-use super::{OrderedImport, QuizSettings, Report, AdminReport};
+use super::{AdminReport, OrderedImport, QuizSettings, Report};
+use postgres::Client;
 use rand::prelude::*;
 use regex::Regex;
 use rocket::{http::Status, request::Form, response::status::Custom};
 use rusqlite::{Connection, NO_PARAMS};
-use postgres::Client;
-use uuid::Uuid;
 use std::{
-    collections::HashSet,
+    collections::{HashMap, HashSet},
     error::Error,
     fs,
     io::{Cursor, Read, Write},
 };
+use uuid::Uuid;
 
 pub enum KanjiOrder {
     WaniKani,
@@ -19,20 +19,31 @@ pub enum KanjiOrder {
     Kanken,
 }
 
+/*
+CREATE TABLE overrides (
+    id serial PRIMARY KEY,
+    sentence_id INTEGER NOT NULL,
+    override_type VARCHAR NOT NULL,
+    value VARCHAR NOT NULL,
+    primary_value BOOLEAN NOT NULL DEFAULT FALSE
+)
+*/
+
 pub fn get_sentences(
+    client: &mut Client,
     quiz_settings: Form<QuizSettings>,
-) -> Result<Vec<[String; 3]>, Box<dyn Error>> {
+) -> Result<Vec<[String; 4]>, Box<dyn Error>> {
     let mut sentences = Vec::new();
     let mut rng = thread_rng();
 
     let known_kanji: HashSet<_> = quiz_settings.known_kanji.chars().collect();
     // Read the sentences and shuffle the order
-    let records = fs::read_to_string("sentences.csv")?;
-    let mut records: Vec<_> = records.split('\n').collect();
-    records.shuffle(&mut rng);
+    let sentence_records = fs::read_to_string("sentences.csv")?;
+    let mut sentence_records: Vec<_> = sentence_records.split('\n').collect();
+    sentence_records.shuffle(&mut rng);
 
     // Iterate over the sentences
-    for result in records {
+    for result in sentence_records {
         // Parse the values
         let record: Vec<_> = result.split('\t').collect();
         if record.len() != 4 {
@@ -46,38 +57,104 @@ pub fn get_sentences(
         let small_enough = kanji_in_sentence.len() <= quiz_settings.max;
 
         if kanji_in_sentence.is_subset(&known_kanji) && large_enough && small_enough {
-            sentences.push([id.to_string(), jap_sentence.to_string(), eng_sentence.to_string()]);
+            sentences.push([
+                id.to_string(),
+                jap_sentence.to_string(),
+                eng_sentence.to_string(),
+                String::new(),
+            ]);
         }
         // Once we've collected 30 sentences, we can exit the loop
         if sentences.len() == 30 {
             break;
         }
     }
-    Ok(sentences) }
+
+    // Add the readings from the database
+    let mut queue = HashMap::new();
+    for (i, sentence) in sentences.iter().enumerate() {
+        queue.insert(sentence[0].parse::<i32>().unwrap(), i);
+    }
+
+    for row in client
+        .query(
+            "SELECT * FROM overrides WHERE sentence_id = ANY($1) ORDER BY primary_value DESC",
+            &[&queue.keys().collect::<Vec<_>>()],
+        )
+        .unwrap()
+    {
+        let i = match row.get("override_type") {
+            "question" => 1,
+            "translation" => 2,
+            "reading" => 3,
+            _ => return Ok(sentences), // Should never happen
+        };
+        sentences[*queue.get(&row.get("sentence_id")).unwrap()][i] += &format!(
+            "{}{}",
+            if row.get("primary_value") { "" } else { "," },
+            row.get::<_, String>("value")
+        );
+    }
+    // Add the readings from the file
+    let kana_records = fs::read_to_string("kana_sentences.txt")?;
+    for result in kana_records.split('\n').collect::<Vec<_>>() {
+        // Parse the values
+        let record: Vec<_> = result.split('\t').collect();
+        if record.len() != 2 {
+            continue;
+        }
+        // If this record is in the queue
+        if let Some(index) = queue.get(&record[0].parse().unwrap()) {
+            // If this sentence has some readings added already
+            if let Some(c) = sentences[*index][3].chars().nth(0) {
+                // If a primary reading was added already, the first character won't be a comma
+                if c != ',' {
+                    continue;
+                }
+            }
+            // The primary reading has not been added yet
+            sentences[*index][3] = record[1].to_owned() + &sentences[*index][3];
+        }
+    }
+
+    Ok(sentences)
+}
 
 /*
 CREATE TABLE reports (
     id serial PRIMARY KEY,
     sentence_id INTEGER NOT NULL,
     report_type VARCHAR NOT NULL,
-    suggested VARCHAR (500) NOT NULL,
-    comment VARCHAR (500) NOT NULL,
+    suggested VARCHAR (500),
+    comment VARCHAR (500),
     reported_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 )
 */
 
 pub fn save_report(client: &mut Client, report: Form<Report>) -> String {
     // Validate input
-    if report.suggested.chars().count() > 500 {
-        return String::from("Suggested value too long");
-    } else if report.comment.len() > 500 {
-        return String::from("Comment too long");
+    println!("{:?}", report.comment);
+    if let Some(suggested) = &report.suggested {
+        if suggested.chars().count() > 500 {
+            return String::from("Suggested value too long");
+        }
+    } else if let Some(comment) = &report.comment {
+        if comment.len() > 500 {
+            return String::from("Comment too long");
+        }
     }
     // Save the report
-    client.execute(
-        "INSERT INTO reports VALUES (DEFAULT, $1, $2, $3, $4, DEFAULT)",
-        &[&report.sentence_id, &report.report_type, &report.suggested, &report.comment]
-    ).unwrap();
+    client
+        .execute(
+            "INSERT INTO reports VALUES (DEFAULT, $1, $2, $3, $4, DEFAULT)",
+            &[
+                &report.sentence_id,
+                &report.report_type,
+                &report.suggested,
+                &report.comment,
+            ],
+        )
+        .unwrap();
     String::from("success")
 }
 
@@ -244,7 +321,12 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
         for assignment in json["data"].as_array().unwrap() {
             if assignment["data"]["srs_stage"].as_u64().unwrap() >= 5 {
                 // If the subject is at least at SRS stage 5
-                ids.push(assignment["data"]["subject_id"].as_u64().unwrap().to_string());
+                ids.push(
+                    assignment["data"]["subject_id"]
+                        .as_u64()
+                        .unwrap()
+                        .to_string(),
+                );
             }
         }
 
@@ -277,9 +359,7 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
 
         // Pagination
         url = match json["pages"]["next_url"].as_str() {
-            Some(url) => {
-                url.to_string()
-            },
+            Some(url) => url.to_string(),
             None => break,
         };
     }

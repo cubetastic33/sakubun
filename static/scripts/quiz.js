@@ -3,9 +3,6 @@ function should_evaluate() {
     return known_kanji.size && $("#max").val() != 0 && $("#evaluate").is(":checked");
 }
 
-// Initialize kuroshiro
-var kuroshiro = new Kuroshiro();
-
 let known_kanji = new Set(localStorage.getItem("known_kanji"));
 
 if (!known_kanji.size) {
@@ -113,10 +110,8 @@ function get_questions() {
                 // Basic IME
                 wanakana.bind($("#answer")[0]);
                 if (should_evaluate()) {
-                    kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" })).then(() => {
-                        $("#next").prop("disabled", false);
-                        show_quiz();
-                    });
+                    $("#kana").show();
+                    show_quiz();
                 } else {
                     $("#kana").hide();
                     show_quiz();
@@ -155,21 +150,26 @@ $("#quiz_container").submit(e => {
         // Show the answer
         let jpn_sentence = sentences[index].split(";")[1];
         let eng_sentence = sentences[index].split(";")[2];
+        let readings = sentences[index].split(";")[3].split(",");
         $("#meaning").text(eng_sentence);
         $("#next").text("Next").prop("disabled", false);
         // Show the report button
         $("#report").show();
         if (should_evaluate()) {
             // Check if answer was right
-            kuroshiro.convert(jpn_sentence, { mode: "normal", to: "hiragana" }).then(result => {
-                $("#kana").text(result);
-                let punct = /[、。！？「」『』]/ug;
-                if ($("#answer").val().replace(punct, "") === result.replace(punct, "")) {
+            let kana = wanakana.toHiragana(readings[0]);
+            $("#kana").text(kana);
+            let punct = /[、。！？「」『』]/ug;
+            let answer = wanakana.toHiragana($("#answer").val()).replace(punct, "");
+            for (let i = 0; i < readings.length; i++) {
+                if (answer === wanakana.toHiragana(readings[i]).replace(punct, "")) {
                     $("#answer").attr("class", "correct");
-                } else if ($("#answer").val().length) {
-                    $("#answer").attr("class", "incorrect");
                 }
-            });
+            }
+            // If the user provided an answer but it didn't match with any of the readings
+            if ($("#answer").val().length && !$("#answer").hasClass("correct")) {
+                $("#answer").attr("class", "incorrect");
+            }
         }
     } else {
         // Go to the next question
@@ -221,8 +221,8 @@ $("#report_dialog form").submit(e => {
     $.post("/report", {
         sentence_id: id,
         report_type: $("#report_type summary").attr("data-value"),
-        suggested: $("#suggested").val(),
-        comment: $("#comment").val(),
+        suggested: $("#suggested").val() ? $("#suggested").val().length : undefined,
+        comment: $("#comment").val().length ? $("#comment").val() : undefined,
     }).done(result => {
         $("#report_dialog button").prop("disabled", false);
         if (result === "success") {

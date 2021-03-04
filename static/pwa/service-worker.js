@@ -1,6 +1,6 @@
 "use strict";
 
-const version = "20210302::";
+const version = "20210304::";
 
 // Caches for different resources
 const core_cache_name = version + "core";
@@ -98,12 +98,6 @@ self.addEventListener("fetch", event => {
 
     // Do not respond to non-GET requests
     if (!should_fetch(event)) {
-        event.respondWith(
-            fetch(request)
-                .catch(() => {
-                    return caches.match("/offline");
-                })
-        );
         return;
     }
 

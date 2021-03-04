@@ -44,14 +44,17 @@ fn main() -> Result<(), Box<dyn Error>> {
                 Err(err) => return Err(From::from(err)),
                 Ok(record) => {
                     if let Some(index) = queue.get(&record[0]) {
-                        final_records[*index][i + 1] = record[2].to_string();
                         if i == 0 {
+                            // Japanese file
+                            final_records[*index][i + 1] = record[2].to_string().replace(", ", "、");
                             // If we're in the Japanese file, also fill the kanji column
                             final_records[*index][3] = kanji
                                 .captures_iter(&record[2])
                                 .map(|c| c[0].to_string())
                                 .collect::<Vec<_>>()
                                 .join("");
+                        } else {
+                            final_records[*index][i + 1] = record[2].to_string();
                         }
                     }
                 }
@@ -66,7 +69,7 @@ fn main() -> Result<(), Box<dyn Error>> {
         .from_path("sentences.csv")?;
 
     // Regex used to filter sentences we don't want
-    let filter = Regex::new(r"[０-９Ａ-Ｚａ-ｚ]")?;
+    let filter = Regex::new(r"[0-9a-zA-Z０-９ａ-ｚＡ-Ｚ]")?;
 
     // Write all the completed records to a file
     for record in final_records {

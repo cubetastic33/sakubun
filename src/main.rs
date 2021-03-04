@@ -1,8 +1,11 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use] extern crate rocket;
-#[macro_use] extern crate serde_derive;
+#[macro_use]
+extern crate rocket;
+#[macro_use]
+extern crate serde_derive;
 
+use dotenv::dotenv;
 use io::Read;
 use multipart::server::Multipart;
 use postgres::{Client, NoTls};
@@ -13,12 +16,11 @@ use rocket::{
     Config, Data, State,
 };
 use rocket_contrib::{serve::StaticFiles, templates::Template};
-use dotenv::dotenv;
 use std::{
-    env,
-    sync::Mutex,
     collections::HashMap,
+    env,
     io::{self, Cursor},
+    sync::Mutex,
 };
 
 mod actions;
@@ -36,8 +38,8 @@ pub struct QuizSettings {
 pub struct Report {
     sentence_id: i32,
     report_type: String,
-    suggested: String,
-    comment: String,
+    suggested: Option<String>,
+    comment: Option<String>,
 }
 
 #[derive(FromForm)]
@@ -108,19 +110,22 @@ fn get_offline(cookies: Cookies) -> Template {
 
 #[get("/admin")]
 fn get_admin(client: State<Mutex<Client>>, cookies: Cookies) -> Template {
-    Template::render("admin", AdminContext {
-        theme: String::from(match cookies.get("theme") {
-            Some(cookie) => cookie.value(),
-            None => "system",
-        }),
-        page: String::from("admin"),
-        reports: get_reports(&mut client.lock().unwrap()),
-    })
+    Template::render(
+        "admin",
+        AdminContext {
+            theme: String::from(match cookies.get("theme") {
+                Some(cookie) => cookie.value(),
+                None => "system",
+            }),
+            page: String::from("admin"),
+            reports: get_reports(&mut client.lock().unwrap()),
+        },
+    )
 }
 
 #[post("/sentences", data = "<quiz_settings>")]
-fn post_sentences(quiz_settings: Form<QuizSettings>) -> String {
-    get_sentences(quiz_settings)
+fn post_sentences(client: State<Mutex<Client>>, quiz_settings: Form<QuizSettings>) -> String {
+    get_sentences(&mut client.lock().unwrap(), quiz_settings)
         .unwrap()
         .iter()
         .map(|x| x.join(";"))
