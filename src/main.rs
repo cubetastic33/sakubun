@@ -8,7 +8,9 @@ extern crate serde_derive;
 use dotenv::dotenv;
 use io::Read;
 use multipart::server::Multipart;
-use postgres::{Client, NoTls};
+use native_tls::TlsConnector;
+use postgres_native_tls::MakeTlsConnector;
+use postgres::Client;
 use rocket::{
     http::{ContentType, Cookies, Status},
     request::Form,
@@ -254,6 +256,8 @@ fn rocket() -> rocket::Rocket {
 
 fn main() {
     dotenv().ok();
-    let client = Client::connect(&env::var("DATABASE_URL").unwrap(), NoTls).unwrap();
+    let connector = MakeTlsConnector::new(TlsConnector::builder().danger_accept_invalid_certs(true).build().unwrap());
+
+    let client = Client::connect(&env::var("HEROKU_POSTGRESQL_IVORY_URL").unwrap(), connector).unwrap();
     rocket().manage(Mutex::new(client)).launch();
 }

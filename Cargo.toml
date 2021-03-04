@@ -14,6 +14,8 @@ multipart = "0.17.1"
 zip = { version = "0.5.9", default-features = false, features = ["deflate"] }
 rusqlite = { version = "0.24.2", features = ["bundled"] }
 postgres = { version = "0.19", features = ["with-chrono-0_4"] }
+postgres-native-tls = "0.5"
+native-tls = "0.2.7"
 chrono = "0.4"
 uuid = { version = "0.8.2", features = ["v4"] }
 serde = "1.0"
