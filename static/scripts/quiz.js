@@ -157,8 +157,7 @@ $("#quiz_container").submit(e => {
         $("#report").show();
         if (should_evaluate()) {
             // Check if answer was right
-            let kana = wanakana.toHiragana(readings[0]);
-            $("#kana").text(kana);
+            $("#kana").text(readings[0]);
             let punct = /[、。！？「」『』]/ug;
             let answer = wanakana.toHiragana($("#answer").val()).replace(punct, "");
             for (let i = 0; i < readings.length; i++) {
