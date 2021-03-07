@@ -160,6 +160,11 @@ header {
         margin: 0 5px;
     }
 
+    button:hover {
+        background-color: var(--accent);
+        color: var(--background);
+    }
+
     div {
         background-color: var(--background);
         border-radius: 5px;
@@ -171,11 +176,6 @@ header {
         position: absolute;
         right: .3em;
         top: .3em;
-
-        button:hover {
-            background-color: var(--accent);
-            color: var(--background);
-        }
 
         button:not(.active) {
             display: none;
@@ -280,7 +280,7 @@ dialog {
             margin: 0 1em !important;
         }
 
-        button.text:hover {
+        button.text:not(:disabled):hover {
             background-color: var(--background-dark);
         }
     }

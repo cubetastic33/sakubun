@@ -1,16 +1,70 @@
 {% extends "layout" %}
 
+{% block title %}Sakubun | Admin{% endblock title %}
+
 {% block head %}
 <link rel="stylesheet" href="/styles/admin.css">
 {% endblock head %}
 
+{% block header %}
+<button id="signout" class="exception">
+    <span class="material-icons">logout</span>
+</button>
+{% endblock header %}
+
 {% block content %}
+<dialog id="confirmation">
+    <h3>Confirmation</h3>
+    <p>
+        Are you sure you want to delete the report?
+    </p>
+    <div>
+        <button class="text close">Cancel</button>
+        <button>Yes</button>
+    </div>
+</dialog>
+<div class="overlay"></div>
+<dialog id="override">
+    <h3>Add override</h3>
+    <p>
+        Are you sure you want to delete the report?
+    </p>
+    <div>
+        <button class="text close">Cancel</button>
+        <button>Yes</button>
+    </div>
+</dialog>
+<div class="overlay"></div>
 <main>
-    <h1>Admin</h1>
-    <ul>
+    <h1>Reports</h1>
+    <div id="reports">
         {% for report in reports %}
-            <li>{{ report.question }}</li>
+        <div class="report" data-id="{{ report.report_id }}">
+            <h2>{{ report.question }}</h2>
+            <p><b>Translation:</b>{{ report.translation }}</p>
+            <div>
+                <b>Readings:</b>
+                <ul>
+                    {% for reading in report.readings %}
+                    <li>{{ reading }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <hr>
+            <p><b>Report type:</b>{{ report.report_type }}</p>
+            <p><b>Suggested:</b>{{ report.suggested }}</p>
+            <p><b>Comments:</b>{{ report.comment }}</p>
+            <hr>
+            <div class="buttons">
+                <button class="text reject">Reject</button>
+                <button class="text accept">Add override</button>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
+    </div>
 </main>
 {% endblock content %}
+
+{% block javascript %}
+<script src="/scripts/admin.js"></script>
+{% endblock javascript %}

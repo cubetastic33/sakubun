@@ -1,0 +1,45 @@
+#signout {
+    position: absolute;
+    left: 1.25em;
+    top: 1.25em;
+}
+
+.report {
+    background-color: var(--background-dark);
+    border-radius: 5px;
+    padding: 1em;
+    margin: 1em 0;
+
+    h2 {
+        margin: 0 0 .5em 0;
+        text-align: center;
+    }
+
+    div {
+        display: flex;
+
+        button {
+            color: var(--success);
+            font-size: .8em;
+        }
+
+        button:first-child {
+            color: var(--error);
+        }
+    }
+
+    p, ul, b {
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+    p b {
+        margin-right: .5em;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0 0 .5em .5em;
+    }
+}

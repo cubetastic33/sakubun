@@ -225,7 +225,7 @@ $("#anki").submit(e => {
 $("#wanikani form:first-child").submit(e => {
     e.preventDefault();
     $("#wanikani button").prop("disabled", true);
-    $.post("/import_wanikani_api", { key: $("#api_key").val().trim() }).done(result => {
+    $.post("/import_wanikani_api", { value: $("#api_key").val().trim() }).done(result => {
         // Enable the import buttons again
         $("#wanikani button").prop("disabled", false);
         preview_kanji(result, "wanikani");

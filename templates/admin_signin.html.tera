@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sakubun | Admin</title>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            body, input {
+                background-color: #212123;
+                color: #fff;
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            body, input {
+                background-color: #fff;
+                color: #000;
+            }
+        }
+
+        .dark, .dark input {
+            background-color: #212123;
+            color: #fff;
+        }
+
+        .light, .light input {
+            background-color: #fff;
+            color: #000;
+        }
+
+        body {
+            cursor: text;
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        input {
+            appearance: none;
+            background: none;
+            border: none;
+            text-align: center;
+        }
+
+        input:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body {% if theme != "system" %}class="{{ theme }}"{% endif %}>
+    <form>
+        <input type="password" autofocus>
+    </form>
+</body>
+<script src="/scripts/jquery-3.5.1.min.js"></script>
+<script>
+    function get_cookie(name) {
+        let nameEQ = name + "=";
+        let ca = document.cookie.split(";");
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === " ") c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+
+    // Set theme when loaded from service worker
+    if (get_cookie("theme")) {
+        $("body").attr("class", get_cookie("theme"));
+        $("header button").removeClass("active");
+        $(`#${get_cookie("theme")}`).addClass("active");
+    }
+
+    $("body").click(() => document.querySelector("input").focus());
+
+    $("form").submit(e => {
+        e.preventDefault();
+        $.post("/admin_signin", { value: $("input").val() }).done(result => {
+            if (result === "success") {
+                location.reload();
+            }
+        });
+    });
+</script>
+</html>

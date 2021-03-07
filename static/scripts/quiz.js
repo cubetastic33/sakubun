@@ -158,7 +158,7 @@ $("#quiz_container").submit(e => {
         if (should_evaluate()) {
             // Check if answer was right
             $("#kana").text(readings[0]);
-            let punct = /[、。！？「」『』]/ug;
+            let punct = /[、。！？・「」『』]/ug;
             let answer = wanakana.toHiragana($("#answer").val()).replace(punct, "");
             for (let i = 0; i < readings.length; i++) {
                 if (answer === wanakana.toHiragana(readings[i]).replace(punct, "")) {
@@ -220,7 +220,7 @@ $("#report_dialog form").submit(e => {
     $.post("/report", {
         sentence_id: id,
         report_type: $("#report_type summary").attr("data-value"),
-        suggested: $("#suggested").val() ? $("#suggested").val().length : undefined,
+        suggested: $("#suggested").val().length ? $("#suggested").val() : undefined,
         comment: $("#comment").val().length ? $("#comment").val() : undefined,
     }).done(result => {
         $("#report_dialog button").prop("disabled", false);

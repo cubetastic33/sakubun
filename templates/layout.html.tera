@@ -8,7 +8,7 @@
     <meta property="og:image" content="/icon-192x192.png">
     <meta property="og:description" content="Sakubun improves your Japanese vocabulary and kanji skills with practice that's customized to your needs.">
     <meta name="theme-color" content="#1a1a1a">
-    <title>Sakubun</title>
+    <title>{% block title %}Sakubun{% endblock title %}</title>
     <link rel="stylesheet" href="/styles/main.css">
     {% block head %}{% endblock head %}
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -23,6 +23,7 @@
 <body {% if theme != "system" %}class="{{ theme }}"{% endif %}>
     <noscript>Error: Sakubun requires JavaScript to function</noscript>
     <header role="banner">
+        {% block header %}{% endblock header %}
         <a href="/">作文</a>
         <div aria-label="theme selector">
             <button id="dark" title="dark theme" aria-label="dark theme" class="exception {% if theme == "dark" %}active{% endif %}">

@@ -29,6 +29,98 @@ CREATE TABLE overrides (
 )
 */
 
+trait Sentence {
+    // Method to get the sentence ID
+    fn get_id(&self) -> i32;
+
+    // Method to set a property of the sentence
+    fn set(&mut self, property: &str, value: String);
+
+    // Method to add a reading to the sentence
+    fn add_reading(&mut self, reading: String);
+}
+
+impl Sentence for [String; 4] {
+    fn get_id(&self) -> i32 {
+        self[0].parse().unwrap()
+    }
+
+    fn set(&mut self, property: &str, value: String) {
+        if property == "question" {
+            self[1] = value;
+        } else if property == "translation" {
+            self[2] = value;
+        } else if property == "reading" {
+            self[3] = value;
+        }
+    }
+
+    fn add_reading(&mut self, reading: String) {
+        self[3] += &format!(",{}", reading);
+    }
+}
+
+impl Sentence for AdminReport {
+    fn get_id(&self) -> i32 {
+        self.sentence_id
+    }
+
+    fn set(&mut self, property: &str, value: String) {
+        if property == "question" {
+            self.question = value;
+        } else if property == "translation" {
+            self.translation = value;
+        } else if property == "reading" {
+            self.readings = vec![value];
+        }
+    }
+
+    fn add_reading(&mut self, reading: String) {
+        self.readings.push(reading);
+    }
+}
+
+fn fill_sentences<T: Sentence>(client: &mut Client, sentences: &mut Vec<T>) {
+    let mut queue = HashMap::new();
+    for (i, sentence) in sentences.iter().enumerate() {
+        queue.insert(sentence.get_id(), i);
+    }
+    // Add the readings from the file
+    let kana_records = fs::read_to_string("kana_sentences.txt").unwrap();
+    for result in kana_records.split('\n').collect::<Vec<_>>() {
+        // Parse the values
+        let record: Vec<_> = result.split('\t').collect();
+        if record.len() != 2 {
+            continue;
+        }
+        // If this record is in the queue
+        if let Some(index) = queue.get(&record[0].parse().unwrap()) {
+            sentences[*index].set("reading", record[1].to_owned());
+        }
+    }
+
+    // Add the overrides
+    for row in client
+        .query(
+            "SELECT * FROM overrides WHERE sentence_id = ANY($1) ORDER BY primary_value DESC",
+            &[&queue.keys().collect::<Vec<_>>()],
+        )
+        .unwrap()
+    {
+        let i = queue.get(&row.get("sentence_id")).unwrap();
+        // The concept of a primary value exists only for readings
+        let override_type = row.get("override_type");
+        if override_type != "reading" || row.get("primary_value") {
+            // This is either a primary reading or a non-reading override, so we can just set that
+            // property to the new value
+            sentences[*i].set(override_type, row.get("value"));
+        } else {
+            // This is a non-primary reading
+            sentences[*i].add_reading(row.get("value"));
+        }
+    }
+}
+
 pub fn get_sentences(
     client: &mut Client,
     quiz_settings: Form<QuizSettings>,
@@ -69,54 +161,8 @@ pub fn get_sentences(
             break;
         }
     }
-
-    // Add the readings from the database
-    let mut queue = HashMap::new();
-    for (i, sentence) in sentences.iter().enumerate() {
-        queue.insert(sentence[0].parse::<i32>().unwrap(), i);
-    }
-
-    for row in client
-        .query(
-            "SELECT * FROM overrides WHERE sentence_id = ANY($1) ORDER BY primary_value DESC",
-            &[&queue.keys().collect::<Vec<_>>()],
-        )
-        .unwrap()
-    {
-        let i = match row.get("override_type") {
-            "question" => 1,
-            "translation" => 2,
-            "reading" => 3,
-            _ => return Ok(sentences), // Should never happen
-        };
-        sentences[*queue.get(&row.get("sentence_id")).unwrap()][i] += &format!(
-            "{}{}",
-            if row.get("primary_value") { "" } else { "," },
-            row.get::<_, String>("value")
-        );
-    }
-    // Add the readings from the file
-    let kana_records = fs::read_to_string("kana_sentences.txt")?;
-    for result in kana_records.split('\n').collect::<Vec<_>>() {
-        // Parse the values
-        let record: Vec<_> = result.split('\t').collect();
-        if record.len() != 2 {
-            continue;
-        }
-        // If this record is in the queue
-        if let Some(index) = queue.get(&record[0].parse().unwrap()) {
-            // If this sentence has some readings added already
-            if let Some(c) = sentences[*index][3].chars().nth(0) {
-                // If a primary reading was added already, the first character won't be a comma
-                if c != ',' {
-                    continue;
-                }
-            }
-            // The primary reading has not been added yet
-            sentences[*index][3] = record[1].to_owned() + &sentences[*index][3];
-        }
-    }
-
+    // Fill the readings and overrides
+    fill_sentences(client, &mut sentences);
     Ok(sentences)
 }
 
@@ -168,21 +214,24 @@ pub fn get_reports(client: &mut Client) -> Vec<AdminReport> {
     let mut sentence_ids = Vec::new();
     // Get the reports from the database
     for row in client.query(
-        "SELECT sentence_id, report_type, suggested, comment, reported_at FROM reports ORDER BY id DESC",
+        "SELECT * FROM reports ORDER BY id DESC",
         &[]
     ).unwrap() {
         sentence_ids.push(row.get::<_, i32>("sentence_id").to_string());
         let reported_at: chrono::DateTime<chrono::Utc> = row.get("reported_at");
         reports.push(AdminReport {
+            report_id: row.get("id"),
+            sentence_id: row.get("sentence_id"),
             question: String::new(),
             translation: String::new(),
+            readings: Vec::new(),
             report_type: row.get("report_type"),
             suggested: row.get("suggested"),
             comment: row.get("comment"),
             reported_at: reported_at.to_string(),
         });
     }
-    // Iterate over the sentences
+    // Iterate over the sentences to add the question and translation
     for result in records {
         // Parse the values
         let record: Vec<_> = result.split('\t').collect();
@@ -198,6 +247,8 @@ pub fn get_reports(client: &mut Client) -> Vec<AdminReport> {
             }
         }
     }
+    // Fill the readings and overrides
+    fill_sentences(client, &mut reports);
     reports
 }
 
@@ -391,4 +442,10 @@ pub fn kanji_in_order(
             String::from("Method must be one of `stages` or `kanji`"),
         ))
     }
+}
+
+pub fn delete_report(client: &mut Client, report_id: i32) -> String {
+    // Add the overrides
+    client.execute("DELETE FROM reports WHERE id = $1", &[&report_id]).unwrap();
+    String::from("success")
 }

@@ -12,7 +12,7 @@ use native_tls::TlsConnector;
 use postgres_native_tls::MakeTlsConnector;
 use postgres::Client;
 use rocket::{
-    http::{ContentType, Cookies, Status},
+    http::{ContentType, Cookies, Cookie, Status},
     request::Form,
     response::status::Custom,
     Config, Data, State,
@@ -45,8 +45,8 @@ pub struct Report {
 }
 
 #[derive(FromForm)]
-struct WaniKaniAPIKey {
-    key: String,
+struct SingleField {
+    value: String,
 }
 
 #[derive(FromForm)]
@@ -57,8 +57,11 @@ pub struct OrderedImport {
 
 #[derive(Serialize)]
 pub struct AdminReport {
+    report_id: i32,
+    sentence_id: i32,
     question: String,
     translation: String,
+    readings: Vec<String>,
     report_type: String,
     suggested: Option<String>,
     comment: Option<String>,
@@ -111,15 +114,21 @@ fn get_offline(cookies: Cookies) -> Template {
 }
 
 #[get("/admin")]
-fn get_admin(client: State<Mutex<Client>>, cookies: Cookies) -> Template {
+fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Template {
+    let mut page = String::from("admin_signin");
+    if let Some(password) = cookies.get_private("admin_password") {
+        if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
+            page = String::from("admin");
+        }
+    }
     Template::render(
-        "admin",
+        page.clone(),
         AdminContext {
             theme: String::from(match cookies.get("theme") {
                 Some(cookie) => cookie.value(),
                 None => "system",
             }),
-            page: String::from("admin"),
+            page,
             reports: get_reports(&mut client.lock().unwrap()),
         },
     )
@@ -189,8 +198,8 @@ fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custo
 }
 
 #[post("/import_wanikani_api", data = "<api_key>")]
-fn post_import_wanikani_api(api_key: Form<WaniKaniAPIKey>) -> Result<String, Custom<String>> {
-    kanji_from_wanikani(&api_key.key)
+fn post_import_wanikani_api(api_key: Form<SingleField>) -> Result<String, Custom<String>> {
+    kanji_from_wanikani(&api_key.value)
 }
 
 #[post("/import_wanikani", data = "<import_settings>")]
@@ -213,8 +222,39 @@ fn post_import_kanken(import_settings: Form<OrderedImport>) -> Result<String, Cu
     kanji_in_order(KanjiOrder::Kanken, import_settings)
 }
 
+#[post("/admin_signin", data = "<password>")]
+fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> String {
+    if password.value == env::var("ADMIN_PASSWORD").unwrap() {
+        println!("{}", password.value);
+        cookies.add_private(Cookie::new("admin_password", password.value.clone()));
+        String::from("success")
+    } else {
+        String::from("error")
+    }
+}
+
+#[post("/delete_report", data = "<report_id>")]
+fn post_delete_report(client: State<Mutex<Client>>, report_id: Form<SingleField>, mut cookies: Cookies) -> String {
+    if let Some(password) = cookies.get_private("admin_password") {
+        if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
+            return delete_report(&mut client.lock().unwrap(), report_id.value.parse().unwrap());
+        }
+    }
+    String::from("Error: not signed in")
+}
+
+#[post("/admin_signout")]
+fn post_admin_signout(mut cookies: Cookies) -> String {
+    cookies.remove_private(Cookie::named("admin_password"));
+    String::from("success")
+}
+
 fn configure() -> Config {
     let mut config = Config::active().expect("could not load configuration");
+    // Add secret key
+    config
+        .set_secret_key(env::var("SECRET_KEY").unwrap())
+        .unwrap();
     // Configure Rocket to use the PORT env var or fall back to 8000
     let port = if let Ok(port_str) = env::var("PORT") {
         port_str.parse().expect("could not parse PORT")
@@ -244,6 +284,9 @@ fn rocket() -> rocket::Rocket {
                 post_import_rtk,
                 post_import_jlpt,
                 post_import_kanken,
+                post_admin_signin,
+                post_admin_signout,
+                post_delete_report,
             ],
         )
         .mount("/styles", StaticFiles::from("static/styles"))
