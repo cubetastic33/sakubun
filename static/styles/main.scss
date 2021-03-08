@@ -331,10 +331,6 @@ details.select {
         transition: transform ease-in-out 100ms
     }
 
-    summary:focus {
-        outline: none;
-    }
-
     div {
         background: var(--background);
         box-sizing: border-box;

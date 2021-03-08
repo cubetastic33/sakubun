@@ -274,7 +274,7 @@ section > div {
         border-radius: 4px;
         transition: box-shadow .3s;
         box-shadow: inset 0 0 0 var(--s, 1px) var(--b, var(--border));
-        &:hover {
+        &:focus, &:hover {
             --s: 2px;
             --b: var(--border-hover);
         }
