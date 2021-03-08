@@ -70,13 +70,13 @@
             <span>Import from:</span>
             <details id="import_from" class="select">
                 <summary data-value="anki">Anki Deck</summary>
-                <ul>
-                    <li data-value="anki">Anki Deck</li>
-                    <li data-value="wanikani">WaniKani</li>
-                    <li data-value="rtk">Heisig's RTK</li>
-                    <li data-value="jlpt">JLPT</li>
-                    <li data-value="kanken">Kanken</li>
-                </ul>
+                <div>
+                    <button class="exception" data-value="anki">Anki Deck</button>
+                    <button class="exception" data-value="wanikani">WaniKani</button>
+                    <button class="exception" data-value="rtk">Heisig's RTK</button>
+                    <button class="exception" data-value="jlpt">JLPT</button>
+                    <button class="exception" data-value="kanken">Kanken</button>
+                </div>
             </details>
             <br><br>
             <form id="anki" class="import_option">
@@ -122,10 +122,10 @@
                     First <input type="number" size="2" min="1" max="60" value="10" required>
                     <details class="select">
                         <summary data-value="stages">levels</summary>
-                        <ul>
-                            <li data-value="stages">levels</li>
-                            <li data-value="kanji">kanji</li>
-                        </ul>
+                        <div>
+                            <button type="button" class="exception" data-value="stages">levels</button>
+                            <button type="button" class="exception" data-value="kanji">kanji</button>
+                        </div>
                     </details>
                     <br><br>
                     <button type="submit">Import</button>
@@ -138,10 +138,10 @@
                 First <input type="number" size="2" min="1" max="56" value="10" required>
                 <details class="select">
                     <summary data-value="stages">lessons</summary>
-                    <ul>
-                        <li data-value="stages">lessons</li>
-                        <li data-value="kanji">kanji</li>
-                    </ul>
+                    <div>
+                        <button type="button" class="exception" data-value="stages">lessons</button>
+                        <button type="button" class="exception" data-value="kanji">kanji</button>
+                    </div>
                 </details>
                 <br><br>
                 <button type="submit">Import</button>
@@ -155,13 +155,13 @@
                 JLPT level
                 <details class="select">
                     <summary data-value="1">N5</summary>
-                    <ul>
-                        <li data-value="1">N5</li>
-                        <li data-value="2">N4</li>
-                        <li data-value="3">N3</li>
-                        <li data-value="4">N2</li>
-                        <li data-value="5">N1</li>
-                    </ul>
+                    <div>
+                        <button type="button" class="exception" data-value="1">N5</button>
+                        <button type="button" class="exception" data-value="2">N4</button>
+                        <button type="button" class="exception" data-value="3">N3</button>
+                        <button type="button" class="exception" data-value="4">N2</button>
+                        <button type="button" class="exception" data-value="5">N1</button>
+                    </div>
                 </details>
                 <br><br>
                 <button type="submit">Import</button>
@@ -170,20 +170,20 @@
                 KanKen level
                 <details class="select">
                     <summary data-value="1">10</summary>
-                    <ul>
-                        <li data-value="1">10</li>
-                        <li data-value="2">9</li>
-                        <li data-value="3">8</li>
-                        <li data-value="4">7</li>
-                        <li data-value="5">6</li>
-                        <li data-value="6">5</li>
-                        <li data-value="7">4</li>
-                        <li data-value="8">3</li>
-                        <li data-value="9">2.5</li>
-                        <li data-value="10">2</li>
-                        <li data-value="11">1.5</li>
-                        <li data-value="12">1</li>
-                    </ul>
+                    <div>
+                        <button type="button" class="exception" data-value="1">10</button>
+                        <button type="button" class="exception" data-value="2">9</button>
+                        <button type="button" class="exception" data-value="3">8</button>
+                        <button type="button" class="exception" data-value="4">7</button>
+                        <button type="button" class="exception" data-value="5">6</button>
+                        <button type="button" class="exception" data-value="6">5</button>
+                        <button type="button" class="exception" data-value="7">4</button>
+                        <button type="button" class="exception" data-value="8">3</button>
+                        <button type="button" class="exception" data-value="9">2.5</button>
+                        <button type="button" class="exception" data-value="10">2</button>
+                        <button type="button" class="exception" data-value="11">1.5</button>
+                        <button type="button" class="exception" data-value="12">1</button>
+                    </div>
                 </details>
                 <br><br>
                 <button type="submit">Import</button>

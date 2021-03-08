@@ -41,7 +41,7 @@ a {
     text-align: center;
 }
 
-#answer, #meaning, #kana {
+#answer, #evaluation, #meaning, #kana {
     font-size: 1.75em;
 }
 
@@ -54,7 +54,7 @@ a {
     margin: 0;
 }
 
-#answer {
+#answer, #evaluation {
     background: none;
     border: solid var(--foreground);
     border-radius: 0;
@@ -68,24 +68,31 @@ a {
     text-align: center;
 }
 
-#answer:focus {
-    padding-bottom: 1px !important;
+#evaluation {
+    display: none;
+}
+
+.wrong {
+    color: var(--error);
+}
+
+.missing {
+    color: var(--success);
 }
 
 #answer:focus {
     border-bottom: 2px solid var(--accent);
-    padding-bottom: calc(.25em - 1px);
+    padding-bottom: 1px;
     outline: none;
 }
 
-#answer.correct {
+#evaluation.correct {
     border-bottom-color: var(--success);
     color: var(--success);
 }
 
-#answer.incorrect {
+#evaluation.incorrect {
     border-bottom-color: var(--error);
-    color: var(--error);
 }
 
 #buttons {

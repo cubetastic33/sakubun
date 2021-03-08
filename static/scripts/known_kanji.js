@@ -131,7 +131,7 @@ $("#more_options > button").click(() => {
     $("#more_options > button").text((text === "More" ? "Less" : "More") + " options");
 });
 
-$(".select li").click(function () {
+$(".select button").click(function () {
     $(this).parent().parent().removeAttr("open");
     $(this)
         .parent()
@@ -142,18 +142,18 @@ $(".select li").click(function () {
 
 // Import kanji
 $("#" + $("#import_from summary").attr("data-value")).show();
-$("#import_from li").click(function () {
+$("#import_from button").click(function () {
     $(".import_option").hide();
     $("#" + this.dataset.value).show();
 });
 
-$("#wanikani input").prop("max", $("#wanikani .select li").attr("data-value") === "stages" ? "60" : "2055");
-$("#wanikani .select li").click(function () {
+$("#wanikani input").prop("max", $("#wanikani .select summary").attr("data-value") === "stages" ? "60" : "2055");
+$("#wanikani .select button").click(function () {
     $("#wanikani input").prop("max", this.dataset.value === "stages" ? "60" : "2055");
 });
 
-$("#rtk input").prop("max", $("#rtk .select li").attr("data-value") === "stages" ? "56" : "2200");
-$("#rtk .select li").click(function () {
+$("#rtk input").prop("max", $("#rtk .select summary").attr("data-value") === "stages" ? "56" : "2200");
+$("#rtk .select button").click(function () {
     $("#rtk input").prop("max", this.dataset.value === "stages" ? "56" : "2200");
 });
 

@@ -78,7 +78,8 @@ function show_quiz() {
     $("#quiz_container").show();
     // Clear input
     $("#meaning, #kana").empty();
-    $("#answer").val("").attr("class", "");
+    $("#evaluation").hide().attr("class", "");
+    $("#answer").val("").show().focus();
     resize_answer_box();
     $("#next").text("Show Answer").prop("disabled", false);
     $("#report").hide();
@@ -148,7 +149,6 @@ $("#quiz_container").submit(e => {
     let index = $("#quiz").attr("data-index");
     if ($("#next").text() === "Show Answer") {
         // Show the answer
-        let jpn_sentence = sentences[index].split(";")[1];
         let eng_sentence = sentences[index].split(";")[2];
         let readings = sentences[index].split(";")[3].split(",");
         $("#meaning").text(eng_sentence);
@@ -157,17 +157,75 @@ $("#quiz_container").submit(e => {
         $("#report").show();
         if (should_evaluate()) {
             // Check if answer was right
+            // Replace the textarea with a div so we can use span tags in the text
+            $("#evaluation").text($("#answer").val()).show();
+            $("#answer").hide();
+            // First display the primary reading
             $("#kana").text(readings[0]);
             let punct = /[、。！？・「」『』]/ug;
-            let answer = wanakana.toHiragana($("#answer").val()).replace(punct, "");
+            let answer = wanakana.toHiragana($("#answer").val());
+
+            // Find the reading closest to the one the user wrote
+            let closest_diff;
             for (let i = 0; i < readings.length; i++) {
-                if (answer === wanakana.toHiragana(readings[i]).replace(punct, "")) {
-                    $("#answer").attr("class", "correct");
+                let reading = wanakana.toHiragana(readings[i]);
+
+                // The least diff should be found without considering punctuation
+                let diff = patienceDiff(
+                    answer.replace(punct, "").split(""),
+                    reading.replace(punct, "").split("")
+                );
+                // How well the answer matches
+                let intersection = [];
+                for (letter of answer.replace(punct, "")) {
+                    if (reading.replace(punct, "").includes(letter)) intersection.push(letter);
+                }
+                let score = intersection.length;
+
+                // If the answer is an exact match
+                if (answer.replace(punct, "") === reading.replace(punct, "")) {
+                    $("#evaluation").attr("class", "correct");
+                    // Replace the shown reading with this one
+                    $("#kana").text(readings[i]);
+                    break;
+                } else if (!closest_diff || score > closest_diff[0]) {
+                    // The diff stored in `closest_diff` should include punctuation, so that the
+                    // indices will match
+                    $("#kana").text(readings[i]);
+                    closest_diff = [score, patienceDiff(answer.split(""), reading.split(""))];
+                    console.log(patienceDiff(answer.split(""), reading.split("")));
                 }
             }
             // If the user provided an answer but it didn't match with any of the readings
-            if ($("#answer").val().length && !$("#answer").hasClass("correct")) {
-                $("#answer").attr("class", "incorrect");
+            if ($("#answer").val().length && !$("#evaluation").hasClass("correct")) {
+                $("#evaluation").attr("class", "incorrect");
+                let wrong = [];
+                let missing = [];
+                for (let i = closest_diff[1].lines.length - 1; i >= 0; i--) {
+                    // Don't count punctuation
+                    if (closest_diff[1].lines[i].line.match(punct)) {
+                        continue;
+                    }
+                    // This character was part of the user's answer but not the actual reading
+                    if (closest_diff[1].lines[i].bIndex === -1) {
+                        wrong.push(closest_diff[1].lines[i].aIndex);
+                    }
+                    // This character is part of the actual reading but not the user's answer
+                    if (closest_diff[1].lines[i].aIndex === -1) {
+                        missing.push(closest_diff[1].lines[i].bIndex);
+                    }
+                }
+                // Mark the differences
+                for (let i = 0; i < 2; i++) {
+                    let html = $("#" + ["evaluation", "kana"][i]).html();
+                    let indices = [wrong, missing][i];
+                    let class_name = ["wrong", "missing"][i];
+                    for (let j = 0; j < indices.length; j++) {
+                        html = html.slice(0, indices[j] + 1) + "</span>" + html.slice(indices[j] + 1);
+                        html = html.slice(0, indices[j]) + `<span class=\"${class_name}\">` + html.slice(indices[j]);
+                    }
+                    $("#" + ["evaluation", "kana"][i]).html(html);
+                }
             }
         }
     } else {
@@ -177,7 +235,8 @@ $("#quiz_container").submit(e => {
             $("#quiz").attr("data-index", index);
             $("#question").text(sentences[index].split(";")[1]);
             $("#meaning, #kana").empty();
-            $("#answer").val("").attr("class", "");
+            $("#evaluation").attr("class", "").hide();
+            $("#answer").val("").show().focus();
             resize_answer_box();
             $("#next").text("Show Answer").prop("disabled", false);
             $("#report").hide();
@@ -250,10 +309,14 @@ function resize_answer_box() {
 $("#answer").on("input", resize_answer_box);
 $(window).resize(resize_answer_box);
 
-// Pressing enter in the answer box should submit
-$("#answer").keypress(e => {
+// Pressing the enter key should go to the answer/next question if a quiz is going on
+// Otherwise it should start the quiz
+$(window).keypress(e => {
     if (e.key === "Enter") {
-        e.preventDefault();
-        $("#quiz").submit();
+        if ($("#next").is(":visible")) {
+            $("#next").click();
+        } else if ($("#start_quiz").is(":visible")) {
+            $("#start_quiz").click();
+        }
     }
 });

@@ -77,6 +77,7 @@
         <div id="quiz">
             <div id="question"></div>
             <textarea type="text" id="answer" rows="1"></textarea>
+            <div id="evaluation"></div>
             <div id="kana"></div>
             <div id="meaning"></div>
         </div>
@@ -90,5 +91,6 @@
 
 {% block javascript %}
 <script src="https://unpkg.com/wanakana"></script>
+<script src="/scripts/patience_diff.js"></script>
 <script src="/scripts/quiz.js"></script>
 {% endblock javascript %}
