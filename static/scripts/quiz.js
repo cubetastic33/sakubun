@@ -314,6 +314,7 @@ $(window).resize(resize_answer_box);
 $(window).keypress(e => {
     if (e.key === "Enter") {
         if ($("#next").is(":visible")) {
+            e.preventDefault();
             $("#next").click();
         } else if ($("#start_quiz").is(":visible")) {
             $("#start_quiz").click();
