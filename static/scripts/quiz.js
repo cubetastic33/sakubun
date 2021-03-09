@@ -260,7 +260,7 @@ function show_reference(report_type) {
     }
 }
 
-$("#report_type li").click(function () {
+$("#report_type button").click(function () {
     $("#report_type").removeAttr("open");
     $("#report_type summary").text($(this).text()).attr("data-value", $(this).attr("data-value"));
     show_reference($(this).attr("data-value"));

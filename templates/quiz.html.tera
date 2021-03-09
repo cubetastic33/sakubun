@@ -26,17 +26,17 @@
         <b>Report about:</b>
         <details id="report_type" class="select">
             <summary data-value="translation">Translation</summary>
-            <ul>
-                <li data-value="translation">Translation</li>
-                <li data-value="question">Question</li>
-                <li data-value="reading">Reading</li>
-            </ul>
+            <div>
+                <button type="button" class="exception" data-value="translation">Translation</button>
+                <button type="button" class="exception" data-value="question">Question</button>
+                <button type="button" class="exception" data-value="reading">Reading</button>
+            </div>
         </details>
         <br>
         <h3>Reporting <span></span>:</h3>
         <p id="reference"></p>
         <h3>Suggested <span></span>:</h3>
-        <input id="suggested" placeholder="Optional">
+        <input id="suggested" placeholder="Optional" autocomplete="off">
         <textarea id="comment" rows="2" maxlength="500" placeholder="Any additional comments?"></textarea>
         <div>
             <button type="reset" class="text close">Cancel</button>

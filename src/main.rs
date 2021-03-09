@@ -55,6 +55,22 @@ pub struct OrderedImport {
     method: String,
 }
 
+#[derive(FromForm)]
+pub struct AddOverride {
+    report_id: i32,
+    question: String,
+    translation: String,
+    reading: String,
+    additional_reading: Option<String>,
+}
+
+#[derive(FromForm)]
+pub struct EditOverride {
+    override_id: i32,
+    value: String,
+    primary_value: bool,
+}
+
 #[derive(Serialize)]
 pub struct AdminReport {
     report_id: i32,
@@ -69,10 +85,23 @@ pub struct AdminReport {
 }
 
 #[derive(Serialize)]
+pub struct AdminOverride {
+    override_id: i32,
+    sentence_id: i32,
+    question: String,
+    translation: String,
+    reading: String,
+    override_type: String,
+    value: String,
+    primary_value: bool,
+}
+
+#[derive(Serialize)]
 struct AdminContext {
     theme: String,
     page: String,
     reports: Vec<AdminReport>,
+    overrides: Vec<AdminOverride>,
 }
 
 fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, &'a str> {
@@ -121,6 +150,7 @@ fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Template {
             page = String::from("admin");
         }
     }
+    let (reports, overrides) = get_admin_stuff(&mut client.lock().unwrap());
     Template::render(
         page.clone(),
         AdminContext {
@@ -129,7 +159,8 @@ fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Template {
                 None => "system",
             }),
             page,
-            reports: get_reports(&mut client.lock().unwrap()),
+            reports,
+            overrides,
         },
     )
 }
@@ -237,7 +268,37 @@ fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> Strin
 fn post_delete_report(client: State<Mutex<Client>>, report_id: Form<SingleField>, mut cookies: Cookies) -> String {
     if let Some(password) = cookies.get_private("admin_password") {
         if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
-            return delete_report(&mut client.lock().unwrap(), report_id.value.parse().unwrap());
+            return delete_from_table(&mut client.lock().unwrap(), String::from("reports"), report_id.value.parse().unwrap());
+        }
+    }
+    String::from("Error: not signed in")
+}
+
+#[post("/add_override", data = "<override_details>")]
+fn post_add_override(client: State<Mutex<Client>>, override_details: Form<AddOverride>, mut cookies: Cookies) -> String {
+    if let Some(password) = cookies.get_private("admin_password") {
+        if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
+            return add_override(&mut client.lock().unwrap(), override_details);
+        }
+    }
+    String::from("Error: not signed in")
+}
+
+#[post("/delete_override", data = "<override_id>")]
+fn post_delete_override(client: State<Mutex<Client>>, override_id: Form<SingleField>, mut cookies: Cookies) -> String {
+    if let Some(password) = cookies.get_private("admin_password") {
+        if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
+            return delete_from_table(&mut client.lock().unwrap(), String::from("overrides"), override_id.value.parse().unwrap());
+        }
+    }
+    String::from("Error: not signed in")
+}
+
+#[post("/edit_override", data = "<override_details>")]
+fn post_edit_override(client: State<Mutex<Client>>, override_details: Form<EditOverride>, mut cookies: Cookies) -> String {
+    if let Some(password) = cookies.get_private("admin_password") {
+        if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
+            return edit_override(&mut client.lock().unwrap(), override_details)
         }
     }
     String::from("Error: not signed in")
@@ -287,6 +348,9 @@ fn rocket() -> rocket::Rocket {
                 post_admin_signin,
                 post_admin_signout,
                 post_delete_report,
+                post_add_override,
+                post_delete_override,
+                post_edit_override,
             ],
         )
         .mount("/styles", StaticFiles::from("static/styles"))

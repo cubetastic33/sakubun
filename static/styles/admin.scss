@@ -4,13 +4,23 @@
     top: 1.25em;
 }
 
-.report {
+#reports > div, #overrides > div {
     background-color: var(--background-dark);
     border-radius: 5px;
-    padding: 1em;
     margin: 1em 0;
+    padding: 1em;
+    position: relative;
+
+    .primary {
+        background-color: var(--background-extreme);
+        border-radius: 5px;
+        padding: .25em 0.5em;
+        position: absolute;
+        right: 1em;
+    }
 
     h2 {
+        font-weight: normal;
         margin: 0 0 .5em 0;
         text-align: center;
     }
@@ -31,6 +41,7 @@
     p, ul, b {
         font-size: 1.2rem;
         margin: 0;
+        line-height: 1.75rem;
     }
 
     p b {
@@ -40,6 +51,50 @@
     ul {
         list-style-type: none;
         padding: 0;
-        margin: 0 0 .5em .5em;
+        margin: 0 0 0 .5em;
     }
+}
+
+dialog {
+    font-size: 1.1em;
+
+    form div:last-child {
+        margin-top: .5em;
+    }
+}
+
+.form_input {
+    align-items: center;
+    display: flex;
+
+    input {
+        appearance: none;
+        background: transparent;
+        border: solid #757575;
+        border-width: 0 0 1px 0;
+        color: var(--foreground);
+        flex-grow: 1;
+        font-size: 1rem;
+        padding: 3px .5em;
+        margin: 0 .5em;
+    }
+
+    input:focus {
+        border-color: var(--accent);
+        border-width: 0 0 2px 0;
+        padding-bottom: 2px;
+        outline: none;
+    }
+}
+
+dialog form div:not(:last-child) {
+    margin: .5em 0;
+}
+
+dialog hr, #override .form_input {
+    margin: 1em 0 !important;
+}
+
+.checkbox {
+    --tick: var(--background-extreme);
 }
