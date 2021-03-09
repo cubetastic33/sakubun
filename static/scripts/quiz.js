@@ -279,8 +279,8 @@ $("#report_dialog form").submit(e => {
     $.post("/report", {
         sentence_id: id,
         report_type: $("#report_type summary").attr("data-value"),
-        suggested: $("#suggested").val().length ? $("#suggested").val() : undefined,
-        comment: $("#comment").val().length ? $("#comment").val() : undefined,
+        suggested: $("#suggested").val().trim().length ? $("#suggested").val().trim() : undefined,
+        comment: $("#comment").val().trim().length ? $("#comment").val().trim() : undefined,
     }).done(result => {
         $("#report_dialog button").prop("disabled", false);
         if (result === "success") {

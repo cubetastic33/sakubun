@@ -70,12 +70,13 @@ $("#confirmation button:last-child").click(() => {
 $("#override form").submit(e => {
     e.preventDefault();
     $("#override button").prop("disabled", true);
+    let additional_reading = $("#additional_reading").val().trim();
     $.post("/add_override", {
         report_id: $("#override").attr("data-id"),
-        question: $("#question").val(),
-        translation: $("#translation").val(),
-        reading: $("#reading").val(),
-        additional_reading: $("#additional_reading").val().length ? $("#additional_reading").val() : undefined,
+        question: $("#question").val().trim(),
+        translation: $("#translation").val().trim(),
+        reading: $("#reading").val().trim(),
+        additional_reading: additional_reading.length ? additional_reading : undefined,
     }).done(result => {
         console.log(result);
         if (result === "success") {
@@ -97,7 +98,7 @@ $("#edit_override form").submit(e => {
     let override_id = $("#edit_override").attr("data-id");
     $.post("/edit_override", {
         override_id: override_id,
-        value: $("#value").val(),
+        value: $("#value").val().trim(),
         primary_value: $("#primary").is(":checked"),
     }).done(result => {
         console.log(result);
