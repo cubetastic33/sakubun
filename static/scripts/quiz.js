@@ -142,6 +142,10 @@ $("#settings").submit(e => {
     get_questions();
 });
 
+function convert_to_hiragana(text) {
+    return wanakana.toHiragana(text.replace("ー", "a"), { customKanaMapping: { a: "ー" } });
+}
+
 $("#quiz_container").submit(e => {
     e.preventDefault();
     $("#next").prop("disabled", true);
@@ -163,18 +167,13 @@ $("#quiz_container").submit(e => {
             // First display the primary reading
             $("#kana").text(readings[0]);
             let punct = /[、。！？・「」『』]/ug;
-            let answer = wanakana.toHiragana($("#answer").val());
+            let answer = convert_to_hiragana($("#answer").val());
 
             // Find the reading closest to the one the user wrote
             let closest_diff;
             for (let i = 0; i < readings.length; i++) {
-                let reading = wanakana.toHiragana(readings[i]);
+                let reading = convert_to_hiragana(readings[i]);
 
-                // The least diff should be found without considering punctuation
-                let diff = patienceDiff(
-                    answer.replace(punct, "").split(""),
-                    reading.replace(punct, "").split("")
-                );
                 // How well the answer matches
                 let intersection = [];
                 for (letter of answer.replace(punct, "")) {

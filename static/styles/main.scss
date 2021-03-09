@@ -19,6 +19,7 @@
         --remove-hover: #ef374c;
         --error: #ef374c;
         --success: #43ef37;
+        --missing: #fff344;
     } @else {
         --background: #fff;
         --foreground: #000;
@@ -37,6 +38,7 @@
         --remove-hover: #d31329;
         --error: #f00;
         --success: #16bf22;
+        --missing: #ff9b1b;
     }
 }
 
