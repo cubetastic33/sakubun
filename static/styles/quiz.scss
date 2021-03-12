@@ -1,3 +1,10 @@
+:root {
+    --wrong: var(--error);
+    --missing: var(--success);
+    --wrong-underline: none;
+    --missing-underline: none;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -25,6 +32,69 @@ a {
 .warning {
     display: none;
     font-size: 1rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+
+    button {
+        margin: 0 1em;
+    }
+
+    button.text {
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        place-items: center;
+        width: 32px;
+        height: 32px;
+        margin: 0 5px;
+        padding: 20px;
+    }
+}
+
+#colors {
+    .answer, .kana {
+        font-size: 1.5em;
+        text-align: center;
+        margin: 0;
+    }
+
+    .checkbox {
+        --tick: var(--background-extreme);
+    }
+
+    section {
+        display: flex;
+        justify-content: left;
+
+        > * {
+            align-items: center;
+            display: flex;
+            justify-content: flex-end;
+            margin: .5em;
+            width: 40%;
+        }
+
+        > div {
+            justify-content: flex-start;
+
+            > * {
+                margin: 0 .5em;
+            }
+        }
+    }
+}
+
+#reset_colors {
+    background-color: var(--remove);
+    color: var(--background-extreme);
+    margin-right: 1em !important;
+}
+
+#reset_colors:hover {
+    background-color: var(--remove-hover);
 }
 
 #quiz_container, #report {
@@ -70,14 +140,17 @@ a {
 
 #evaluation {
     display: none;
+    padding-bottom: .5em;
 }
 
 .wrong {
-    color: var(--error);
+    color: var(--wrong);
+    border-bottom: var(--wrong-underline);
 }
 
 .missing {
-    color: var(--success);
+    color: var(--missing);
+    border-bottom: var(--missing-underline);
 }
 
 #answer:focus {
@@ -238,5 +311,20 @@ a {
 
     #answer, #meaning, #kana {
         font-size: 1.1rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    #colors {
+        font-size: .8em;
+
+        section > div {
+            flex-direction: column;
+            align-items: flex-start;
+
+            > input {
+                margin-bottom: .5em;
+            }
+        }
     }
 }

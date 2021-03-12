@@ -6,7 +6,7 @@ function should_evaluate() {
 let known_kanji = new Set(localStorage.getItem("known_kanji"));
 
 if (!known_kanji.size) {
-    $("#settings *:not(#start_quiz):not(#range)").hide();
+    $("#settings *:not(#range):not(.buttons):not(.buttons *)").hide();
     $("#range").html(
         "Note: You haven't chosen any known kanji yet, so the quiz questions will consist only of "
         + "kana<br><br>"
@@ -131,6 +131,7 @@ function get_questions() {
             ).show();
         } else {
             alert("Error code " + jqXHR.status);
+            $("#start_quiz").prop("disabled", false);
         }
     });
 }
@@ -142,7 +143,55 @@ $("#settings").submit(e => {
     get_questions();
 });
 
+// Colors
+$("#palette").click(() => {
+    $("#colors + .overlay").show();
+    $("#colors").show("slow");
+});
+
+function set_colors() {
+    let properties = ["wrong_color", "missing_color", "wrong_underline", "missing_underline"];
+    for (let i = 0; i < properties.length; i++) {
+        if (localStorage.getItem(properties[i])) {
+            document.documentElement.style.setProperty(
+                "--" + properties[i].replace("_", "-"),
+                localStorage.getItem(properties[i])
+            );
+        }
+    }
+
+    $("#wrong_color").val(getComputedStyle(document.documentElement).getPropertyValue("--wrong").trim());
+    $("#missing_color").val(getComputedStyle(document.documentElement).getPropertyValue("--missing").trim());
+    $("#wrong_underline").prop("checked", getComputedStyle(document.documentElement).getPropertyValue("--wrong-underline").trim() !== "none");
+    $("#missing_underline").prop("checked", getComputedStyle(document.documentElement).getPropertyValue("--missing-underline").trim() !== "none");
+}
+
+set_colors();
+
+$("#wrong_color, #missing_color").change(function () {
+    localStorage.setItem(this.id, $(this).val());
+    set_colors();
+});
+
+$("#wrong_underline, #missing_underline").change(function () {
+    localStorage.setItem(this.id, $(this).is(":checked") ? `1px solid var(--${this.id.split("_")[0]})` : "none");
+    set_colors();
+});
+
+$("#reset_colors").click(() => {
+    localStorage.removeItem("wrong_color");
+    localStorage.removeItem("missing_color");
+    localStorage.removeItem("wrong_underline");
+    localStorage.removeItem("missing_underline");
+    document.documentElement.style.setProperty("--wrong", getComputedStyle(document.documentElement).getPropertyValue("--error").trim());
+    document.documentElement.style.setProperty("--missing", getComputedStyle(document.documentElement).getPropertyValue("--success").trim());
+    document.documentElement.style.setProperty("--wrong-underline", "none");
+    document.documentElement.style.setProperty("--missing-underline", "none");
+    set_colors();
+});
+
 function convert_to_hiragana(text) {
+    // Because ソー gets converted to そう but そー doesn't
     return wanakana.toHiragana(text.replace("ー", "a"), { customKanaMapping: { a: "ー" } });
 }
 

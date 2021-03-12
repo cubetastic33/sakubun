@@ -16,6 +16,47 @@
     </div>
 </dialog>
 <div class="overlay"></div>
+<dialog id="colors">
+    <h3>Colors</h3>
+    <p class="answer">わたしは<span class="wrong">たびぎょうなか</span>ちずをりようした。</p>
+    <p class="kana">わたしは<span class="missing">りょこうちゅう</span>ちずをりようした。</p>
+    <br>
+    <section>
+        <b>Incorrect letters:</b>
+        <div>
+            <input type="color" id="wrong_color">
+            <div class="grid">
+                <label class="checkbox bounce">
+                    <input type="checkbox" id="wrong_underline">
+                    <svg viewBox="0 0 21 21">
+                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                    </svg>
+                    <span>Underline</span>
+                </label>
+            </div>
+        </div>
+    </section>
+    <section>
+        <b>Missing letters:</b>
+        <div>
+            <input type="color" id="missing_color">
+            <div class="grid">
+                <label class="checkbox bounce">
+                    <input type="checkbox" id="missing_underline">
+                    <svg viewBox="0 0 21 21">
+                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                    </svg>
+                    <span>Underline</span>
+                </label>
+            </div>
+        </div>
+    </section>
+    <div>
+        <button id="reset_colors">Reset</button>
+        <button class="close">Okay</button>
+    </div>
+</dialog>
+<div class="overlay"></div>
 <dialog id="report_dialog">
     <h3>Report</h3>
     <form>
@@ -63,7 +104,10 @@
             <span class="checkmark"></span>
         </label>
         <br><br>
-        <button id="start_quiz" type="submit">Begin Quiz</button>
+        <div class="buttons">
+            <button type="button" id="palette" class="text"><span class="material-icons">palette</span></button>
+            <button type="submit" id="start_quiz">Begin Quiz</button>
+        </div>
         <br>
         <span class="warning">
             Warning: the readings given are automatically generated, and occasionally have errors.
