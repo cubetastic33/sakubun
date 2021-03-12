@@ -150,12 +150,18 @@ $("#palette").click(() => {
 });
 
 function set_colors() {
-    let properties = ["wrong_color", "missing_color", "wrong_underline", "missing_underline"];
-    for (let i = 0; i < properties.length; i++) {
-        if (localStorage.getItem(properties[i])) {
+    let properties = {
+        "wrong_color": "--wrong",
+        "missing_color": "--missing",
+        "wrong_underline": "--wrong-underline",
+        "missing_underline": "--missing-underline",
+    };
+    for (let i = 0; i < Object.keys(properties).length; i++) {
+        let property_name = Object.keys(properties)[i];
+        if (localStorage.getItem(property_name)) {
             document.documentElement.style.setProperty(
-                "--" + properties[i].replace("_", "-"),
-                localStorage.getItem(properties[i])
+                properties[property_name],
+                localStorage.getItem(property_name)
             );
         }
     }
@@ -169,6 +175,7 @@ function set_colors() {
 set_colors();
 
 $("#wrong_color, #missing_color").change(function () {
+    console.log($(this).val());
     localStorage.setItem(this.id, $(this).val());
     set_colors();
 });
