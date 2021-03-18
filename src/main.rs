@@ -270,7 +270,7 @@ fn post_delete_report(client: State<Mutex<Client>>, report_id: Form<SingleField>
         if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
             return delete_from_table(&mut client.lock().unwrap(), String::from("reports"), report_id.value.parse().unwrap());
         }
- ￼   }
+    }
     String::from("Error: not signed in")
 }
 
