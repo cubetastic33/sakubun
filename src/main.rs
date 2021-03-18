@@ -270,7 +270,7 @@ fn post_delete_report(client: State<Mutex<Client>>, report_id: Form<SingleField>
         if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
             return delete_from_table(&mut client.lock().unwrap(), String::from("reports"), report_id.value.parse().unwrap());
         }
-    }
+ ￼   }
     String::from("Error: not signed in")
 }
 
@@ -365,6 +365,6 @@ fn main() {
     dotenv().ok();
     let connector = MakeTlsConnector::new(TlsConnector::builder().danger_accept_invalid_certs(true).build().unwrap());
 
-    let client = Client::connect(&env::var("HEROKU_POSTGRESQL_IVORY_URL").unwrap(), connector).unwrap();
+    let client = Client::connect(&env::var("DATABASE_URL").unwrap(), connector).unwrap();
     rocket().manage(Mutex::new(client)).launch();
 }
