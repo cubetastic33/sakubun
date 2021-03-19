@@ -88,7 +88,7 @@
 <div class="overlay"></div>
 <main>
     <form id="settings">
-        <div id="range">
+        <div id="range" class="always">
             Set the minimum and maximum number of unique known kanji each question should have:
             <br>
             <br>
@@ -98,13 +98,28 @@
             kanji
         </div>
         <br><br>
-        <label class="container">
-            Enable reading evaluation
-            <input type="checkbox" id="evaluate" checked>
-            <span class="checkmark"></span>
-        </label>
-        <br><br>
-        <div class="buttons">
+        <div class="container">
+            <div class="grid always">
+                <label class="checkbox bounce textbox">
+                    <input type="checkbox" id="textbox" checked>
+                    <svg viewBox="0 0 21 21">
+                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                    </svg>
+                    <span>Include textbox</span>
+                </label>
+            </div>
+            <div class="grid">
+                <label class="checkbox bounce">
+                    <input type="checkbox" id="evaluate" checked>
+                    <svg viewBox="0 0 21 21">
+                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+                    </svg>
+                    <span>Show reading</span>
+                </label>
+            </div>
+        </div>
+        <br class="always"><br class="always">
+        <div class="buttons always">
             <button type="button" id="palette" class="text"><span class="material-icons">palette</span></button>
             <button type="submit" id="start_quiz">Begin Quiz</button>
         </div>

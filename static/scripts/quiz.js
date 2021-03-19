@@ -6,7 +6,7 @@ function should_evaluate() {
 let known_kanji = new Set(localStorage.getItem("known_kanji"));
 
 if (!known_kanji.size) {
-    $("#settings *:not(#range):not(.buttons):not(.buttons *)").hide();
+    $("#settings *:not(.container):not(.always):not(.always *)").hide();
     $("#range").html(
         "Note: You haven't chosen any known kanji yet, so the quiz questions will consist only of "
         + "kana<br><br>"
@@ -21,10 +21,12 @@ if (!known_kanji.size) {
 // Restore settings from localStorage
 let settings_min = localStorage.getItem("min");
 let settings_max = localStorage.getItem("max");
+let settings_textbox = localStorage.getItem("textbox");
 let settings_evaluate = localStorage.getItem("evaluate");
 
 if (settings_min) $("#min").val(settings_min);
 if (settings_max) $("#max").val(settings_max);
+if (settings_textbox) $("#textbox").prop("checked", settings_textbox == "true");
 if (settings_evaluate) $("#evaluate").prop("checked", settings_evaluate == "true");
 $("#max").prop("min", $("#min").val());
 $("#min").prop("max", $("#max").val());
@@ -46,6 +48,9 @@ function warning(e) {
 
 warning();
 $("#settings").show();
+$("#textbox").change(() => {
+    localStorage.setItem("textbox", $("#textbox").is(":checked"));
+});
 $("#evaluate").change(warning);
 $("#min").change(function () {
     localStorage.setItem("min", $(this).val());
@@ -79,7 +84,11 @@ function show_quiz() {
     // Clear input
     $("#meaning, #kana").empty();
     $("#evaluation").hide().attr("class", "");
-    $("#answer").val("").show().focus();
+    if ($("#textbox").is(":checked")) {
+        $("#answer").val("").show().focus();
+    } else{
+        $("#answer").remove();
+    }
     resize_answer_box();
     $("#next").text("Show Answer").prop("disabled", false);
     $("#report").hide();
@@ -356,6 +365,7 @@ $("dialog").each(function () {
 
 // Auto-resize height of answer box
 function resize_answer_box() {
+    if (!$("#textbox").is(":checked")) return;
     let elem = $("#answer")[0];
     $(elem).css("height", "auto");
     $(elem).css("height", elem.scrollHeight + "px");

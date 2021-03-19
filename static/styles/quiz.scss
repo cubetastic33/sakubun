@@ -27,6 +27,25 @@ a {
     display: none;
     font-size: 1.5em;
     text-align: center;
+
+    .container {
+        display: inline-block;
+        margin: auto;
+    }
+
+    .grid:first-child {
+        margin-bottom: .5em;
+    }
+
+    .checkbox {
+        display: flex;
+    }
+
+    .checkbox span {
+        line-height: .9em;
+        margin-left: .5em;
+        position: static;
+    }
 }
 
 .warning {
@@ -205,71 +224,6 @@ a {
 
 #report_dialog.no_evaluate #report_type button:last-child {
     display: none;
-}
-
-// Checkbox
-
-// Customize the label (the container)
-.container {
-    cursor: pointer;
-    display: block;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
-    // Hide the browser's default checkbox
-    input {
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
-    }
-
-    // Create a custom checkbox
-    .checkmark {
-        border: 1px solid var(--foreground);
-        border-radius: 5px;
-        padding: 1px;
-        position: absolute;
-        height: 1.5rem;
-        width: 1.5rem;
-    }
-}
-
-.container:hover input:not(:checked) ~ .checkmark {
-    border-width: 2px;
-    padding: 0;
-}
-
-.container input:checked ~ .checkmark {
-    background-color: var(--accent);
-    border-color: var(--accent);
-}
-
-// Create the checkmark/indicator (hidden when not checked)
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-// Show the checkmark when checked
-.container input:checked ~ .checkmark:after {
-    display: block;
-}
-
-// Style the checkmark/indicator
-.container .checkmark:after {
-    left: 9px;
-    top: 4px;
-    width: 5px;
-    height: 11px;
-    border: solid var(--background);
-    border-width: 0 2px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
 }
 
 // Media queries
