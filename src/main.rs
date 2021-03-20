@@ -170,7 +170,7 @@ fn post_sentences(client: State<Mutex<Client>>, quiz_settings: Form<QuizSettings
     get_sentences(&mut client.lock().unwrap(), quiz_settings)
         .unwrap()
         .iter()
-        .map(|x| x.join(";"))
+        .map(|x| x.join("~"))
         .collect::<Vec<_>>()
         .join("|")
 }

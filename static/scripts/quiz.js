@@ -115,7 +115,7 @@ function get_questions() {
             // Show the question
             $("#quiz").attr("data-sentences", result);
             $("#quiz").attr("data-index", 0);
-            $("#question").text(result.split(";")[1]);
+            $("#question").text(result.split("~")[1]);
             if (init) {
                 // Basic IME
                 wanakana.bind($("#answer")[0]);
@@ -218,8 +218,8 @@ $("#quiz_container").submit(e => {
     let index = $("#quiz").attr("data-index");
     if ($("#next").text() === "Show Answer") {
         // Show the answer
-        let eng_sentence = sentences[index].split(";")[2];
-        let readings = sentences[index].split(";")[3].split(",");
+        let eng_sentence = sentences[index].split("~")[2];
+        let readings = sentences[index].split("~")[3].split(",");
         $("#meaning").text(eng_sentence);
         $("#next").text("Next").prop("disabled", false);
         // Show the report button
@@ -297,7 +297,7 @@ $("#quiz_container").submit(e => {
         index++;
         if (index < sentences.length) {
             $("#quiz").attr("data-index", index);
-            $("#question").text(sentences[index].split(";")[1]);
+            $("#question").text(sentences[index].split("~")[1]);
             $("#meaning, #kana").empty();
             $("#evaluation").attr("class", "").hide();
             $("#answer").val("").show().focus();
@@ -339,7 +339,7 @@ $("#report").click(() => {
 $("#report_dialog form").submit(e => {
     e.preventDefault();
     $("#report_dialog button").prop("disabled", true);
-    let id = $("#quiz").attr("data-sentences").split("|")[$("#quiz").attr("data-index")].split(";")[0];
+    let id = $("#quiz").attr("data-sentences").split("|")[$("#quiz").attr("data-index")].split("~")[0];
     $.post("/report", {
         sentence_id: id,
         report_type: $("#report_type summary").attr("data-value"),
