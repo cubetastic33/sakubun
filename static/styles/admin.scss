@@ -4,6 +4,10 @@
     top: 1.25em;
 }
 
+main > p {
+    padding: 0 .5em;
+}
+
 #reports > div, #overrides > div {
     background-color: var(--background-dark);
     border-radius: 5px;

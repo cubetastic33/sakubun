@@ -102,6 +102,9 @@
 <div class="overlay"></div>
 <main>
     <h1>Reports</h1>
+    <p>
+        {{ reports | length }} report{% if reports | length != 1 %}s{% endif %}
+    </p>
     <div id="reports">
         {% for report in reports %}
         <div class="{{ report.report_id }}">
@@ -132,6 +135,9 @@
         {% endfor %}
     </div>
     <h1>Overrides</h1>
+    <p>
+    {{ overrides | length }} override{% if overrides | length != 1 %}s{% endif %}
+    </p>
     <div id="overrides">
         {% for override in overrides %}
         <div class="{{ override.override_id }}">
