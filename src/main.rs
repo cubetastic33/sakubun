@@ -314,8 +314,8 @@ fn configure() -> Config {
     let mut config = Config::active().expect("could not load configuration");
     // Add secret key
     config
-        .set_secret_key(env::var("SECRET_KEY").unwrap())
-        .unwrap();
+        .set_secret_key(env::var("SECRET_KEY").expect("Env var SECRET_KEY not found"))
+        .expect("Secret key could not be set");
     // Configure Rocket to use the PORT env var or fall back to 8000
     let port = if let Ok(port_str) = env::var("PORT") {
         port_str.parse().expect("could not parse PORT")
