@@ -313,6 +313,7 @@ fn post_admin_signout(mut cookies: Cookies) -> String {
 fn configure() -> Config {
     let mut config = Config::active().expect("could not load configuration");
     // Add secret key
+    println!("{:?}", env::var("SECRET_KEY"));
     config
         .set_secret_key(env::var("SECRET_KEY").expect("Env var SECRET_KEY not found"))
         .expect("Secret key could not be set");
