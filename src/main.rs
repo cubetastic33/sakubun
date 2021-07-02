@@ -256,7 +256,6 @@ fn post_import_kanken(import_settings: Form<OrderedImport>) -> Result<String, Cu
 #[post("/admin_signin", data = "<password>")]
 fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> String {
     if password.value == env::var("ADMIN_PASSWORD").unwrap() {
-        println!("{}", password.value);
         cookies.add_private(Cookie::new("admin_password", password.value.clone()));
         String::from("success")
     } else {
