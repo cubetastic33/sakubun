@@ -111,7 +111,7 @@ fn fill_sentences<T: Sentence>(client: &mut Client, sentences: &mut Vec<T>, add_
     }
     // Add the readings from the file
     let kana_records = fs::read_to_string("kana_sentences.txt").unwrap();
-    for result in kana_records.split('\n').collect::<Vec<_>>() {
+    for result in kana_records.lines() {
         // Parse the values
         let record: Vec<_> = result.split('\t').collect();
         if record.len() != 2 {
@@ -165,7 +165,7 @@ pub fn get_sentences(
     let known_kanji: HashSet<_> = quiz_settings.known_kanji.chars().collect();
     // Read the sentences and shuffle the order
     let sentence_records = fs::read_to_string("sentences.csv")?;
-    let mut sentence_records: Vec<_> = sentence_records.split('\n').collect();
+    let mut sentence_records: Vec<_> = sentence_records.lines().collect();
     sentence_records.shuffle(&mut rng);
 
     // Iterate over the sentences
@@ -257,7 +257,6 @@ pub fn get_admin_stuff(client: &mut Client) -> (Vec<AdminReport>, Vec<AdminOverr
     let mut overrides = Vec::new();
     // Read the sentences
     let records = fs::read_to_string("sentences.csv").unwrap();
-    let records: Vec<_> = records.split('\n').collect();
     // Variable to store a queue of sentence IDs that'll be used after we've collected all of them
     let mut reports_sentence_ids = Vec::new();
     // Get the reports from the database
@@ -298,7 +297,7 @@ pub fn get_admin_stuff(client: &mut Client) -> (Vec<AdminReport>, Vec<AdminOverr
         });
     }
     // Iterate over the sentences to add the question and translation
-    for result in records {
+    for result in records.lines() {
         // Parse the values
         let record: Vec<_> = result.split('\t').collect();
         if record.len() != 4 {
@@ -522,9 +521,8 @@ pub fn add_override(client: &mut Client, override_details: Form<AddOverride>) ->
     let mut original_reading = String::new();
     // Read the sentences file
     let records = fs::read_to_string("sentences.csv").unwrap();
-    let records: Vec<_> = records.split('\n').collect();
     // Iterate over the sentences to add the question and translation
-    for result in records {
+    for result in records.lines() {
         // Parse the values
         let record: Vec<_> = result.split('\t').collect();
         if record[0] == sentence_id.to_string() {
@@ -535,9 +533,8 @@ pub fn add_override(client: &mut Client, override_details: Form<AddOverride>) ->
     }
     // Read the readings file
     let records = fs::read_to_string("kana_sentences.txt").unwrap();
-    let records: Vec<_> = records.split('\n').collect();
     // Iterate over the readings
-    for result in records {
+    for result in records.lines() {
         // Parse the values
         let record: Vec<_> = result.split('\t').collect();
         if record[0] == sentence_id.to_string() {
