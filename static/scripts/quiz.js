@@ -206,9 +206,15 @@ $("#reset_colors").click(() => {
     set_colors();
 });
 
+const hiragana = "ぁあぃいぅうぇえぉおかがきぎくぐけげこごさざしじすずせぜそぞただちぢっつづてでとどなにぬねのはばぱひびぴふぶぷへべぺほぼぽまみむめもゃやゅゆょよらりるれろゎわゐゑをんゔゕゖ";
+const katakana = "ァアィイゥウェエォオカガキギクグケゲコゴサザシジスズセゼソゾタダチヂッツヅテデトドナニヌネノハバパヒビピフブプヘベペホボポマミムメモャヤュユョヨラリルレロヮワヰヱヲンヴヵヶ";
+
 function convert_to_hiragana(text) {
-    // Because ソー gets converted to そう but そー doesn't
-    return wanakana.toHiragana(text.replace("ー", "a"), { customKanaMapping: { a: "ー" } });
+    // Converts katakana to hiragana
+    for (let i = 0; i < katakana.length; i++) {
+        text.replaceAll(katakana[i], hiragana[i]);
+    }
+    return text;
 }
 
 $("#quiz_container").submit(e => {
