@@ -21,9 +21,9 @@ user responses, and [WanaKana][4] is used to provide a rudimentary IME to type t
 
 ## Custom Text
 
-You can copy-paste Japanese text from anywhere, to get furigana over just the words words that have
-kanji you don't know yet. The furigana is again generated with kuroshiro, like the kana readings in
-the quiz.
+You can copy-paste Japanese text from anywhere, to get furigana over just the words that have kanji
+you don't know yet. The furigana is again generated with kuroshiro, like the kana readings in the
+quiz.
 
 ## Screenshots
 
