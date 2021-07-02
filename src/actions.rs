@@ -490,7 +490,7 @@ pub fn kanji_in_order(
     })
     .unwrap();
     if import_settings.method == "stages" {
-        Ok(kanji.split("\n").collect::<Vec<_>>()[..import_settings.number].join(""))
+        Ok(kanji.lines().collect::<Vec<_>>()[..import_settings.number].join(""))
     } else if import_settings.method == "kanji" {
         Ok(kanji
             .chars()
