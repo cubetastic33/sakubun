@@ -18,6 +18,7 @@ use rocket::{
     Config, Data, State,
 };
 use rocket_contrib::{serve::StaticFiles, templates::Template};
+use argon2::{password_hash::{PasswordHash, PasswordVerifier}, Argon2};
 use std::{
     collections::HashMap,
     env,
@@ -146,7 +147,10 @@ fn get_offline(cookies: Cookies) -> Template {
 fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Template {
     let mut page = String::from("admin_signin");
     if let Some(password) = cookies.get_private("admin_password") {
-        if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
+        let argon2 = Argon2::default();
+        let admin_hash = env::var("ADMIN_HASH").unwrap();
+        let parsed_hash = PasswordHash::new(&admin_hash).unwrap();
+        if argon2.verify_password(password.value().as_bytes(), &parsed_hash).is_ok() {
             page = String::from("admin");
         }
     }
@@ -255,7 +259,10 @@ fn post_import_kanken(import_settings: Form<OrderedImport>) -> Result<String, Cu
 
 #[post("/admin_signin", data = "<password>")]
 fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> String {
-    if password.value == env::var("ADMIN_PASSWORD").unwrap() {
+    let argon2 = Argon2::default();
+    let admin_hash = env::var("ADMIN_HASH").unwrap();
+    let parsed_hash = PasswordHash::new(&admin_hash).unwrap();
+    if argon2.verify_password(password.value.as_bytes(), &parsed_hash).is_ok() {
         cookies.add_private(Cookie::new("admin_password", password.value.clone()));
         String::from("success")
     } else {
