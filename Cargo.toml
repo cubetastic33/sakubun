@@ -9,7 +9,6 @@ dotenv = "0.15"
 regex = "1.4"
 argon2 = "0.3"
 rand = "0.8.3"
-rand_core = { version = "0.6", features = ["std"] }
 rocket = { version = "0.4.10", features = ["private-cookies"] }
 rocket_contrib = { version = "0.4.10", features = ["tera_templates"] }
 multipart = "0.17.1"
