@@ -63,6 +63,7 @@ function add_kanji(text) {
     // Update kanji grid
     kanji_grid();
     // Analytics
+    // pa is undefined when ad blockers block the microanalytics script
     if (typeof pa !== "undefined") pa.track({name: "kanji added"});
 }
 

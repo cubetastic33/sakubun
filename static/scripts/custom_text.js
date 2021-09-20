@@ -25,6 +25,7 @@ $("form").submit(e => {
             }
         })
         // Analytics
+        // pa is undefined when ad blockers block the microanalytics script
         if (typeof pa !== "undefined") pa.track({name: "custom text"});
     });
 });
