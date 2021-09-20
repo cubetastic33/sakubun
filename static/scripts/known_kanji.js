@@ -63,7 +63,7 @@ function add_kanji(text) {
     // Update kanji grid
     kanji_grid();
     // Analytics
-    pa.track({name: "kanji added"});
+    if (typeof pa !== "undefined") pa.track({name: "kanji added"});
 }
 
 // Add kanji
@@ -282,7 +282,7 @@ $("#preview button:last-child").click(() => {
     // Add the kanji
     add_kanji($("#preview_kanji").text());
     // Analytics
-    pa.track({name: `[${$("#preview").attr("data-method")}] kanji added`});
+    if (typeof pa !== "undefined") pa.track({name: `[${$("#preview").attr("data-method")}] kanji added`});
     $("#preview_kanji").empty();
     $("#remove_from_preview").hide();
     $("#preview").hide("slow", () => $("#preview + .overlay").hide());

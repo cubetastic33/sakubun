@@ -25,6 +25,6 @@ $("form").submit(e => {
             }
         })
         // Analytics
-        pa.track({name: "custom text"});
+        if (typeof pa !== "undefined") pa.track({name: "custom text"});
     });
 });
