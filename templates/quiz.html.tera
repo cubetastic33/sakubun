@@ -1,6 +1,7 @@
 {% extends "layout" %}
 
 {% block head %}
+<link rel="stylesheet" href="/styles/sentences.css">
 <link rel="stylesheet" href="/styles/quiz.css">
 {% endblock head %}
 

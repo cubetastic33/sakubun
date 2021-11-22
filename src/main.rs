@@ -17,7 +17,7 @@ use rocket::{
     response::status::Custom,
     Config, Data, State,
 };
-use rocket_contrib::{serve::StaticFiles, templates::Template};
+use rocket_contrib::{serve::StaticFiles, templates::Template, json::Json};
 use argon2::{password_hash::{PasswordHash, PasswordVerifier}, Argon2};
 use std::{
     collections::HashMap,
@@ -131,6 +131,11 @@ fn get_known_kanji(cookies: Cookies) -> Template {
 #[get("/quiz")]
 fn get_quiz(cookies: Cookies) -> Template {
     Template::render("quiz", create_context(&cookies, "quiz"))
+}
+
+#[get("/essay")]
+fn get_essay(cookies: Cookies) -> Template {
+    Template::render("essay", create_context(&cookies, "essay"))
 }
 
 #[get("/custom_text")]
@@ -257,6 +262,11 @@ fn post_import_kanken(import_settings: Form<OrderedImport>) -> Result<String, Cu
     kanji_in_order(KanjiOrder::Kanken, import_settings)
 }
 
+#[post("/essay", data = "<quiz_settings>")]
+fn post_essay(client: State<Mutex<Client>>, quiz_settings: Form<QuizSettings>) -> Json<Vec<[String; 4]>> {
+    Json(generate_essay(&mut client.lock().unwrap(), quiz_settings))
+}
+
 #[post("/admin_signin", data = "<password>")]
 fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> String {
     let argon2 = Argon2::default();
@@ -340,6 +350,7 @@ fn rocket() -> rocket::Rocket {
                 get_index,
                 get_known_kanji,
                 get_quiz,
+                get_essay,
                 get_custom_text,
                 get_offline,
                 get_admin,
@@ -351,6 +362,7 @@ fn rocket() -> rocket::Rocket {
                 post_import_rtk,
                 post_import_jlpt,
                 post_import_kanken,
+                post_essay,
                 post_admin_signin,
                 post_admin_signout,
                 post_delete_report,

@@ -2,7 +2,7 @@
 name = "sakubun"
 version = "0.1.0"
 authors = ["aravk <aravkasi@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 dotenv = "0.15"

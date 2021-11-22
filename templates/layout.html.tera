@@ -47,6 +47,9 @@
         <a {% if page == "quiz" %}class="active"{% endif %} href="/quiz">
             Quiz
         </a>
+        <a {% if page == "essay" %}class="active"{% endif %} href="/essay">
+            Essay
+        </a>
     </nav>
     {% block content %}{% endblock content %}
 </body>

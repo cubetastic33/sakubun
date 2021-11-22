@@ -1,0 +1,77 @@
+{% extends "layout" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/styles/sentences.css">
+    <link rel="stylesheet" href="/styles/essay.css">
+{% endblock head %}
+
+{% block content %}
+<dialog id="no_results">
+    <h3>Error</h3>
+    <p>
+        No sentences were found with the parameters specified! Adding more known kanji can help, or
+        try changing the minimum and maximum kanji limits.
+    </p>
+    <div>
+        <button class="close">Okay</button>
+    </div>
+</dialog>
+<div class="overlay"></div>
+<dialog id="report_dialog">
+    <h3>Report</h3>
+    <form>
+        <p>
+            Found a problem with the question? Feel like the translation could be better? Report any
+            issues you have, even minor ones, so I can look into them.
+        </p>
+        <b>Report about:</b>
+        <details id="report_type" class="select">
+            <summary data-value="translation">Translation</summary>
+            <div>
+                <button type="button" class="exception" data-value="translation">Translation</button>
+                <button type="button" class="exception" data-value="question">Question</button>
+                <button type="button" class="exception" data-value="reading">Reading</button>
+            </div>
+        </details>
+        <br>
+        <h3>Reporting <span></span>:</h3>
+        <p id="reference"></p>
+        <h3>Suggested <span></span>:</h3>
+        <input id="suggested" placeholder="Optional" autocomplete="off">
+        <textarea id="comment" rows="2" maxlength="500" placeholder="Any additional comments?"></textarea>
+        <div>
+            <button type="reset" class="text close">Cancel</button>
+            <button type="submit">Report</button>
+        </div>
+    </form>
+</dialog>
+<div class="overlay"></div>
+<main>
+    <form id="settings">
+        <div id="range" class="always">
+            Set the minimum and maximum number of unique known kanji each sentence should have:
+            <br>
+            <br>
+            <input type="number" size="1" id="min" min="1" title="minimum">
+            -
+            <input type="number" size="1" id="max" min="1" title="maximum">
+            kanji
+        </div>
+        <br>
+        <button type="submit" id="generate">Generate</button>
+    </form>
+    <p id="info">Click on a sentence to get more information.</p>
+    <p id="essay"></p>
+    <dialog id="floating">
+        <section></section>
+        <div>
+            <button id="report" class="text">Report</button>
+            <button class="close">Close</button>
+        </div>
+    </dialog>
+</main>
+{% endblock content %}
+
+{% block javascript %}
+<script src="/scripts/essay.js"></script>
+{% endblock javascript %}

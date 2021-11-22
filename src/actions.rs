@@ -60,6 +60,27 @@ impl Sentence for [String; 4] {
     }
 }
 
+// (Sentence ID, Japanese sentence, English sentence, Reading, Kanji in sentence, Previous intersection)
+impl Sentence for (String, String, String, String, HashSet<char>, Option<usize>) {
+    fn get_id(&self) -> i32 {
+        self.0.parse().unwrap()
+    }
+
+    fn set(&mut self, property: &str, value: String) {
+        if property == "question" {
+            self.1 = value;
+        } else if property == "translation" {
+            self.2 = value;
+        } else if property == "reading" {
+            self.3 = value;
+        }
+    }
+
+    fn add_reading(&mut self, reading: String) {
+        self.3 += &format!(",{}", reading);
+    }
+}
+
 impl Sentence for AdminReport {
     fn get_id(&self) -> i32 {
         self.sentence_id
@@ -184,9 +205,9 @@ pub fn get_sentences(
 
         if kanji_in_sentence.is_subset(&known_kanji) && large_enough && small_enough {
             sentences.push([
-                id.to_string(),
-                jap_sentence.to_string(),
-                eng_sentence.to_string(),
+                id.to_owned(),
+                jap_sentence.to_owned(),
+                eng_sentence.to_owned(),
                 String::new(),
             ]);
         }
@@ -198,6 +219,93 @@ pub fn get_sentences(
     // Fill the readings and overrides
     fill_sentences(client, &mut sentences, true);
     Ok(sentences)
+}
+
+pub fn generate_essay(
+    client: &mut Client,
+    quiz_settings: Form<QuizSettings>,
+) -> Vec<[String; 4]> {
+    let start = std::time::Instant::now();
+    let mut essay = Vec::new();
+    let mut sentences = Vec::new();
+    let mut rng = thread_rng();
+
+    let mut known_kanji: HashSet<_> = quiz_settings.known_kanji.chars().collect();
+    // Read the sentences and shuffle the order
+    let sentence_records = fs::read_to_string("sentences.csv").unwrap();
+    let sentence_records: Vec<_> = sentence_records.lines().collect();
+
+    // Filter the sentences so we're left with the ones that only have kanji the user knows
+    for result in sentence_records {
+        // Parse the values
+        let record: Vec<_> = result.split('\t').collect();
+        if record.len() != 4 {
+            continue;
+        }
+        let id = record[0];
+        let jap_sentence = record[1];
+        let eng_sentence = record[2];
+        let kanji_in_sentence: HashSet<_> = record[3].chars().collect();
+        let large_enough = kanji_in_sentence.len() >= quiz_settings.min;
+        let small_enough = kanji_in_sentence.len() <= quiz_settings.max;
+
+        if kanji_in_sentence.is_subset(&known_kanji) && large_enough && small_enough {
+            sentences.push((
+                id.to_owned(),
+                jap_sentence.to_owned(),
+                eng_sentence.to_owned(),
+                String::new(),
+                kanji_in_sentence,
+                None,
+            ));
+        }
+    }
+    // Fill the readings and overrides
+    fill_sentences(client, &mut sentences, true);
+
+    // As long as we have known kanji that aren't in the essay, keep iterating
+    while known_kanji.len() != 0 {
+        let mut tuples = Vec::new();
+        let mut max_intersection = 0;
+        for (id, jap_sentence, eng_sentence, reading, kanji, prev_intersection) in &mut sentences {
+            if let Some(val) = prev_intersection {
+                // If the previous intersection was 2 kanji for example, we know that the
+                // intersection this time will be <= 2
+                // If the max_intersection this time is > 2, then this sentence is pointless
+                if *val < max_intersection {
+                    continue;
+                }
+            }
+            let intersection = kanji.intersection(&known_kanji).count();
+            // Store the intersection value
+            *prev_intersection = Some(intersection);
+            if intersection < max_intersection || intersection == 0 {
+                continue;
+            } else if intersection > max_intersection {
+                // If the current intersection is greater than the last recorded max intersection
+                max_intersection = intersection;
+                // Reset the pairs vector
+                tuples = Vec::new();
+            }
+            tuples.push((id, jap_sentence, eng_sentence, reading, kanji));
+        }
+
+        // If we can't find sentences with the remaining kanji, give up
+        if max_intersection == 0 {
+            break;
+        }
+
+        // Add a random sentence with a lot of known kanji to the essay
+        let choice = tuples.choose(&mut rng).unwrap();
+        essay.push([choice.0.to_owned(), choice.1.to_owned(), choice.2.to_owned(), choice.3.to_owned()]);
+        known_kanji = known_kanji.difference(&choice.4).map(|x| *x).collect();
+    }
+
+    // Randomize the order of sentences in the essay
+    essay.shuffle(&mut rng);
+    println!("time taken: {:?}", start.elapsed());
+    // Return the essay as a string
+    essay
 }
 
 /*
@@ -427,7 +535,7 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
         if let Some(error) = json["error"].as_str() {
             // In case the request failed
             // The most likely cause for this is an incorrect API key
-            return Err(Custom(Status::InternalServerError, error.to_string()));
+            return Err(Custom(Status::InternalServerError, error.to_owned()));
         }
 
         for assignment in json["data"].as_array().unwrap() {
@@ -444,7 +552,7 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
 
         // Pagination
         url = match json["pages"]["next_url"].as_str() {
-            Some(url) => url.to_string(),
+            Some(url) => url.to_owned(),
             None => break,
         };
     }
@@ -466,12 +574,12 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
             .unwrap();
 
         for subject in json["data"].as_array().unwrap() {
-            kanji.push(subject["data"]["characters"].as_str().unwrap().to_string());
+            kanji.push(subject["data"]["characters"].as_str().unwrap().to_owned());
         }
 
         // Pagination
         url = match json["pages"]["next_url"].as_str() {
-            Some(url) => url.to_string(),
+            Some(url) => url.to_owned(),
             None => break,
         };
     }
@@ -526,8 +634,8 @@ pub fn add_override(client: &mut Client, override_details: Form<AddOverride>) ->
         // Parse the values
         let record: Vec<_> = result.split('\t').collect();
         if record[0] == sentence_id.to_string() {
-            original_question = record[1].to_string();
-            original_translation = record[2].to_string();
+            original_question = record[1].to_owned();
+            original_translation = record[2].to_owned();
             break;
         }
     }
@@ -538,7 +646,7 @@ pub fn add_override(client: &mut Client, override_details: Form<AddOverride>) ->
         // Parse the values
         let record: Vec<_> = result.split('\t').collect();
         if record[0] == sentence_id.to_string() {
-            original_reading = record[1].to_string();
+            original_reading = record[1].to_owned();
             break;
         }
     }

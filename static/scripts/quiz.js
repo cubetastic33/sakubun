@@ -337,7 +337,7 @@ $("#report_type button").click(function () {
     show_reference($(this).attr("data-value"));
 });
 
-$("#report").click(() => {
+$("#report").on("click", () => {
     $("#report_dialog + .overlay").show();
     $("#report_dialog").attr("class", should_evaluate() ? "" : "no_evaluate").show("slow");
     show_reference($("#report_dialog summary").attr("data-value"));
