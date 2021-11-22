@@ -151,11 +151,8 @@ fn get_offline(cookies: Cookies) -> Template {
 #[get("/admin")]
 fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Template {
     let mut page = String::from("admin_signin");
-    if let Some(password) = cookies.get_private("admin_password") {
-        let argon2 = Argon2::default();
-        let admin_hash = env::var("ADMIN_HASH").unwrap();
-        let parsed_hash = PasswordHash::new(&admin_hash).unwrap();
-        if argon2.verify_password(password.value().as_bytes(), &parsed_hash).is_ok() {
+    if let Some(hash) = cookies.get_private("admin_hash") {
+        if hash.value() == env::var("ADMIN_HASH").unwrap() {
             page = String::from("admin");
         }
     }
@@ -273,7 +270,7 @@ fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> Strin
     let admin_hash = env::var("ADMIN_HASH").unwrap();
     let parsed_hash = PasswordHash::new(&admin_hash).unwrap();
     if argon2.verify_password(password.value.as_bytes(), &parsed_hash).is_ok() {
-        cookies.add_private(Cookie::new("admin_password", password.value.clone()));
+        cookies.add_private(Cookie::new("admin_hash", admin_hash));
         String::from("success")
     } else {
         String::from("error")
@@ -282,8 +279,8 @@ fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> Strin
 
 #[post("/delete_report", data = "<report_id>")]
 fn post_delete_report(client: State<Mutex<Client>>, report_id: Form<SingleField>, mut cookies: Cookies) -> String {
-    if let Some(password) = cookies.get_private("admin_password") {
-        if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
+    if let Some(hash) = cookies.get_private("admin_hash") {
+        if hash.value() == env::var("ADMIN_HASH").unwrap() {
             return delete_from_table(&mut client.lock().unwrap(), String::from("reports"), report_id.value.parse().unwrap());
         }
     }
@@ -292,8 +289,8 @@ fn post_delete_report(client: State<Mutex<Client>>, report_id: Form<SingleField>
 
 #[post("/add_override", data = "<override_details>")]
 fn post_add_override(client: State<Mutex<Client>>, override_details: Form<AddOverride>, mut cookies: Cookies) -> String {
-    if let Some(password) = cookies.get_private("admin_password") {
-        if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
+    if let Some(hash) = cookies.get_private("admin_hash") {
+        if hash.value() == env::var("ADMIN_HASH").unwrap() {
             return add_override(&mut client.lock().unwrap(), override_details);
         }
     }
@@ -302,8 +299,8 @@ fn post_add_override(client: State<Mutex<Client>>, override_details: Form<AddOve
 
 #[post("/delete_override", data = "<override_id>")]
 fn post_delete_override(client: State<Mutex<Client>>, override_id: Form<SingleField>, mut cookies: Cookies) -> String {
-    if let Some(password) = cookies.get_private("admin_password") {
-        if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
+    if let Some(hash) = cookies.get_private("admin_hash") {
+        if hash.value() == env::var("ADMIN_HASH").unwrap() {
             return delete_from_table(&mut client.lock().unwrap(), String::from("overrides"), override_id.value.parse().unwrap());
         }
     }
@@ -312,8 +309,8 @@ fn post_delete_override(client: State<Mutex<Client>>, override_id: Form<SingleFi
 
 #[post("/edit_override", data = "<override_details>")]
 fn post_edit_override(client: State<Mutex<Client>>, override_details: Form<EditOverride>, mut cookies: Cookies) -> String {
-    if let Some(password) = cookies.get_private("admin_password") {
-        if password.value() == env::var("ADMIN_PASSWORD").unwrap() {
+    if let Some(hash) = cookies.get_private("admin_hash") {
+        if hash.value() == env::var("ADMIN_HASH").unwrap() {
             return edit_override(&mut client.lock().unwrap(), override_details)
         }
     }
@@ -322,7 +319,7 @@ fn post_edit_override(client: State<Mutex<Client>>, override_details: Form<EditO
 
 #[post("/admin_signout")]
 fn post_admin_signout(mut cookies: Cookies) -> String {
-    cookies.remove_private(Cookie::named("admin_password"));
+    cookies.remove_private(Cookie::named("admin_hash"));
     String::from("success")
 }
 
