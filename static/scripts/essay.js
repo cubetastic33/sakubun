@@ -41,6 +41,9 @@ $settings.submit(e => {
         "max": $("#max").val() || 1,
         "known_kanji": [...known_kanji].join(""),
     }, result => {
+        // Analytics
+        // pa is undefined when ad blockers block the microanalytics script
+        if (typeof pa !== "undefined") pa.track({name: "essay"});
         $generate.prop("disabled", false);
         if (!result.length) {
             // If there were no results
