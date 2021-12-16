@@ -225,7 +225,6 @@ pub fn generate_essay(
     client: &mut Client,
     quiz_settings: Form<QuizSettings>,
 ) -> Vec<[String; 4]> {
-    let start = std::time::Instant::now();
     let mut essay = Vec::new();
     let mut sentences = Vec::new();
     let mut rng = thread_rng();
@@ -303,7 +302,6 @@ pub fn generate_essay(
 
     // Randomize the order of sentences in the essay
     essay.shuffle(&mut rng);
-    println!("time taken: {:?}", start.elapsed());
     // Return the essay as a string
     essay
 }
@@ -321,7 +319,6 @@ CREATE TABLE reports (
 
 pub fn save_report(client: &mut Client, report: Form<Report>) -> String {
     // Validate input
-    println!("{:?}", report.comment);
     if let Some(suggested) = &report.suggested {
         if suggested.chars().count() > 500 {
             return String::from("Suggested value too long");
@@ -706,7 +703,6 @@ pub fn add_override(client: &mut Client, override_details: Form<AddOverride>) ->
 }
 
 pub fn edit_override(client: &mut Client, override_details: Form<EditOverride>) -> String {
-    println!("{}", override_details.value);
     client.execute(
         "UPDATE overrides SET value = $1, primary_value = $2 WHERE id = $3",
         &[&override_details.value, &override_details.primary_value, &override_details.override_id]
