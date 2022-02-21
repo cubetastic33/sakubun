@@ -1,9 +1,7 @@
 let known_kanji = new Set(localStorage.getItem("known_kanji"));
 
-// TODO Check if it works with zero known kanji
-
 if (!known_kanji.size) {
-    $("#settings *:not(.container):not(.always):not(.always *)").hide();
+    $("#saved, #settings *:not(.container):not(.always):not(.always *)").hide();
     $("#range").html(
         "You don't have a kanji list, so you can't use this feature yet. Go to "
         + "<a href=\"/known_kanji\">known kanji</a> and create a list first."
@@ -12,6 +10,15 @@ if (!known_kanji.size) {
     // Set the default values for min and max based on the number of kanji added
     $("#min")[0].setAttribute("value", Math.min(1, known_kanji.size));
     $("#max")[0].setAttribute("value", Math.min(15, known_kanji.size));
+
+    let saved_essays = JSON.parse(localStorage.getItem("saved_essays"));
+    if (saved_essays && saved_essays.length) {
+        for (let i = 0; i < saved_essays.length; i++) {
+            $("#saved ul").append(`<li data-timestamp="${saved_essays[i][0]}">${saved_essays[i][1]}</li>`);
+        }
+    } else {
+        $("#saved").hide();
+    }
 }
 
 // Restore settings from localStorage
@@ -26,9 +33,34 @@ if (settings_max) $max.val(settings_max);
 $max.prop("min", $min.val());
 $min.prop("max", $max.val());
 
+const $saved = $("#saved");
 const $settings = $("#settings");
 const $generate = $("#generate");
 const $report_dialog_button = $("#report_dialog button");
+const $save_dialog_button = $("#save_dialog button");
+
+function handle_essay_clicks() {
+    // Add click handlers to the essay sentences
+    $("#essay > span").on("click", function() {
+        $("#floating section").html(`
+            <b>Sentence:</b> <span id="question">${this.innerText}</span><br>
+            <b>Reading:</b> <span id="kana">${this.dataset.reading}</span><br>
+            <b>Meaning:</b> <span id="meaning">${this.dataset.meaning}</span>
+        `).parent().attr("data-id", this.dataset.id).show("slow");
+    });
+}
+
+$("#saved li").on("click", function() {
+    $settings.hide();
+    $saved.hide();
+    // Show the saved essay
+    $("#essay")
+        .html(localStorage.getItem("essay" + this.dataset.timestamp))
+        .data("timestamp", this.dataset.timestamp);
+    $("#saved_name").text(this.innerText);
+    handle_essay_clicks();
+    $("#info, #unsave, #saved_name").show();
+});
 
 $settings.submit(e => {
     e.preventDefault();
@@ -51,19 +83,17 @@ $settings.submit(e => {
             $("#no_results").show("slow");
         } else {
             $settings.hide();
+            $saved.hide();
             // Show the generated essay
             for (let i = 0; i < result.length; i++) {
                 let reading = result[i][3].split(",")[0];
-                $("#essay").append(`<span data-id="${result[i][0]}" data-meaning="${result[i][2]}" data-reading="${reading}">${result[i][1]}</span>`);
+                // Color code the ending character of the sentence
+                let content = result[i][1];
+                content = content.replace(/.$/, match => `<span class="divider">${match}</span>`);
+                $("#essay").append(`<span data-id="${result[i][0]}" data-meaning="${result[i][2]}" data-reading="${reading}">${content}</span>`);
             }
-            $("#essay span").on("click", function() {
-                $("#floating section").html(`
-                    <b>Sentence:</b> <span id="question">${this.innerText}</span><br>
-                    <b>Reading:</b> <span id="kana">${this.dataset.reading}</span><br>
-                    <b>Meaning:</b> <span id="meaning">${this.dataset.meaning}</span>
-                `).parent().attr("data-id", this.dataset.id).show("slow");
-            });
-            $("#info").show();
+            handle_essay_clicks();
+            $("#info, #save").show();
         }
     }).fail(jqXHR => {
         if (jqXHR.status === 0) {
@@ -115,11 +145,61 @@ $("#report_dialog form").submit(e => {
         $report_dialog_button.prop("disabled", false);
         if (result === "success") {
             $("#report_dialog form").trigger("reset");
-            $("#report_dialog").hide("slow").then($("#report_dialog + .overlay").hide());
+            $("#report_dialog").hide("slow", () => $("#report_dialog + .overlay").hide());
         } else {
             alert(result);
         }
     });
+});
+
+$("#save").on("click", () => {
+    $("#save_dialog + .overlay").show();
+    $("#save_dialog").show("slow");
+    $("#essay_name").focus();
+})
+
+$("#save_dialog form").submit(e => {
+    e.preventDefault();
+    let essay_name = $("#essay_name").val().trim();
+    if (essay_name.length === 0) {
+        alert("Please enter a name for the essay");
+        return;
+    }
+    $save_dialog_button.prop("disabled", true);
+
+    // Add the essay to the list of saved essays
+    let saved_essays = JSON.parse(localStorage.getItem("saved_essays"));
+    if (saved_essays === null) saved_essays = [];
+    const timestamp = Date.now();
+    saved_essays.push([timestamp, essay_name]);
+    localStorage.setItem("saved_essays", JSON.stringify(saved_essays));
+    // Save the actual essay
+    localStorage.setItem("essay" + timestamp, $("#essay").html());
+    // Set the data-timestamp attribute of the essay so that it can be unsaved
+    $("#essay").data("timestamp", timestamp);
+
+    $save_dialog_button.prop("disabled", false);
+    $("#save_dialog form").trigger("reset");
+    $("#save_dialog").hide("slow", () => $("#save_dialog + .overlay").hide());
+    $("#saved_name").text(essay_name);
+    $("#unsave, #saved_name, #save").toggle();
+});
+
+$("#unsave").on("click", () => {
+    $("#unsave, #saved_name, #save").toggle();
+    let saved_essays = JSON.parse(localStorage.getItem("saved_essays"));
+    if (saved_essays === null) return; // Happens when the essay was deleted from a different tab
+    const timestamp = $("#essay").data("timestamp");
+    for (let i = 0; i < saved_essays.length; i++) {
+        if (saved_essays[i][0].toString() === timestamp.toString()) {
+            // Remove this essay from the saved essays list
+            saved_essays.splice(i, 1);
+            // Remove the saved essay itself
+            localStorage.removeItem("essay" + timestamp);
+            localStorage.setItem("saved_essays", JSON.stringify(saved_essays));
+            return;
+        }
+    }
 });
 
 // Event handlers to close dialogs
