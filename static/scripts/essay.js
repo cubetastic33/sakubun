@@ -47,6 +47,8 @@ function handle_essay_clicks() {
             <b>Reading:</b> <span id="kana">${this.dataset.reading}</span><br>
             <b>Meaning:</b> <span id="meaning">${this.dataset.meaning}</span>
         `).parent().attr("data-id", this.dataset.id).show("slow");
+        // Focus the close button so pressing enter closes the dialog
+        $("#floating .close").focus();
     });
 }
 
