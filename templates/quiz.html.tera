@@ -150,7 +150,7 @@
 {% endblock content %}
 
 {% block javascript %}
-<script src="https://unpkg.com/wanakana"></script>
+<script src="/scripts/wanakana.min.js"></script>
 <script src="/scripts/patience_diff.js"></script>
 <script src="/scripts/quiz.js"></script>
 {% endblock javascript %}

@@ -1,6 +1,6 @@
 "use strict";
 
-const version = "20220222::";
+const version = "20220417::";
 
 // Caches for different resources
 const core_cache_name = version + "core";
@@ -20,6 +20,7 @@ const core_cache_urls = [
     "/scripts/ds.min.js",
     "/scripts/known_kanji.js",
     "/scripts/quiz.js",
+    "/scripts/wanakana.min.js",
     "/fonts/SourceSansPro-Regular.ttf",
     "/fonts/MaterialIcons-Round.woff2",
     "/fonts/Cantarell-Bold.ttf",
