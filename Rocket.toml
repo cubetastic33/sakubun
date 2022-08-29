@@ -1,2 +1,9 @@
+[debug]
+port = "8000"
+secret_key = "dev key"
+
+[default.limits]
+file = "4 MiB"
+
 [default.databases.fixes]
 url = "host=localhost port=5432 dbname=sakubun connect_timeout=10"
