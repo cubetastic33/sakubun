@@ -4,6 +4,7 @@ use argon2::{
 };
 use db::Db;
 use rocket::{
+    fairing::AdHoc,
     form::Form,
     fs::{relative, FileServer, TempFile},
     get,
@@ -13,7 +14,7 @@ use rocket::{
     routes,
     serde::json::Json,
     tokio::fs,
-    FromForm, fairing::AdHoc,
+    FromForm,
 };
 use rocket_db_pools::Connection;
 use rocket_dyn_templates::Template;
@@ -37,7 +38,10 @@ pub struct QuizSettings {
 pub struct Report {
     sentence_id: i32,
     report_type: String,
+    // also uses bytes because 500 is db limit
+    #[field(validate = len(..=500))]
     suggested: Option<String>,
+    #[field(validate = len(..=500))]
     comment: Option<String>,
 }
 
@@ -154,7 +158,7 @@ fn get_offline(cookies: &CookieJar<'_>) -> Template {
 }
 
 #[get("/admin")]
-async fn get_admin(db: Connection<Db>, mut cookies: &CookieJar<'_>) -> Template {
+async fn get_admin(db: Connection<Db>, cookies: &CookieJar<'_>) -> Template {
     let mut page = String::from("admin_signin");
     if let Some(hash) = cookies.get_private("admin_hash") {
         if hash.value() == env::var("ADMIN_HASH").unwrap() {
@@ -242,7 +246,10 @@ fn post_admin_signin(password: Form<SingleField>, mut cookies: &CookieJar<'_>) -
     let argon2 = Argon2::default();
     let admin_hash = env::var("ADMIN_HASH").unwrap();
     let parsed_hash = PasswordHash::new(&admin_hash).unwrap();
-    if argon2.verify_password(password.value.as_bytes(), &parsed_hash).is_ok() {
+    if argon2
+        .verify_password(password.value.as_bytes(), &parsed_hash)
+        .is_ok()
+    {
         cookies.add_private(Cookie::new("admin_hash", admin_hash));
         String::from("success")
     } else {
@@ -251,17 +258,30 @@ fn post_admin_signin(password: Form<SingleField>, mut cookies: &CookieJar<'_>) -
 }
 
 #[post("/delete_report", data = "<report_id>")]
-async fn post_delete_report(db: Connection<Db>, report_id: Form<SingleField>, mut cookies: &CookieJar<'_>) -> String {
+async fn post_delete_report(
+    db: Connection<Db>,
+    report_id: Form<SingleField>,
+    cookies: &CookieJar<'_>,
+) -> String {
     if let Some(hash) = cookies.get_private("admin_hash") {
         if hash.value() == env::var("ADMIN_HASH").unwrap() {
-            return delete_from_table(db, String::from("reports"), report_id.value.parse().unwrap()).await;
+            return delete_from_table(
+                db,
+                String::from("reports"),
+                report_id.value.parse().unwrap(),
+            )
+            .await;
         }
     }
     String::from("Error: not signed in")
 }
 
 #[post("/add_override", data = "<override_details>")]
-async fn post_add_override(db: Connection<Db>, override_details: Form<AddOverride>, mut cookies: &CookieJar<'_>) -> String {
+async fn post_add_override(
+    db: Connection<Db>,
+    override_details: Form<AddOverride>,
+    cookies: &CookieJar<'_>,
+) -> String {
     if let Some(hash) = cookies.get_private("admin_hash") {
         if hash.value() == env::var("ADMIN_HASH").unwrap() {
             return add_override(db, override_details).await;
@@ -271,20 +291,33 @@ async fn post_add_override(db: Connection<Db>, override_details: Form<AddOverrid
 }
 
 #[post("/delete_override", data = "<override_id>")]
-async fn post_delete_override(db: Connection<Db>, override_id: Form<SingleField>, mut cookies: &CookieJar<'_>) -> String {
+async fn post_delete_override(
+    db: Connection<Db>,
+    override_id: Form<SingleField>,
+    cookies: &CookieJar<'_>,
+) -> String {
     if let Some(hash) = cookies.get_private("admin_hash") {
         if hash.value() == env::var("ADMIN_HASH").unwrap() {
-            return delete_from_table(db, String::from("overrides"), override_id.value.parse().unwrap()).await;
+            return delete_from_table(
+                db,
+                String::from("overrides"),
+                override_id.value.parse().unwrap(),
+            )
+            .await;
         }
     }
     String::from("Error: not signed in")
 }
 
 #[post("/edit_override", data = "<override_details>")]
-async fn post_edit_override(db: Connection<Db>, override_details: Form<EditOverride>, mut cookies: &CookieJar<'_>) -> String {
+async fn post_edit_override(
+    db: Connection<Db>,
+    override_details: Form<EditOverride>,
+    cookies: &CookieJar<'_>,
+) -> String {
     if let Some(hash) = cookies.get_private("admin_hash") {
         if hash.value() == env::var("ADMIN_HASH").unwrap() {
-            return edit_override(db, override_details).await
+            return edit_override(db, override_details).await;
         }
     }
     String::from("Error: not signed in")
@@ -296,27 +329,10 @@ fn post_admin_signout(mut cookies: &CookieJar<'_>) -> String {
     String::from("success")
 }
 
-//fn configure() -> Config {
-//    let mut config = Config::active().expect("could not load configuration");
-//    // Add secret key
-//    config
-//        .set_secret_key(env::var("SECRET_KEY").expect("Env var SECRET_KEY not found"))
-//        .expect("Secret key could not be set");
-//    // Configure Rocket to use the PORT env var or fall back to 8000
-//    let port = if let Ok(port_str) = env::var("PORT") {
-//        port_str.parse().expect("could not parse PORT")
-//    } else {
-//        8000
-//    };
-//    config.set_port(port);
-//    config
-//}
-
 #[launch]
 fn rocket() -> _ {
     rocket::build()
         .attach(db::stage())
-        // TODO: configure
         .mount(
             "/",
             routes![
@@ -347,7 +363,3 @@ fn rocket() -> _ {
         .mount("/", FileServer::from(relative!("static")).rank(20))
         .attach(Template::fairing())
 }
-
-
-// TODO: use figment for config
-// TODO: sqlx client

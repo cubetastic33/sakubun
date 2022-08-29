@@ -65,7 +65,8 @@ impl Sentence for [String; 4] {
     }
 }
 
-// (Sentence ID, Japanese sentence, English sentence, Reading, Kanji in sentence, Previous intersection)
+// (Sentence ID, Japanese sentence, English sentence, Reading, Kanji in
+// sentence, Previous intersection)
 impl Sentence for (String, String, String, String, HashSet<char>, Option<usize>) {
     fn get_id(&self) -> i32 {
         self.0.parse().unwrap()
@@ -126,7 +127,11 @@ impl Sentence for AdminOverride {
     }
 }
 
-async fn fill_sentences<T: Sentence>(mut db: Connection<Db>, sentences: &mut Vec<T>, add_overrides: bool) {
+async fn fill_sentences<T: Sentence>(
+    mut db: Connection<Db>,
+    sentences: &mut Vec<T>,
+    add_overrides: bool,
+) {
     let mut queue: HashMap<i32, Vec<usize>> = HashMap::new();
     for (i, sentence) in sentences.iter().enumerate() {
         if queue.contains_key(&sentence.get_id()) {
@@ -157,19 +162,19 @@ async fn fill_sentences<T: Sentence>(mut db: Connection<Db>, sentences: &mut Vec
 
     // Add the overrides
     let sentence_ids = queue.keys().copied().collect::<Vec<_>>();
-    for row in 
-        query!(
-            "SELECT * FROM overrides WHERE sentence_id = ANY($1) ORDER BY primary_value DESC",
-            &sentence_ids
-        )
-            .fetch_all(&mut *db)
-            .await.unwrap()
+    for row in query!(
+        "SELECT * FROM overrides WHERE sentence_id = ANY($1) ORDER BY primary_value DESC",
+        &sentence_ids
+    )
+    .fetch_all(&mut *db)
+    .await
+    .unwrap()
     {
         let indices = queue.get(&row.sentence_id).unwrap();
         // The concept of a primary value exists only for readings
         if row.override_type != "reading" || row.primary_value {
-            // This is either a primary reading or a non-reading override, so we can just set that
-            // property to the new value
+            // This is either a primary reading or a non-reading override, so we can just
+            // set that property to the new value
             for i in indices {
                 sentences[*i].set(&row.override_type, row.value.clone());
             }
@@ -241,7 +246,8 @@ pub fn generate_essay(
     let sentence_records = fs::read_to_string("sentences.csv").unwrap();
     let sentence_records: Vec<_> = sentence_records.lines().collect();
 
-    // Filter the sentences so we're left with the ones that only have kanji the user knows
+    // Filter the sentences so we're left with the ones that only have kanji the
+    // user knows
     for result in sentence_records {
         // Parse the values
         let record: Vec<_> = result.split('\t').collect();
@@ -288,7 +294,8 @@ pub fn generate_essay(
             if intersection < max_intersection || intersection == 0 {
                 continue;
             } else if intersection > max_intersection {
-                // If the current intersection is greater than the last recorded max intersection
+                // If the current intersection is greater than the last recorded max
+                // intersection
                 max_intersection = intersection;
                 // Reset the pairs vector
                 tuples = Vec::new();
@@ -303,7 +310,12 @@ pub fn generate_essay(
 
         // Add a random sentence with a lot of known kanji to the essay
         let choice = tuples.choose(&mut rng).unwrap();
-        essay.push([choice.0.to_owned(), choice.1.to_owned(), choice.2.to_owned(), choice.3.to_owned()]);
+        essay.push([
+            choice.0.to_owned(),
+            choice.1.to_owned(),
+            choice.2.to_owned(),
+            choice.3.to_owned(),
+        ]);
         known_kanji = known_kanji.difference(&choice.4).map(|x| *x).collect();
     }
 
@@ -337,14 +349,15 @@ pub async fn save_report(mut db: Connection<Db>, report: Form<Report>) -> String
         }
     }
     // Save the report
-        query!(
-            "INSERT INTO reports VALUES (DEFAULT, $1, $2, $3, $4, DEFAULT)",
-                &report.sentence_id,
-                &report.report_type,
-                report.suggested.as_ref(),
-                report.comment.as_ref(),
-        )
-            .execute(&mut *db).await;
+    query!(
+        "INSERT INTO reports VALUES (DEFAULT, $1, $2, $3, $4, DEFAULT)",
+        &report.sentence_id,
+        &report.report_type,
+        report.suggested.as_ref(),
+        report.comment.as_ref(),
+    )
+    .execute(&mut *db)
+    .await;
     // TODO: use correct return for save_report
     String::from("success")
 }
@@ -369,21 +382,26 @@ pub async fn get_admin_stuff(mut db: Connection<Db>) -> (Vec<AdminReport>, Vec<A
     let mut overrides = Vec::new();
     // Read the sentences
     let records = fs::read_to_string("sentences.csv").unwrap();
-    // Variable to store a queue of sentence IDs that'll be used after we've collected all of them
+    // Variable to store a queue of sentence IDs that'll be used after we've
+    // collected all of them
     let mut reports_sentence_ids = Vec::new();
     // Get the reports from the database
     // TODO: figure out admin stuff types
-    for row in query_as!(AdminReport,
-        "SELECT * FROM reports ORDER BY id DESC",
-    ).fetch_all(&mut *db).await.unwrap() {
+    for row in query_as!(AdminReport, "SELECT * FROM reports ORDER BY id DESC",)
+        .fetch_all(&mut *db)
+        .await
+        .unwrap()
+    {
         reports_sentence_ids.push(row.sentence_id.to_string());
         reports.push(row);
     }
     // Get the overrides from the database
     let mut overrides_sentence_ids = Vec::new();
-    for row in query_as!(AdminOverride,
-        "SELECT * FROM overrides ORDER BY id DESC",
-    ).fetch_all(&mut *db).await.unwrap() {
+    for row in query_as!(AdminOverride, "SELECT * FROM overrides ORDER BY id DESC",)
+        .fetch_all(&mut *db)
+        .await
+        .unwrap()
+    {
         overrides_sentence_ids.push(row.sentence_id.to_string());
         overrides.push(row);
     }
@@ -606,16 +624,24 @@ pub fn kanji_in_order(
 
 // TODO: split function into delete override and delete report
 pub async fn delete_from_table(mut db: Connection<Db>, table: String, id: i32) -> String {
-    sqlx::query(&format!("DELETE FROM {} WHERE id = $1", table)).bind(id).execute(&mut *db).await.unwrap();
+    sqlx::query(&format!("DELETE FROM {} WHERE id = $1", table))
+        .bind(id)
+        .execute(&mut *db)
+        .await
+        .unwrap();
     // TODO: proper return type
     String::from("success")
 }
 
 pub async fn add_override(mut db: Connection<Db>, override_details: Form<AddOverride>) -> String {
-    let row = query_as!(AdminReport,
+    let row = query_as!(
+        AdminReport,
         "SELECT sentence_id FROM reports WHERE id = $1",
         override_details.report_id
-    ).fetch_one(&mut *db).await.unwrap();
+    )
+    .fetch_one(&mut *db)
+    .await
+    .unwrap();
     let sentence_id: i32 = row.sentence_id;
     let mut original_question = String::new();
     let mut original_translation = String::new();
@@ -651,7 +677,11 @@ pub async fn add_override(mut db: Connection<Db>, override_details: Form<AddOver
         "SELECT override_type, value FROM overrides
          WHERE sentence_id = $1 AND (primary_value = TRUE OR override_type != 'reading')",
         sentence_id
-    ).fetch_all(&mut *db).await.unwrap() {
+    )
+    .fetch_all(&mut *db)
+    .await
+    .unwrap()
+    {
         // TODO: use match for this
         let override_type: String = row.override_type;
         if override_type == "question" && !skip_question {
@@ -667,29 +697,45 @@ pub async fn add_override(mut db: Connection<Db>, override_details: Form<AddOver
     if !skip_question {
         query!(
             "INSERT INTO overrides VALUES (DEFAULT, $1, 'question', $2, FALSE)",
-            sentence_id, override_details.question
-        ).execute(&mut *db).await.unwrap();
+            sentence_id,
+            override_details.question
+        )
+        .execute(&mut *db)
+        .await
+        .unwrap();
         something_changed = true;
     }
     if !skip_translation {
         query!(
             "INSERT INTO overrides VALUES (DEFAULT, $1, 'translation', $2, FALSE)",
-            sentence_id, override_details.translation
-        ).execute(&mut *db).await.unwrap();
+            sentence_id,
+            override_details.translation
+        )
+        .execute(&mut *db)
+        .await
+        .unwrap();
         something_changed = true;
     }
     if !skip_reading {
         query!(
             "INSERT INTO overrides VALUES (DEFAULT, $1, 'reading', $2, TRUE)",
-            sentence_id, override_details.reading
-        ).execute(&mut *db).await.unwrap();
+            sentence_id,
+            override_details.reading
+        )
+        .execute(&mut *db)
+        .await
+        .unwrap();
         something_changed = true;
     }
     if let Some(reading) = override_details.additional_reading.clone() {
         query!(
             "INSERT INTO overrides VALUES (DEFAULT, $1, 'reading', $2, FALSE)",
-            sentence_id, reading
-        ).execute(&mut *db).await.unwrap();
+            sentence_id,
+            reading
+        )
+        .execute(&mut *db)
+        .await
+        .unwrap();
         something_changed = true;
     }
     if something_changed {
@@ -702,7 +748,12 @@ pub async fn add_override(mut db: Connection<Db>, override_details: Form<AddOver
 pub async fn edit_override(mut db: Connection<Db>, override_details: Form<EditOverride>) -> String {
     query!(
         "UPDATE overrides SET value = $1, primary_value = $2 WHERE id = $3",
-        override_details.value, override_details.primary_value, override_details.override_id
-    ).execute(&mut *db).await.unwrap();
+        override_details.value,
+        override_details.primary_value,
+        override_details.override_id
+    )
+    .execute(&mut *db)
+    .await
+    .unwrap();
     String::from("success")
 }

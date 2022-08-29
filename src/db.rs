@@ -1,8 +1,6 @@
 use log::error;
-use rocket::fairing::AdHoc;
-use rocket::{fairing, Build, Rocket};
-use rocket_db_pools::sqlx;
-use rocket_db_pools::Database;
+use rocket::{fairing, fairing::AdHoc, Build, Rocket};
+use rocket_db_pools::{sqlx, Database};
 
 #[derive(Database)]
 #[database("fixes")]
