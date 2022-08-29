@@ -1,131 +1,133 @@
 {% extends "layout" %}
 
 {% block head %}
-<link rel="stylesheet" href="/styles/sentences.css">
-<link rel="stylesheet" href="/styles/quiz.css">
+  <link rel="stylesheet" href="/styles/sentences.css">
+  <link rel="stylesheet" href="/styles/quiz.css">
 {% endblock head %}
 
 {% block content %}
-<dialog id="no_results">
+  <dialog id="no_results">
     <h3>Error</h3>
     <p>
-        No results were found with the parameters specified! Adding more known kanji can help, or
-        try changing the minimum and maximum kanji limits.
+      No results were found with the parameters specified! Adding more known kanji can help, or
+      try changing the minimum and maximum kanji limits.
     </p>
     <div>
-        <button class="close">Okay</button>
+      <button class="close">Okay</button>
     </div>
-</dialog>
-<div class="overlay"></div>
-<dialog id="colors">
+  </dialog>
+  <div class="overlay"></div>
+  <dialog id="colors">
     <h3>Colors</h3>
     <p class="answer">わたしは<span class="wrong">たびぎょうなか</span>ちずをりようした。</p>
     <p class="kana">わたしは<span class="missing">りょこうちゅう</span>ちずをりようした。</p>
     <br>
     <section>
-        <b>Incorrect letters:</b>
-        <div>
-            <input type="color" id="wrong_color">
-            <div class="grid">
-                <label class="checkbox bounce">
-                    <input type="checkbox" id="wrong_underline">
-                    <svg viewBox="0 0 21 21">
-                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
-                    </svg>
-                    <span>Underline</span>
-                </label>
-            </div>
+      <b>Incorrect letters:</b>
+      <div>
+        <input type="color" id="wrong_color">
+        <div class="grid">
+          <label class="checkbox bounce">
+            <input type="checkbox" id="wrong_underline">
+            <svg viewBox="0 0 21 21">
+              <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+            </svg>
+            <span>Underline</span>
+          </label>
         </div>
+      </div>
     </section>
     <section>
-        <b>Missing letters:</b>
-        <div>
-            <input type="color" id="missing_color">
-            <div class="grid">
-                <label class="checkbox bounce">
-                    <input type="checkbox" id="missing_underline">
-                    <svg viewBox="0 0 21 21">
-                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
-                    </svg>
-                    <span>Underline</span>
-                </label>
-            </div>
+      <b>Missing letters:</b>
+      <div>
+        <input type="color" id="missing_color">
+        <div class="grid">
+          <label class="checkbox bounce">
+            <input type="checkbox" id="missing_underline">
+            <svg viewBox="0 0 21 21">
+              <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+            </svg>
+            <span>Underline</span>
+          </label>
         </div>
+      </div>
     </section>
     <div>
-        <button id="reset_colors">Reset</button>
-        <button class="close">Okay</button>
+      <button id="reset_colors">Reset</button>
+      <button class="close">Okay</button>
     </div>
-</dialog>
-<div class="overlay"></div>
-<dialog id="report_dialog">
+  </dialog>
+  <div class="overlay"></div>
+  <dialog id="report_dialog">
     <h3>Report</h3>
     <form>
-        <p>
-            Found a problem with the question? Feel like the translation could be better? Report any
-            issues you have, even minor ones, so I can look into them.
-        </p>
-        <b>Report about:</b>
-        <details id="report_type" class="select">
-            <summary data-value="translation">Translation</summary>
-            <div>
-                <button type="button" class="exception" data-value="translation">Translation</button>
-                <button type="button" class="exception" data-value="question">Question</button>
-                <button type="button" class="exception" data-value="reading">Reading</button>
-            </div>
-        </details>
-        <br>
-        <h3>Reporting <span></span>:</h3>
-        <p id="reference"></p>
-        <h3>Suggested <span></span>:</h3>
-        <input id="suggested" placeholder="Optional" autocomplete="off">
-        <textarea id="comment" rows="2" maxlength="500" placeholder="Any additional comments?"></textarea>
+      <p>
+        Found a problem with the question? Feel like the translation could be better? Report any
+        issues you have, even minor ones, so I can look into them.
+      </p>
+      <b>Report about:</b>
+      <details id="report_type" class="select">
+        <summary data-value="translation">Translation</summary>
         <div>
-            <button type="reset" class="text close">Cancel</button>
-            <button type="submit">Report</button>
+          <button type="button" class="exception" data-value="translation">Translation</button>
+          <button type="button" class="exception" data-value="question">Question</button>
+          <button type="button" class="exception" data-value="reading">Reading</button>
         </div>
+      </details>
+      <br>
+      <h3>Reporting <span></span>:</h3>
+      <p id="reference"></p>
+      <h3>Suggested <span></span>:</h3>
+      <input id="suggested" placeholder="Optional" autocomplete="off">
+      <textarea id="comment" rows="2" maxlength="500"
+                placeholder="Any additional comments?"></textarea>
+      <div>
+        <button type="reset" class="text close">Cancel</button>
+        <button type="submit">Report</button>
+      </div>
     </form>
-</dialog>
-<div class="overlay"></div>
-<main>
+  </dialog>
+  <div class="overlay"></div>
+  <main>
     <form id="settings">
-        <div id="range" class="always">
-            Set the minimum and maximum number of unique known kanji each question should have:
-            <br>
-            <br>
-            <input type="number" size="1" id="min" min="0" title="minimum">
-            -
-            <input type="number" size="1" id="max" min="0" title="maximum">
-            kanji
-        </div>
-        <br><br>
-        <div class="container">
-            <div class="grid always">
-                <label class="checkbox bounce textbox">
-                    <input type="checkbox" id="textbox" checked>
-                    <svg viewBox="0 0 21 21">
-                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
-                    </svg>
-                    <span>Include textbox</span>
-                </label>
-            </div>
-            <div class="grid">
-                <label class="checkbox bounce">
-                    <input type="checkbox" id="evaluate" checked>
-                    <svg viewBox="0 0 21 21">
-                        <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
-                    </svg>
-                    <span>Show reading</span>
-                </label>
-            </div>
-        </div>
-        <br class="always"><br class="always">
-        <div class="buttons always">
-            <button type="button" id="palette" class="text"><span class="material-icons">palette</span></button>
-            <button type="submit" id="start_quiz">Begin Quiz</button>
-        </div>
+      <div id="range" class="always">
+        Set the minimum and maximum number of unique known kanji each question should have:
         <br>
-        <span class="warning">
+        <br>
+        <input type="number" size="1" id="min" min="0" title="minimum">
+        -
+        <input type="number" size="1" id="max" min="0" title="maximum">
+        kanji
+      </div>
+      <br><br>
+      <div class="container">
+        <div class="grid always">
+          <label class="checkbox bounce textbox">
+            <input type="checkbox" id="textbox" checked>
+            <svg viewBox="0 0 21 21">
+              <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+            </svg>
+            <span>Include textbox</span>
+          </label>
+        </div>
+        <div class="grid">
+          <label class="checkbox bounce">
+            <input type="checkbox" id="evaluate" checked>
+            <svg viewBox="0 0 21 21">
+              <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+            </svg>
+            <span>Show reading</span>
+          </label>
+        </div>
+      </div>
+      <br class="always"><br class="always">
+      <div class="buttons always">
+        <button type="button" id="palette" class="text"><span class="material-icons">palette</span>
+        </button>
+        <button type="submit" id="start_quiz">Begin Quiz</button>
+      </div>
+      <br>
+      <span class="warning">
             Warning: the readings given are automatically generated, and occasionally have errors.
             If you notice any such mistakes, feel free to use the report button so that I can fix
             the issue. It is highly recommended to use this quiz in conjunction with something like
@@ -134,23 +136,23 @@
         </span>
     </form>
     <form id="quiz_container">
-        <div id="quiz">
-            <div id="question"></div>
-            <textarea type="text" id="answer" rows="1"></textarea>
-            <div id="evaluation"></div>
-            <div id="kana"></div>
-            <div id="meaning"></div>
-        </div>
-        <div id="buttons">
-            <button type="submit" id="next">Show Answer</button>
-            <button type="button" id="report" class="text">Report</button>
-        </div>
+      <div id="quiz">
+        <div id="question"></div>
+        <textarea type="text" id="answer" rows="1"></textarea>
+        <div id="evaluation"></div>
+        <div id="kana"></div>
+        <div id="meaning"></div>
+      </div>
+      <div id="buttons">
+        <button type="submit" id="next">Show Answer</button>
+        <button type="button" id="report" class="text">Report</button>
+      </div>
     </form>
-</main>
+  </main>
 {% endblock content %}
 
 {% block javascript %}
-<script src="/scripts/wanakana.min.js"></script>
-<script src="/scripts/patience_diff.js"></script>
-<script src="/scripts/quiz.js"></script>
+  <script src="/scripts/wanakana.min.js"></script>
+  <script src="/scripts/patience_diff.js"></script>
+  <script src="/scripts/quiz.js"></script>
 {% endblock javascript %}

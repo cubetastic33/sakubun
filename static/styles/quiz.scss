@@ -1,254 +1,254 @@
 :root {
-    --wrong: var(--error);
-    --missing: var(--success);
-    --wrong-underline: none;
-    --missing-underline: none;
+  --wrong: var(--error);
+  --missing: var(--success);
+  --wrong-underline: none;
+  --missing-underline: none;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  position: relative;
 }
 
 a {
-    color: var(--link);
+  color: var(--link);
 }
 
 #settings {
-    display: none;
-    font-size: 1.5em;
-    text-align: center;
+  display: none;
+  font-size: 1.5em;
+  text-align: center;
 
-    .container {
-        display: inline-block;
-        margin: auto;
-    }
+  .container {
+    display: inline-block;
+    margin: auto;
+  }
 
-    .grid:first-child {
-        margin-bottom: .5em;
-    }
+  .grid:first-child {
+    margin-bottom: .5em;
+  }
 
-    .checkbox {
-        display: flex;
-    }
+  .checkbox {
+    display: flex;
+  }
 
-    .checkbox span {
-        line-height: .9em;
-        margin-left: .5em;
-        position: static;
-    }
+  .checkbox span {
+    line-height: .9em;
+    margin-left: .5em;
+    position: static;
+  }
 }
 
 .warning {
-    display: none;
-    font-size: 1rem;
+  display: none;
+  font-size: 1rem;
 }
 
 .buttons {
+  display: flex;
+  justify-content: center;
+
+  button {
+    margin: 0 1em;
+  }
+
+  button.text {
+    border-radius: 100%;
     display: flex;
     justify-content: center;
-
-    button {
-        margin: 0 1em;
-    }
-
-    button.text {
-        border-radius: 100%;
-        display: flex;
-        justify-content: center;
-        place-items: center;
-        width: 32px;
-        height: 32px;
-        margin: 0 5px;
-        padding: 20px;
-    }
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    margin: 0 5px;
+    padding: 20px;
+  }
 }
 
 #colors {
-    .answer, .kana {
-        font-size: 1.5em;
-        text-align: center;
-        margin: 0;
+  .answer, .kana {
+    font-size: 1.5em;
+    text-align: center;
+    margin: 0;
+  }
+
+  .checkbox {
+    --tick: var(--background-extreme);
+  }
+
+  section {
+    display: flex;
+    justify-content: left;
+
+    > * {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      margin: .5em;
+      width: 40%;
     }
 
-    .checkbox {
-        --tick: var(--background-extreme);
+    > div {
+      justify-content: flex-start;
+
+      > * {
+        margin: 0 .5em;
+      }
     }
-
-    section {
-        display: flex;
-        justify-content: left;
-
-        > * {
-            align-items: center;
-            display: flex;
-            justify-content: flex-end;
-            margin: .5em;
-            width: 40%;
-        }
-
-        > div {
-            justify-content: flex-start;
-
-            > * {
-                margin: 0 .5em;
-            }
-        }
-    }
+  }
 }
 
 #reset_colors {
-    background-color: var(--remove);
-    color: var(--background-extreme);
-    margin-right: 1em !important;
+  background-color: var(--remove);
+  color: var(--background-extreme);
+  margin-right: 1em !important;
 }
 
 #reset_colors:hover {
-    background-color: var(--remove-hover);
+  background-color: var(--remove-hover);
 }
 
 #quiz_container, #report {
-    display: none;
+  display: none;
 }
 
 #quiz {
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 2em;
-    margin-top: 0em;
-    text-align: center;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 2em;
+  margin-top: 0em;
+  text-align: center;
 }
 
 #answer, #evaluation, #meaning, #kana {
-    font-size: 1.75em;
+  font-size: 1.75em;
 }
 
 #kana {
-    margin-bottom: .5em;
+  margin-bottom: .5em;
 }
 
 #question {
-    font-size: 2.25em;
-    margin: 0;
+  font-size: 2.25em;
+  margin: 0;
 }
 
 #answer, #evaluation {
-    background: none;
-    border: solid var(--foreground);
-    border-radius: 0;
-    border-width: 0 0 1px 0;
-    color: var(--foreground);
-    font-family: sans-serif;
-    width: 100%;
-    overflow: hidden;
-    margin: .5em;
-    padding: 2px;
-    text-align: center;
+  background: none;
+  border: solid var(--foreground);
+  border-radius: 0;
+  border-width: 0 0 1px 0;
+  color: var(--foreground);
+  font-family: sans-serif;
+  width: 100%;
+  overflow: hidden;
+  margin: .5em;
+  padding: 2px;
+  text-align: center;
 }
 
 #evaluation {
-    display: none;
-    padding-bottom: .5em;
+  display: none;
+  padding-bottom: .5em;
 }
 
 .wrong {
-    color: var(--wrong);
-    border-bottom: var(--wrong-underline);
+  color: var(--wrong);
+  border-bottom: var(--wrong-underline);
 }
 
 .missing {
-    color: var(--missing);
-    border-bottom: var(--missing-underline);
+  color: var(--missing);
+  border-bottom: var(--missing-underline);
 }
 
 #answer:focus {
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 1px;
-    outline: none;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 1px;
+  outline: none;
 }
 
 #evaluation.correct {
-    border-bottom-color: var(--success);
-    color: var(--success);
+  border-bottom-color: var(--success);
+  color: var(--success);
 }
 
 #evaluation.incorrect {
-    border-bottom-color: var(--error);
+  border-bottom-color: var(--error);
 }
 
 #buttons {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    button {
-        margin: auto 2em;
-    }
+  button {
+    margin: auto 2em;
+  }
 }
 
 // Media queries
 
 @media screen and (max-width: 800px) {
-    #settings, input[type=number] {
-        font-size: 1.25rem !important;
-    }
+  #settings, input[type=number] {
+    font-size: 1.25rem !important;
+  }
 
-    .warning {
-        font-size: .9rem;
-    }
+  .warning {
+    font-size: .9rem;
+  }
 
-    button {
-        font-size: .8rem;
-    }
+  button {
+    font-size: .8rem;
+  }
 
-    #question {
-        font-size: 1.75rem;
-    }
+  #question {
+    font-size: 1.75rem;
+  }
 
-    #answer, #meaning, #kana {
-        font-size: 1.25rem;
-    }
+  #answer, #meaning, #kana {
+    font-size: 1.25rem;
+  }
 }
 
 @media screen and (max-width: 450px) {
-    #quiz {
-        padding: .5em;
-    }
+  #quiz {
+    padding: .5em;
+  }
 
-    button {
-        font-size: .7rem;
-    }
+  button {
+    font-size: .7rem;
+  }
 
-    #question {
-        font-size: 1.5rem;
-    }
+  #question {
+    font-size: 1.5rem;
+  }
 
-    #answer, #meaning, #kana {
-        font-size: 1.1rem;
-    }
+  #answer, #meaning, #kana {
+    font-size: 1.1rem;
+  }
 }
 
 @media screen and (max-width: 400px) {
-    #colors {
-        font-size: .8em;
+  #colors {
+    font-size: .8em;
 
-        section > div {
-            flex-direction: column;
-            align-items: flex-start;
+    section > div {
+      flex-direction: column;
+      align-items: flex-start;
 
-            > input {
-                margin-bottom: .5em;
-            }
-        }
+      > input {
+        margin-bottom: .5em;
+      }
     }
+  }
 }

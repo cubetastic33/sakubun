@@ -3,162 +3,163 @@
 {% block title %}Sakubun | Admin{% endblock title %}
 
 {% block head %}
-<link rel="stylesheet" href="/styles/admin.css">
+  <link rel="stylesheet" href="/styles/admin.css">
 {% endblock head %}
 
 {% block header %}
-<button id="signout" class="exception">
+  <button id="signout" class="exception">
     <span class="material-icons">logout</span>
-</button>
+  </button>
 {% endblock header %}
 
 {% block content %}
-<dialog id="confirmation">
+  <dialog id="confirmation">
     <h3>Confirmation</h3>
     <p>
-        Are you sure you want to delete the <span class="template"></span>?
+      Are you sure you want to delete the <span class="template"></span>?
     </p>
     <div>
-        <button class="text close">Cancel</button>
-        <button>Yes</button>
+      <button class="text close">Cancel</button>
+      <button>Yes</button>
     </div>
-</dialog>
-<div class="overlay"></div>
-<dialog id="override">
+  </dialog>
+  <div class="overlay"></div>
+  <dialog id="override">
     <h3>Add override</h3>
     <form>
-        <div class="form_input">
-            <label for="question">Question:</label>
-            <input type="text" id="question" autocomplete="off" required>
-        </div>
-        <div class="form_input">
-            <label for="translation">Translation:</label>
-            <input type="text" id="translation" autocomplete="off" required>
-        </div>
-        <div class="form_input">
-            <label for="reading">Reading:</label>
-            <input type="text" id="reading" autocomplete="off" required>
-        </div>
-        <div class="form_input">
-            <label for="additional_reading">Add additional reading:</label>
-            <input type="text" id="additional_reading" autocomplete="off">
-        </div>
-        <hr>
-        <b>Report type:</b>
-        <span id="report_type"></span>
-        <div class="suggested">
-            <b>Suggested:</b>
-            <span id="suggested"></span>
-        </div>
-        <div class="comment">
-            <b>Comments:</b>
-            <span id="comment"></span>
-        </div>
-        <div>
-            <button type="reset" class="text close">Cancel</button>
-            <button type="submit">Add override</button>
-        </div>
+      <div class="form_input">
+        <label for="question">Question:</label>
+        <input type="text" id="question" autocomplete="off" required>
+      </div>
+      <div class="form_input">
+        <label for="translation">Translation:</label>
+        <input type="text" id="translation" autocomplete="off" required>
+      </div>
+      <div class="form_input">
+        <label for="reading">Reading:</label>
+        <input type="text" id="reading" autocomplete="off" required>
+      </div>
+      <div class="form_input">
+        <label for="additional_reading">Add additional reading:</label>
+        <input type="text" id="additional_reading" autocomplete="off">
+      </div>
+      <hr>
+      <b>Report type:</b>
+      <span id="report_type"></span>
+      <div class="suggested">
+        <b>Suggested:</b>
+        <span id="suggested"></span>
+      </div>
+      <div class="comment">
+        <b>Comments:</b>
+        <span id="comment"></span>
+      </div>
+      <div>
+        <button type="reset" class="text close">Cancel</button>
+        <button type="submit">Add override</button>
+      </div>
     </form>
-</dialog>
-<div class="overlay"></div>
-<dialog id="edit_override">
+  </dialog>
+  <div class="overlay"></div>
+  <dialog id="edit_override">
     <h3>Edit override</h3>
     <form>
-        <div>
-            <b>Question:</b>
-            <span class="question"></span>
-        </div>
-        <div>
-            <b>Translation:</b>
-            <span class="translation"></span>
-        </div>
-        <div>
-            <b>Reading:</b>
-            <span class="reading"></span>
-        </div>
-        <div>
-            <b>Override type:</b>
-            <span class="override_type"></span>
-        </div>
-        <div class="form_input">
-            <label for="value">Value:</label>
-            <input type="text" id="value" autocomplete="off">
-        </div>
-        <div class="grid">
-            <label class="checkbox bounce">
-                <input type="checkbox" id="primary">
-                <svg viewBox="0 0 21 21">
-                    <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
-                </svg>
-                <span>Primary</span>
-            </label>
-        </div>
-        <div>
-            <button type="reset" class="text close">Cancel</button>
-            <button type="submit">Edit override</button>
-        </div>
+      <div>
+        <b>Question:</b>
+        <span class="question"></span>
+      </div>
+      <div>
+        <b>Translation:</b>
+        <span class="translation"></span>
+      </div>
+      <div>
+        <b>Reading:</b>
+        <span class="reading"></span>
+      </div>
+      <div>
+        <b>Override type:</b>
+        <span class="override_type"></span>
+      </div>
+      <div class="form_input">
+        <label for="value">Value:</label>
+        <input type="text" id="value" autocomplete="off">
+      </div>
+      <div class="grid">
+        <label class="checkbox bounce">
+          <input type="checkbox" id="primary">
+          <svg viewBox="0 0 21 21">
+            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+          </svg>
+          <span>Primary</span>
+        </label>
+      </div>
+      <div>
+        <button type="reset" class="text close">Cancel</button>
+        <button type="submit">Edit override</button>
+      </div>
     </form>
-</dialog>
-<div class="overlay"></div>
-<main>
+  </dialog>
+  <div class="overlay"></div>
+  <main>
     <h1>Reports</h1>
     <p>
-        {{ reports | length }} report{% if reports | length != 1 %}s{% endif %}
+      {{ reports | length }} report{% if reports | length != 1 %}s{% endif %}
     </p>
     <div id="reports">
-        {% for report in reports %}
+      {% for report in reports %}
         <div class="{{ report.report_id }}">
-            <h2>{{ report.question }}</h2>
-            <p><b>Translation:</b><span class="translation">{{ report.translation }}</span></p>
-            <div>
-                <b>Readings:</b>
-                <ul>
-                    {% for reading in report.readings %}
-                    <li class="reading">{{ reading }}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <hr>
-            <p><b>Report type:</b><span class="report_type">{{ report.report_type }}</span></p>
-            {% if report.suggested %}
+          <h2>{{ report.question }}</h2>
+          <p><b>Translation:</b><span class="translation">{{ report.translation }}</span></p>
+          <div>
+            <b>Readings:</b>
+            <ul>
+              {% for reading in report.readings %}
+                <li class="reading">{{ reading }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          <hr>
+          <p><b>Report type:</b><span class="report_type">{{ report.report_type }}</span></p>
+          {% if report.suggested %}
             <p><b>Suggested:</b><span class="suggested">{{ report.suggested }}</span></p>
-            {% endif %}
-            {% if report.comment %}
+          {% endif %}
+          {% if report.comment %}
             <p><b>Comments:</b><span class="comment">{{ report.comment }}</span></p>
-            {% endif %}
-            <hr>
-            <div class="buttons">
-                <button class="text reject">Reject</button>
-                <button class="text accept">Add override</button>
-            </div>
+          {% endif %}
+          <hr>
+          <div class="buttons">
+            <button class="text reject">Reject</button>
+            <button class="text accept">Add override</button>
+          </div>
         </div>
-        {% endfor %}
+      {% endfor %}
     </div>
     <h1>Overrides</h1>
     <p>
-    {{ overrides | length }} override{% if overrides | length != 1 %}s{% endif %}
+      {{ overrides | length }} override{% if overrides | length != 1 %}s{% endif %}
     </p>
     <div id="overrides">
-        {% for override in overrides %}
+      {% for override in overrides %}
         <div class="{{ override.override_id }}">
-            {% if override.override_type == "reading" and override.primary_value %}
-                <div class="primary">Primary</div>
-            {% endif %}
-            <h2>{{ override.question }}</h2>
-            <p><b>Translation:</b><span class="translation">{{ override.translation }}</span></p>
-            <p><b>Reading:</b><span class="reading">{{ override.reading }}</span></p>
-            <p><b>Override type:</b><span class="override_type">{{ override.override_type }}</span></p>
-            <p><b>Value:</b><span class="value">{{ override.value }}</span></p>
-            <div class="buttons">
-                <button class="text reject">Delete</button>
-                <button class="text accept">Edit override</button>
-            </div>
+          {% if override.override_type == "reading" and override.primary_value %}
+            <div class="primary">Primary</div>
+          {% endif %}
+          <h2>{{ override.question }}</h2>
+          <p><b>Translation:</b><span class="translation">{{ override.translation }}</span></p>
+          <p><b>Reading:</b><span class="reading">{{ override.reading }}</span></p>
+          <p><b>Override type:</b><span class="override_type">{{ override.override_type }}</span>
+          </p>
+          <p><b>Value:</b><span class="value">{{ override.value }}</span></p>
+          <div class="buttons">
+            <button class="text reject">Delete</button>
+            <button class="text accept">Edit override</button>
+          </div>
         </div>
-        {% endfor %}
+      {% endfor %}
     </div>
-</main>
+  </main>
 {% endblock content %}
 
 {% block javascript %}
-<script src="/scripts/admin.js"></script>
+  <script src="/scripts/admin.js"></script>
 {% endblock javascript %}

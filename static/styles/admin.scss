@@ -1,104 +1,104 @@
 #signout {
-    position: absolute;
-    left: 1.25em;
-    top: 1.25em;
+  position: absolute;
+  left: 1.25em;
+  top: 1.25em;
 }
 
 main > p {
-    padding: 0 .5em;
+  padding: 0 .5em;
 }
 
 #reports > div, #overrides > div {
-    background-color: var(--background-dark);
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  margin: 1em 0;
+  padding: 1em;
+  position: relative;
+
+  .primary {
+    background-color: var(--background-extreme);
     border-radius: 5px;
-    margin: 1em 0;
-    padding: 1em;
-    position: relative;
+    padding: .25em 0.5em;
+    position: absolute;
+    right: 1em;
+  }
 
-    .primary {
-        background-color: var(--background-extreme);
-        border-radius: 5px;
-        padding: .25em 0.5em;
-        position: absolute;
-        right: 1em;
+  h2 {
+    font-weight: normal;
+    margin: 0 0 .5em 0;
+    text-align: center;
+  }
+
+  div {
+    display: flex;
+
+    button {
+      color: var(--success);
+      font-size: .8em;
     }
 
-    h2 {
-        font-weight: normal;
-        margin: 0 0 .5em 0;
-        text-align: center;
+    button:first-child {
+      color: var(--error);
     }
+  }
 
-    div {
-        display: flex;
+  p, ul, b {
+    font-size: 1.2rem;
+    margin: 0;
+    line-height: 1.75rem;
+  }
 
-        button {
-            color: var(--success);
-            font-size: .8em;
-        }
+  p b {
+    margin-right: .5em;
+  }
 
-        button:first-child {
-            color: var(--error);
-        }
-    }
-
-    p, ul, b {
-        font-size: 1.2rem;
-        margin: 0;
-        line-height: 1.75rem;
-    }
-
-    p b {
-        margin-right: .5em;
-    }
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-        margin: 0 0 0 .5em;
-    }
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 0 .5em;
+  }
 }
 
 dialog {
-    font-size: 1.1em;
+  font-size: 1.1em;
 
-    form div:last-child {
-        margin-top: .5em;
-    }
+  form div:last-child {
+    margin-top: .5em;
+  }
 }
 
 .form_input {
-    align-items: center;
-    display: flex;
+  align-items: center;
+  display: flex;
 
-    input {
-        appearance: none;
-        background: transparent;
-        border: solid #757575;
-        border-width: 0 0 1px 0;
-        color: var(--foreground);
-        flex-grow: 1;
-        font-size: 1rem;
-        padding: 3px .5em;
-        margin: 0 .5em;
-    }
+  input {
+    appearance: none;
+    background: transparent;
+    border: solid #757575;
+    border-width: 0 0 1px 0;
+    color: var(--foreground);
+    flex-grow: 1;
+    font-size: 1rem;
+    padding: 3px .5em;
+    margin: 0 .5em;
+  }
 
-    input:focus {
-        border-color: var(--accent);
-        border-width: 0 0 2px 0;
-        padding-bottom: 2px;
-        outline: none;
-    }
+  input:focus {
+    border-color: var(--accent);
+    border-width: 0 0 2px 0;
+    padding-bottom: 2px;
+    outline: none;
+  }
 }
 
 dialog form div:not(:last-child) {
-    margin: .5em 0;
+  margin: .5em 0;
 }
 
 dialog hr, #override .form_input {
-    margin: 1em 0 !important;
+  margin: 1em 0 !important;
 }
 
 .checkbox {
-    --tick: var(--background-extreme);
+  --tick: var(--background-extreme);
 }

@@ -1,108 +1,108 @@
 body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  position: relative;
 }
 
 a {
-    color: var(--link);
+  color: var(--link);
 }
 
 #saved, #settings {
-    font-size: 1.5em;
-    text-align: center;
+  font-size: 1.5em;
+  text-align: center;
 
-    .container {
-        display: inline-block;
-        margin: auto;
+  .container {
+    display: inline-block;
+    margin: auto;
+  }
+
+  .grid:first-child {
+    margin-bottom: .5em;
+  }
+
+  .checkbox {
+    display: flex;
+  }
+
+  .checkbox span {
+    line-height: .9em;
+    margin-left: .5em;
+    position: static;
+  }
+
+  ul {
+    font-size: .8em;
+    margin-top: 0;
+    padding: 0;
+
+    li {
+      list-style-type: none;
+      background-color: var(--background-light);
+      border-radius: 5px;
+      cursor: pointer;
+      padding: 0.2em;
+      margin: 0.25em;
     }
-
-    .grid:first-child {
-        margin-bottom: .5em;
-    }
-
-    .checkbox {
-        display: flex;
-    }
-
-    .checkbox span {
-        line-height: .9em;
-        margin-left: .5em;
-        position: static;
-    }
-
-    ul {
-        font-size: .8em;
-        margin-top: 0;
-        padding: 0;
-
-        li {
-            list-style-type: none;
-            background-color: var(--background-light);
-            border-radius: 5px;
-            cursor: pointer;
-            padding: 0.2em;
-            margin: 0.25em;
-        }
-    }
+  }
 }
 
 #saved p {
-    margin: 0;
+  margin: 0;
 }
 
 #info {
-    display: none;
-    font-size: 1.2rem;
+  display: none;
+  font-size: 1.2rem;
 }
 
 #essay_header {
-    display: flex;
-    place-items: center;
+  display: flex;
+  place-items: center;
 }
 
 #essay_header * {
-    display: none;
-    margin: 0 .5em;
+  display: none;
+  margin: 0 .5em;
 }
 
 #saved_name {
-    font-size: 1.2em;
+  font-size: 1.2em;
 }
 
 #essay_name {
-    display: initial !important;
-    margin: 0 0 0 .5em !important;
-    width: auto !important;
+  display: initial !important;
+  margin: 0 0 0 .5em !important;
+  width: auto !important;
 }
 
 #essay {
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 
-    span:hover {
-        background-color: var(--essay-hover);
-        border-radius: 4px;
-    }
+  span:hover {
+    background-color: var(--essay-hover);
+    border-radius: 4px;
+  }
 }
 
 #floating {
-    font-size: 1.25em;
-    line-height: 1.75em;
+  font-size: 1.25em;
+  line-height: 1.75em;
 }
 
 #report_dialog {
-    z-index: 15;
+  z-index: 15;
 }
 
 .divider {
-    color: var(--essay-divider);
+  color: var(--essay-divider);
 }

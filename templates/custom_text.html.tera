@@ -1,26 +1,26 @@
 {% extends "layout" %}
 
 {% block head %}
-<link rel="stylesheet" href="/styles/custom_text.css">
+  <link rel="stylesheet" href="/styles/custom_text.css">
 {% endblock head %}
 
 {% block content %}
-<main>
+  <main>
     <form>
-        <textarea></textarea>
-        <br>
-        <button type="submit">Go</button>
+      <textarea></textarea>
+      <br>
+      <button type="submit">Go</button>
     </form>
     <p id="result">
-        Enter some Japanese text with kanji in the textbox above and hit go! The text will then
-        appear here, with furigana over words that have kanji you don't know yet. Note: text with
-        exceptional number + counter readings are prone to errors (like 二十歳)
+      Enter some Japanese text with kanji in the textbox above and hit go! The text will then
+      appear here, with furigana over words that have kanji you don't know yet. Note: text with
+      exceptional number + counter readings are prone to errors (like 二十歳)
     </p>
-</main>
+  </main>
 {% endblock content %}
 
 {% block javascript %}
-<script src="/scripts/kuroshiro.min.js"></script>
-<script src="/scripts/kuroshiro-analyzer-kuromoji.min.js"></script>
-<script src="/scripts/custom_text.js"></script>
+  <script src="/scripts/kuroshiro.min.js"></script>
+  <script src="/scripts/kuroshiro-analyzer-kuromoji.min.js"></script>
+  <script src="/scripts/custom_text.js"></script>
 {% endblock javascript %}

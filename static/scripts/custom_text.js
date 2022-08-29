@@ -1,31 +1,31 @@
 // Initialize kuroshiro
 var kuroshiro = new Kuroshiro();
-kuroshiro.init(new KuromojiAnalyzer({ dictPath: "/dict" }));
+kuroshiro.init(new KuromojiAnalyzer({dictPath: '/dict'}));
 
 function is_superset(set, subset) {
-    for (let elem of subset) {
-        if (!set.has(elem)) {
-            return false;
-        }
+  for (let elem of subset) {
+    if (!set.has(elem)) {
+      return false;
     }
-    return true;
+  }
+  return true;
 }
 
-$("form").submit(e => {
-    e.preventDefault();
-    kuroshiro.convert($("textarea").val(), { mode: "furigana", to: "hiragana" }).then(result => {
-        let known_kanji = new Set(localStorage.getItem("known_kanji"));
-        $("#result").html(result.replaceAll("\n", "<br>"));
+$('form').submit(e => {
+  e.preventDefault();
+  kuroshiro.convert($('textarea').val(), {mode: 'furigana', to: 'hiragana'}).then(result => {
+    let known_kanji = new Set(localStorage.getItem('known_kanji'));
+    $('#result').html(result.replaceAll('\n', '<br>'));
 
-        $("ruby").each(function () {
-            let word = new Set($(this).html().split("<rp>")[0]);
-            console.log(word, known_kanji);
-            if (is_superset(known_kanji, word)) {
-                $(this).children().remove();
-            }
-        })
-        // Analytics
-        // pa is undefined when ad blockers block the microanalytics script
-        if (typeof pa !== "undefined") pa.track({name: "custom text"});
+    $('ruby').each(function () {
+      let word = new Set($(this).html().split('<rp>')[0]);
+      console.log(word, known_kanji);
+      if (is_superset(known_kanji, word)) {
+        $(this).children().remove();
+      }
     });
+    // Analytics
+    // pa is undefined when ad blockers block the microanalytics script
+    if (typeof pa !== 'undefined') pa.track({name: 'custom text'});
+  });
 });

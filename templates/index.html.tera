@@ -1,142 +1,215 @@
 {% extends "layout" %}
 
 {% block head %}
-<link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="/styles/index.css">
 {% endblock head %}
 
 {% block content %}
-<main>
+  <main>
     <h1>Sakubun</h1>
     <p>
-        Sakubun is intended to be a tool to help people practice kanji and improve their Japanese
-        vocabulary. The main target audience is people who are learning kanji, but don't yet know
-        enough to practice efficiently using real-world material like news articles, manga, or light
-        novels.
+      Sakubun is intended to be a tool to help people practice kanji and improve their Japanese
+      vocabulary. The main target audience is people who are learning kanji, but don't yet know
+      enough to practice efficiently using real-world material like news articles, manga, or light
+      novels.
     </p>
     <p>
-        The way sakubun solves the problem of too many unknown kanji is by storing a list of what
-        kanji you've learnt so far, so that it can give you practice sentences that use <i>only
-        those kanji</i>.
+      The way sakubun solves the problem of too many unknown kanji is by storing a list of what
+      kanji you've learnt so far, so that it can give you practice sentences that use <i>only
+      those kanji</i>.
     </p>
     <p class="install">
-        While sakubun works on the web, you can <a href="#install">install</a> it if you'd like.
+      While sakubun works on the web, you can <a href="#install">install</a> it if you'd like.
     </p>
     <br>
     <div id="quiz" class="card">
-        <div>
-            <h2>Quiz</h2>
-            <p>
-                There are over 130K sentences with translations you can practice from. The sentences
-                are taken from the <a href="https://tatoeba.org/">tatoeba project</a>.
-            </p>
-        </div>
-        <div title="Example quiz question">
-            <div id="question">黒い猫がいる</div>
-            <textarea id="answer" rows="1" readonly>くろいねこがいる</textarea>
-            <div id="kana">くろいねこがいる</div>
-            <div id="meaning">There is a black cat</div>
-        </div>
+      <div>
+        <h2>Quiz</h2>
+        <p>
+          There are over 130K sentences with translations you can practice from. The sentences
+          are taken from the <a href="https://tatoeba.org/">tatoeba project</a>.
+        </p>
+      </div>
+      <div title="Example quiz question">
+        <div id="question">黒い猫がいる</div>
+        <textarea id="answer" rows="1" readonly>くろいねこがいる</textarea>
+        <div id="kana">くろいねこがいる</div>
+        <div id="meaning">There is a black cat</div>
+      </div>
     </div>
     <br><br>
     <div id="custom_text" class="card">
-        <div title="Example output">
-            <p>
-                <ruby>都</ruby>、もしくは<ruby>京</ruby>ともいい、<ruby>歴史<rp>(</rp><rt>れきし</rt><rp>)</rp></ruby><ruby>的<rp>(</rp><rt>てき</rt><rp>)</rp></ruby>には794<ruby>年<rp>(</rp><rt>ねん</rt><rp>)</rp></ruby><ruby>以降<rp>(</rp><rt>いこう</rt><rp>)</rp></ruby><ruby>日本</ruby>の<ruby>首都<rp>(</rp><rt>しゅと</rt><rp>)</rp></ruby>であった<ruby>平安京<rp>(</rp><rt>へいあんきょう</rt><rp>)</rp></ruby>で、<ruby>当時</ruby>は<ruby>日本</ruby>の<ruby>政治<rp>(</rp><rt>せいじ</rt><rp>)</rp></ruby>・<ruby>文化<rp>(</rp><rt>ぶんか</rt><rp>)</rp></ruby>の<ruby>中心<rp>(</rp><rt>ちゅうしん</rt><rp>)</rp></ruby><ruby>地<rp>(</rp><rt>ち</rt><rp>)</rp></ruby>であった。
-            </p>
-        </div>
-        <div>
-            <h2>Custom Text</h2>
-            <p>
-                Practice using your own text - only words that have kanji you don't know yet will
-                have furigana.
-            </p>
-        </div>
+      <div title="Example output">
+        <p>
+          <ruby>都</ruby>
+          、もしくは
+          <ruby>京</ruby>
+          ともいい、
+          <ruby>歴史
+            <rp>(</rp>
+            <rt>れきし</rt>
+            <rp>)</rp>
+          </ruby>
+          <ruby>的
+            <rp>(</rp>
+            <rt>てき</rt>
+            <rp>)</rp>
+          </ruby>
+          には794
+          <ruby>年
+            <rp>(</rp>
+            <rt>ねん</rt>
+            <rp>)</rp>
+          </ruby>
+          <ruby>以降
+            <rp>(</rp>
+            <rt>いこう</rt>
+            <rp>)</rp>
+          </ruby>
+          <ruby>日本</ruby>
+          の
+          <ruby>首都
+            <rp>(</rp>
+            <rt>しゅと</rt>
+            <rp>)</rp>
+          </ruby>
+          であった
+          <ruby>平安京
+            <rp>(</rp>
+            <rt>へいあんきょう</rt>
+            <rp>)</rp>
+          </ruby>
+          で、
+          <ruby>当時</ruby>
+          は
+          <ruby>日本</ruby>
+          の
+          <ruby>政治
+            <rp>(</rp>
+            <rt>せいじ</rt>
+            <rp>)</rp>
+          </ruby>
+          ・
+          <ruby>文化
+            <rp>(</rp>
+            <rt>ぶんか</rt>
+            <rp>)</rp>
+          </ruby>
+          の
+          <ruby>中心
+            <rp>(</rp>
+            <rt>ちゅうしん</rt>
+            <rp>)</rp>
+          </ruby>
+          <ruby>地
+            <rp>(</rp>
+            <rt>ち</rt>
+            <rp>)</rp>
+          </ruby>
+          であった。
+        </p>
+      </div>
+      <div>
+        <h2>Custom Text</h2>
+        <p>
+          Practice using your own text - only words that have kanji you don't know yet will
+          have furigana.
+        </p>
+      </div>
     </div>
     <br><br>
     <hr>
     <br>
     <h2>Creating a list of known kanji:</h2>
     <p>
-        The list of known kanji can be edited by going to <a href="/known_kanji">this</a> page,
-        which can also be accessed by clicking the "known kanji" button in the top bar.
+      The list of known kanji can be edited by going to <a href="/known_kanji">this</a> page,
+      which can also be accessed by clicking the "known kanji" button in the top bar.
     </p>
     <p>
-        The most straightforward way to add new kanji is by simply typing into the bar and hitting
-        enter.
+      The most straightforward way to add new kanji is by simply typing into the bar and hitting
+      enter.
     </p>
     <div id="add_kanji" title="Example input">亜哀挨愛曖悪握圧扱宛嵐</div>
     <p>
-        You don't need to worry about duplicated letters, and if you want, you can copy-paste a list
-        from some other webpage (like KANJIDAMAGE, for example). You don't have to sanitize the
-        input by removing non-kanji text, because everything other than kanji will automatically be
-        ignored.
+      You don't need to worry about duplicated letters, and if you want, you can copy-paste a list
+      from some other webpage (like KANJIDAMAGE, for example). You don't have to sanitize the
+      input by removing non-kanji text, because everything other than kanji will automatically be
+      ignored.
     </p>
     <p>
-        There are also options to import kanji from Anki decks, WaniKani, or in the order of
-        Heisig's RTK, JLPT, or Kanken levels.
+      There are also options to import kanji from Anki decks, WaniKani, or in the order of
+      Heisig's RTK, JLPT, or Kanken levels.
     </p>
     <h3>Anki</h3>
     <p>
-        Click the "More options" button, and a bunch of import and export options will show up. Make
-        sure Anki is selected in the "Import from" dropdown menu, and click the
-        <button id="choose_file">Choose File</button> button to upload the apkg file. If you don't
-        have an apkg file, instructions for exporting the Anki deck in Anki desktop and AnkiDroid
-        are given below.
+      Click the "More options" button, and a bunch of import and export options will show up. Make
+      sure Anki is selected in the "Import from" dropdown menu, and click the
+      <button id="choose_file">Choose File</button>
+      button to upload the apkg file. If you don't
+      have an apkg file, instructions for exporting the Anki deck in Anki desktop and AnkiDroid
+      are given below.
     </p>
     <p>
-        If the "Only learnt kanji" option is checked, only cards that are in the learnt queue will
-        be considered. This requires the file to have the scheduling information.
+      If the "Only learnt kanji" option is checked, only cards that are in the learnt queue will
+      be considered. This requires the file to have the scheduling information.
     </p>
     <p>
-        Once you click <button id="upload">Upload</button>, a dialog will show up with all the kanji that
-        were found. Here you can remove kanji that you don't want, and then click the Import button
-        to import the kanji. Kanji will not get added twice, so don't worry about duplicates.
+      Once you click
+      <button id="upload">Upload</button>
+      , a dialog will show up with all the kanji that
+      were found. Here you can remove kanji that you don't want, and then click the Import button
+      to import the kanji. Kanji will not get added twice, so don't worry about duplicates.
     </p>
     <h4>Anki desktop</h4>
     <p>
-        Either click the cog icon next to the deck name in the deck list and then click export, or
-        go to File > Export. Then select the format as "Anki Deck Package (*.apkg)", and choose
-        which deck to include. Don't include media, because it increases the file size, and won't
-        be used by sakubun anyway.
+      Either click the cog icon next to the deck name in the deck list and then click export, or
+      go to File > Export. Then select the format as "Anki Deck Package (*.apkg)", and choose
+      which deck to include. Don't include media, because it increases the file size, and won't
+      be used by sakubun anyway.
     </p>
     <h4>AnkiDroid</h4>
     <p>
-        From the main menu in the decks screen:
+      From the main menu in the decks screen:
     </p>
     <ul>
-        <li>Long tap on the deck you wish to export</li>
-        <li>Tap Export</li>
-        <li>Make sure media isn't selected</li>
-        <li>Save it to a file which you can then upload from within sakubun</li>
+      <li>Long tap on the deck you wish to export</li>
+      <li>Tap Export</li>
+      <li>Make sure media isn't selected</li>
+      <li>Save it to a file which you can then upload from within sakubun</li>
     </ul>
     <h3>WaniKani</h3>
     <p>
-        You can directly import your learned kanji from your WaniKani account - select "WaniKani" in
-        the "Import from" dropdown menu that shows up once you click "More options", and follow the
-        instructions shown there.
+      You can directly import your learned kanji from your WaniKani account - select "WaniKani" in
+      the "Import from" dropdown menu that shows up once you click "More options", and follow the
+      instructions shown there.
     </p>
     <h3>RTK, JLPT, and Kanken</h3>
     <p>
-        You can also import kanji in the ordero of Heisig's Remembering the Kanji, JLPT, or Kanken
-        levels. Just select RTK/JLPT/Kanken from the "Import from" dropdown menu that shows up when
-        you click "More options". For RTK, you'll now get a textbox and a dropdown menu. If you want
-        to import the first 200 kanji for example, select the "kanji" option in the dropdown and
-        enter "200" in the textbox, and click <button id="import">Import</button>.
+      You can also import kanji in the ordero of Heisig's Remembering the Kanji, JLPT, or Kanken
+      levels. Just select RTK/JLPT/Kanken from the "Import from" dropdown menu that shows up when
+      you click "More options". For RTK, you'll now get a textbox and a dropdown menu. If you want
+      to import the first 200 kanji for example, select the "kanji" option in the dropdown and
+      enter "200" in the textbox, and click
+      <button id="import">Import</button>
+      .
     </p>
     <h2 id="install" class="install">Install</h2>
     <p class="install">
-        Sakubun is a PWA, which means it can be installed and used like a native app if your browser
-        supports it. If you're on firefox for android, look for a home icon with a plus (+) sign in
-        the URL bar. On chrome, you might see an install banner at the bottom or (if you're on
-        desktop) an install button in the URL bar. On safari on iOS, click the share button
-        (<span class="material-icons">ios_share</span>) and look for an "add to home screen" option.
-        If you don't see any of these, click the menu icon in your browser and look for an install
-        option. For more detailed install instructions, go
-        <a href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Developer_guide/Installing#firefox_for_android">here</a>.
+      Sakubun is a PWA, which means it can be installed and used like a native app if your browser
+      supports it. If you're on firefox for android, look for a home icon with a plus (+) sign in
+      the URL bar. On chrome, you might see an install banner at the bottom or (if you're on
+      desktop) an install button in the URL bar. On safari on iOS, click the share button
+      (<span class="material-icons">ios_share</span>) and look for an "add to home screen" option.
+      If you don't see any of these, click the menu icon in your browser and look for an install
+      option. For more detailed install instructions, go
+      <a
+        href="https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Developer_guide/Installing#firefox_for_android">here</a>.
     </p>
-</main>
-<footer role="contentinfo">
+  </main>
+  <footer role="contentinfo">
     © 2022 | Sakubun
-    <iframe src="https://ghbtns.com/github-btn.html?user=cubetastic33&repo=sakubun&type=star&count=false&size=large" frameborder="0" scrolling="0" width="73.65" height="30" title="GitHub"></iframe>
-</footer>
+    <iframe
+      src="https://ghbtns.com/github-btn.html?user=cubetastic33&repo=sakubun&type=star&count=false&size=large"
+      frameborder="0" scrolling="0" width="73.65" height="30" title="GitHub"></iframe>
+  </footer>
 {% endblock content %}

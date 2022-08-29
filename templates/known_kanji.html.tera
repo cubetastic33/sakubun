@@ -1,217 +1,219 @@
 {% extends "layout" %}
 
 {% block head %}
-<link rel="stylesheet" href="/styles/known_kanji.css">
+  <link rel="stylesheet" href="/styles/known_kanji.css">
 {% endblock head %}
 
 {% block content %}
-<dialog id="confirmation">
+  <dialog id="confirmation">
     <h3>Confirmation</h3>
     <p>
-        Are you sure you want to remove <span></span> kanji?
+      Are you sure you want to remove <span></span> kanji?
     </p>
     <div>
-        <button class="text close">Cancel</button>
-        <button>Yes</button>
+      <button class="text close">Cancel</button>
+      <button>Yes</button>
     </div>
-</dialog>
-<!--
-    We have multiple overlay elements so that we can bind each of them to close the right dialog
-    when clicked. We can't just close all dialogs when an overlay is clicked because we have to
-    wait for the dialog hiding animation to get over first. This can be implemented with a single
-    overlay using some dynamic JavaScript, but I thought this was easier.
--->
-<div class="overlay"></div>
-<dialog id="no_kanji_found">
+  </dialog>
+  <!--
+      We have multiple overlay elements so that we can bind each of them to close the right dialog
+      when clicked. We can't just close all dialogs when an overlay is clicked because we have to
+      wait for the dialog hiding animation to get over first. This can be implemented with a single
+      overlay using some dynamic JavaScript, but I thought this was easier.
+  -->
+  <div class="overlay"></div>
+  <dialog id="no_kanji_found">
     <h3>Error</h3>
     <p>No kanji were found</p>
     <div>
-        <button class="close">Okay</button>
+      <button class="close">Okay</button>
     </div>
-</dialog>
-<div class="overlay"></div>
-<dialog id="preview">
+  </dialog>
+  <div class="overlay"></div>
+  <dialog id="preview">
     <h3>Preview</h3>
     <p>
-        Previewing <span id="num_preview">0</span> kanji
+      Previewing <span id="num_preview">0</span> kanji
     </p>
     <p>
-        Drag to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
-        selecting will toggle selection.
+      Drag to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
+      selecting will toggle selection.
     </p>
     <div id="preview_kanji" class="kanji_grid"></div>
     <div>
-        <button class="text close">Cancel</button>
-        <button>Import</button>
+      <button class="text close">Cancel</button>
+      <button>Import</button>
     </div>
-</dialog>
-<div class="overlay"></div>
-<button id="remove_from_preview" class="remove">Remove selected</button>
-<button id="remove" class="remove">Remove selected</button>
-<main>
+  </dialog>
+  <div class="overlay"></div>
+  <button id="remove_from_preview" class="remove">Remove selected</button>
+  <button id="remove" class="remove">Remove selected</button>
+  <main>
     <form id="add_kanji">
-        <label for="new_kanji">Enter kanji you want to add to the list:</label>
-        <input type="text" id="new_kanji" placeholder="Eg: 愛案以育胃寒崖" autocomplete="off">
-        <p>
-            Tip: your input can contain other characters as well, and only the kanji will be
-            considered. You don't need to worry about duplicate kanji because they won't get added
-            twice.
-        </p>
+      <label for="new_kanji">Enter kanji you want to add to the list:</label>
+      <input type="text" id="new_kanji" placeholder="Eg: 愛案以育胃寒崖" autocomplete="off">
+      <p>
+        Tip: your input can contain other characters as well, and only the kanji will be
+        considered. You don't need to worry about duplicate kanji because they won't get added
+        twice.
+      </p>
     </form>
     <section id="more_options">
-        <button class="text">More options</button>
-        <div>
-            <p>
-                It is HIGHLY recommended to keep a backup of your kanji list with you, so that you
-                can import it again if the browser data resets. You can use the export button below
-                to download a copy of the kanji list.
-            </p>
-            <h2>Import</h2>
-            <span>Import from:</span>
-            <details id="import_from" class="select">
-                <summary data-value="anki">Anki Deck</summary>
-                <div>
-                    <button class="exception" data-value="anki">Anki Deck</button>
-                    <button class="exception" data-value="wanikani">WaniKani</button>
-                    <button class="exception" data-value="rtk">Heisig's RTK</button>
-                    <button class="exception" data-value="jlpt">JLPT</button>
-                    <button class="exception" data-value="kanken">Kanken</button>
-                </div>
+      <button class="text">More options</button>
+      <div>
+        <p>
+          It is HIGHLY recommended to keep a backup of your kanji list with you, so that you
+          can import it again if the browser data resets. You can use the export button below
+          to download a copy of the kanji list.
+        </p>
+        <h2>Import</h2>
+        <span>Import from:</span>
+        <details id="import_from" class="select">
+          <summary data-value="anki">Anki Deck</summary>
+          <div>
+            <button class="exception" data-value="anki">Anki Deck</button>
+            <button class="exception" data-value="wanikani">WaniKani</button>
+            <button class="exception" data-value="rtk">Heisig's RTK</button>
+            <button class="exception" data-value="jlpt">JLPT</button>
+            <button class="exception" data-value="kanken">Kanken</button>
+          </div>
+        </details>
+        <br><br>
+        <form id="anki" class="import_option">
+          Export the anki deck as an apkg file and upload it here. Don't include media. The
+          maximum allowed file size is 4 MiB.
+          <br><br>
+          <div class="grid">
+            <label class="checkbox bounce">
+              <input type="checkbox" id="only_learnt">
+              <svg viewBox="0 0 21 21">
+                <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+              </svg>
+              <span>Only learnt kanji</span>
+            </label>
+          </div>
+          <div class="upload">
+            <div>No file chosen</div>
+            <label for="file">Choose File</label>
+            <input type="file" id="file" accept=".apkg">
+          </div>
+          <div>The file is too large! The maximum allowed size is 4 MiB.</div>
+          <button type="submit">Upload</button>
+        </form>
+        <div id="wanikani" class="import_option">
+          <form>
+            Click <a href="https://www.wanikani.com/settings/personal_access_tokens">here</a>
+            to generate a new personal access token. You can leave all the checkboxes unchecked.
+            Copy-paste the generated token into the field below and hit import.
+            <br><br>
+            Your progress will not automatically update here, so after you've learned a bunch of
+            new kanji, you can paste the same token here again to update the list.
+            <br><br>
+            <input type="text" id="api_key" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+                   autocomplete="off" required>
+            <br><br>
+            <button type="submit">Import</button>
+          </form>
+          <br>
+          <b>OR</b>
+          <br><br>
+          <form>
+            Import manually:
+            <br>
+            First <input type="number" size="2" min="1" max="60" value="10" required>
+            <details class="select">
+              <summary data-value="stages">levels</summary>
+              <div>
+                <button type="button" class="exception" data-value="stages">levels</button>
+                <button type="button" class="exception" data-value="kanji">kanji</button>
+              </div>
             </details>
             <br><br>
-            <form id="anki" class="import_option">
-                Export the anki deck as an apkg file and upload it here. Don't include media. The
-                maximum allowed file size is 4 MiB.
-                <br><br>
-                <div class="grid">
-                    <label class="checkbox bounce">
-                        <input type="checkbox" id="only_learnt">
-                        <svg viewBox="0 0 21 21">
-                            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
-                        </svg>
-                        <span>Only learnt kanji</span>
-                    </label>
-                </div>
-                <div class="upload">
-                    <div>No file chosen</div>
-                    <label for="file">Choose File</label>
-                    <input type="file" id="file" accept=".apkg">
-                </div>
-                <div>The file is too large! The maximum allowed size is 4 MiB.</div>
-                <button type="submit">Upload</button>
-            </form>
-            <div id="wanikani" class="import_option">
-                <form>
-                    Click <a href="https://www.wanikani.com/settings/personal_access_tokens">here</a>
-                    to generate a new personal access token. You can leave all the checkboxes unchecked.
-                    Copy-paste the generated token into the field below and hit import.
-                    <br><br>
-                    Your progress will not automatically update here, so after you've learned a bunch of
-                    new kanji, you can paste the same token here again to update the list.
-                    <br><br>
-                    <input type="text" id="api_key" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" autocomplete="off" required>
-                    <br><br>
-                    <button type="submit">Import</button>
-                </form>
-                <br>
-                <b>OR</b>
-                <br><br>
-                <form>
-                    Import manually:
-                    <br>
-                    First <input type="number" size="2" min="1" max="60" value="10" required>
-                    <details class="select">
-                        <summary data-value="stages">levels</summary>
-                        <div>
-                            <button type="button" class="exception" data-value="stages">levels</button>
-                            <button type="button" class="exception" data-value="kanji">kanji</button>
-                        </div>
-                    </details>
-                    <br><br>
-                    <button type="submit">Import</button>
-                </form>
-            </div>
-            <form id="rtk" class="import_option">
-                Note: The kanji order is from the sixth edition of the RTK book, taken from
-                <a href="https://docs.google.com/spreadsheets/d/1Z0BUSie8wh0JqlUejezs3EqauJuF-zKEomOQnqm9J08/edit?pref=2&pli=1#gid=0">here</a>.
-                <br><br>
-                First <input type="number" size="2" min="1" max="56" value="10" required>
-                <details class="select">
-                    <summary data-value="stages">lessons</summary>
-                    <div>
-                        <button type="button" class="exception" data-value="stages">lessons</button>
-                        <button type="button" class="exception" data-value="kanji">kanji</button>
-                    </div>
-                </details>
-                <br><br>
-                <button type="submit">Import</button>
-            </form>
-            <form id="jlpt" class="import_option">
-                Note: The kanji lists for each level are taken from
-                <a href="https://www.kanshudo.com/collections/jlpt_kanji">here</a>, and might differ
-                a bit from the list you're using, since there are no standard lists. You can always
-                remove kanji that you don't know, and add additional kanji that you do.
-                <br><br>
-                JLPT level
-                <details class="select">
-                    <summary data-value="1">N5</summary>
-                    <div>
-                        <button type="button" class="exception" data-value="1">N5</button>
-                        <button type="button" class="exception" data-value="2">N4</button>
-                        <button type="button" class="exception" data-value="3">N3</button>
-                        <button type="button" class="exception" data-value="4">N2</button>
-                        <button type="button" class="exception" data-value="5">N1</button>
-                    </div>
-                </details>
-                <br><br>
-                <button type="submit">Import</button>
-            </form>
-            <form id="kanken" class="import_option">
-                KanKen level
-                <details class="select">
-                    <summary data-value="1">10</summary>
-                    <div>
-                        <button type="button" class="exception" data-value="1">10</button>
-                        <button type="button" class="exception" data-value="2">9</button>
-                        <button type="button" class="exception" data-value="3">8</button>
-                        <button type="button" class="exception" data-value="4">7</button>
-                        <button type="button" class="exception" data-value="5">6</button>
-                        <button type="button" class="exception" data-value="6">5</button>
-                        <button type="button" class="exception" data-value="7">4</button>
-                        <button type="button" class="exception" data-value="8">3</button>
-                        <button type="button" class="exception" data-value="9">2.5</button>
-                        <button type="button" class="exception" data-value="10">2</button>
-                        <button type="button" class="exception" data-value="11">1.5</button>
-                        <button type="button" class="exception" data-value="12">1</button>
-                    </div>
-                </details>
-                <br><br>
-                <button type="submit">Import</button>
-            </form>
-            <hr>
-            <h2>Export</h2>
-            To import a file that was previously exported from here, just copy-paste the contents
-            of the file into the text box at the top.
-            <br><br>
-            <button id="export">Export</button>
-            <hr>
-            <br>
-            <button id="remove_all">Remove All Kanji</button>
-            <hr>
+            <button type="submit">Import</button>
+          </form>
         </div>
+        <form id="rtk" class="import_option">
+          Note: The kanji order is from the sixth edition of the RTK book, taken from
+          <a
+            href="https://docs.google.com/spreadsheets/d/1Z0BUSie8wh0JqlUejezs3EqauJuF-zKEomOQnqm9J08/edit?pref=2&pli=1#gid=0">here</a>.
+          <br><br>
+          First <input type="number" size="2" min="1" max="56" value="10" required>
+          <details class="select">
+            <summary data-value="stages">lessons</summary>
+            <div>
+              <button type="button" class="exception" data-value="stages">lessons</button>
+              <button type="button" class="exception" data-value="kanji">kanji</button>
+            </div>
+          </details>
+          <br><br>
+          <button type="submit">Import</button>
+        </form>
+        <form id="jlpt" class="import_option">
+          Note: The kanji lists for each level are taken from
+          <a href="https://www.kanshudo.com/collections/jlpt_kanji">here</a>, and might differ
+          a bit from the list you're using, since there are no standard lists. You can always
+          remove kanji that you don't know, and add additional kanji that you do.
+          <br><br>
+          JLPT level
+          <details class="select">
+            <summary data-value="1">N5</summary>
+            <div>
+              <button type="button" class="exception" data-value="1">N5</button>
+              <button type="button" class="exception" data-value="2">N4</button>
+              <button type="button" class="exception" data-value="3">N3</button>
+              <button type="button" class="exception" data-value="4">N2</button>
+              <button type="button" class="exception" data-value="5">N1</button>
+            </div>
+          </details>
+          <br><br>
+          <button type="submit">Import</button>
+        </form>
+        <form id="kanken" class="import_option">
+          KanKen level
+          <details class="select">
+            <summary data-value="1">10</summary>
+            <div>
+              <button type="button" class="exception" data-value="1">10</button>
+              <button type="button" class="exception" data-value="2">9</button>
+              <button type="button" class="exception" data-value="3">8</button>
+              <button type="button" class="exception" data-value="4">7</button>
+              <button type="button" class="exception" data-value="5">6</button>
+              <button type="button" class="exception" data-value="6">5</button>
+              <button type="button" class="exception" data-value="7">4</button>
+              <button type="button" class="exception" data-value="8">3</button>
+              <button type="button" class="exception" data-value="9">2.5</button>
+              <button type="button" class="exception" data-value="10">2</button>
+              <button type="button" class="exception" data-value="11">1.5</button>
+              <button type="button" class="exception" data-value="12">1</button>
+            </div>
+          </details>
+          <br><br>
+          <button type="submit">Import</button>
+        </form>
+        <hr>
+        <h2>Export</h2>
+        To import a file that was previously exported from here, just copy-paste the contents
+        of the file into the text box at the top.
+        <br><br>
+        <button id="export">Export</button>
+        <hr>
+        <br>
+        <button id="remove_all">Remove All Kanji</button>
+        <hr>
+      </div>
     </section>
     <div>
-        <span id="num_known">0</span> kanji added
+      <span id="num_known">0</span> kanji added
     </div>
     <p>
-        Drag to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
-        selecting will toggle selection.
+      Drag to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
+      selecting will toggle selection.
     </p>
     <div id="kanji" class="kanji_grid"></div>
-</main>
+  </main>
 {% endblock content %}
 
 {% block javascript %}
-<script src="/scripts/ds.min.js"></script>
-<script src="/scripts/known_kanji.js"></script>
+  <script src="/scripts/ds.min.js"></script>
+  <script src="/scripts/known_kanji.js"></script>
 {% endblock javascript %}

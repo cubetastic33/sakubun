@@ -1,22 +1,22 @@
 textarea {
-    background: none;
-    color: var(--foreground);
-    display: block;
-    font-family: sans-serif;
-    height: 50vh;
-    width: calc(100% - 2em);
+  background: none;
+  color: var(--foreground);
+  display: block;
+  font-family: sans-serif;
+  height: 50vh;
+  width: calc(100% - 2em);
 }
 
 textarea:focus {
-    border-color: var(--button);
-    border-width: 2px;
-    outline: none;
-    padding: calc(1em - 1px);
+  border-color: var(--button);
+  border-width: 2px;
+  outline: none;
+  padding: calc(1em - 1px);
 }
 
 textarea, #result {
-    border: 1px solid var(--foreground);
-    border-radius: 5px;
-    font-size: 1.3em;
-    padding: 1em;
+  border: 1px solid var(--foreground);
+  border-radius: 5px;
+  font-size: 1.3em;
+  padding: 1em;
 }
