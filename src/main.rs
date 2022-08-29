@@ -105,16 +105,18 @@ struct AdminContext {
     overrides: Vec<AdminOverride>,
 }
 
-fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, &'a str> {
+fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, String> {
     let mut context = HashMap::new();
     context.insert(
         "theme",
         match cookies.get("theme") {
-            Some(cookie) => cookie.value(),
-            None => "system",
+            Some(cookie) => cookie.value().to_owned(),
+            None => "system".to_owned(),
         },
     );
-    context.insert("page", page);
+    let current_date = chrono::Utc::now().date();
+    context.insert("year", current_date.format("%Y").to_string());
+    context.insert("page", page.to_owned());
     context
 }
 
