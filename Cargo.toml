@@ -5,11 +5,9 @@ authors = ["aravk <aravkasi@gmail.com>"]
 edition = "2021"
 
 [dependencies]
-dotenv = "0.15"
 regex = "1.4"
 argon2 = "0.3"
 rand = "0.8.3"
-multipart = "0.17.1"
 zip = { version = "0.5.9", default-features = false, features = ["deflate"] }
 native-tls = "0.2.7"
 chrono = "0.4"
@@ -22,3 +20,6 @@ rocket_dyn_templates = { version = "0.1.0-rc.2", features = ["tera"] }
 sqlx = { version = "0.5", features = ["postgres", "sqlite", "tls", "migrate", "macros", "time"] }
 rocket_db_pools = { version = "0.1.0-rc.2", features = ["sqlx_postgres", "sqlx_sqlite"] }
 log = "0.4"
+
+[profile.dev.package.sqlx-macros]
+opt-level = 3
