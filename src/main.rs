@@ -4,7 +4,6 @@ use argon2::{
 };
 use db::Db;
 use rocket::{
-    fairing::AdHoc,
     form::Form,
     fs::{relative, FileServer, TempFile},
     get,
