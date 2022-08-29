@@ -1,21 +1,25 @@
-use io::Read;
-use multipart::server::Multipart;
+use argon2::{
+    password_hash::{PasswordHash, PasswordVerifier},
+    Argon2,
+};
+use db::Db;
 use rocket::{
-    fs::relative,
-    http::{ContentType, CookieJar, Cookie, Status},
-    response::status::Custom, Data, FromForm, get, post,
-    form::Form, serde::json::Json, fs::FileServer, routes, launch,
+    form::Form,
+    fs::{relative, FileServer, TempFile},
+    get,
+    http::{ContentType, Cookie, CookieJar},
+    launch, post,
+    response::status::Custom,
+    routes,
+    serde::json::Json,
+    tokio::fs,
+    FromForm, fairing::AdHoc,
 };
 use rocket_db_pools::Connection;
 use rocket_dyn_templates::Template;
 use serde::Serialize;
-use argon2::{password_hash::{PasswordHash, PasswordVerifier}, Argon2};
-use std::{
-    collections::HashMap,
-    env,
-    io::{self, Cursor},
-};
-use db::Db;
+use std::{collections::HashMap, env};
+use uuid::Uuid;
 
 mod actions;
 mod db;
@@ -46,6 +50,13 @@ struct SingleField {
 pub struct OrderedImport {
     number: usize,
     method: String,
+}
+
+#[derive(FromForm)]
+pub struct AnkiImport<'f> {
+    only_learnt: bool,
+    #[field(validate = ext(ContentType::ZIP))]
+    file: TempFile<'f>,
 }
 
 #[derive(FromForm)]
@@ -181,53 +192,16 @@ async fn post_report(db: Connection<Db>, report: Form<Report>) -> String {
     save_report(db, report).await
 }
 
-#[post("/import_anki", data = "<data>")]
-fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custom<String>> {
-    // Validate data
-    if !cont_type.is_form_data() {
-        return Err(Custom(
-            Status::BadRequest,
-            "Content-Type not multipart/form-data".into(),
-        ));
-    }
-
-    let (_, boundary) = cont_type
-        .params()
-        .find(|&(k, _)| k == "boundary")
-        .ok_or_else(|| {
-            Custom(
-                Status::BadRequest,
-                "`Content-Type: multipart/form-data` boundary param not provided".into(),
-            )
-        })?;
-
-    // TODO: fix form handling
-    // Read data
-    let mut only_learnt = String::new();
-    let mut buf = Vec::new();
-    let mut form_data = Multipart::with_body(data.open(), boundary);
-    form_data
-        .read_entry()
-        .unwrap()
-        .unwrap()
-        .data
-        .read_to_string(&mut only_learnt)
-        .unwrap();
-    form_data
-        .read_entry()
-        .unwrap()
-        .unwrap()
-        .data
-        .read_to_end(&mut buf)
-        .unwrap();
-    // The maximum allowed file size is 4 MiB
-    if buf.len() > 4194304 {
-        return Err(Custom(
-            Status::PayloadTooLarge,
-            String::from("File too large"),
-        ));
-    }
-    extract_kanji_from_anki_deck(Cursor::new(buf), only_learnt == "true")
+#[post("/import_anki", data = "<import_settings>")]
+async fn post_import_anki(
+    cont_type: &ContentType,
+    mut import_settings: Form<AnkiImport<'_>>,
+) -> Result<String, Custom<String>> {
+    let path = Uuid::new_v4().to_string();
+    import_settings.file.persist_to(&path).await.unwrap();
+    extract_kanji_from_anki_deck(&path, import_settings.only_learnt);
+    fs::remove_file(path).await;
+    Ok("success".to_owned())
 }
 
 // TODO: unify into heirarchical api
