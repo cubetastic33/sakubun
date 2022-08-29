@@ -52,59 +52,59 @@
     </a>
   </nav>
   {% block content %}{% endblock content %}
-<script src="/scripts/jquery-3.5.1.min.js"></script>
-<script>
-  function get_cookie(name) {
-    let nameEQ = name + "=";
-    let ca = document.cookie.split(";");
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === " ") c = c.substring(1, c.length);
-      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
-  }
-
-  // Set theme when loaded from service worker
-  if (get_cookie("theme")) {
-    $("body").attr("class", get_cookie("theme"));
-    $("header button").removeClass("active");
-    $(`#${get_cookie("theme")}`).addClass("active");
-  }
-
-  $(window).on("load", () => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/service-worker.js");
-    }
-  });
-  function reorder_theme_icons() {
-    $("header div").append($("#system"))
-      .append($("#dark"))
-      .append($("#light"))
-      .append($("header button.active"));
-  }
-
-  reorder_theme_icons();
-
-  $("header div button").click(function() {
-    if ($(this).parent().hasClass("open")) {
-      $("header div button").removeClass("active");
-      $(this).addClass("active");
-      if (this.id === "system") {
-        // Delete the cookie
-        document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        $("body").attr("class", "");
-      } else {
-        document.cookie = "theme=" + this.id + "; SameSite=Lax;";
-        $("body").attr("class", this.id);
+  <script src="/scripts/jquery-3.5.1.min.js"></script>
+  <script>
+    function get_cookie(name) {
+      let nameEQ = name + "=";
+      let ca = document.cookie.split(";");
+      for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === " ") c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
       }
-      $(this).parent().append($(this));
-    } else {
-      reorder_theme_icons();
+      return null;
     }
-    $(this).parent().toggleClass("open");
-  });
-</script>
-{% block javascript %}{% endblock javascript %}
+
+    // Set theme when loaded from service worker
+    if (get_cookie("theme")) {
+      $("body").attr("class", get_cookie("theme"));
+      $("header button").removeClass("active");
+      $(`#${get_cookie("theme")}`).addClass("active");
+    }
+
+    $(window).on("load", () => {
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js");
+      }
+    });
+    function reorder_theme_icons() {
+      $("header div").append($("#system"))
+        .append($("#dark"))
+        .append($("#light"))
+        .append($("header button.active"));
+    }
+
+    reorder_theme_icons();
+
+    $("header div button").click(function() {
+      if ($(this).parent().hasClass("open")) {
+        $("header div button").removeClass("active");
+        $(this).addClass("active");
+        if (this.id === "system") {
+          // Delete the cookie
+          document.cookie = "theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          $("body").attr("class", "");
+        } else {
+          document.cookie = "theme=" + this.id + "; SameSite=Lax;";
+          $("body").attr("class", this.id);
+        }
+        $(this).parent().append($(this));
+      } else {
+        reorder_theme_icons();
+      }
+      $(this).parent().toggleClass("open");
+    });
+  </script>
+  {% block javascript %}{% endblock javascript %}
 </body>
 </html>
