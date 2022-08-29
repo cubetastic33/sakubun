@@ -1,0 +1,2 @@
+[default.databases.fixes]
+url = "host=localhost port=5432 dbname=sakubun connect_timeout=10"

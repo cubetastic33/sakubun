@@ -9,17 +9,16 @@ dotenv = "0.15"
 regex = "1.4"
 argon2 = "0.3"
 rand = "0.8.3"
-rocket = { version = "0.4.10", features = ["private-cookies"] }
-rocket_contrib = { version = "0.4.10", features = ["tera_templates"] }
 multipart = "0.17.1"
 zip = { version = "0.5.9", default-features = false, features = ["deflate"] }
-rusqlite = { version = "0.24.2", features = ["bundled"] }
-postgres = { version = "0.19", features = ["with-chrono-0_4"] }
-postgres-native-tls = "0.5"
 native-tls = "0.2.7"
 chrono = "0.4"
 uuid = { version = "0.8.2", features = ["v4"] }
-serde = "1.0"
-serde_derive = "1.0"
+serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 reqwest = { version = "0.11", features = ["blocking", "json"] }
+rocket = { version = "0.5.0-rc.2", features = ["secrets", "json"] }
+rocket_dyn_templates = { version = "0.1.0-rc.2", features = ["tera"] }
+sqlx = { version = "0.5", features = ["postgres", "sqlite", "tls", "migrate", "macros", "time"] }
+rocket_db_pools = { version = "0.1.0-rc.2", features = ["sqlx_postgres", "sqlx_sqlite"] }
+log = "0.4"
