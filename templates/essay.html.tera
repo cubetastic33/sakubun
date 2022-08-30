@@ -59,7 +59,24 @@
     </form>
   </dialog>
   <div class="overlay"></div>
+  <dialog id="import_dialog">
+    <h3>Import Essays</h3>
+    <form>
+      This feature has not been implemented yet (coming soon, so don't panic!)
+      <ul></ul>
+      <div>
+        <button type="reset" class="text close">Cancel</button>
+        <button type="submit">Import</button>
+      </div>
+    </form>
+  </dialog>
+  <div class="overlay"></div>
   <main>
+    <div id="redirectBanner" style="margin-bottom: 2em;">
+      If you want to transfer your existing essays from the old URL to this one, click
+      <a href="https://sakubun.herokuapp.com/export_essays">here</a> to export your old essays,
+      and then import it by clicking here: <input type="file" id="importEssays" accept="text/plain">
+    </div>
     <section id="saved">
       <p>View a saved essay:</p>
       <ul>
@@ -98,4 +115,11 @@
 
 {% block javascript %}
   <script src="/scripts/essay.js"></script>
+  <script>
+    $('#redirectBanner').show();
+    $('#importEssays').on('change', () => {
+      $('#import_dialog + .overlay').show();
+      $('#import_dialog').show('slow');
+    });
+  </script>
 {% endblock javascript %}
