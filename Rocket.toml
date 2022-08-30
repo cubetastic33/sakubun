@@ -1,8 +1,5 @@
-[debug]
-port = "8000"
-secret_key = "dev key"
-
 [default.limits]
+data-form = "7 MiB"
 file = "4 MiB"
 
 [default.databases.fixes]
