@@ -6,8 +6,6 @@ use rocket_db_pools::{sqlx, Database};
 #[database("fixes")]
 pub struct Db(sqlx::PgPool);
 
-pub type Result<T, E = rocket::response::Debug<sqlx::Error>> = std::result::Result<T, E>;
-
 pub async fn run_migrations(rocket: Rocket<Build>) -> fairing::Result {
     match Db::fetch(&rocket) {
         Some(db) => match sqlx::migrate!().run(&**db).await {
