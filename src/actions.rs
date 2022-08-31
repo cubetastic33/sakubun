@@ -1,5 +1,5 @@
 use crate::db::Db;
-use sqlx::{query, Connection as _, Row, SqliteConnection, PgConnection};
+use sqlx::{query, Connection as _, PgConnection, Row, SqliteConnection};
 
 use super::{
     AddOverride, AdminOverride, AdminReport, EditOverride, OrderedImport, QuizSettings, Report,
@@ -128,7 +128,7 @@ impl Sentence for AdminOverride {
 }
 
 async fn fill_sentences<T: Sentence>(
-    mut db: Connection<Db>,
+    db: &mut PgConnection,
     sentences: &mut Vec<T>,
     add_overrides: bool,
 ) {
@@ -166,7 +166,7 @@ async fn fill_sentences<T: Sentence>(
         "SELECT * FROM overrides WHERE sentence_id = ANY($1) ORDER BY primary_value DESC",
         &sentence_ids
     )
-    .fetch_all(&mut *db)
+    .fetch_all(db)
     .await
     .unwrap()
     {
@@ -187,12 +187,12 @@ async fn fill_sentences<T: Sentence>(
     }
 }
 
-pub fn get_sentences(
-    db: Connection<Db>,
+pub async fn get_sentences(
+    mut db: Connection<Db>,
     quiz_settings: Form<QuizSettings>,
 ) -> Result<Vec<[String; 4]>, Box<dyn Error>> {
     let mut sentences = Vec::new();
-    let mut rng = thread_rng();
+    let mut rng = StdRng::from_entropy();
 
     let known_kanji: HashSet<_> = quiz_settings.known_kanji.chars().collect();
     // Read the sentences and shuffle the order
@@ -228,14 +228,17 @@ pub fn get_sentences(
         }
     }
     // Fill the readings and overrides
-    fill_sentences(db, &mut sentences, true);
+    fill_sentences(&mut db, &mut sentences, true).await;
     Ok(sentences)
 }
 
-pub fn generate_essay(db: Connection<Db>, quiz_settings: Form<QuizSettings>) -> Vec<[String; 4]> {
+pub async fn generate_essay(
+    mut db: Connection<Db>,
+    quiz_settings: Form<QuizSettings>,
+) -> Vec<[String; 4]> {
     let mut essay = Vec::new();
     let mut sentences = Vec::new();
-    let mut rng = thread_rng();
+    let mut rng = StdRng::from_entropy();
 
     // TODO: use unicode crate for this?
     let mut known_kanji: HashSet<_> = quiz_settings.known_kanji.chars().collect();
@@ -270,7 +273,7 @@ pub fn generate_essay(db: Connection<Db>, quiz_settings: Form<QuizSettings>) -> 
         }
     }
     // Fill the readings and overrides
-    fill_sentences(db, &mut sentences, true);
+    fill_sentences(&mut db, &mut sentences, true).await;
 
     // As long as we have known kanji that aren't in the essay, keep iterating
     while known_kanji.len() != 0 {
@@ -354,7 +357,8 @@ pub async fn save_report(mut db: Connection<Db>, report: Form<Report>) -> String
         report.comment.as_ref(),
     )
     .execute(&mut *db)
-    .await;
+    .await
+    .unwrap();
     // TODO: use correct return for save_report
     String::from("success")
 }
@@ -429,8 +433,8 @@ pub async fn get_admin_stuff(mut db: Connection<Db>) -> (Vec<AdminReport>, Vec<A
         add_question_and_translation!(overrides, overrides_sentence_ids, record);
     }
     // Fill the readings and overrides
-    fill_sentences(db, &mut reports, true);
-    fill_sentences(db, &mut overrides, false);
+    fill_sentences(&mut db, &mut reports, true).await;
+    fill_sentences(&mut db, &mut overrides, false).await;
     (reports, overrides)
 }
 

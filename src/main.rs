@@ -128,32 +128,32 @@ fn create_context<'a>(cookies: &'a CookieJar, page: &'a str) -> HashMap<&'a str,
 
 #[get("/")]
 fn get_index(cookies: &CookieJar<'_>) -> Template {
-    Template::render("index", create_context(&cookies, "/"))
+    Template::render("index", create_context(cookies, "/"))
 }
 
 #[get("/known_kanji")]
 fn get_known_kanji(cookies: &CookieJar<'_>) -> Template {
-    Template::render("known_kanji", create_context(&cookies, "known_kanji"))
+    Template::render("known_kanji", create_context(cookies, "known_kanji"))
 }
 
 #[get("/quiz")]
 fn get_quiz(cookies: &CookieJar<'_>) -> Template {
-    Template::render("quiz", create_context(&cookies, "quiz"))
+    Template::render("quiz", create_context(cookies, "quiz"))
 }
 
 #[get("/essay")]
 fn get_essay(cookies: &CookieJar<'_>) -> Template {
-    Template::render("essay", create_context(&cookies, "essay"))
+    Template::render("essay", create_context(cookies, "essay"))
 }
 
 #[get("/custom_text")]
 fn get_custom_text(cookies: &CookieJar<'_>) -> Template {
-    Template::render("custom_text", create_context(&cookies, "custom_text"))
+    Template::render("custom_text", create_context(cookies, "custom_text"))
 }
 
 #[get("/offline")]
 fn get_offline(cookies: &CookieJar<'_>) -> Template {
-    Template::render("offline", create_context(&cookies, "offline"))
+    Template::render("offline", create_context(cookies, "offline"))
 }
 
 #[get("/admin")]
@@ -180,8 +180,9 @@ async fn get_admin(db: Connection<Db>, cookies: &CookieJar<'_>) -> Template {
 }
 
 #[post("/sentences", data = "<quiz_settings>")]
-fn post_sentences(db: Connection<Db>, quiz_settings: Form<QuizSettings>) -> String {
+async fn post_sentences(db: Connection<Db>, quiz_settings: Form<QuizSettings>) -> String {
     get_sentences(db, quiz_settings)
+        .await
         .unwrap()
         .iter()
         .map(|x| x.join("~"))
@@ -197,13 +198,14 @@ async fn post_report(db: Connection<Db>, report: Form<Report>) -> String {
 
 #[post("/import_anki", data = "<import_settings>")]
 async fn post_import_anki(
-    cont_type: &ContentType,
     mut import_settings: Form<AnkiImport<'_>>,
 ) -> Result<String, Custom<String>> {
     let path = Uuid::new_v4().to_string();
     import_settings.file.persist_to(&path).await.unwrap();
-    extract_kanji_from_anki_deck(&path, import_settings.only_learnt);
-    fs::remove_file(path).await;
+    extract_kanji_from_anki_deck(&path, import_settings.only_learnt)
+        .await
+        .unwrap();
+    fs::remove_file(path).await.unwrap();
     Ok("success".to_owned())
 }
 
@@ -235,13 +237,16 @@ fn post_import_kanken(import_settings: Form<OrderedImport>) -> Result<String, Cu
 }
 
 #[post("/essay", data = "<quiz_settings>")]
-fn post_essay(db: Connection<Db>, quiz_settings: Form<QuizSettings>) -> Json<Vec<[String; 4]>> {
+async fn post_essay(
+    db: Connection<Db>,
+    quiz_settings: Form<QuizSettings>,
+) -> Json<Vec<[String; 4]>> {
     // TODO: do this in a separate thread
-    Json(generate_essay(db, quiz_settings))
+    Json(generate_essay(db, quiz_settings).await)
 }
 
 #[post("/admin_signin", data = "<password>")]
-fn post_admin_signin(password: Form<SingleField>, mut cookies: &CookieJar<'_>) -> String {
+fn post_admin_signin(password: Form<SingleField>, cookies: &CookieJar<'_>) -> String {
     let argon2 = Argon2::default();
     let admin_hash = env::var("ADMIN_HASH").unwrap();
     let parsed_hash = PasswordHash::new(&admin_hash).unwrap();
@@ -323,7 +328,7 @@ async fn post_edit_override(
 }
 
 #[post("/admin_signout")]
-fn post_admin_signout(mut cookies: &CookieJar<'_>) -> String {
+fn post_admin_signout(cookies: &CookieJar<'_>) -> String {
     cookies.remove_private(Cookie::named("admin_hash"));
     String::from("success")
 }
