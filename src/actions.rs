@@ -188,7 +188,7 @@ async fn fill_sentences<T: Sentence>(
 }
 
 pub fn get_sentences(
-    client: Connection<Db>,
+    db: Connection<Db>,
     quiz_settings: Form<QuizSettings>,
 ) -> Result<Vec<[String; 4]>, Box<dyn Error>> {
     let mut sentences = Vec::new();
@@ -228,14 +228,11 @@ pub fn get_sentences(
         }
     }
     // Fill the readings and overrides
-    fill_sentences(client, &mut sentences, true);
+    fill_sentences(db, &mut sentences, true);
     Ok(sentences)
 }
 
-pub fn generate_essay(
-    client: Connection<Db>,
-    quiz_settings: Form<QuizSettings>,
-) -> Vec<[String; 4]> {
+pub fn generate_essay(db: Connection<Db>, quiz_settings: Form<QuizSettings>) -> Vec<[String; 4]> {
     let mut essay = Vec::new();
     let mut sentences = Vec::new();
     let mut rng = thread_rng();
@@ -273,7 +270,7 @@ pub fn generate_essay(
         }
     }
     // Fill the readings and overrides
-    fill_sentences(client, &mut sentences, true);
+    fill_sentences(db, &mut sentences, true);
 
     // As long as we have known kanji that aren't in the essay, keep iterating
     while known_kanji.len() != 0 {
