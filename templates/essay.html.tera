@@ -62,25 +62,29 @@
   <dialog id="import_dialog">
     <h3>Import Essays</h3>
     <form>
+      <label for="import_file">Select a file:</label>
+      <input id="import_file" type="file" accept="text/plain">
+      <br><br>
       <span id="num_found">0</span> essays found
       <ul></ul>
       <div>
         <button type="reset" class="text close">Cancel</button>
-        <button type="submit">Import</button>
+        <button id="import_submit" type="submit">Import</button>
       </div>
     </form>
   </dialog>
   <div class="overlay"></div>
   <main>
     <div id="redirectBanner" style="margin-bottom: 2em;">
-      If you want to transfer your existing essays from the old URL to this one, click
-      <a href="https://sakubun.herokuapp.com/export_essays">here</a> to export your old essays,
-      and then import it by clicking here: <input type="file" id="importEssays" accept="text/plain">
+      Click <a href="https://sakubun.herokuapp.com/export_essays">here</a> to export your essays
+      from the old URL if you want to import them here.
     </div>
     <section id="saved">
       <p>View a saved essay:</p>
       <ul>
       </ul>
+      <button id="export" class="text">Export Essays</button>
+      <br>
       <p>Or generate a new one:</p>
     </section>
     <form id="settings">
@@ -94,7 +98,10 @@
         kanji
       </div>
       <br>
-      <button type="submit" id="generate">Generate</button>
+      <div class="buttons">
+        <button id="import_button" class="text" type="button">Import Essays</button>
+        <button id="generate" type="submit">Generate</button>
+      </div>
     </form>
     <p id="info">Click on a sentence to get more information.</p>
     <div id="essay_header">
@@ -117,89 +124,5 @@
   <script src="/scripts/essay.js"></script>
   <script>
     $('#redirectBanner').show();
-    $('#importEssays').on('change', () => {
-      $('#import_dialog + .overlay').show();
-      $('#import_dialog').show('slow');
-      $('#import_dialog ul').empty();
-      $('#num_found').text(0);
-      let file = document.getElementById('importEssays').files[0];
-      if (file) {
-        let reader = new FileReader();
-        reader.readAsText(file, 'UTF-8');
-        reader.onload = e => {
-          $('#import_dialog ul').empty();
-          let num_essays = 0;
-          let essays = JSON.parse(e.target.result.trim() !== 'null' ? e.target.result.trim() : '');
-          for (let i = 0; i < essays.length; i++) {
-            num_essays += essays[i].length === 3;
-            $('#import_dialog ul').append(`<li>${essays[i][1]}</li>`);
-          }
-          $('#num_found').text(num_essays);
-        }
-        reader.onerror = _ => {
-          console.log('Error reading file!');
-          $('#import_dialog ul').empty();
-          $('#num_found').text(0);
-        }
-      }
-    });
-
-    $('#import_dialog form').on('submit', e => {
-      e.preventDefault();
-      let file = document.getElementById('importEssays').files[0];
-      if (file) {
-        let reader = new FileReader();
-        reader.readAsText(file, 'UTF-8');
-        reader.onload = e => {
-          let essays = JSON.parse(e.target.result.trim() !== 'null' ? e.target.result.trim() : '');
-          for (let i = 0; i < essays.length; i++) {
-            // Add the essay to the list of saved essays
-            let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
-            if (saved_essays === null) saved_essays = [];
-            let exists = false;
-            for (let j = 0; j < saved_essays.length; j++) {
-              if (saved_essays[j][0] === essays[i][0]) {
-                exists = true;
-                break;
-              }
-            }
-            if (exists) continue;
-            saved_essays.push([essays[i][0], essays[i][1]]);
-            localStorage.setItem('saved_essays', JSON.stringify(saved_essays));
-            // Save the actual essay
-            localStorage.setItem('essay' + essays[i][0], essays[i][2]);
-          }
-          // Update the essays displayed in the UI
-          let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
-          $('#saved ul').empty();
-          if (saved_essays && saved_essays.length) {
-            for (let i = 0; i < saved_essays.length; i++) {
-              $('#saved ul').append(`<li data-timestamp="${saved_essays[i][0]}">${saved_essays[i][1]}</li>`);
-            }
-            $('#saved').show();
-            $('#saved li').on('click', function () {
-              $settings.hide();
-              $saved.hide();
-              $('#redirectBanner').hide();
-              // Show the saved essay
-              $('#essay')
-                .html(localStorage.getItem('essay' + this.dataset.timestamp))
-                .data('timestamp', this.dataset.timestamp);
-              $('#saved_name').text(this.innerText);
-              handle_essay_clicks();
-              $('#info, #unsave, #saved_name').show();
-            });
-          } else {
-            $('#saved').hide();
-          }
-          $('#import_dialog').hide('slow', () => $('#import_dialog + .overlay').hide());
-        }
-        reader.onerror = _ => {
-          console.log('Error reading file!');
-          $('#import_dialog ul').empty();
-          $('#num_found').text(0);
-        }
-      }
-    });
   </script>
 {% endblock javascript %}
