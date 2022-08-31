@@ -138,7 +138,7 @@
     <form id="quiz_container">
       <div id="quiz">
         <div id="question"></div>
-        <textarea type="text" id="answer" rows="1"></textarea>
+        <textarea type="text" id="answer" rows="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
         <div id="evaluation"></div>
         <div id="kana"></div>
         <div id="meaning"></div>
