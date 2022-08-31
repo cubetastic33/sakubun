@@ -1,5 +1,6 @@
 use crate::db::Db;
 use sqlx::{query, Connection as _, PgConnection, Row, SqliteConnection};
+use serde::Deserialize;
 
 use super::{
     AddOverride, AdminOverride, AdminReport, EditOverride, OrderedImport, QuizSettings, Report,
@@ -141,17 +142,23 @@ async fn fill_sentences<T: Sentence>(
         }
     }
     // Add the readings from the file
-    let kana_records = fs::read_to_string("kana_sentences.txt").unwrap();
-    for result in kana_records.lines() {
+    #[derive(Deserialize)]
+    struct Record {
+        id: i32,
+        sentence: String,
+    }
+    let mut kana_records = csv::ReaderBuilder::new()
+        .has_headers(false)
+        .delimiter(b'\t')
+        .from_path("kana_sentences.txt")
+        .unwrap();
+    for record in kana_records.deserialize() {
         // Parse the values
-        let record: Vec<_> = result.split('\t').collect();
-        if record.len() != 2 {
-            continue;
-        }
+        let record: Record = record.unwrap();
         // If this record is in the queue
-        if let Some(indices) = queue.get(&record[0].parse().unwrap()) {
+        if let Some(indices) = queue.get(&record.id) {
             for index in indices {
-                sentences[*index].set("reading", record[1].to_owned());
+                sentences[*index].set("reading", record.sentence.clone());
             }
         }
     }
