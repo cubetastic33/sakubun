@@ -1,4 +1,4 @@
-CREATE TABLE overrides (
+CREATE TABLE IF NOT EXISTS overrides (
     id serial PRIMARY KEY,
     sentence_id INTEGER NOT NULL,
     override_type VARCHAR NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE overrides (
     primary_value BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE reports (
+CREATE TABLE IF NOT EXISTS reports (
     id serial PRIMARY KEY,
     sentence_id INTEGER NOT NULL,
     report_type VARCHAR NOT NULL,
