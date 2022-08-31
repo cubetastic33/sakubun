@@ -1,6 +1,6 @@
 use crate::db::Db;
-use sqlx::{query, Connection as _, PgConnection, Row, SqliteConnection};
 use serde::Deserialize;
+use sqlx::{query, Connection as _, PgConnection, Row, SqliteConnection};
 
 use super::{
     AddOverride, AdminOverride, AdminReport, EditOverride, OrderedImport, QuizSettings, Report,
@@ -376,8 +376,8 @@ macro_rules! add_question_and_translation {
         // We're doing a for loop because the ID could be there multiple times
         for (index, sentence_id) in $queue.iter().enumerate() {
             if *sentence_id == $record.id {
-                $vector[index].question = $record.jap_sentence;
-                $vector[index].translation = $record.eng_sentence;
+                $vector[index].question = $record.jap_sentence.clone();
+                $vector[index].translation = $record.eng_sentence.clone();
             }
         }
     };
@@ -389,7 +389,7 @@ pub async fn get_admin_stuff(mut db: Connection<Db>) -> (Vec<AdminReport>, Vec<A
     // Variable to store the overrides
     let mut overrides = Vec::new();
     // Read the sentences
-    let sentences = csv::ReaderBuilder::new()
+    let mut sentences = csv::ReaderBuilder::new()
         .delimiter(b'\t')
         .has_headers(false)
         .from_path("sentences.csv")
@@ -404,7 +404,7 @@ pub async fn get_admin_stuff(mut db: Connection<Db>) -> (Vec<AdminReport>, Vec<A
         .await
         .unwrap()
     {
-        reports_sentence_ids.push(row.sentence_id.to_string());
+        reports_sentence_ids.push(row.sentence_id);
         reports.push(AdminReport {
             report_id: row.id,
             sentence_id: row.sentence_id,
@@ -422,7 +422,7 @@ pub async fn get_admin_stuff(mut db: Connection<Db>) -> (Vec<AdminReport>, Vec<A
         .await
         .unwrap()
     {
-        overrides_sentence_ids.push(row.sentence_id.to_string());
+        overrides_sentence_ids.push(row.sentence_id);
         overrides.push(AdminOverride {
             override_id: row.id,
             sentence_id: row.sentence_id,
@@ -438,7 +438,7 @@ pub async fn get_admin_stuff(mut db: Connection<Db>) -> (Vec<AdminReport>, Vec<A
         id: i32,
         jap_sentence: String,
         eng_sentence: String,
-        kanji_in_sentence: String,
+        _kanji_in_sentence: String,
     }
     for record in sentences.deserialize() {
         // Parse the values
@@ -677,11 +677,15 @@ pub async fn add_override(mut db: Connection<Db>, override_details: Form<AddOver
     let mut original_translation = String::new();
     let mut original_reading = String::new();
     // Read the sentences file
-    let records = fs::read_to_string("sentences.csv").unwrap();
+    let mut records = csv::ReaderBuilder::new()
+        .delimiter(b'\t')
+        .has_headers(false)
+        .from_path("sentences.csv")
+        .unwrap();
     // Iterate over the sentences to add the question and translation
-    for result in records.lines() {
+    for record in records.records() {
         // Parse the values
-        let record: Vec<_> = result.split('\t').collect();
+        let record = record.unwrap();
         if record[0] == sentence_id.to_string() {
             original_question = record[1].to_owned();
             original_translation = record[2].to_owned();
@@ -689,11 +693,15 @@ pub async fn add_override(mut db: Connection<Db>, override_details: Form<AddOver
         }
     }
     // Read the readings file
-    let records = fs::read_to_string("kana_sentences.txt").unwrap();
+    let mut records = csv::ReaderBuilder::new()
+        .delimiter(b'\t')
+        .has_headers(false)
+        .from_path("kana_sentences.txt")
+        .unwrap();
     // Iterate over the readings
-    for result in records.lines() {
+    for record in records.records() {
         // Parse the values
-        let record: Vec<_> = result.split('\t').collect();
+        let record = record.unwrap();
         if record[0] == sentence_id.to_string() {
             original_reading = record[1].to_owned();
             break;
