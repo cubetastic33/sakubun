@@ -20,6 +20,7 @@ rocket_dyn_templates = { version = "0.1.0-rc.2", features = ["tera"] }
 sqlx = { version = "0.5", features = ["postgres", "sqlite", "tls", "migrate", "macros", "time"] }
 rocket_db_pools = { version = "0.1.0-rc.2", features = ["sqlx_postgres", "sqlx_sqlite"] }
 log = "0.4"
+csv = "1.1.6"
 
 [profile.dev.package.sqlx-macros]
 opt-level = 3
