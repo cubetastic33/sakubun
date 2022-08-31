@@ -375,9 +375,9 @@ macro_rules! add_question_and_translation {
     ($vector:ident, $queue:ident, $record:ident) => {
         // We're doing a for loop because the ID could be there multiple times
         for (index, sentence_id) in $queue.iter().enumerate() {
-            if sentence_id == $record[0] {
-                $vector[index].question = $record[1].to_string();
-                $vector[index].translation = $record[2].to_string();
+            if *sentence_id == $record.id {
+                $vector[index].question = $record.jap_sentence;
+                $vector[index].translation = $record.eng_sentence;
             }
         }
     };
@@ -389,7 +389,11 @@ pub async fn get_admin_stuff(mut db: Connection<Db>) -> (Vec<AdminReport>, Vec<A
     // Variable to store the overrides
     let mut overrides = Vec::new();
     // Read the sentences
-    let records = fs::read_to_string("sentences.csv").unwrap();
+    let sentences = csv::ReaderBuilder::new()
+        .delimiter(b'\t')
+        .has_headers(false)
+        .from_path("sentences.csv")
+        .unwrap();
     // Variable to store a queue of sentence IDs that'll be used after we've
     // collected all of them
     let mut reports_sentence_ids = Vec::new();
@@ -429,12 +433,16 @@ pub async fn get_admin_stuff(mut db: Connection<Db>) -> (Vec<AdminReport>, Vec<A
         });
     }
     // Iterate over the sentences to add the question and translation
-    for result in records.lines() {
+    #[derive(Deserialize)]
+    struct Record {
+        id: i32,
+        jap_sentence: String,
+        eng_sentence: String,
+        kanji_in_sentence: String,
+    }
+    for record in sentences.deserialize() {
         // Parse the values
-        let record: Vec<_> = result.split('\t').collect();
-        if record.len() != 4 {
-            continue;
-        }
+        let record: Record = record.unwrap();
         // If this record's ID is in any of the sentence_ids vectors
         add_question_and_translation!(reports, reports_sentence_ids, record);
         add_question_and_translation!(overrides, overrides_sentence_ids, record);
