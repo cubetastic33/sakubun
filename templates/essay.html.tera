@@ -62,7 +62,7 @@
   <dialog id="import_dialog">
     <h3>Import Essays</h3>
     <form>
-      This feature has not been implemented yet (coming soon, so don't panic!)
+      <span id="num_found">0</span> essays found
       <ul></ul>
       <div>
         <button type="reset" class="text close">Cancel</button>
@@ -120,6 +120,86 @@
     $('#importEssays').on('change', () => {
       $('#import_dialog + .overlay').show();
       $('#import_dialog').show('slow');
+      $('#import_dialog ul').empty();
+      $('#num_found').text(0);
+      let file = document.getElementById('importEssays').files[0];
+      if (file) {
+        let reader = new FileReader();
+        reader.readAsText(file, 'UTF-8');
+        reader.onload = e => {
+          $('#import_dialog ul').empty();
+          let num_essays = 0;
+          let essays = JSON.parse(e.target.result.trim() !== 'null' ? e.target.result.trim() : '');
+          for (let i = 0; i < essays.length; i++) {
+            num_essays += essays[i].length === 3;
+            $('#import_dialog ul').append(`<li>${essays[i][1]}</li>`);
+          }
+          $('#num_found').text(num_essays);
+        }
+        reader.onerror = _ => {
+          console.log('Error reading file!');
+          $('#import_dialog ul').empty();
+          $('#num_found').text(0);
+        }
+      }
+    });
+
+    $('#import_dialog form').on('submit', e => {
+      e.preventDefault();
+      let file = document.getElementById('importEssays').files[0];
+      if (file) {
+        let reader = new FileReader();
+        reader.readAsText(file, 'UTF-8');
+        reader.onload = e => {
+          let essays = JSON.parse(e.target.result.trim() !== 'null' ? e.target.result.trim() : '');
+          for (let i = 0; i < essays.length; i++) {
+            // Add the essay to the list of saved essays
+            let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
+            if (saved_essays === null) saved_essays = [];
+            let exists = false;
+            for (let j = 0; j < saved_essays.length; j++) {
+              if (saved_essays[j][0] === essays[i][0]) {
+                exists = true;
+                break;
+              }
+            }
+            if (exists) continue;
+            saved_essays.push([essays[i][0], essays[i][1]]);
+            localStorage.setItem('saved_essays', JSON.stringify(saved_essays));
+            // Save the actual essay
+            localStorage.setItem('essay' + essays[i][0], essays[i][2]);
+          }
+          // Update the essays displayed in the UI
+          let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
+          $('#saved ul').empty();
+          if (saved_essays && saved_essays.length) {
+            for (let i = 0; i < saved_essays.length; i++) {
+              $('#saved ul').append(`<li data-timestamp="${saved_essays[i][0]}">${saved_essays[i][1]}</li>`);
+            }
+            $('#saved').show();
+            $('#saved li').on('click', function () {
+              $settings.hide();
+              $saved.hide();
+              $('#redirectBanner').hide();
+              // Show the saved essay
+              $('#essay')
+                .html(localStorage.getItem('essay' + this.dataset.timestamp))
+                .data('timestamp', this.dataset.timestamp);
+              $('#saved_name').text(this.innerText);
+              handle_essay_clicks();
+              $('#info, #unsave, #saved_name').show();
+            });
+          } else {
+            $('#saved').hide();
+          }
+          $('#import_dialog').hide('slow', () => $('#import_dialog + .overlay').hide());
+        }
+        reader.onerror = _ => {
+          console.log('Error reading file!');
+          $('#import_dialog ul').empty();
+          $('#num_found').text(0);
+        }
+      }
     });
   </script>
 {% endblock javascript %}

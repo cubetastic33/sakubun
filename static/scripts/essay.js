@@ -55,6 +55,7 @@ function handle_essay_clicks() {
 $('#saved li').on('click', function () {
   $settings.hide();
   $saved.hide();
+  $('#redirectBanner').hide();
   // Show the saved essay
   $('#essay')
     .html(localStorage.getItem('essay' + this.dataset.timestamp))
