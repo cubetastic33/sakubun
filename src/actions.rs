@@ -1,5 +1,5 @@
 use crate::db::Db;
-use sqlx::{query, query_as, Connection as _, Row, SqliteConnection};
+use sqlx::{query, Connection as _, Row, SqliteConnection, PgConnection};
 
 use super::{
     AddOverride, AdminOverride, AdminReport, EditOverride, OrderedImport, QuizSettings, Report,
@@ -384,23 +384,38 @@ pub async fn get_admin_stuff(mut db: Connection<Db>) -> (Vec<AdminReport>, Vec<A
     let mut reports_sentence_ids = Vec::new();
     // Get the reports from the database
     // TODO: figure out admin stuff types
-    for row in query_as!(AdminReport, "SELECT * FROM reports ORDER BY id DESC",)
+    for row in query!("SELECT * FROM reports ORDER BY id DESC")
         .fetch_all(&mut *db)
         .await
         .unwrap()
     {
         reports_sentence_ids.push(row.sentence_id.to_string());
-        reports.push(row);
+        reports.push(AdminReport {
+            report_id: row.id,
+            sentence_id: row.sentence_id,
+            report_type: row.report_type,
+            suggested: row.suggested,
+            comment: row.comment,
+            reported_at: row.reported_at.to_string(),
+            ..Default::default()
+        });
     }
     // Get the overrides from the database
     let mut overrides_sentence_ids = Vec::new();
-    for row in query_as!(AdminOverride, "SELECT * FROM overrides ORDER BY id DESC",)
+    for row in query!("SELECT * FROM overrides ORDER BY id DESC")
         .fetch_all(&mut *db)
         .await
         .unwrap()
     {
         overrides_sentence_ids.push(row.sentence_id.to_string());
-        overrides.push(row);
+        overrides.push(AdminOverride {
+            override_id: row.id,
+            sentence_id: row.sentence_id,
+            override_type: row.override_type,
+            value: row.value,
+            primary_value: row.primary_value,
+            ..Default::default()
+        });
     }
     // Iterate over the sentences to add the question and translation
     for result in records.lines() {
@@ -631,8 +646,7 @@ pub async fn delete_from_table(mut db: Connection<Db>, table: String, id: i32) -
 }
 
 pub async fn add_override(mut db: Connection<Db>, override_details: Form<AddOverride>) -> String {
-    let row = query_as!(
-        AdminReport,
+    let row = query!(
         "SELECT sentence_id FROM reports WHERE id = $1",
         override_details.report_id
     )

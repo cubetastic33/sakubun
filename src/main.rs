@@ -78,7 +78,7 @@ pub struct EditOverride {
     primary_value: bool,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Default)]
 pub struct AdminReport {
     report_id: i32,
     sentence_id: i32,
@@ -91,7 +91,7 @@ pub struct AdminReport {
     reported_at: String,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, Default)]
 pub struct AdminOverride {
     override_id: i32,
     sentence_id: i32,
