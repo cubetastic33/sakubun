@@ -1,3 +1,14 @@
+// Commonly used selectors
+const $saved = $('#saved');
+const $saved_ul = $('#saved ul');
+const $settings = $('#settings');
+const $generate = $('#generate');
+const $report_dialog_button = $('#report_dialog button');
+const $save_dialog_button = $('#save_dialog button');
+const $num_found = $('#num_found');
+const $import_dialog_ul = $('#import_dialog ul');
+const $import_submit = $('#import_submit');
+
 let known_kanji = new Set(localStorage.getItem('known_kanji'));
 
 if (!known_kanji.size) {
@@ -14,14 +25,17 @@ if (!known_kanji.size) {
   let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
   if (saved_essays && saved_essays.length) {
     for (let i = 0; i < saved_essays.length; i++) {
-      $('#saved ul').append(`<li data-timestamp="${saved_essays[i][0]}">${saved_essays[i][1]}</li>`);
+      $saved_ul.append(`<li data-timestamp="${saved_essays[i][0]}">${saved_essays[i][1]}</li>`);
     }
   } else {
     $('#saved').hide();
   }
 }
 
+//
 // Restore settings from localStorage
+//
+
 let settings_min = localStorage.getItem('min_essay');
 let settings_max = localStorage.getItem('max_essay');
 
@@ -32,12 +46,6 @@ if (settings_min) $min.val(settings_min);
 if (settings_max) $max.val(settings_max);
 $max.prop('min', $min.val());
 $min.prop('max', $max.val());
-
-const $saved = $('#saved');
-const $settings = $('#settings');
-const $generate = $('#generate');
-const $report_dialog_button = $('#report_dialog button');
-const $save_dialog_button = $('#save_dialog button');
 
 function handle_essay_clicks() {
   // Add click handlers to the essay sentences
@@ -52,16 +60,150 @@ function handle_essay_clicks() {
   });
 }
 
-$('#saved li').on('click', function () {
-  $settings.hide();
-  $saved.hide();
-  // Show the saved essay
-  $('#essay')
-    .html(localStorage.getItem('essay' + this.dataset.timestamp))
-    .data('timestamp', this.dataset.timestamp);
-  $('#saved_name').text(this.innerText);
-  handle_essay_clicks();
-  $('#info, #unsave, #saved_name').show();
+function handle_essay_selection() {
+  // Add click handlers to allow selection of an essay
+  $('#saved li').on('click', function () {
+    $settings.hide();
+    $saved.hide();
+    $('#redirectBanner').hide();
+    // Show the saved essay
+    $('#essay')
+      .html(localStorage.getItem('essay' + this.dataset.timestamp))
+      .data('timestamp', this.dataset.timestamp);
+    $('#saved_name').text(this.innerText);
+    handle_essay_clicks();
+    $('#info, #unsave, #saved_name').show();
+  });
+}
+
+handle_essay_selection();
+
+//
+// Export saved essays
+//
+
+function download(filename, text) {
+  // Download a file
+  let element = document.createElement("a");
+  element.setAttribute("href", "data:text/plain;charset=utf-8," + encodeURIComponent(text));
+  element.setAttribute("download", filename);
+  element.style.display = "none";
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+}
+
+$('#export').on('click', function () {
+  let d = new Date();
+  let filename = `sakubun_essays_${d.getFullYear()}_${d.getMonth() + 1}_${d.getDate()}.txt`;
+  let essays = [];
+  let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
+  if (saved_essays === null) {
+    alert('No saved essays!');
+    return;
+  }
+  for (let i = 0; i < saved_essays.length; i++) {
+    essays.push([saved_essays[i][0], saved_essays[i][1], localStorage.getItem('essay' + saved_essays[i][0])]);
+  }
+  download(filename, JSON.stringify(essays));
+});
+
+//
+// Import essays from file
+//
+
+$('#import_button').on('click', () => {
+  // Reset the file stats
+  $num_found.text(0);
+  $import_dialog_ul.empty();
+  $import_submit.prop('disabled', true);
+  // Show the import dialog
+  $('#import_dialog + .overlay').show();
+  $('#import_dialog').show('slow');
+});
+
+$('#import_file').on('change', () => {
+  // A new file has been selected
+  $import_submit.prop('disabled', true);
+  // Reset the file stats
+  $num_found.text(0);
+  $import_dialog_ul.empty();
+  // Attempt to parse the file
+  let file = document.getElementById('import_file').files[0];
+  if (file) {
+    let reader = new FileReader();
+    reader.readAsText(file, 'UTF-8');
+    reader.onload = e => {
+      $import_dialog_ul.empty();
+      // Count the number of essays
+      let num_essays = 0;
+      if (e.target.result.trim() !== 'null') {
+        let essays = JSON.parse(e.target.result.trim());
+        for (let i = 0; i < essays.length; i++) {
+          // Only count it as an essay if it has 3 elements
+          num_essays += essays[i].length === 3;
+          // Display the name of the essay
+          $import_dialog_ul.append(`<li>${essays[i][1]}</li>`);
+        }
+      }
+      // Enable the button only if we found essays
+      $import_submit.prop('disabled', num_essays === 0);
+      $num_found.text(num_essays);
+    };
+  }
+});
+
+$('#import_dialog form').on('submit', e => {
+  e.preventDefault();
+  // Attempt to parse the file
+  let file = document.getElementById('import_file').files[0];
+  if (file) {
+    let reader = new FileReader();
+    reader.readAsText(file, 'UTF-8');
+    reader.onload = e => {
+      if (e.target.result.trim() !== 'null') {
+        let essays = JSON.parse(e.target.result.trim());
+        // Load the essays that are already saved
+        let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
+        if (saved_essays === null) saved_essays = [];
+        for (let i = 0; i < essays.length; i++) {
+          if (essays[i].length === 3) {
+            // Check if the essay's timestamp isn't part of the already saved essays
+            let exists = false;
+            for (let j = 0; j < saved_essays.length; j++) {
+              if (saved_essays[j][0] === essays[i][0]) {
+                exists = true;
+                break;
+              }
+            }
+            // Skip the essay if it already exists
+            if (exists) continue;
+            // Add the essay to the list of saved essays
+            saved_essays.push([essays[i][0], essays[i][1]]);
+            // Save the actual essay
+            localStorage.setItem('essay' + essays[i][0], essays[i][2]);
+          }
+        }
+        // Save the updated list of essays
+        localStorage.setItem('saved_essays', JSON.stringify(saved_essays));
+        $saved_ul.empty();
+        if (saved_essays.length) {
+          for (let i = 0; i < saved_essays.length; i++) {
+            $saved_ul.append(`<li data-timestamp="${saved_essays[i][0]}">${saved_essays[i][1]}</li>`);
+          }
+          $saved.show();
+          handle_essay_selection();
+        } else {
+          $saved.hide();
+        }
+        $('#import_dialog').hide('slow', () => $('#import_dialog + .overlay').hide());
+      } else {
+        $import_submit.prop('disabled', true);
+      }
+    }
+  } else {
+    $import_submit.prop('disabled', true);
+  }
 });
 
 $settings.submit(e => {
@@ -86,6 +228,7 @@ $settings.submit(e => {
     } else {
       $settings.hide();
       $saved.hide();
+      $('#redirectBanner').hide();
       // Show the generated essay
       for (let i = 0; i < result.length; i++) {
         let reading = result[i][3].split(',')[0];
@@ -110,7 +253,10 @@ $settings.submit(e => {
   });
 });
 
+//
 // Report option
+//
+
 function show_reference(report_type) {
   $('#report_dialog span').text(report_type);
   if (report_type === 'translation') {

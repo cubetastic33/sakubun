@@ -49,6 +49,11 @@
   <button id="remove_from_preview" class="remove">Remove selected</button>
   <button id="remove" class="remove">Remove selected</button>
   <main>
+    <div id="redirectBanner">
+      If you want to transfer your existing kanji list from the old URL to this one, click
+      <a href="https://sakubun.herokuapp.com/export_kanji">here</a> to export your old kanji list,
+      and then import it here by copy-pasting the contents of the downloaded txt file.
+    </div>
     <form id="add_kanji">
       <label for="new_kanji">Enter kanji you want to add to the list:</label>
       <input type="text" id="new_kanji" placeholder="Eg: 愛案以育胃寒崖" autocomplete="off">
@@ -216,4 +221,7 @@
 {% block javascript %}
   <script src="/scripts/ds.min.js"></script>
   <script src="/scripts/known_kanji.js"></script>
+  <script>
+    $('#redirectBanner').show();
+  </script>
 {% endblock javascript %}

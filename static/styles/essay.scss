@@ -42,7 +42,7 @@ a {
 
   ul {
     font-size: .8em;
-    margin-top: 0;
+    margin: 0;
     padding: 0;
 
     li {
@@ -58,6 +58,18 @@ a {
 
 #saved p {
   margin: 0;
+}
+
+.buttons {
+  display: flex;
+
+  button:first-child {
+    margin-right: .5em;
+  }
+
+  button:last-child {
+    margin-left: .5em;
+  }
 }
 
 #info {

@@ -138,14 +138,14 @@
     <form id="quiz_container">
       <div id="quiz">
         <div id="question"></div>
-        <textarea type="text" id="answer" rows="1"></textarea>
+        <textarea type="text" id="answer" rows="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
         <div id="evaluation"></div>
         <div id="kana"></div>
         <div id="meaning"></div>
       </div>
       <div id="buttons">
-        <button type="submit" id="next">Show Answer</button>
         <button type="button" id="report" class="text">Report</button>
+        <button type="submit" id="next">Show Answer</button>
       </div>
     </form>
   </main>

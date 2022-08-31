@@ -59,11 +59,32 @@
     </form>
   </dialog>
   <div class="overlay"></div>
+  <dialog id="import_dialog">
+    <h3>Import Essays</h3>
+    <form>
+      <label for="import_file">Select a file:</label>
+      <input id="import_file" type="file" accept="text/plain">
+      <br><br>
+      <span id="num_found">0</span> essays found
+      <ul></ul>
+      <div>
+        <button type="reset" class="text close">Cancel</button>
+        <button id="import_submit" type="submit">Import</button>
+      </div>
+    </form>
+  </dialog>
+  <div class="overlay"></div>
   <main>
+    <div id="redirectBanner" style="margin-bottom: 2em;">
+      Click <a href="https://sakubun.herokuapp.com/export_essays">here</a> to export your essays
+      from the old URL if you want to import them here.
+    </div>
     <section id="saved">
       <p>View a saved essay:</p>
       <ul>
       </ul>
+      <button id="export" class="text">Export Essays</button>
+      <br>
       <p>Or generate a new one:</p>
     </section>
     <form id="settings">
@@ -77,7 +98,10 @@
         kanji
       </div>
       <br>
-      <button type="submit" id="generate">Generate</button>
+      <div class="buttons">
+        <button id="import_button" class="text" type="button">Import Essays</button>
+        <button id="generate" type="submit">Generate</button>
+      </div>
     </form>
     <p id="info">Click on a sentence to get more information.</p>
     <div id="essay_header">
@@ -98,4 +122,7 @@
 
 {% block javascript %}
   <script src="/scripts/essay.js"></script>
+  <script>
+    $('#redirectBanner').show();
+  </script>
 {% endblock javascript %}
