@@ -186,7 +186,6 @@ $('#import_dialog form').on('submit', e => {
         }
         // Save the updated list of essays
         localStorage.setItem('saved_essays', JSON.stringify(saved_essays));
-        // TODO Update the essays displayed in the UI
         $saved_ul.empty();
         if (saved_essays.length) {
           for (let i = 0; i < saved_essays.length; i++) {
@@ -229,6 +228,7 @@ $settings.submit(e => {
     } else {
       $settings.hide();
       $saved.hide();
+      $('#redirectBanner').hide();
       // Show the generated essay
       for (let i = 0; i < result.length; i++) {
         let reading = result[i][3].split(',')[0];
