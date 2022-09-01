@@ -9,6 +9,7 @@
   <meta property="og:description" content="Sakubun improves your Japanese vocabulary and kanji skills with practice that's customized to your needs.">
   <meta name="theme-color" content="#1a1a1a">
   <title>{% block title %}Sakubun{% endblock title %}</title>
+  <link rel="canonical" href="https://sakubun.xyz{% if page != "/" %}/{{ page }}{% endif %}">
   <link rel="stylesheet" href="/styles/main.css">
   {% block head %}{% endblock head %}
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
