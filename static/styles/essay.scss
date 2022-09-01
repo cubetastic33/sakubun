@@ -10,37 +10,29 @@ main {
   align-items: center;
   justify-content: center;
   flex-grow: 1;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  padding-top: 0;
+  padding-bottom: 1em;
   position: relative;
+}
+
+body.vertical {
+  height: 100vh;
+
+  main {
+    min-height: 0;
+  }
+
+  #essay {
+    writing-mode: vertical-rl;
+    flex: 0 1 auto;
+    width: 100%;
+    margin-top: 1em;
+    overflow-x: scroll;
+  }
 }
 
 a {
   color: var(--link);
-}
-
-#vertical {
-  font-size: 1.5em;
-  margin-bottom: 1em;
-
-  .container {
-    display: inline-block;
-    margin: auto;
-  }
-
-  .grid:first-child {
-    margin-bottom: .5em;
-  }
-
-  .checkbox {
-    display: flex;
-  }
-
-  .checkbox span {
-    line-height: .9em;
-    margin-left: .5em;
-    position: static;
-  }
 }
 
 #saved, #settings {
@@ -109,13 +101,22 @@ a {
   place-items: center;
 }
 
-#essay_header * {
+#essay_header span, #essay_header button {
   display: none;
   margin: 0 .5em;
 }
 
+#essay_header div {
+  display: flex;
+}
+
+#direction {
+  background-color: var(--direction);
+}
+
 #saved_name {
   font-size: 1.2em;
+  font-weight: bold;
 }
 
 #essay_name {
@@ -128,6 +129,7 @@ a {
   font-size: 1.4rem;
   display: none;
   margin-top: .75em;
+  line-height: 1.75em;
 
   span:hover {
     background-color: var(--essay-hover);
@@ -135,18 +137,9 @@ a {
   }
 }
 
-#essay.vertical {
-  writing-mode: vertical-rl;
-  height: calc(100vh - 290px);
-  width: 80vw;
-  margin-top: 1em;
-  overflow-x: scroll;
-  line-height: 1.65em;
-}
-
 #floating {
   font-size: 1.25em;
-  line-height: 1.75em;
+  line-height: 1.5em;
 }
 
 #report_dialog {
@@ -160,6 +153,10 @@ a {
 // Media queries
 
 @media screen and (max-width: 450px) {
+  button:not(.exception) {
+    padding: .5em .75em !important;
+  }
+
   #info, #saved_name {
     font-size: .95em;
   }
@@ -168,13 +165,16 @@ a {
     font-size: .8rem;
   }
 
-  #essay {
-    font-size: 1.1rem;
+  #essay_header {
+    flex-direction: column-reverse;
+
+    div {
+      margin: .5em 0;
+    }
   }
 
-  #essay.vertical {
-    height: calc(100vh - 250px);
-    width: 85vw;
+  #essay {
+    font-size: 1.1rem;
   }
 
   #vertical, #saved, #settings {
@@ -183,5 +183,9 @@ a {
 
   #settings button {
     font-size: .65em;
+  }
+
+  #floating section {
+    font-size: 1rem;
   }
 }

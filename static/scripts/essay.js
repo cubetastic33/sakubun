@@ -1,12 +1,11 @@
 // Commonly used selectors
-const $vertical = $('#vertical');
 const $saved = $('#saved');
 const $saved_ul = $('#saved ul');
 const $settings = $('#settings');
 const $generate = $('#generate');
-const $vertical_text = $('#vertical_text');
 const $min = $('#min');
 const $max = $('#max');
+const $direction = $('#direction');
 const $essay = $('#essay');
 const $report_dialog_button = $('#report_dialog button');
 const $save_dialog_button = $('#save_dialog button');
@@ -41,20 +40,26 @@ if (!known_kanji.size) {
 // Restore settings from localStorage
 //
 
-let vertical_text = localStorage.getItem('vertical_text');
+let direction = localStorage.getItem('direction');
 let settings_min = localStorage.getItem('min_essay');
 let settings_max = localStorage.getItem('max_essay');
 
-
-// vertical_text is a string so 'false' is truthy; so compare with 'false' instead
-// This way if the setting is unset it'll still be considered as true
-if (vertical_text !== 'false') $essay.addClass('vertical');
-$vertical_text.prop('checked', vertical_text !== 'false');
+// The default direction is vertical
+if (direction !== 'horizontal') $essay.addClass('vertical');
+$direction.text(direction !== 'horizontal' ? 'Vertical' : 'Horizontal');
 
 if (settings_min) $min.val(settings_min);
 if (settings_max) $max.val(settings_max);
 $max.prop('min', $min.val());
 $min.prop('max', $max.val());
+
+$direction.on('click', function () {
+  let to_ver = $(this).text() === 'Horizontal';
+  console.log(to_ver);
+  localStorage.setItem('direction', to_ver ? 'vertical' : 'horizontal');
+  $(this).text(to_ver ? 'Vertical' : 'Horizontal');
+  $('body').toggleClass('vertical', to_ver);
+});
 
 function handle_essay_clicks() {
   // Add click handlers to the essay sentences
@@ -74,13 +79,9 @@ function handle_essay_selection() {
   $('#saved li').on('click', function () {
     $settings.hide();
     $saved.hide();
-    $vertical.hide();
     $('#redirectBanner').hide();
-    // Save the vertical text preference
-    if ($vertical_text.prop('checked').toString() !== localStorage.getItem('vertical_text')) {
-      localStorage.setItem('vertical_text', $vertical_text.prop('checked'));
-      $essay.toggleClass('vertical', $vertical_text.prop('checked'));
-    }
+    // Set the direction of text
+    $('body').toggleClass('vertical', localStorage.getItem('direction') !== 'horizontal');
     // Show the saved essay
     $essay
       .html(localStorage.getItem('essay' + this.dataset.timestamp))
@@ -88,7 +89,7 @@ function handle_essay_selection() {
       .show();
     $('#saved_name').text(this.innerText);
     handle_essay_clicks();
-    $('#info, #unsave, #saved_name').show();
+    $('#info, #unsave, #saved_name, #direction').show();
   });
 }
 
@@ -222,15 +223,16 @@ $('#import_dialog form').on('submit', e => {
   }
 });
 
+//
+// Generate the essay
+//
+
 $settings.submit(e => {
   e.preventDefault();
   $generate.prop('disabled', true);
 
-  // Save the vertical text preference
-  if ($vertical_text.prop('checked').toString() !== localStorage.getItem('vertical_text')) {
-    localStorage.setItem('vertical_text', $vertical_text.prop('checked'));
-    $essay.toggleClass('vertical', $vertical_text.prop('checked'));
-  }
+  // Set the direction of text
+  $('body').toggleClass('vertical', localStorage.getItem('direction') !== 'horizontal');
   // Save the min and max preferences
   localStorage.setItem('min_essay', $min.val() || 1);
   localStorage.setItem('max_essay', $max.val() || 3);
@@ -253,7 +255,6 @@ $settings.submit(e => {
     } else {
       $settings.hide();
       $saved.hide();
-      $vertical.hide();
       $('#redirectBanner').hide();
       // Show the generated essay
       for (let i = 0; i < result.length; i++) {
@@ -264,7 +265,7 @@ $settings.submit(e => {
         $essay.append(`<span data-id="${result[i][0]}" data-meaning="${result[i][2]}" data-reading="${reading}">${content}</span>`);
       }
       handle_essay_clicks();
-      $('#info, #save, #essay').show();
+      $('#info, #save, #essay, #direction').show();
     }
   }).fail(jqXHR => {
     if (jqXHR.status === 0) {
