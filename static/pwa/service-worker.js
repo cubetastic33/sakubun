@@ -1,6 +1,6 @@
 "use strict";
 
-const version = "20220831-1::";
+const version = "20220901-0::";
 
 // Caches for different resources
 const core_cache_name = version + "core";

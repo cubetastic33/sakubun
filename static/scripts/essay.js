@@ -1,8 +1,13 @@
 // Commonly used selectors
+const $vertical = $('#vertical');
 const $saved = $('#saved');
 const $saved_ul = $('#saved ul');
 const $settings = $('#settings');
 const $generate = $('#generate');
+const $vertical_text = $('#vertical_text');
+const $min = $('#min');
+const $max = $('#max');
+const $essay = $('#essay');
 const $report_dialog_button = $('#report_dialog button');
 const $save_dialog_button = $('#save_dialog button');
 const $num_found = $('#num_found');
@@ -19,8 +24,8 @@ if (!known_kanji.size) {
   );
 } else {
   // Set the default values for min and max based on the number of kanji added
-  $('#min')[0].setAttribute('value', Math.min(1, known_kanji.size));
-  $('#max')[0].setAttribute('value', Math.min(15, known_kanji.size));
+  $min[0].setAttribute('value', Math.min(1, known_kanji.size));
+  $max[0].setAttribute('value', Math.min(15, known_kanji.size));
 
   let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
   if (saved_essays && saved_essays.length) {
@@ -28,7 +33,7 @@ if (!known_kanji.size) {
       $saved_ul.append(`<li data-timestamp="${saved_essays[i][0]}">${saved_essays[i][1]}</li>`);
     }
   } else {
-    $('#saved').hide();
+    $saved.hide();
   }
 }
 
@@ -36,11 +41,15 @@ if (!known_kanji.size) {
 // Restore settings from localStorage
 //
 
+let vertical_text = localStorage.getItem('vertical_text');
 let settings_min = localStorage.getItem('min_essay');
 let settings_max = localStorage.getItem('max_essay');
 
-const $min = $('#min');
-const $max = $('#max');
+
+// vertical_text is a string so 'false' is truthy; so compare with 'false' instead
+// This way if the setting is unset it'll still be considered as true
+if (vertical_text !== 'false') $essay.addClass('vertical');
+$vertical_text.prop('checked', vertical_text !== 'false');
 
 if (settings_min) $min.val(settings_min);
 if (settings_max) $max.val(settings_max);
@@ -65,11 +74,18 @@ function handle_essay_selection() {
   $('#saved li').on('click', function () {
     $settings.hide();
     $saved.hide();
+    $vertical.hide();
     $('#redirectBanner').hide();
+    // Save the vertical text preference
+    if ($vertical_text.prop('checked').toString() !== localStorage.getItem('vertical_text')) {
+      localStorage.setItem('vertical_text', $vertical_text.prop('checked'));
+      $essay.toggleClass('vertical', $vertical_text.prop('checked'));
+    }
     // Show the saved essay
-    $('#essay')
+    $essay
       .html(localStorage.getItem('essay' + this.dataset.timestamp))
-      .data('timestamp', this.dataset.timestamp);
+      .data('timestamp', this.dataset.timestamp)
+      .show();
     $('#saved_name').text(this.innerText);
     handle_essay_clicks();
     $('#info, #unsave, #saved_name').show();
@@ -210,11 +226,20 @@ $settings.submit(e => {
   e.preventDefault();
   $generate.prop('disabled', true);
 
+  // Save the vertical text preference
+  if ($vertical_text.prop('checked').toString() !== localStorage.getItem('vertical_text')) {
+    localStorage.setItem('vertical_text', $vertical_text.prop('checked'));
+    $essay.toggleClass('vertical', $vertical_text.prop('checked'));
+  }
+  // Save the min and max preferences
+  localStorage.setItem('min_essay', $min.val() || 1);
+  localStorage.setItem('max_essay', $max.val() || 3);
+
   let known_kanji = new Set(localStorage.getItem('known_kanji'));
 
   $.post('/essay', {
-    'min': $('#min').val() || 1,
-    'max': $('#max').val() || 1,
+    'min': $min.val() || 1,
+    'max': $max.val() || 3,
     'known_kanji': [...known_kanji].join(''),
   }, result => {
     // Analytics
@@ -228,6 +253,7 @@ $settings.submit(e => {
     } else {
       $settings.hide();
       $saved.hide();
+      $vertical.hide();
       $('#redirectBanner').hide();
       // Show the generated essay
       for (let i = 0; i < result.length; i++) {
@@ -235,10 +261,10 @@ $settings.submit(e => {
         // Color code the ending character of the sentence
         let content = result[i][1];
         content = content.replace(/.$/, match => `<span class="divider">${match}</span>`);
-        $('#essay').append(`<span data-id="${result[i][0]}" data-meaning="${result[i][2]}" data-reading="${reading}">${content}</span>`);
+        $essay.append(`<span data-id="${result[i][0]}" data-meaning="${result[i][2]}" data-reading="${reading}">${content}</span>`);
       }
       handle_essay_clicks();
-      $('#info, #save').show();
+      $('#info, #save, #essay').show();
     }
   }).fail(jqXHR => {
     if (jqXHR.status === 0) {
@@ -322,9 +348,9 @@ $('#save_dialog form').submit(e => {
   saved_essays.push([timestamp, essay_name]);
   localStorage.setItem('saved_essays', JSON.stringify(saved_essays));
   // Save the actual essay
-  localStorage.setItem('essay' + timestamp, $('#essay').html());
+  localStorage.setItem('essay' + timestamp, $essay.html());
   // Set the data-timestamp attribute of the essay so that it can be unsaved
-  $('#essay').data('timestamp', timestamp);
+  $essay.data('timestamp', timestamp);
 
   $save_dialog_button.prop('disabled', false);
   $('#save_dialog form').trigger('reset');
@@ -337,7 +363,7 @@ $('#unsave').on('click', () => {
   $('#unsave, #saved_name, #save').toggle();
   let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
   if (saved_essays === null) return; // Happens when the essay was deleted from a different tab
-  const timestamp = $('#essay').data('timestamp');
+  const timestamp = $essay.data('timestamp');
   for (let i = 0; i < saved_essays.length; i++) {
     if (saved_essays[i][0].toString() === timestamp.toString()) {
       // Remove this essay from the saved essays list

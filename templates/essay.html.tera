@@ -79,6 +79,19 @@
       Click <a href="https://sakubun.herokuapp.com/export_essays">here</a> to export your essays
       from the old URL if you want to import them here.
     </div>
+    <section id="vertical">
+      <div class="container">
+        <div class="grid always">
+          <label class="checkbox bounce">
+            <input type="checkbox" id="vertical_text">
+            <svg viewBox="0 0 21 21">
+              <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+            </svg>
+            <span>Vertical Text</span>
+          </label>
+        </div>
+      </div>
+    </section>
     <section id="saved">
       <p>View a saved essay:</p>
       <ul>

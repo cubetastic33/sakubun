@@ -10,11 +10,37 @@ main {
   align-items: center;
   justify-content: center;
   flex-grow: 1;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
   position: relative;
 }
 
 a {
   color: var(--link);
+}
+
+#vertical {
+  font-size: 1.5em;
+  margin-bottom: 1em;
+
+  .container {
+    display: inline-block;
+    margin: auto;
+  }
+
+  .grid:first-child {
+    margin-bottom: .5em;
+  }
+
+  .checkbox {
+    display: flex;
+  }
+
+  .checkbox span {
+    line-height: .9em;
+    margin-left: .5em;
+    position: static;
+  }
 }
 
 #saved, #settings {
@@ -75,6 +101,7 @@ a {
 #info {
   display: none;
   font-size: 1.2rem;
+  text-align: center;
 }
 
 #essay_header {
@@ -98,12 +125,23 @@ a {
 }
 
 #essay {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  display: none;
+  margin-top: .75em;
 
   span:hover {
     background-color: var(--essay-hover);
     border-radius: 4px;
   }
+}
+
+#essay.vertical {
+  writing-mode: vertical-rl;
+  height: calc(100vh - 290px);
+  width: 80vw;
+  margin-top: 1em;
+  overflow-x: scroll;
+  line-height: 1.65em;
 }
 
 #floating {
@@ -117,4 +155,33 @@ a {
 
 .divider {
   color: var(--essay-divider);
+}
+
+// Media queries
+
+@media screen and (max-width: 450px) {
+  #info, #saved_name {
+    font-size: .95em;
+  }
+
+  #essay_header button {
+    font-size: .8rem;
+  }
+
+  #essay {
+    font-size: 1.1rem;
+  }
+
+  #essay.vertical {
+    height: calc(100vh - 250px);
+    width: 85vw;
+  }
+
+  #vertical, #saved, #settings {
+    font-size: 1.2em;
+  }
+
+  #settings button {
+    font-size: .65em;
+  }
 }
