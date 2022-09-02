@@ -1,0 +1,6 @@
+[default.limits]
+data-form = "7 MiB"
+file = "4 MiB"
+
+[default.databases.fixes]
+url = "postgres://postgres:password@localhost:5432/sakubun"
