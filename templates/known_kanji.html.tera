@@ -1,5 +1,7 @@
 {% extends "layout" %}
 
+{% block title %}Known Kanji | Sakubun{% endblock title %}
+
 {% block head %}
   <link rel="stylesheet" href="/styles/known_kanji.css">
 {% endblock head %}

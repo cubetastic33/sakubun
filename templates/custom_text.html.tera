@@ -1,5 +1,7 @@
 {% extends "layout" %}
 
+{% block title %}Custom Text | Sakubun{% endblock title %}
+
 {% block head %}
   <link rel="stylesheet" href="/styles/custom_text.css">
 {% endblock head %}

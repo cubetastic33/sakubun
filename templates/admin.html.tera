@@ -1,6 +1,6 @@
 {% extends "layout" %}
 
-{% block title %}Sakubun | Admin{% endblock title %}
+{% block title %}Admin | Sakubun{% endblock title %}
 
 {% block head %}
   <link rel="stylesheet" href="/styles/admin.css">

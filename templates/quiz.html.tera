@@ -1,5 +1,7 @@
 {% extends "layout" %}
 
+{% block title %}Quiz | Sakubun{% endblock title %}
+
 {% block head %}
   <link rel="stylesheet" href="/styles/sentences.css">
   <link rel="stylesheet" href="/styles/quiz.css">
