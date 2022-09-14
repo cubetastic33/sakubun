@@ -26,10 +26,9 @@
   <main>
     <h1>Sakubun</h1>
     <p>
-      Sakubun is intended to be a tool to help people practice kanji and improve their Japanese
-      vocabulary. The main target audience is people who are learning kanji, but don't yet know
-      enough to practice efficiently using real-world material like news articles, manga, or light
-      novels.
+      Sakubun is a tool to help people practice kanji and improve their Japanese vocabulary. The
+      main target audience is people who are learning kanji, but don't yet know enough to practice
+      efficiently using real-world material like news articles, manga, or light novels.
     </p>
     <p>
       The way sakubun solves the problem of too many unknown kanji is by storing a list of what
