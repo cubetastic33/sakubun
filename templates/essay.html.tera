@@ -77,10 +77,6 @@
   </dialog>
   <div class="overlay"></div>
   <main>
-    <div id="redirectBanner" style="margin-bottom: 2em;">
-      Click <a href="https://sakubun.herokuapp.com/export_essays">here</a> to export your essays
-      from the old URL if you want to import them here.
-    </div>
     <section id="saved">
       <p>View a saved essay:</p>
       <ul>
@@ -127,7 +123,4 @@
 
 {% block javascript %}
   <script src="/scripts/essay.js"></script>
-  <script>
-    $('#redirectBanner').show();
-  </script>
 {% endblock javascript %}

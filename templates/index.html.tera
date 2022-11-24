@@ -5,24 +5,6 @@
 {% endblock head %}
 
 {% block content %}
-  <dialog id="redirect">
-    <h3>Notice</h3>
-    <p>
-      Sakubun's URL has changed! The old URL, <a href="https://sakubun.herokuapp.com">sakubun.herokuapp.com</a>,
-      will stop working soon - the new URL is <a href="https://sakubun.xyz">sakubun.xyz</a>. Please
-      reinstall sakubun if you'd installed it earlier, and update any bookmarks, so that it'll keep
-      working!
-    </p>
-    <div>
-      <button class="close">Okay</button>
-    </div>
-  </dialog>
-  <div class="overlay"></div>
-  <div id="redirectBanner">
-    Sakubun has moved from <a href="https://sakubun.herokuapp.com">sakubun.herokuapp.com</a>
-    to <a href="https://sakubun.xyz">sakubun.xyz</a>! Please reinstall the app if you use it, and
-    update any bookmarks.
-  </div>
   <main>
     <h1>Sakubun</h1>
     <p>
@@ -176,23 +158,3 @@
   </footer>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 {% endblock content %}
-
-{% block javascript %}
-  <script>
-    if (localStorage.getItem('showedRedirectNotice')) {
-      // If the redirect dialog has already been showed, just show the banner
-      $('#redirectBanner').show();
-    } else {
-      // Show the redirect banner
-      $('#redirect, #redirect + .overlay').show();
-      $('#redirect .close').on('click', () => {
-        // The user has closed the redirect banner
-        $('#redirect').hide('slow', () => {
-          $('#redirect + .overlay').hide()
-          localStorage.setItem('showedRedirectNotice', 'true');
-          $('#redirectBanner').slideDown();
-        });
-      });
-    }
-  </script>
-{% endblock javascript %}

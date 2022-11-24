@@ -79,7 +79,6 @@ function handle_essay_selection() {
   $('#saved li').on('click', function () {
     $settings.hide();
     $saved.hide();
-    $('#redirectBanner').hide();
     // Set the direction of text
     $('body').toggleClass('vertical', localStorage.getItem('direction') !== 'horizontal');
     // Show the saved essay
@@ -255,7 +254,6 @@ $settings.submit(e => {
     } else {
       $settings.hide();
       $saved.hide();
-      $('#redirectBanner').hide();
       // Show the generated essay
       for (let i = 0; i < result.length; i++) {
         let reading = result[i][3].split(',')[0];

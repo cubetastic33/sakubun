@@ -197,26 +197,6 @@ header {
   }
 }
 
-#redirect h3, #redirect p {
-  text-align: center;
-  margin: 0 0 .5em 0;
-}
-
-#redirectBanner {
-  background-color: var(--accent);
-  border-radius: 10px;
-  color: var(--background-dark);
-  display: none;
-  font-size: 1.2em;
-  padding: .75em;
-  margin: .75em;
-  text-align: center;
-
-  a {
-    color: var(--background-dark);
-  }
-}
-
 main {
   padding: 2em 10vw;
 }
@@ -504,10 +484,6 @@ details.select[open] {
   dialog {
     width: 75vw;
   }
-
-  #redirectBanner {
-    font-size: 1em;
-  }
 }
 
 @media screen and (max-width: 750px) {
@@ -531,12 +507,6 @@ details.select[open] {
     transform: none;
     left: 2em;
     bottom: 2.25rem !important;
-  }
-
-  #redirectBanner {
-    font-size: 1em;
-    margin: .5em;
-    padding: .5em;
   }
 }
 
