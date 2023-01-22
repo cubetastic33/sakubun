@@ -114,7 +114,7 @@ fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, S
             None => "system".to_owned(),
         },
     );
-    let current_date = chrono::Utc::now().date();
+    let current_date = chrono::Utc::now().date_naive();
     context.insert("year", current_date.format("%Y").to_string());
     context.insert("page", page.to_owned());
     context
