@@ -48,9 +48,12 @@
     </div>
   </dialog>
   <div class="overlay"></div>
-  <button id="remove_from_preview" class="remove">Remove selected</button>
+  <div id="preview_button_overlay">
+    <button id="copy_from_preview" class="copy">Copy</button>
+    <button id="remove_from_preview" class="remove">Remove selected</button>
+  </div>
   <div id="button_overlay">
-    <button id="copy">Copy</button>
+    <button id="copy" class="copy">Copy</button>
     <button id="remove" class="remove">Remove selected</button>
   </div>
   <div id="copied">Copied!</div>

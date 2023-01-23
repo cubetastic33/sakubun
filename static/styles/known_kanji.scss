@@ -90,8 +90,8 @@ section > div {
   margin: auto !important;
 }
 
-#button_overlay {
-  display: flex;
+#button_overlay, #preview_button_overlay {
+  display: none;
   justify-content: center;
   position: fixed;
   bottom: .5em;
@@ -102,14 +102,14 @@ section > div {
     margin: 0 1em;
   }
 
-  #copy {
+  .copy {
     background-color: var(--foreground);
   }
 }
 
 // The :not() is only to elevate the priority of this set, no .remove will actually have .exception
 // We don't use !important because then the jquery .show() doesn't seem to work
-#copy, .remove:not(.exception) {
+.copy:not(.exception), .remove:not(.exception) {
   background: var(--remove);
   border-radius: 5px;
   border: none;
@@ -117,12 +117,8 @@ section > div {
   cursor: pointer;
 }
 
-#remove_from_preview {
-  display: none;
-  position: fixed;
+#preview_button_overlay {
   bottom: 2em;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 11;
 }
 

@@ -8,7 +8,7 @@ const ds = new DragSelect({
 
 ds.subscribe('callback', ({items}) => {
   if (items.length) {
-    $('#button_overlay').show();
+    $('#button_overlay').css('display', 'flex');
   } else {
     $('#button_overlay').hide();
   }
@@ -22,11 +22,11 @@ const preview_ds = new DragSelect({
   selectedClass: 'selected',
 });
 
-preview_ds.subscribe('callback', ({items, event}) => {
+preview_ds.subscribe('callback', ({items}) => {
   if (items.length) {
-    $('#remove_from_preview').show();
+    $('#preview_button_overlay').css('display', 'flex');
   } else {
-    $('#remove_from_preview').hide();
+    $('#preview_button_overlay').hide();
   }
 });
 
@@ -102,7 +102,19 @@ $('#copy').on('click', () => {
   }, function(err) {
     console.error('Async: Could not copy text: ', err);
   });
+});
 
+// Copy kanji from preview
+$('#copy_from_preview').on('click', () => {
+  let text = '';
+  $('#preview_kanji div.selected').each(function () {
+    text += this.innerText;
+  });
+  navigator.clipboard.writeText(text).then(function() {
+    $('#copied').slideDown(() => {setTimeout(() => {$('#copied').slideUp()}, 2000)});
+  }, function(err) {
+    console.error('Async: Could not copy text: ', err);
+  });
 });
 
 // Remove kanji
@@ -134,7 +146,7 @@ $('#confirmation button:last-child').click(() => {
     // Update kanji grid
     kanji_grid();
   } else {
-    $('#remove_from_preview').hide();
+    $('#preview_button_overlay').hide();
     $('#preview_kanji div.selected').remove();
     $('#num_preview').text($('#preview_kanji div').length);
   }
@@ -149,7 +161,7 @@ $('dialog').each(function () {
     if (this.id === 'preview') {
       // If the preview dialog was closed, reset the previewed kanji
       $('#preview_kanji').empty();
-      $('#remove_from_preview').hide();
+      $('#preview_button_overlay').hide();
     }
   });
 });
@@ -315,7 +327,7 @@ $('#preview button:last-child').click(() => {
   // Analytics
   if (typeof pa !== 'undefined') pa.track({name: `[${$('#preview').attr('data-method')}] kanji added`});
   $('#preview_kanji').empty();
-  $('#remove_from_preview').hide();
+  $('#preview_button_overlay').hide();
   $('#preview').hide('slow', () => $('#preview + .overlay').hide());
 });
 
