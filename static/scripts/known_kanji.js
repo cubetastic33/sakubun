@@ -31,10 +31,12 @@ preview_ds.subscribe('callback', ({items}) => {
 });
 
 function kanji_grid() {
+  const $kanji = $('#kanji');
+
   // Remove any previously added selectables
   ds.removeSelectables(document.querySelectorAll('#kanji .selectable'));
   // Reset the grid
-  $('#kanji').empty();
+  $kanji.empty();
   $('#button_overlay').hide();
 
   // Show the number of kanji added
@@ -44,11 +46,11 @@ function kanji_grid() {
 
   // Fill the kanji grid
   for (let i = 0; i < known_priority_kanji.length; i++) {
-    $('#kanji').append(`<div class="selectable priority">${known_priority_kanji[i]}</div>`);
+    $kanji.append(`<div class="selectable priority">${known_priority_kanji[i]}</div>`);
   }
   for (let i = 0; i < known_kanji.length; i++) {
     if (known_priority_kanji.includes(known_kanji[i])) continue;
-    $('#kanji').append(`<div class="selectable">${known_kanji[i]}</div>`);
+    $kanji.append(`<div class="selectable">${known_kanji[i]}</div>`);
   }
 
   ds.addSelectables(document.querySelectorAll('#kanji .selectable'));
@@ -75,20 +77,23 @@ function add_kanji(text, priority = false) {
   if (priority) add_kanji(text);
 }
 
+const $new_kanji = $('#new_kanji');
+const $new_priority_kanji = $('#new_priority_kanji');
+
 // Add kanji
 $('#add_kanji').submit(e => {
   e.preventDefault();
-  add_kanji($('#new_kanji').val());
+  add_kanji($new_kanji.val());
   // Reset the input field
-  $('#new_kanji').val('');
+  $new_kanji.val('');
 });
 
 // Add priority kanji
 $('#add_priority_kanji').submit(e => {
   e.preventDefault();
-  add_kanji($('#new_priority_kanji').val(), true);
+  add_kanji($new_priority_kanji.val(), true);
   // Reset the input field
-  $('#new_priority_kanji').val('');
+  $new_priority_kanji.val('');
 });
 
 // Copy kanji
@@ -117,26 +122,28 @@ $('#copy_from_preview').on('click', () => {
   });
 });
 
+const $confirmation = $('#confirmation');
+
 // Remove kanji
-$('#remove').click(() => {
+$('#remove').on('click', () => {
   $('#confirmation + .overlay').show();
-  $('#confirmation').attr('data-grid', 'kanji').show('slow');
+  $confirmation.attr('data-grid', 'kanji').show('slow');
   $('#confirmation span').text(`the ${$('#kanji div.selected').length} selected`);
 });
 
-$('#remove_all').click(() => {
+$('#remove_all').on('click', () => {
   $('#confirmation + .overlay').show();
-  $('#confirmation').attr('data-grid', 'all').show('slow');
+  $confirmation.attr('data-grid', 'all').show('slow');
   let num_kanji = new Set(localStorage.getItem('known_kanji')).size;
   $('#confirmation span').text(`all ${num_kanji}`);
 });
 
-$('#confirmation button:last-child').click(() => {
+$('#confirmation button:last-child').on('click', () => {
   // Remove the selected kanji
-  if ($('#confirmation').attr('data-grid') === 'all') {
+  if ($confirmation.attr('data-grid') === 'all') {
     localStorage.removeItem('known_kanji');
     kanji_grid();
-  } else if ($('#confirmation').attr('data-grid') === 'kanji') {
+  } else if ($confirmation.attr('data-grid') === 'kanji') {
     let known_kanji = new Set(localStorage.getItem('known_kanji'));
     $('#kanji div.selected').each(function () {
       known_kanji.delete($(this).text());
@@ -151,16 +158,16 @@ $('#confirmation button:last-child').click(() => {
     $('#num_preview').text($('#preview_kanji div').length);
   }
   // Hide the confirmation dialog
-  $('#confirmation').hide('slow', () => $('#confirmation + .overlay').hide());
+  $confirmation.hide('slow', () => $('#confirmation + .overlay').hide());
 });
 
 // Event handlers to close dialogs
 $('dialog').each(function () {
-  $(`#${this.id} .close, #${this.id} + .overlay`).click(() => {
+  $(`#${this.id} .close, #${this.id} + .overlay`).on('click', () => {
     $(this).hide('slow', () => $(`#${this.id} + .overlay`).hide());
     if (this.id === 'preview') {
       // If the preview dialog was closed, reset the previewed kanji
-      $('#preview_kanji').empty();
+      $preview_kanji.empty();
       $('#preview_button_overlay').hide();
     }
   });
@@ -168,13 +175,13 @@ $('dialog').each(function () {
 
 // More options
 
-$('#more_options > button').click(() => {
+$('#more_options > button').on('click', () => {
   $('#more_options > div').toggle();
   let text = $('#more_options > button').text().split(' ')[0];
   $('#more_options > button').text((text === 'More' ? 'Less' : 'More') + ' options');
 });
 
-$('.select button').click(function () {
+$('.select button').on('click', function () {
   $(this).parent().parent().removeAttr('open');
   $(this)
     .parent()
@@ -185,24 +192,26 @@ $('.select button').click(function () {
 
 // Import kanji
 $('#' + $('#import_from summary').attr('data-value')).show();
-$('#import_from button').click(function () {
+$('#import_from button').on('click', function () {
   $('.import_option').hide();
   $('#' + this.dataset.value).show();
 });
 
 $('#wanikani input').prop('max', $('#wanikani .select summary').attr('data-value') === 'stages' ? '60' : '2055');
-$('#wanikani .select button').click(function () {
+$('#wanikani .select button').on('click', function () {
   $('#wanikani input').prop('max', this.dataset.value === 'stages' ? '60' : '2055');
 });
 
 $('#rtk input').prop('max', $('#rtk .select summary').attr('data-value') === 'stages' ? '56' : '2200');
-$('#rtk .select button').click(function () {
+$('#rtk .select button').on('click', function () {
   $('#rtk input').prop('max', this.dataset.value === 'stages' ? '56' : '2200');
 });
 
-$('#file').siblings('div').text($('#file').val().split(/([\\/])/g).pop());
-$('#file').change(function () {
-  if ($('#file')[0].files[0].size > 4194304) {
+const $file = $('#file');
+
+$file.siblings('div').text($file.val().split(/([\\/])/g).pop());
+$file.change(function () {
+  if ($file[0].files[0].size > 4194304) {
     $('#file').parent().attr('class', 'upload error');
     $('#anki button').prop('disabled', true);
   } else {
@@ -211,6 +220,9 @@ $('#file').change(function () {
   }
   $(this).siblings('div').text(this.value.split(/([\\/])/g).pop());
 });
+
+const $preview = $('#preview');
+const $preview_kanji = $('#preview_kanji');
 
 function preview_kanji(kanji, method) {
   if (!kanji.length) {
@@ -223,18 +235,18 @@ function preview_kanji(kanji, method) {
 
   // Show the preview dialog
   $('#preview + .overlay').show();
-  $('#preview').show('slow');
+  $preview.show('slow');
   // Set the method as a data attribute - this is used for analytics once the kanji are added
-  $('#preview').attr('data-method', method);
+  $preview.attr('data-method', method);
   // Remove any previously added selectables
   preview_ds.removeSelectables(document.querySelectorAll('#preview .selectable'));
   // Reset the grid
-  $('#preview_kanji').empty();
+  $preview_kanji.empty();
   // Show the number of kanji added
   $('#num_preview').text(kanji.length);
   // Fill the kanji grid
   for (let i = 0; i < kanji.length; i++) {
-    $('#preview_kanji').append(`<div class="selectable">${kanji[i]}</div>`);
+    $preview_kanji.append(`<div class="selectable">${kanji[i]}</div>`);
   }
   preview_ds.addSelectables(document.querySelectorAll('#preview .selectable'));
 }
@@ -244,13 +256,13 @@ $('#anki').submit(e => {
   $('#anki button').prop('disabled', true);
   let form_data = new FormData();
   form_data.append('only_learnt', $('#only_learnt').is(':checked'));
-  if ($('#file')[0].files[0].size > 4194304) {
-    $('#file').parent().attr('class', 'upload error');
+  if ($file[0].files[0].size > 4194304) {
+    $file.parent().attr('class', 'upload error');
     return;
   } else {
-    $('#file').parent().attr('class', 'upload');
+    $file.parent().attr('class', 'upload');
   }
-  form_data.append('file', $('#file')[0].files[0]);
+  form_data.append('file', $file[0].files[0]);
 
   $.ajax({
     url: '/import_anki',
@@ -315,20 +327,20 @@ $('.import_option:not(#anki):not(#wanikani)').submit(function (e) {
   }).fail(console.log);
 });
 
-$('#remove_from_preview').click(() => {
+$('#remove_from_preview').on('click', () => {
   $('#confirmation + .overlay').show();
-  $('#confirmation').attr('data-grid', 'preview_kanji').show('slow');
+  $confirmation.attr('data-grid', 'preview_kanji').show('slow');
   $('#confirmation span').text(`the ${$('#preview_kanji div.selected').length} selected`);
 });
 
-$('#preview button:last-child').click(() => {
+$('#preview button:last-child').on('click', () => {
   // Add the kanji
-  add_kanji($('#preview_kanji').text());
+  add_kanji($preview_kanji.text());
   // Analytics
-  if (typeof pa !== 'undefined') pa.track({name: `[${$('#preview').attr('data-method')}] kanji added`});
-  $('#preview_kanji').empty();
+  if (typeof pa !== 'undefined') pa.track({name: `[${$preview.attr('data-method')}] kanji added`});
+  $preview_kanji.empty();
   $('#preview_button_overlay').hide();
-  $('#preview').hide('slow', () => $('#preview + .overlay').hide());
+  $preview.hide('slow', () => $('#preview + .overlay').hide());
 });
 
 // Export kanji
