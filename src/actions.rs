@@ -184,6 +184,7 @@ pub fn get_sentences(
     let mut rng = thread_rng();
 
     let known_kanji: HashSet<_> = quiz_settings.known_kanji.chars().collect();
+    let known_priority_kanji: HashSet<_> = quiz_settings.known_priority_kanji.chars().collect();
     // Read the sentences and shuffle the order
     let sentence_records = fs::read_to_string("sentences.csv")?;
     let mut sentence_records: Vec<_> = sentence_records.lines().collect();
@@ -203,7 +204,8 @@ pub fn get_sentences(
         let large_enough = kanji_in_sentence.len() >= quiz_settings.min;
         let small_enough = kanji_in_sentence.len() <= quiz_settings.max;
 
-        if kanji_in_sentence.is_subset(&known_kanji) && large_enough && small_enough {
+        if kanji_in_sentence.is_subset(&known_kanji)&& large_enough && small_enough &&
+            (known_priority_kanji.is_empty() || !kanji_in_sentence.is_disjoint(&known_priority_kanji)) {
             sentences.push([
                 id.to_owned(),
                 jap_sentence.to_owned(),

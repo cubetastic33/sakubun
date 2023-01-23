@@ -35,6 +35,7 @@ pub struct QuizSettings {
     min: usize,
     max: usize,
     known_kanji: String,
+    known_priority_kanji: String,
 }
 
 #[derive(FromForm)]

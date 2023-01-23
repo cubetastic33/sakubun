@@ -6,11 +6,11 @@ const ds = new DragSelect({
   selectedClass: 'selected',
 });
 
-ds.subscribe('callback', ({items, event}) => {
+ds.subscribe('callback', ({items}) => {
   if (items.length) {
-    $('#remove').show();
+    $('#button_overlay').show();
   } else {
-    $('#remove').hide();
+    $('#button_overlay').hide();
   }
 });
 
@@ -35,14 +35,19 @@ function kanji_grid() {
   ds.removeSelectables(document.querySelectorAll('#kanji .selectable'));
   // Reset the grid
   $('#kanji').empty();
-  $('#remove').hide();
+  $('#button_overlay').hide();
 
   // Show the number of kanji added
   let known_kanji = localStorage.getItem('known_kanji') || '';
   $('#num_known').text(known_kanji.length);
+  let known_priority_kanji = localStorage.getItem('known_priority_kanji') || '';
 
   // Fill the kanji grid
+  for (let i = 0; i < known_priority_kanji.length; i++) {
+    $('#kanji').append(`<div class="selectable priority">${known_priority_kanji[i]}</div>`);
+  }
   for (let i = 0; i < known_kanji.length; i++) {
+    if (known_priority_kanji.includes(known_kanji[i])) continue;
     $('#kanji').append(`<div class="selectable">${known_kanji[i]}</div>`);
   }
 
@@ -51,20 +56,23 @@ function kanji_grid() {
 
 $(document).ready(kanji_grid);
 
-function add_kanji(text) {
-  let known_kanji = new Set(localStorage.getItem('known_kanji'));
+function add_kanji(text, priority = false) {
+  let known_kanji = new Set(localStorage.getItem(`known_${priority ? 'priority_' : ''}kanji`));
   // Regex to identify kanji
   let re = /[\u3005\u3400-\u4DB5\u4E00-\u9FCB\uF900-\uFA6A]/gu;
   for (let kanji of text.matchAll(re)) {
-    known_kanji.add(kanji[0]);
+    if (priority && known_kanji.has(kanji[0])) known_kanji.delete(kanji[0]);
+    else known_kanji.add(kanji[0]);
   }
   // Save updated kanji list to localStorage
-  localStorage.setItem('known_kanji', [...known_kanji].join(''));
+  localStorage.setItem(`known_${priority ? 'priority_' : ''}kanji`, [...known_kanji].join(''));
   // Update kanji grid
-  kanji_grid();
+  if (!priority) kanji_grid();
   // Analytics
   // pa is undefined when ad blockers block the microanalytics script
-  if (typeof pa !== 'undefined') pa.track({name: 'kanji added'});
+  if (typeof pa !== 'undefined' && !priority) pa.track({name: 'kanji added'});
+  // Add the kanji to the normal list as well
+  if (priority) add_kanji(text);
 }
 
 // Add kanji
@@ -73,6 +81,28 @@ $('#add_kanji').submit(e => {
   add_kanji($('#new_kanji').val());
   // Reset the input field
   $('#new_kanji').val('');
+});
+
+// Add priority kanji
+$('#add_priority_kanji').submit(e => {
+  e.preventDefault();
+  add_kanji($('#new_priority_kanji').val(), true);
+  // Reset the input field
+  $('#new_priority_kanji').val('');
+});
+
+// Copy kanji
+$('#copy').on('click', () => {
+  let text = '';
+  $('#kanji div.selected').each(function () {
+    text += this.innerText;
+  });
+  navigator.clipboard.writeText(text).then(function() {
+    $('#copied').slideDown(() => {setTimeout(() => {$('#copied').slideUp()}, 2000)});
+  }, function(err) {
+    console.error('Async: Could not copy text: ', err);
+  });
+
 });
 
 // Remove kanji

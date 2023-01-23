@@ -4,6 +4,7 @@ function should_evaluate() {
 }
 
 let known_kanji = new Set(localStorage.getItem('known_kanji'));
+let known_priority_kanji = new Set(localStorage.getItem('known_priority_kanji'));
 
 if (!known_kanji.size) {
   $('#settings *:not(.container):not(.always):not(.always *)').hide();
@@ -76,7 +77,7 @@ $('#max').change(function () {
 });
 
 // Should only be true the first time get_questions() is run
-var init = true;
+let init = true;
 
 function show_quiz() {
   $('#settings').hide();
@@ -101,6 +102,7 @@ function get_questions() {
     'min': $('#min').val() || 0,
     'max': $('#max').val() || 0,
     'known_kanji': [...known_kanji].join(''),
+    'known_priority_kanji': [...known_priority_kanji].join(''),
   }, result => {
     // Analytics
     // pa is undefined when ad blockers block the microanalytics script
