@@ -14,6 +14,7 @@ const $import_dialog_ul = $('#import_dialog ul');
 const $import_submit = $('#import_submit');
 
 let known_kanji = new Set(localStorage.getItem('known_kanji'));
+let known_priority_kanji = new Set(localStorage.getItem('known_priority_kanji'));
 
 if (!known_kanji.size) {
   $('#saved, #settings *:not(.container):not(.always):not(.always *)').hide();
@@ -242,6 +243,7 @@ $settings.submit(e => {
     'min': $min.val() || 1,
     'max': $max.val() || 3,
     'known_kanji': [...known_kanji].join(''),
+    'known_priority_kanji': [...known_priority_kanji].join(''),
   }, result => {
     // Analytics
     // pa is undefined when ad blockers block the microanalytics script
