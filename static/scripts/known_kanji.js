@@ -332,8 +332,14 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
-$('#export').click(() => {
+$('#export').on('click', () => {
   let d = new Date();
   let filename = `sakubun_kanji_list_${d.getFullYear()}_${d.getMonth() + 1}_${d.getDate()}.txt`;
   download(filename, localStorage.getItem('known_kanji'));
+});
+
+$('#export_priority').on('click', () => {
+  let d = new Date();
+  let filename = `sakubun_priority_kanji_list_${d.getFullYear()}_${d.getMonth() + 1}_${d.getDate()}.txt`;
+  download(filename, localStorage.getItem('known_priority_kanji'));
 });

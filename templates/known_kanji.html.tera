@@ -209,9 +209,11 @@
         <hr>
         <h2>Export</h2>
         To import a file that was previously exported from here, just copy-paste the contents
-        of the file into the text box at the top.
+        of the file into the text boxes at the top.
         <br><br>
         <button id="export">Export</button>
+        <br>
+        <button id="export_priority">Export Priority Kanji</button>
         <hr>
         <br>
         <button id="remove_all">Remove All Kanji</button>
