@@ -524,8 +524,8 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
             // Fetch only kanji, not radicals or vocabulary
             response = response.query(&[("subject_types", "kanji")]);
         }
-        let json = dbg!(response)
-            .bearer_auth(dbg!(api_key))
+        let json = response
+            .bearer_auth(api_key)
             .send()
             .unwrap()
             .json::<serde_json::Value>()
@@ -556,17 +556,18 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
         };
     }
 
-    url = String::from("https://api.wanikani.com/v2/subjects");
-
     // Fetch the actual kanji
-    loop {
-        let mut response = client.get(&url);
-        if &url == "https://api.wanikani.com/v2/subjects" {
-            // From page 2 onwards, the ids will be part of the `url` variable
-            println!("{:?}", ids);
-            response = response.query(&[("ids", &ids.join(","))]);
-        }
-        let json = dbg!(response)
+    for i in 0..=(ids.len() / 1000) {
+        // We're looping in batches of 1000 ids because at one point the request seems to start
+        // causing errors because it's too long
+        // Since we restrict to 1000 ids at a time, we shouldn't need to paginate
+        url = String::from("https://api.wanikani.com/v2/subjects");
+        let start = i * 1000;
+        let end = start + if i == ids.len() / 1000 {ids.len() % 1000} else {1000};
+
+        let json = client
+            .get(&url)
+            .query(&[("ids", &ids[start..end].join(","))])
             .bearer_auth(api_key)
             .send()
             .unwrap()
@@ -576,12 +577,6 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
         for subject in json["data"].as_array().unwrap() {
             kanji.push(subject["data"]["characters"].as_str().unwrap().to_owned());
         }
-
-        // Pagination
-        url = match json["pages"]["next_url"].as_str() {
-            Some(url) => url.to_owned(),
-            None => break,
-        };
     }
     Ok(kanji.join(""))
 }
