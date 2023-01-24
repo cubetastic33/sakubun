@@ -525,7 +525,7 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
             response = response.query(&[("subject_types", "kanji")]);
         }
         let json = dbg!(response)
-            .bearer_auth(api_key)
+            .bearer_auth(dbg!(api_key))
             .send()
             .unwrap()
             .json::<serde_json::Value>()
