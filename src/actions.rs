@@ -524,7 +524,7 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
             // Fetch only kanji, not radicals or vocabulary
             response = response.query(&[("subject_types", "kanji")]);
         }
-        let json = response
+        let json = dbg!(response)
             .bearer_auth(api_key)
             .send()
             .unwrap()
@@ -563,9 +563,10 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
         let mut response = client.get(&url);
         if &url == "https://api.wanikani.com/v2/subjects" {
             // From page 2 onwards, the ids will be part of the `url` variable
+            println!("{:?}", ids);
             response = response.query(&[("ids", &ids.join(","))]);
         }
-        let json = response
+        let json = dbg!(response)
             .bearer_auth(api_key)
             .send()
             .unwrap()
