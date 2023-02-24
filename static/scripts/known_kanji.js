@@ -70,9 +70,6 @@ function add_kanji(text, priority = false) {
   localStorage.setItem(`known_${priority ? 'priority_' : ''}kanji`, [...known_kanji].join(''));
   // Update kanji grid
   if (!priority) kanji_grid();
-  // Analytics
-  // pa is undefined when ad blockers block the microanalytics script
-  if (typeof pa !== 'undefined' && !priority) pa.track({name: 'kanji added'});
   // Add the kanji to the normal list as well
   if (priority) add_kanji(text);
 }

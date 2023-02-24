@@ -245,9 +245,6 @@ $settings.submit(e => {
     'known_kanji': [...known_kanji].join(''),
     'known_priority_kanji': [...known_priority_kanji].join(''),
   }, result => {
-    // Analytics
-    // pa is undefined when ad blockers block the microanalytics script
-    if (typeof pa !== 'undefined') pa.track({name: 'essay'});
     $generate.prop('disabled', false);
     if (!result.length) {
       // If there were no results
