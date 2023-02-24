@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/styles/noscript.css">
   </noscript>
   <link rel="manifest" href="/manifest.json">
-  <script data-host="https://microanalytics.io" data-dnt="false" src="https://microanalytics.io/js/script.js" id="ZwSg9rf6GA" async defer></script>
+  <script async defer src="https://analytics.umami.is/script.js" data-website-id="3f9933f0-48ea-4d6d-bf6f-f44c5de07c86"></script>
 </head>
 <body {% if theme != "system" %}class="{{ theme }}"{% endif %}>
   <noscript>Error: Sakubun requires JavaScript to function</noscript>
