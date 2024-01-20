@@ -95,6 +95,19 @@ function show_quiz() {
   $('#report').hide();
 }
 
+function questions_today() {
+  // Returns the number of questions done today
+  const days_learnt = JSON.parse(localStorage.getItem('days_learnt'));
+  return days_learnt[numerify(new Date())] || 0;
+}
+
+function increment_questions() {
+  // Increments the number of questions done today
+  let days_learnt = JSON.parse(localStorage.getItem('days_learnt'));
+  days_learnt[numerify(new Date())] = questions_today() + 1;
+  localStorage.setItem('days_learnt', JSON.stringify(days_learnt));
+}
+
 function get_questions() {
   let known_kanji = new Set(localStorage.getItem('known_kanji'));
 
@@ -116,6 +129,7 @@ function get_questions() {
       $('#quiz').attr('data-sentences', result);
       $('#quiz').attr('data-index', 0);
       $('#question').text(result.split('~')[1]);
+      $('#question_no').text('Question ' + (questions_today() + 1));
       if (init) {
         // Basic IME
         wanakana.bind($('#answer')[0]);
@@ -303,6 +317,10 @@ $('#quiz_container').submit(e => {
     index++;
     if (index < sentences.length) {
       $('#quiz').attr('data-index', index);
+      // We've finished a question so increment the question number
+      increment_questions();
+      $('#question_no').text('Question ' + (questions_today() + 1));
+      // Display the question
       $('#question').text(sentences[index].split('~')[1]);
       $('#meaning, #kana').empty();
       $('#evaluation').attr('class', '').hide();

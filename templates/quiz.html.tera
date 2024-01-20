@@ -5,6 +5,7 @@
 {% block head %}
   <link rel="stylesheet" href="/styles/sentences.css">
   <link rel="stylesheet" href="/styles/quiz.css">
+  <link rel="stylesheet" href="/styles/streaks.css">
 {% endblock head %}
 
 {% block content %}
@@ -93,7 +94,8 @@
   <main>
     <form id="settings">
       <div id="range" class="always">
-        Set the minimum and maximum number of unique known kanji each question should have:
+        <span class="small">Number of known kanji in each question:</span>
+        <span class="large">Set the minimum and maximum number of unique known kanji each question should have:</span>
         <br>
         <br>
         <input type="number" size="1" id="min" min="0" title="minimum">
@@ -128,17 +130,68 @@
         </button>
         <button type="submit" id="start_quiz">Begin Quiz</button>
       </div>
-      <br>
-      <span class="warning">
-            Warning: the readings given are automatically generated, and occasionally have errors.
-            If you notice any such mistakes, feel free to use the report button so that I can fix
-            the issue. It is highly recommended to use this quiz in conjunction with something like
-            <a href="https://foosoft.net/projects/yomichan/">yomichan</a> to get the best
-            experience.
-        </span>
+      <br class="always">
+      <span class="warning large">
+          Warning: the readings given are automatically generated, and occasionally have errors.
+          If you notice any such mistakes, feel free to use the report button so that I can fix
+          the issue. It is highly recommended to use this quiz in conjunction with something like
+          <a href="https://foosoft.net/projects/yomichan/">yomichan</a> to get the best
+          experience.
+      </span>
+      <hr class="always">
+      <div id="streaks_header" class="always">
+        <button type="button" id="import_streaks" class="exception">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15M9 12l3 3m0 0 3-3m-3 3V2.25" />
+          </svg>
+          Import
+        </button>
+        <div id="year">Past 1 year</div>
+        <button type="button" id="export_streaks" class="exception">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 8.25H7.5a2.25 2.25 0 0 0-2.25 2.25v9a2.25 2.25 0 0 0 2.25 2.25h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25H15m0-3-3-3m0 0-3 3m3-3V15" />
+          </svg>
+          Export
+        </button>
+      </div>
+      <div id="streaks" class="always">
+        <div id="prev_year">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+          </svg>
+        </div>
+        <div id="scrollable" dir="rtl">
+          <div id="months" dir="ltr">
+            <span>1 year ago</span>
+            <span>Now</span>
+          </div>
+          <div id="heatmap" dir="ltr">
+            {% for i in range(end=371) %}
+            <div class="streak_day"></div>
+            {% endfor %}
+          </div>
+        </div>
+        <div id="next_year">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+          </svg>
+        </div>
+      </div>
+      <div id="stats" class="always">
+        <div>
+          <b>Longest Streak:</b> <span id="longest"></span>
+        </div>
+        <div>
+          <b>Current Streak:</b> <span id="current"></span>
+        </div>
+        <div>
+          <b>Today:</b> <span id="today"></span>
+        </div>
+      </div>
     </form>
     <form id="quiz_container">
       <div id="quiz">
+        <div id="question_no"></div>
         <div id="question"></div>
         <textarea type="text" id="answer" rows="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
         <div id="evaluation"></div>
@@ -156,5 +209,6 @@
 {% block javascript %}
   <script src="/scripts/wanakana.min.js"></script>
   <script src="/scripts/patience_diff.js"></script>
+  <script src="/scripts/streaks.js"></script>
   <script src="/scripts/quiz.js"></script>
 {% endblock javascript %}

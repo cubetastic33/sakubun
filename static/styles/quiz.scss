@@ -51,6 +51,7 @@ a {
 .warning {
   display: none;
   font-size: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .buttons {
@@ -141,6 +142,10 @@ a {
 #question {
   font-size: 2.25em;
   margin: 0;
+}
+
+#question_no {
+  margin-bottom: 1.5em;
 }
 
 #answer, #evaluation {
@@ -235,6 +240,20 @@ a {
 
   #answer, #meaning, #kana {
     font-size: 1.1rem;
+  }
+}
+
+.small {
+  display: none !important;
+}
+
+@media screen and (max-width: 600px) {
+  .large {
+    display: none !important;
+  }
+
+  .small {
+    display: initial !important;
   }
 }
 
