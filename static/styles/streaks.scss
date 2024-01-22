@@ -98,3 +98,90 @@ svg {
     gap: 0.5em;
   }
 }
+
+#import_error, #confirmation {
+  text-align: center;
+  display: none;
+  margin-top: 1em;
+}
+
+#import_error {
+  color: var(--error);
+}
+
+#confirmation div {
+  display: flex;
+  justify-content: center;
+  gap: 2em;
+  margin-top: 1em;
+}
+
+// File selector
+
+.upload {
+  font-size: .9em;
+  display: flex;
+  justify-content: center;
+  margin: 1em 0;
+
+  div {
+    border: 1px solid var(--foreground);
+    border-radius: 5px 0 0 5px;
+    border-right-width: 0;
+    overflow: hidden;
+    padding: .5em;
+    width: 15em;
+    height: 1.5em;
+    white-space: nowrap;
+  }
+
+  label {
+    background-color: var(--button);
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-family: "Cantarell Bold";
+    font-size: .8em;
+    padding: calc(.7em + 2px) 1em;
+  }
+
+  label:hover {
+    background-color: var(--button-hover);
+  }
+
+  input {
+    display: none;
+  }
+}
+
+.upload + div {
+  display: none;
+  color: var(--error);
+  margin-bottom: 1em;
+}
+
+.upload.error div {
+  border-color: var(--error);
+}
+
+.upload.error + div {
+  display: block;
+}
+
+@media screen and (max-width: 400px) {
+  .upload {
+    flex-direction: column;
+    width: 200px;
+    margin: auto;
+
+    div {
+      border-radius: 5px 5px 0 0;
+      border-width: 1px 1px 0 1px;
+      width: auto;
+    }
+
+    label {
+      border-radius: 0 0 5px 5px;
+      text-align: center;
+    }
+  }
+}

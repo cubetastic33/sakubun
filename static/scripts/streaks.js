@@ -3,8 +3,6 @@ if (localStorage.getItem('days_learnt') === null) {
 }
 
 const DAY = 24 * 60 * 60 * 1000; // Number of milliseconds in one day
-const days_learnt = JSON.parse(localStorage.getItem('days_learnt'));
-const days = Object.keys(days_learnt).map(x => parseInt(x)).sort();
 
 function numerify(date) {
   // Converts a date to a number
@@ -14,14 +12,6 @@ function numerify(date) {
 function datify(number) {
   // Converts a number to a date
   return new Date(Math.floor(number / 10000), Math.floor(number % 10000 / 100) - 1, number % 100);
-}
-
-function scale(x) {
-  // Scales x to a percentage between 40 and 90 for use with HSL
-  const min = Math.min(...Object.values(days_learnt));
-  const max = Math.max(...Object.values(days_learnt));
-  if (min === max) return 60;
-  return (90 - 40) * (x - min) / (max - min) + 40;
 }
 
 function draw_map(end_date, start_year=true) {
@@ -38,6 +28,17 @@ function draw_map(end_date, start_year=true) {
   start_date.setHours(0, 0, 0, 0); // Set time to midnight so calculations work as expected
   // Blank out the days before start_date
   for (let i = 0; i < start_date.getDay(); i++) $('.streak_day').eq(i).addClass('empty');
+  
+  const days_learnt = JSON.parse(localStorage.getItem('days_learnt'));
+  const days = Object.keys(days_learnt).map(x => parseInt(x)).sort();
+
+  function scale(x) {
+    // Scales x to a percentage between 40 and 90 for use with HSL
+    const min = Math.min(...Object.values(days_learnt));
+    const max = Math.max(...Object.values(days_learnt));
+    if (min === max) return 60;
+    return (90 - 40) * (x - min) / (max - min) + 40;
+  }
 
   if (start_year) {
     $('#months span').eq(0).text('Jan');
@@ -64,7 +65,7 @@ function draw_map(end_date, start_year=true) {
       $('.streak_day')
         .eq(Math.round((date - start_date) / DAY))
         .css('background-color', `hsl(335, 70%, ${scale(num_questions)}%)`)
-        .prop('title', `${date.toLocaleDateString()} - ${num_questions} question${num_questions === 1 ? '' : 's'}`);
+        .prop('title', `${date.toDateString()} - ${num_questions} question${num_questions === 1 ? '' : 's'}`);
     }
   }
 
@@ -123,4 +124,48 @@ $('#export_streaks').on('click', () => {
   let d = new Date();
   let filename = `sakubun_quiz_streaks_${d.getFullYear()}_${d.getMonth() + 1}_${d.getDate()}.json`;
   download_json(filename, JSON.parse(localStorage.getItem('days_learnt')));
+});
+
+$('#import_streaks').on('click', () => {
+  $('#import_streaks_dialog + .overlay').show();
+  $('#import_streaks_dialog').show('slow');
+});
+
+const $file = $('#file');
+
+$file.siblings('div').text($file.val().split(/([\\/])/g).pop());
+$file.change(async function () {
+  $('#import_error').hide();
+  $('#confirmation').hide();
+  if (this.files[0].size > 4194304) {
+    $file.parent().attr('class', 'upload error');
+  } else {
+    $file.parent().attr('class', 'upload');
+    try {
+      const contents = JSON.parse(await this.files[0].text());
+      const num_days = Object.keys(contents).length;
+      console.log(contents);
+      $('#confirmation span').text(num_days + ' day' + (num_days === 1 ? '\'s' : 's\''));
+      $('#confirmation').show();
+    } catch (e) {
+      console.log(e);
+      $('#import_error').show();
+    }
+  }
+  $(this).siblings('div').text(this.value.split(/([\\/])/g).pop());
+});
+
+$('#replace').on('click', async () => {
+  const contents = JSON.parse(await $file[0].files[0].text());
+  localStorage.setItem('days_learnt', JSON.stringify({ ...contents }));
+  draw_map(new Date(), false);
+  $('#import_streaks_dialog').hide('slow').then($('#import_streaks_dialog + .overlay').hide());
+});
+
+$('#merge').on('click', async () => {
+  const contents = JSON.parse(await $file[0].files[0].text());
+  const current = JSON.parse(localStorage.getItem('days_learnt')) || {};
+  localStorage.setItem('days_learnt', JSON.stringify({ ...current, ...contents }));
+  draw_map(new Date(), false);
+  $('#import_streaks_dialog').hide('slow').then($('#import_streaks_dialog + .overlay').hide());
 });

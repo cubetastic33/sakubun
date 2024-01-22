@@ -226,8 +226,7 @@ section > div {
     padding: .5em;
     width: 15em;
     height: 1.5em;
-    // Hides the vertical overflow which would otherwise show up due to the padding
-    line-height: calc(1.5em + 1px);
+    white-space: nowrap;
   }
 
   label {

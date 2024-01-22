@@ -91,6 +91,28 @@
     </form>
   </dialog>
   <div class="overlay"></div>
+  <dialog id="import_streaks_dialog">
+    <h3>Import Streaks</h3>
+    <div class="upload">
+      <div>No file chosen</div>
+      <label for="file">Choose File</label>
+      <input type="file" id="file" accept=".json">
+    </div>
+    <div>The file is too large! The maximum allowed size is 4 MiB.</div>
+    <div id="import_error">Error: Invalid file</div>
+    <div id="confirmation">
+      There is <span></span> worth of data in the file. Would you like to replace the current streaks data or merge them together?
+      <div>
+        <button id="replace">Replace</button>
+        <button id="merge">Merge</button>
+      </div>
+    </div>
+    <br>
+    <div>
+      <button class="text close">Cancel</button>
+    </div>
+  </dialog>
+  <div class="overlay"></div>
   <main>
     <form id="settings">
       <div id="range" class="always">

@@ -1,6 +1,6 @@
 "use strict";
 
-const version = "20230123-1::";
+const version = "20240121-0::";
 
 // Caches for different resources
 const core_cache_name = version + "core";
@@ -9,6 +9,25 @@ const assets_cache_name = version + "assets";
 
 // Resources that will be always be cached
 const core_cache_urls = [
+    "/",
+    "/offline",
+    "/styles/main.css",
+    "/styles/index.css",
+    "/styles/known_kanji.css",
+    "/styles/quiz.css",
+    "/styles/streaks.css",
+    "/styles/custom_text.css",
+    "/scripts/jquery-3.5.1.min.js",
+    "/scripts/ds.min.js",
+    "/scripts/known_kanji.js",
+    "/scripts/quiz.js",
+    "/scripts/streaks.js",
+    "/scripts/wanakana.min.js",
+    "/fonts/SourceSansPro-Regular.ttf",
+    "/fonts/MaterialIcons-Round.woff2",
+    "/fonts/Cantarell-Bold.ttf",
+    "/scripts/custom_text.js",
+    "/favicon-32x32.png",
 ];
 
 function update_core_cache() {
