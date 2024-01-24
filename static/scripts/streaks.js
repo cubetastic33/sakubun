@@ -33,11 +33,12 @@ function draw_map(end_date, start_year=true) {
   const days = Object.keys(days_learnt).map(x => parseInt(x)).sort();
 
   function scale(x) {
-    // Scales x to a percentage between 40 and 90 for use with HSL
-    const min = Math.min(...Object.values(days_learnt));
-    const max = Math.max(...Object.values(days_learnt));
-    if (min === max) return 60;
-    return (90 - 40) * (x - min) / (max - min) + 40;
+    // Scales x to a percentage to use with HSL
+    let min = Math.min(...Object.values(days_learnt));
+    // Mellow the difference in color if there's very little variation between min and max
+    min = Math.max(min - 10, 0);
+    const max = Math.max(...Object.values(days_learnt)) + 10;
+    return (100 - 35) * (x - min) / (max - min) + 35;
   }
 
   if (start_year) {
@@ -74,6 +75,8 @@ function draw_map(end_date, start_year=true) {
   // If the user learnt today, add 1 to the current streak
   if (learnt_today === 0) current_streak = 0;
   else current_streak++;
+
+  if (current_streak > longest_streak) longest_streak = current_streak;
 
   $('#longest').text(`${longest_streak} day${longest_streak === 1 ? '' : 's'}`);
   $('#current').text(`${current_streak} day${current_streak === 1 ? '' : 's'}`);
