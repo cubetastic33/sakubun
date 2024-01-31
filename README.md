@@ -28,6 +28,7 @@ quiz.
 ## Screenshots
 
 ![Home page, on desktop](screenshots/home%20page.png)
+![Quiz page, on desktop](screenshots/quiz.png)
 ![Custom text page, on desktop](screenshots/custom%20text.png)
 ![Quiz page, on mobile with light theme](screenshots/quiz%20mobile.png)
 
