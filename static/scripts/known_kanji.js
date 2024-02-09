@@ -221,11 +221,13 @@ $file.change(function () {
 const $preview = $('#preview');
 const $preview_kanji = $('#preview_kanji');
 
-function preview_kanji(kanji, method) {
-  if (!kanji.length) {
-    // No kanji were found
-    $('#no_kanji_found + .overlay').show();
-    $('#no_kanji_found').show('slow');
+function preview_kanji(kanji, method, error=null) {
+  if (error || !kanji.length) {
+    // Either an error occurred, or no kanji were found
+    $('#anki_import_error + .overlay').show();
+    // If there was no error, tell the user no kanji were found
+    $('#anki_import_error p').text(error || 'No kanji were found');
+    $('#anki_import_error').show('slow');
     return;
   }
   // Preview kanji
@@ -271,7 +273,12 @@ $('#anki').submit(e => {
     // Enable the import button again
     $('#anki button').prop('disabled', false);
     preview_kanji(result, 'anki');
-  }).fail(console.log);
+  }).fail(err => {
+    console.log(err);
+    // Enable the import button again
+    $('#anki button').prop('disabled', false);
+    preview_kanji([], 'anki', err.responseText);
+  });
 });
 
 $('#wanikani form:first-child').submit(e => {

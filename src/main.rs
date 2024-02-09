@@ -383,6 +383,6 @@ fn main() {
     dotenv().ok();
     let connector = MakeTlsConnector::new(TlsConnector::builder().danger_accept_invalid_certs(true).build().unwrap());
 
-    let client = Client::connect(&env::var("DATABASE_URL").unwrap(), connector).unwrap();
+    let client = Client::connect(&env::var("DATABASE_URL").expect("Env var DATABASE_URL not found"), connector).unwrap();
     rocket().manage(Mutex::new(client)).launch();
 }

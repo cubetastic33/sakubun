@@ -420,6 +420,18 @@ pub fn get_admin_stuff(client: &mut Client) -> (Vec<AdminReport>, Vec<AdminOverr
     (reports, overrides)
 }
 
+fn return_err<T>(file_name: &str, e: impl Error) -> Result<T, Custom<String>> {
+    // Converts any error to a custom error that can be returned by rocket.
+    // Allows us to use ? after a .or_else() to return errors from Results.
+    println!("An error occurred: {:?}", e);
+    // Delete the database file since we're returning early from an error
+    fs::remove_file(file_name).expect("Couldn't delete the anki database file");
+    Err(Custom(
+        Status::InternalServerError,
+        e.to_string(),
+    ))
+}
+
 pub fn extract_kanji_from_anki_deck(
     data: Cursor<Vec<u8>>,
     only_learnt: bool,
@@ -430,77 +442,81 @@ pub fn extract_kanji_from_anki_deck(
         let file_name = format!("{}.db", Uuid::new_v4());
         let mut contents = Vec::new();
         // Get the database file
-        if let Ok(mut file) = zip.by_name("collection.anki21") {
-            // This deck uses the Anki 2.1 scheduler
-            file.read_to_end(&mut contents).unwrap();
+        if let Ok(mut file) = zip.by_name("collection.anki21b") {
+            // This deck uses the Anki scheduler v3
+            // TODO this needs to be decompressed using zstd
+            file.read_to_end(&mut contents).or_else(|e| return_err(&file_name, e))?;
+        }
+        if contents.len() == 0 {
+            if let Ok(mut file) = zip.by_name("collection.anki21") {
+                // This deck uses the Anki 2.1 scheduler
+                file.read_to_end(&mut contents).or_else(|e| return_err(&file_name, e))?;
+            }
         }
         if contents.len() == 0 {
             if let Ok(mut file) = zip.by_name("collection.anki2") {
                 // This deck doesn't use the Anki 2.1 scheduler
-                file.read_to_end(&mut contents).unwrap();
+                file.read_to_end(&mut contents).or_else(|e| return_err(&file_name, e))?;
             }
         }
         if contents.len() > 0 {
             // We now have the sqlite3 database with the notes
             // Write the database to a file
-            let mut f = fs::File::create(&file_name).unwrap();
-            f.write_all(&contents).unwrap();
-            if let Ok(conn) = Connection::open(&file_name) {
-                // Create a variable to store the kanji
-                let mut kanji: HashSet<String> = HashSet::new();
-                // Regex to find kanji
-                let kanji_regex = Regex::new(r"[\p{Han}]").unwrap();
-                /*
-                 * In most decks I checked the kanji was in the sort field (sfld) column, but some
-                 * decks have numbers there, and the kanji is in the fields (flds) column. In this
-                 * case it's more complicated because there can be multiple fields and the kanji
-                 * could be in any one of those fields. So we take the sfld column if it has kanji,
-                 * otherwise as a secondary option we take the flds column.
-                 *
-                 * The queue column in the cards table tells us if the card is already learnt, is
-                 * being learnt, or has never been seen before. if the only_learnt parameter is
-                 * true, we should only consider cards that are in queue 2 (learnt).
-                 *
-                 * Despite the DISTINCT clause, it is still necessary to filter duplicates because
-                 * different notes of the same kanji could be in different queues.
-                 */
-                let mut statement = conn
-                    .prepare(
-                        "SELECT DISTINCT cards.queue, notes.sfld, notes.flds
-                     FROM cards INNER JOIN notes on notes.id = cards.nid",
-                    )
-                    .unwrap();
-                let mut rows = statement.query(NO_PARAMS).unwrap();
-                while let Some(row) = rows.next().unwrap() {
-                    if !only_learnt || row.get::<_, i32>(0).unwrap() == 2 {
-                        let mut no_kanji_found = true;
-                        // Check for string type because it could also be integer
-                        if let Ok(sfld) = row.get::<_, String>(1) {
-                            // Insert all kanji found in the sfld column to the kanji set
-                            for capture in kanji_regex.captures_iter(&sfld) {
-                                kanji.insert(capture[0].to_string());
-                                no_kanji_found = false;
-                            }
+            let mut f = fs::File::create(&file_name).or_else(|e| return_err(&file_name, e))?;
+            f.write_all(&contents).or_else(|e| return_err(&file_name, e))?;
+            let conn = Connection::open(&file_name).or_else(|e| return_err(&file_name, e))?;
+            // Create a variable to store the kanji
+            let mut kanji: HashSet<String> = HashSet::new();
+            // Regex to find kanji
+            let kanji_regex = Regex::new(r"[\p{Han}]").unwrap();
+            /*
+            * In most decks I checked the kanji was in the sort field (sfld) column, but some
+            * decks have numbers there, and the kanji is in the fields (flds) column. In this
+            * case it's more complicated because there can be multiple fields and the kanji
+            * could be in any one of those fields. So we take the sfld column if it has kanji,
+            * otherwise as a secondary option we take the flds column.
+            *
+            * The queue column in the cards table tells us if the card is already learnt, is
+            * being learnt, or has never been seen before. if the only_learnt parameter is
+            * true, we should only consider cards that are in queue 2 (learnt).
+            *
+            * Despite the DISTINCT clause, it is still necessary to filter duplicates because
+            * different notes of the same kanji could be in different queues.
+            */
+            let mut statement = conn.prepare(
+                "SELECT DISTINCT cards.queue, notes.sfld, notes.flds
+                FROM cards INNER JOIN notes on notes.id = cards.nid"
+            ).or_else(|e| return_err(&file_name, e))?;
+            let mut rows = statement.query(NO_PARAMS).or_else(|e| return_err(&file_name, e))?;
+            while let Some(row) = rows.next().unwrap() {
+                if !only_learnt || row.get::<_, i32>(0).unwrap() == 2 {
+                    let mut no_kanji_found = true;
+                    // Check for string type because it could also be integer
+                    if let Ok(sfld) = row.get::<_, String>(1) {
+                        // Insert all kanji found in the sfld column to the kanji set
+                        for capture in kanji_regex.captures_iter(&sfld) {
+                            kanji.insert(capture[0].to_string());
+                            no_kanji_found = false;
                         }
-                        // If no kanji were found in the sfld column
-                        if no_kanji_found {
-                            let flds: String = row.get(2).unwrap();
-                            // Insert all kanji found in the flds column to the kanji set
-                            for capture in kanji_regex.captures_iter(&flds) {
-                                kanji.insert(capture[0].to_string());
-                            }
+                    }
+                    // If no kanji were found in the sfld column
+                    if no_kanji_found {
+                        let flds: String = row.get(2).unwrap();
+                        // Insert all kanji found in the flds column to the kanji set
+                        for capture in kanji_regex.captures_iter(&flds) {
+                            kanji.insert(capture[0].to_string());
                         }
                     }
                 }
-                // Delete the database file
-                fs::remove_file(&file_name).unwrap();
-                // Return all the extracted kanji
-                return Ok(kanji
-                    .iter()
-                    .map(|k| k.as_str())
-                    .collect::<Vec<&str>>()
-                    .join(""));
             }
+            // Delete the database file
+            fs::remove_file(&file_name).expect("Couldn't delete the anki database file");
+            // Return all the extracted kanji
+            return Ok(kanji
+                .iter()
+                .map(|k| k.as_str())
+                .collect::<Vec<&str>>()
+                .join(""));
         }
     }
     Err(Custom(

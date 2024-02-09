@@ -24,9 +24,9 @@
       overlay using some dynamic JavaScript, but I thought this was easier.
   -->
   <div class="overlay"></div>
-  <dialog id="no_kanji_found">
+  <dialog id="anki_import_error">
     <h3>Error</h3>
-    <p>No kanji were found</p>
+    <p></p>
     <div>
       <button class="close">Okay</button>
     </div>
