@@ -109,6 +109,7 @@
       {% for report in reports %}
         <div class="{{ report.report_id }}">
           <h2>{{ report.question }}</h2>
+          <div class="reported_at">{{ report.reported_at | date(format="%e %b %Y, %H:%M %:z") }}</div>
           <p><b>Translation:</b><span class="translation">{{ report.translation }}</span></p>
           <div>
             <b>Readings:</b>

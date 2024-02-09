@@ -15,12 +15,18 @@ main > p {
   padding: 1em;
   position: relative;
 
-  .primary {
+  .primary, .reported_at {
     background-color: var(--background-extreme);
     border-radius: 5px;
     padding: .25em 0.5em;
     position: absolute;
+    top: 1em;
     right: 1em;
+  }
+
+  .reported_at {
+    background-color: initial;
+    border: 1px solid var(--direction);
   }
 
   h2 {

@@ -127,7 +127,7 @@ pub fn get_admin_stuff(client: &mut Client) -> (Vec<AdminReport>, Vec<AdminOverr
             report_type: row.get("report_type"),
             suggested: row.get("suggested"),
             comment: row.get("comment"),
-            reported_at: reported_at.to_string(),
+            reported_at: reported_at.with_timezone(&chrono_tz::US::Central).to_rfc3339(),
         });
     }
     // Get the overrides from the database

@@ -24,3 +24,4 @@ serde_derive = "1.0"
 serde_json = "1.0"
 reqwest = { version = "0.11", features = ["blocking", "json"] }
 zstd = "0.13.0"
+chrono-tz = "0.8.5"
