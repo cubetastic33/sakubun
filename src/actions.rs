@@ -420,18 +420,6 @@ pub fn get_admin_stuff(client: &mut Client) -> (Vec<AdminReport>, Vec<AdminOverr
     (reports, overrides)
 }
 
-fn return_err<T>(file_name: &str, e: impl Error) -> Result<T, Custom<String>> {
-    // Converts any error to a custom error that can be returned by rocket.
-    // Allows us to use ? after a .or_else() to return errors from Results.
-    println!("An error occurred: {:?}", e);
-    // Delete the database file since we're returning early from an error
-    fs::remove_file(file_name).expect("Couldn't delete the anki database file");
-    Err(Custom(
-        Status::InternalServerError,
-        e.to_string(),
-    ))
-}
-
 pub fn extract_kanji_from_anki_deck(
     data: Cursor<Vec<u8>>,
     only_learnt: bool,
@@ -440,12 +428,27 @@ pub fn extract_kanji_from_anki_deck(
     if let Ok(mut zip) = zip::ZipArchive::new(data) {
         // Randomly generated filename to temporarily save the database at
         let file_name = format!("{}.db", Uuid::new_v4());
+
+        // Function that converts any error to a custom error that can be returned by rocket.
+        // Allows us to use ? after a .or_else() to return errors from Results.
+        fn return_err<T>(file_name: &str, e: impl Error) -> Result<T, Custom<String>> {
+            println!("An error occurred: {:?}", e);
+            // Delete the database file since we're returning early from an error
+            fs::remove_file(file_name).expect("Couldn't delete the anki database file");
+            fs::remove_file(&format!("{}-shm", file_name)).ok(); // Delete if exists
+            fs::remove_file(&format!("{}-wal", file_name)).ok(); // Delete if exists
+            Err(Custom(
+                Status::InternalServerError,
+                e.to_string(),
+            ))
+        }
+
         let mut contents = Vec::new();
         // Get the database file
-        if let Ok(mut file) = zip.by_name("collection.anki21b") {
+        if let Ok(file) = zip.by_name("collection.anki21b") {
             // This deck uses the Anki scheduler v3
-            // TODO this needs to be decompressed using zstd
-            file.read_to_end(&mut contents).or_else(|e| return_err(&file_name, e))?;
+            // This requires us to use zstd to decompress the file
+            zstd::stream::copy_decode(file, &mut contents).or_else(|e| return_err(&file_name, e))?;
         }
         if contents.len() == 0 {
             if let Ok(mut file) = zip.by_name("collection.anki21") {
@@ -511,6 +514,8 @@ pub fn extract_kanji_from_anki_deck(
             }
             // Delete the database file
             fs::remove_file(&file_name).expect("Couldn't delete the anki database file");
+            fs::remove_file(&format!("{}-shm", file_name)).ok(); // Delete if exists
+            fs::remove_file(&format!("{}-wal", file_name)).ok(); // Delete if exists
             // Return all the extracted kanji
             return Ok(kanji
                 .iter()
@@ -519,6 +524,7 @@ pub fn extract_kanji_from_anki_deck(
                 .join(""));
         }
     }
+
     Err(Custom(
         Status::InternalServerError,
         String::from("Failed to parse apkg file"),
