@@ -27,8 +27,12 @@ use std::{
 };
 
 mod actions;
+mod kanji_import;
+mod admin;
 
 use actions::*;
+use kanji_import::*;
+use admin::*;
 
 #[derive(FromForm)]
 pub struct QuizSettings {
