@@ -142,10 +142,10 @@
     <div id="overrides">
       {% for override in overrides %}
         <div class="{{ override.override_id }}">
+          <h2>{{ override.question }}</h2>
           {% if override.override_type == "reading" and override.primary_value %}
             <div class="primary">Primary</div>
           {% endif %}
-          <h2>{{ override.question }}</h2>
           <p><b>Translation:</b><span class="translation">{{ override.translation }}</span></p>
           <p><b>Reading:</b><span class="reading">{{ override.reading }}</span></p>
           <p><b>Override type:</b><span class="override_type">{{ override.override_type }}</span>

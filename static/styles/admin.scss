@@ -22,10 +22,11 @@ main > p {
     position: absolute;
     top: 1em;
     right: 1em;
+    white-space: nowrap;
   }
 
   .reported_at {
-    background-color: initial;
+    background-color: var(--background-dark);
     border: 1px solid var(--direction);
   }
 
@@ -107,4 +108,12 @@ dialog hr, #override .form_input {
 
 .checkbox {
   --tick: var(--background-extreme);
+}
+
+@media screen and (max-width: 1000px) {
+  .primary, .reported_at {
+    position: static !important;
+    margin: 0 auto 0.5rem auto;
+    width: min-content;
+  }
 }
