@@ -101,11 +101,16 @@
   </dialog>
   <div class="overlay"></div>
   <main>
-    <h1>Reports</h1>
-    <p>
-      {{ reports | length }} report{% if reports | length != 1 %}s{% endif %}
-    </p>
-    <div id="reports">
+    <div id="quick_nav">
+      <a href="#reports">
+        {{ reports | length }} report{% if reports | length != 1 %}s{% endif %}
+      </a>
+      <a href="#overrides">
+        {{ overrides | length }} override{% if overrides | length != 1 %}s{% endif %}
+      </a>
+    </div>
+    <h1 id="reports">Reports</h1>
+    <div id="reports_cards">
       {% for report in reports %}
         <div class="{{ report.report_id }}">
           <h2>{{ report.question }}</h2>
@@ -135,11 +140,8 @@
         </div>
       {% endfor %}
     </div>
-    <h1>Overrides</h1>
-    <p>
-      {{ overrides | length }} override{% if overrides | length != 1 %}s{% endif %}
-    </p>
-    <div id="overrides">
+    <h1 id="overrides">Overrides</h1>
+    <div id="overrides_cards">
       {% for override in overrides %}
         <div class="{{ override.override_id }}">
           <h2>{{ override.question }}</h2>

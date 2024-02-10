@@ -8,7 +8,25 @@ main > p {
   padding: 0 .5em;
 }
 
-#reports > div, #overrides > div {
+#quick_nav {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  
+  a {
+    border: 2px solid var(--direction);
+    border-radius: 2em;
+    color: var(--foreground);
+    padding: .5em 2em;
+    text-decoration: none;
+  }
+
+  a:hover {
+    background-color: var(--background-dark);
+  }
+}
+
+#reports_cards > div, #overrides_cards > div {
   background-color: var(--background-dark);
   border-radius: 5px;
   margin: 1em 0;

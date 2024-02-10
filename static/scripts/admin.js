@@ -10,7 +10,7 @@ $('dialog').each(function () {
 });
 
 $('.reject, .accept').click(function () {
-  let is_report = $(this).parent().parent().parent().attr('id') === 'reports';
+  let is_report = $(this).parent().parent().parent().attr('id') === 'reports_cards';
   let dialog = $(this).hasClass('reject') ? 'confirmation' : is_report ? 'override' : 'edit_override';
   let id = $(this).parent().parent().attr('class');
   $(`#${dialog} + .overlay`).show();
@@ -19,10 +19,10 @@ $('.reject, .accept').click(function () {
   if (is_report && $(this).hasClass('accept')) {
     $('#question').val($(this).parent().siblings('h2').text());
     for (let property of ['translation', 'reading']) {
-      $(`#${property}`).val($(`#reports .${id} .${property}:first-of-type`).text());
+      $(`#${property}`).val($(`#reports_cards .${id} .${property}:first-of-type`).text());
     }
     for (let property of ['report_type', 'comment']) {
-      let value = $(`#reports .${id} .${property}`).text();
+      let value = $(`#reports_cards .${id} .${property}`).text();
       // Hide the comment div if there is no comment
       // This doesn't apply for report_type
       if (value.length) {
@@ -32,7 +32,7 @@ $('.reject, .accept').click(function () {
         $(`#${dialog} .${property}`).hide();
       }
     }
-    let suggested = $(`#reports .${id} .suggested`).text();
+    let suggested = $(`#reports_cards .${id} .suggested`).text();
     if (suggested.length) {
       $(`#${dialog} .suggested`).show();
       $('#suggested').text(suggested);
@@ -41,11 +41,11 @@ $('.reject, .accept').click(function () {
     }
   } else if ($(this).hasClass('accept')) {
     $('#edit_override .question').text($(this).parent().siblings('h2').text());
-    $('#edit_override .translation').text($(`#overrides .${id} .translation`).text());
-    $('#edit_override .reading').text($(`#overrides .${id} .reading`).text());
-    $('#edit_override .override_type').text($(`#overrides .${id} .override_type`).text());
-    $('#value').val($(`#overrides .${id} .value`).text());
-    $('#primary').prop('checked', !!$(`#overrides .${id} .primary`).length);
+    $('#edit_override .translation').text($(`#overrides_cards .${id} .translation`).text());
+    $('#edit_override .reading').text($(`#overrides_cards .${id} .reading`).text());
+    $('#edit_override .override_type').text($(`#overrides_cards .${id} .override_type`).text());
+    $('#value').val($(`#overrides_cards .${id} .value`).text());
+    $('#primary').prop('checked', !!$(`#overrides_cards .${id} .primary`).length);
   }
 });
 
