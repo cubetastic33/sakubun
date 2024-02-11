@@ -60,7 +60,11 @@ impl Sentence for (String, String, String, String, HashSet<char>, Option<usize>)
     }
 }
 
-pub fn fill_sentences<T: Sentence>(client: &mut Client, sentences: &mut Vec<T>, add_overrides: bool) {
+pub fn fill_sentences<T: Sentence>(
+    client: &mut Client,
+    sentences: &mut Vec<T>,
+    add_overrides: bool,
+) {
     let mut queue: HashMap<i32, Vec<usize>> = HashMap::new();
     for (i, sentence) in sentences.iter().enumerate() {
         if queue.contains_key(&sentence.get_id()) {
@@ -143,8 +147,12 @@ pub fn get_sentences(
         let large_enough = kanji_in_sentence.len() >= quiz_settings.min;
         let small_enough = kanji_in_sentence.len() <= quiz_settings.max;
 
-        if kanji_in_sentence.is_subset(&known_kanji)&& large_enough && small_enough &&
-            (known_priority_kanji.is_empty() || !kanji_in_sentence.is_disjoint(&known_priority_kanji)) {
+        if kanji_in_sentence.is_subset(&known_kanji)
+            && large_enough
+            && small_enough
+            && (known_priority_kanji.is_empty()
+                || !kanji_in_sentence.is_disjoint(&known_priority_kanji))
+        {
             sentences.push([
                 id.to_owned(),
                 jap_sentence.to_owned(),
@@ -162,10 +170,7 @@ pub fn get_sentences(
     Ok(sentences)
 }
 
-pub fn generate_essay(
-    client: &mut Client,
-    quiz_settings: Form<QuizSettings>,
-) -> Vec<[String; 4]> {
+pub fn generate_essay(client: &mut Client, quiz_settings: Form<QuizSettings>) -> Vec<[String; 4]> {
     let mut essay = Vec::new();
     let mut sentences = Vec::new();
     let mut rng = thread_rng();
@@ -237,7 +242,12 @@ pub fn generate_essay(
 
         // Add a random sentence with a lot of known kanji to the essay
         let choice = tuples.choose(&mut rng).unwrap();
-        essay.push([choice.0.to_owned(), choice.1.to_owned(), choice.2.to_owned(), choice.3.to_owned()]);
+        essay.push([
+            choice.0.to_owned(),
+            choice.1.to_owned(),
+            choice.2.to_owned(),
+            choice.3.to_owned(),
+        ]);
         known_kanji = known_kanji.difference(&choice.4).map(|x| *x).collect();
     }
 

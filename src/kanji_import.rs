@@ -4,8 +4,13 @@ use super::OrderedImport;
 use regex::Regex;
 use rocket::{http::Status, request::Form, response::status::Custom};
 use rusqlite::{Connection, NO_PARAMS};
+use std::{
+    collections::HashSet,
+    error::Error,
+    fs,
+    io::{Cursor, Read, Write},
+};
 use uuid::Uuid;
-use std::{error::Error, collections::HashSet, io::{Cursor, Read, Write}, fs};
 
 pub enum KanjiOrder {
     WaniKani,
@@ -29,12 +34,10 @@ pub fn extract_kanji_from_anki_deck(
             println!("An error occurred: {:?}", e);
             // Delete the database file since we're returning early from an error
             fs::remove_file(file_name).expect("Couldn't delete the anki database file");
-            let _ = fs::remove_file(&format!("{}-shm", file_name)); // Delete if exists
-            let _ = fs::remove_file(&format!("{}-wal", file_name)); // Delete if exists
-            Err(Custom(
-                Status::InternalServerError,
-                e.to_string(),
-            ))
+            // Delete the temp db files if they exist
+            let _ = fs::remove_file(&format!("{}-shm", file_name));
+            let _ = fs::remove_file(&format!("{}-wal", file_name));
+            Err(Custom(Status::InternalServerError, e.to_string()))
         }
 
         let mut contents = Vec::new();
@@ -42,49 +45,57 @@ pub fn extract_kanji_from_anki_deck(
         if let Ok(file) = zip.by_name("collection.anki21b") {
             // This deck uses the Anki scheduler v3
             // This requires us to use zstd to decompress the file
-            zstd::stream::copy_decode(file, &mut contents).or_else(|e| return_err(&file_name, e))?;
+            zstd::stream::copy_decode(file, &mut contents)
+                .or_else(|e| return_err(&file_name, e))?;
         }
         if contents.len() == 0 {
             if let Ok(mut file) = zip.by_name("collection.anki21") {
                 // This deck uses the Anki 2.1 scheduler
-                file.read_to_end(&mut contents).or_else(|e| return_err(&file_name, e))?;
+                file.read_to_end(&mut contents)
+                    .or_else(|e| return_err(&file_name, e))?;
             }
         }
         if contents.len() == 0 {
             if let Ok(mut file) = zip.by_name("collection.anki2") {
                 // This deck doesn't use the Anki 2.1 scheduler
-                file.read_to_end(&mut contents).or_else(|e| return_err(&file_name, e))?;
+                file.read_to_end(&mut contents)
+                    .or_else(|e| return_err(&file_name, e))?;
             }
         }
         if contents.len() > 0 {
             // We now have the sqlite3 database with the notes
             // Write the database to a file
             let mut f = fs::File::create(&file_name).or_else(|e| return_err(&file_name, e))?;
-            f.write_all(&contents).or_else(|e| return_err(&file_name, e))?;
+            f.write_all(&contents)
+                .or_else(|e| return_err(&file_name, e))?;
             let conn = Connection::open(&file_name).or_else(|e| return_err(&file_name, e))?;
             // Create a variable to store the kanji
             let mut kanji: HashSet<String> = HashSet::new();
             // Regex to find kanji
             let kanji_regex = Regex::new(r"[\p{Han}]").unwrap();
             /*
-            * In most decks I checked the kanji was in the sort field (sfld) column, but some
-            * decks have numbers there, and the kanji is in the fields (flds) column. In this
-            * case it's more complicated because there can be multiple fields and the kanji
-            * could be in any one of those fields. So we take the sfld column if it has kanji,
-            * otherwise as a secondary option we take the flds column.
-            *
-            * The queue column in the cards table tells us if the card is already learnt, is
-            * being learnt, or has never been seen before. if the only_learnt parameter is
-            * true, we should only consider cards that are in queue 2 (learnt).
-            *
-            * Despite the DISTINCT clause, it is still necessary to filter duplicates because
-            * different notes of the same kanji could be in different queues.
-            */
-            let mut statement = conn.prepare(
-                "SELECT DISTINCT cards.queue, notes.sfld, notes.flds
-                FROM cards INNER JOIN notes on notes.id = cards.nid"
-            ).or_else(|e| return_err(&file_name, e))?;
-            let mut rows = statement.query(NO_PARAMS).or_else(|e| return_err(&file_name, e))?;
+             * In most decks I checked the kanji was in the sort field (sfld) column, but some
+             * decks have numbers there, and the kanji is in the fields (flds) column. In this
+             * case it's more complicated because there can be multiple fields and the kanji
+             * could be in any one of those fields. So we take the sfld column if it has kanji,
+             * otherwise as a secondary option we take the flds column.
+             *
+             * The queue column in the cards table tells us if the card is already learnt, is
+             * being learnt, or has never been seen before. if the only_learnt parameter is
+             * true, we should only consider cards that are in queue 2 (learnt).
+             *
+             * Despite the DISTINCT clause, it is still necessary to filter duplicates because
+             * different notes of the same kanji could be in different queues.
+             */
+            let mut statement = conn
+                .prepare(
+                    "SELECT DISTINCT cards.queue, notes.sfld, notes.flds
+                FROM cards INNER JOIN notes on notes.id = cards.nid",
+                )
+                .or_else(|e| return_err(&file_name, e))?;
+            let mut rows = statement
+                .query(NO_PARAMS)
+                .or_else(|e| return_err(&file_name, e))?;
             while let Some(row) = rows.next().unwrap() {
                 if !only_learnt || row.get::<_, i32>(0).unwrap() == 2 {
                     let mut no_kanji_found = true;
@@ -108,8 +119,9 @@ pub fn extract_kanji_from_anki_deck(
             }
             // Delete the database file
             fs::remove_file(&file_name).expect("Couldn't delete the anki database file");
-            let _ = fs::remove_file(&format!("{}-shm", file_name)); // Delete if exists
-            let _ = fs::remove_file(&format!("{}-wal", file_name)); // Delete if exists
+            // Delete the temp db files if they exist
+            let _ = fs::remove_file(&format!("{}-shm", file_name));
+            let _ = fs::remove_file(&format!("{}-wal", file_name));
             // Return all the extracted kanji
             return Ok(kanji
                 .iter()
@@ -179,7 +191,12 @@ pub fn kanji_from_wanikani(api_key: &str) -> Result<String, Custom<String>> {
         // Since we restrict to 1000 ids at a time, we shouldn't need to paginate
         url = String::from("https://api.wanikani.com/v2/subjects");
         let start = i * 1000;
-        let end = start + if i == ids.len() / 1000 {ids.len() % 1000} else {1000};
+        let end = start
+            + if i == ids.len() / 1000 {
+                ids.len() % 1000
+            } else {
+                1000
+            };
 
         let json = client
             .get(&url)

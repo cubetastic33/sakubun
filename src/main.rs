@@ -5,20 +5,23 @@ extern crate rocket;
 #[macro_use]
 extern crate serde_derive;
 
+use argon2::{
+    password_hash::{PasswordHash, PasswordVerifier},
+    Argon2,
+};
 use dotenv::dotenv;
 use io::Read;
 use multipart::server::Multipart;
 use native_tls::TlsConnector;
-use postgres_native_tls::MakeTlsConnector;
 use postgres::Client;
+use postgres_native_tls::MakeTlsConnector;
 use rocket::{
-    http::{ContentType, Cookies, Cookie, Status},
+    http::{ContentType, Cookie, Cookies, Status},
     request::Form,
     response::status::Custom,
     Config, Data, State,
 };
-use rocket_contrib::{serve::StaticFiles, templates::Template, json::Json};
-use argon2::{password_hash::{PasswordHash, PasswordVerifier}, Argon2};
+use rocket_contrib::{json::Json, serve::StaticFiles, templates::Template};
 use std::{
     collections::HashMap,
     env,
@@ -27,12 +30,12 @@ use std::{
 };
 
 mod actions;
-mod kanji_import;
 mod admin;
+mod kanji_import;
 
 use actions::*;
-use kanji_import::*;
 use admin::*;
+use kanji_import::*;
 
 #[derive(FromForm)]
 pub struct QuizSettings {
@@ -271,7 +274,10 @@ fn post_import_kanken(import_settings: Form<OrderedImport>) -> Result<String, Cu
 }
 
 #[post("/essay", data = "<quiz_settings>")]
-fn post_essay(client: State<Mutex<Client>>, quiz_settings: Form<QuizSettings>) -> Json<Vec<[String; 4]>> {
+fn post_essay(
+    client: State<Mutex<Client>>,
+    quiz_settings: Form<QuizSettings>,
+) -> Json<Vec<[String; 4]>> {
     Json(generate_essay(&mut client.lock().unwrap(), quiz_settings))
 }
 
@@ -280,7 +286,10 @@ fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> Strin
     let argon2 = Argon2::default();
     let admin_hash = env::var("ADMIN_HASH").unwrap();
     let parsed_hash = PasswordHash::new(&admin_hash).unwrap();
-    if argon2.verify_password(password.value.as_bytes(), &parsed_hash).is_ok() {
+    if argon2
+        .verify_password(password.value.as_bytes(), &parsed_hash)
+        .is_ok()
+    {
         cookies.add_private(Cookie::new("admin_hash", admin_hash));
         String::from("success")
     } else {
@@ -289,17 +298,28 @@ fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> Strin
 }
 
 #[post("/delete_report", data = "<report_id>")]
-fn post_delete_report(client: State<Mutex<Client>>, report_id: Form<SingleField>, mut cookies: Cookies) -> Result<String, String> {
+fn post_delete_report(
+    client: State<Mutex<Client>>,
+    report_id: Form<SingleField>,
+    mut cookies: Cookies,
+) -> Result<String, String> {
     if let Some(hash) = cookies.get_private("admin_hash") {
         if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
-            return mark_reviewed(&mut client.lock().unwrap(), report_id.value.parse().unwrap());
+            return mark_reviewed(
+                &mut client.lock().unwrap(),
+                report_id.value.parse().unwrap(),
+            );
         }
     }
     Err("Error: not signed in".to_string())
 }
 
 #[post("/add_override", data = "<override_details>")]
-fn post_add_override(client: State<Mutex<Client>>, override_details: Form<AddOverride>, mut cookies: Cookies) -> Result<String, String> {
+fn post_add_override(
+    client: State<Mutex<Client>>,
+    override_details: Form<AddOverride>,
+    mut cookies: Cookies,
+) -> Result<String, String> {
     if let Some(hash) = cookies.get_private("admin_hash") {
         if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
             return add_override(&mut client.lock().unwrap(), override_details);
@@ -309,20 +329,31 @@ fn post_add_override(client: State<Mutex<Client>>, override_details: Form<AddOve
 }
 
 #[post("/delete_override", data = "<override_id>")]
-fn post_delete_override(client: State<Mutex<Client>>, override_id: Form<SingleField>, mut cookies: Cookies) -> Result<String, String> {
+fn post_delete_override(
+    client: State<Mutex<Client>>,
+    override_id: Form<SingleField>,
+    mut cookies: Cookies,
+) -> Result<String, String> {
     if let Some(hash) = cookies.get_private("admin_hash") {
         if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
-            return delete_override(&mut client.lock().unwrap(), override_id.value.parse().unwrap());
+            return delete_override(
+                &mut client.lock().unwrap(),
+                override_id.value.parse().unwrap(),
+            );
         }
     }
     Err("Error: not signed in".to_string())
 }
 
 #[post("/edit_override", data = "<override_details>")]
-fn post_edit_override(client: State<Mutex<Client>>, override_details: Form<EditOverride>, mut cookies: Cookies) -> Result<String, String> {
+fn post_edit_override(
+    client: State<Mutex<Client>>,
+    override_details: Form<EditOverride>,
+    mut cookies: Cookies,
+) -> Result<String, String> {
     if let Some(hash) = cookies.get_private("admin_hash") {
         if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
-            return edit_override(&mut client.lock().unwrap(), override_details)
+            return edit_override(&mut client.lock().unwrap(), override_details);
         }
     }
     Err("Error: not signed in".to_string())
@@ -389,8 +420,17 @@ fn rocket() -> rocket::Rocket {
 
 fn main() {
     dotenv().ok();
-    let connector = MakeTlsConnector::new(TlsConnector::builder().danger_accept_invalid_certs(true).build().unwrap());
+    let connector = MakeTlsConnector::new(
+        TlsConnector::builder()
+            .danger_accept_invalid_certs(true)
+            .build()
+            .unwrap(),
+    );
 
-    let client = Client::connect(&env::var("DATABASE_URL").expect("Env var DATABASE_URL not found"), connector).unwrap();
+    let client = Client::connect(
+        &env::var("DATABASE_URL").expect("Env var DATABASE_URL not found"),
+        connector,
+    )
+    .unwrap();
     rocket().manage(Mutex::new(client)).launch();
 }
