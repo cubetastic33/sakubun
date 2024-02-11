@@ -23,6 +23,7 @@
     --remove-hover: #ef374c;
     --error: #ef374c;
     --success: #43ef37;
+    --reading: #eee5a0;
   } @else {
     --background: #fff;
     --foreground: #000;
@@ -45,6 +46,7 @@
     --remove-hover: #d31329;
     --error: #ff0000;
     --success: #16bf22;
+    --reading: #b9ac4a;
   }
 }
 
