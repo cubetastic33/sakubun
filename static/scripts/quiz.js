@@ -8,6 +8,11 @@ function should_evaluate() {
   return known_kanji.size && $('#max').val() != 0 && $('#show_textbox').is(':checked');
 }
 
+function show_diff() {
+  // Returns whether to mark the kanji diff or not
+  return known_kanji.size && $('#max').val() != 0 && !$('#show_textbox').is(':checked') && $('#show_diff').is(':checked');
+}
+
 let known_kanji = new Set(localStorage.getItem('known_kanji'));
 let known_priority_kanji = new Set(localStorage.getItem('known_priority_kanji'));
 
@@ -18,6 +23,8 @@ if (!known_kanji.size) {
     + 'kana<br><br>',
   );
   localStorage.removeItem('show_textbox');
+  localStorage.removeItem('show_reading');
+  localStorage.removeItem('show_diff');
 } else {
   // Set the default values for min and max based on the number of kanji added
   $('#min')[0].setAttribute('value', Math.min(3, known_kanji.size));
@@ -29,11 +36,13 @@ let settings_min = localStorage.getItem('min');
 let settings_max = localStorage.getItem('max');
 let settings_textbox = localStorage.getItem('show_textbox');
 let settings_reading = localStorage.getItem('show_reading');
+let settings_diff = localStorage.getItem('show_diff');
 
 if (settings_min) $('#min').val(settings_min);
 if (settings_max) $('#max').val(settings_max);
-if (settings_textbox) $('#show_textbox').prop('checked', settings_textbox == 'true');
-if (settings_reading) $('#show_reading').prop('checked', settings_reading == 'true');
+if (settings_textbox) $('#show_textbox').prop('checked', settings_textbox === 'true');
+if (settings_reading) $('#show_reading').prop('checked', settings_reading === 'true');
+if (settings_diff) $('#show_diff').prop('checked', settings_diff === 'true');
 $('#max').prop('min', $('#min').val());
 $('#min').prop('max', $('#max').val());
 
@@ -45,6 +54,8 @@ if ($('#max').val() == 0) {
 function warning(e) {
   // Save the setting only if this is run as a callback
   if (e) localStorage.setItem('show_reading', $('#show_reading').is(':checked'));
+  // Show the "Mark difference" checkbox depending on the conditions
+  $('#diff_checkbox').toggle(!should_evaluate() && show_reading());
   if (show_reading()) {
     // Show the warning that readings are unreliable
     $('.warning').show();
@@ -57,8 +68,11 @@ warning();
 $('#settings').show();
 $('#show_textbox').change(() => {
   localStorage.setItem('show_textbox', $('#show_textbox').is(':checked'));
+  // Show the "Mark difference" checkbox depending on the conditions
+  $('#diff_checkbox').toggle(!should_evaluate() && show_reading());
 });
 $('#show_reading').change(warning);
+$('#show_diff').change(() => localStorage.setItem('show_diff', $('#show_diff').is(':checked')));
 $('#min').change(function () {
   localStorage.setItem('min', $(this).val());
   $('#max').prop('min', $(this).val());
@@ -309,7 +323,7 @@ $('#quiz_container').submit(e => {
           let class_name = ['wrong', 'missing'][i];
           for (let j = 0; j < indices.length; j++) {
             html = html.slice(0, indices[j] + 1) + '</span>' + html.slice(indices[j] + 1);
-            html = html.slice(0, indices[j]) + `<span class=\"${class_name}\">` + html.slice(indices[j]);
+            html = html.slice(0, indices[j]) + `<span class="${class_name}">` + html.slice(indices[j]);
           }
           $('#' + ['evaluation', 'kana'][i]).html(html);
         }
@@ -319,7 +333,31 @@ $('#quiz_container').submit(e => {
       $('#evaluation').show();
       // Display the primary reading
       $('#kana').text(readings[0]);
+      if (show_diff()) {
+        // Find the readings of the kanji so we can mark them
+        let question_html = $('#question').html();
+        let kana_html = $('#kana').html();
+        let kanji_diff = patienceDiff(question_html.split(''), kana_html.split(''));
+        console.log(kanji_diff);
+        // Iterate over the diff in reverse so the indices are still valid
+        for (let i = kanji_diff.lines.length - 1; i >= 0; i--) {
+          const kanji_index = kanji_diff.lines[i].aIndex;
+          const kana_index = kanji_diff.lines[i].bIndex;
+          // If this diff refers to the kanji
+          if (kana_index === -1) {
+            question_html = question_html.slice(0, kanji_index + 1) + '</span>' + question_html.slice(kanji_index + 1);
+            question_html = question_html.slice(0, kanji_index) + '<span class="reading">' + question_html.slice(kanji_index);
+          }
+          // If this diff refers to the kana
+          if (kanji_index === -1) {
+            kana_html = kana_html.slice(0, kana_index + 1) + '</span>' + kana_html.slice(kana_index + 1);
+            kana_html = kana_html.slice(0, kana_index) + '<span class="reading">' + kana_html.slice(kana_index);
+          }
+        }
+        $('#question').html(question_html);
+        $('#kana').html(kana_html);
     }
+      }
   } else {
     // Go to the next question
     index++;

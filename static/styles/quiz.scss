@@ -37,6 +37,10 @@ a {
     margin-bottom: .5em;
   }
 
+  .grid:nth-child(3) {
+    margin-top: .5em;
+  }
+
   .checkbox {
     display: flex;
   }
@@ -175,6 +179,10 @@ a {
 .missing {
   color: var(--missing);
   border-bottom: var(--missing-underline);
+}
+
+.reading {
+  color: var(--accent);
 }
 
 #answer:focus {
