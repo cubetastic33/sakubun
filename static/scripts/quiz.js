@@ -1,6 +1,11 @@
+function show_reading() {
+  // Returns whether the reading should be displayed or not
+  return known_kanji.size && $('#max').val() != 0 && $('#show_reading').is(':checked');
+}
+
 function should_evaluate() {
   // Returns whether evaluation is required or not
-  return known_kanji.size && $('#max').val() != 0 && $('#evaluate').is(':checked');
+  return known_kanji.size && $('#max').val() != 0 && $('#show_textbox').is(':checked');
 }
 
 let known_kanji = new Set(localStorage.getItem('known_kanji'));
@@ -12,7 +17,7 @@ if (!known_kanji.size) {
     'Note: You haven\'t chosen any known kanji yet, so the quiz questions will consist only of '
     + 'kana<br><br>',
   );
-  localStorage.removeItem('evaluate');
+  localStorage.removeItem('show_textbox');
 } else {
   // Set the default values for min and max based on the number of kanji added
   $('#min')[0].setAttribute('value', Math.min(3, known_kanji.size));
@@ -22,25 +27,26 @@ if (!known_kanji.size) {
 // Restore settings from localStorage
 let settings_min = localStorage.getItem('min');
 let settings_max = localStorage.getItem('max');
-let settings_textbox = localStorage.getItem('textbox');
-let settings_evaluate = localStorage.getItem('evaluate');
+let settings_textbox = localStorage.getItem('show_textbox');
+let settings_reading = localStorage.getItem('show_reading');
 
 if (settings_min) $('#min').val(settings_min);
 if (settings_max) $('#max').val(settings_max);
-if (settings_textbox) $('#textbox').prop('checked', settings_textbox == 'true');
-if (settings_evaluate) $('#evaluate').prop('checked', settings_evaluate == 'true');
+if (settings_textbox) $('#show_textbox').prop('checked', settings_textbox == 'true');
+if (settings_reading) $('#show_reading').prop('checked', settings_reading == 'true');
 $('#max').prop('min', $('#min').val());
 $('#min').prop('max', $('#max').val());
 
 if ($('#max').val() == 0) {
-  $('#evaluate').prop('checked', false);
+  $('#show_textbox').prop('checked', false);
   $('#settings .container, #settings .container ~ br').hide();
 }
 
 function warning(e) {
   // Save the setting only if this is run as a callback
-  if (e) localStorage.setItem('evaluate', $('#evaluate').is(':checked'));
-  if (should_evaluate()) {
+  if (e) localStorage.setItem('show_reading', $('#show_reading').is(':checked'));
+  if (show_reading()) {
+    // Show the warning that readings are unreliable
     $('.warning').show();
   } else {
     $('.warning').hide();
@@ -49,10 +55,10 @@ function warning(e) {
 
 warning();
 $('#settings').show();
-$('#textbox').change(() => {
-  localStorage.setItem('textbox', $('#textbox').is(':checked'));
+$('#show_textbox').change(() => {
+  localStorage.setItem('show_textbox', $('#show_textbox').is(':checked'));
 });
-$('#evaluate').change(warning);
+$('#show_reading').change(warning);
 $('#min').change(function () {
   localStorage.setItem('min', $(this).val());
   $('#max').prop('min', $(this).val());
@@ -62,17 +68,14 @@ $('#max').change(function () {
   $('#min').prop('max', $(this).val());
 
   if ($('#max').val() == 0) {
+    // There aren't going to be any kanji in the questions
     $('#settings .container, #settings .container ~ br').hide();
-    if ($('#evaluate').is(':checked')) {
-      $('.warning').hide();
-    }
+    if ($('#show_reading').is(':checked')) $('.warning').hide();
   } else {
     $('#settings .container, #settings .container ~ br').show();
-    settings_evaluate = localStorage.getItem('evaluate');
-    if (settings_evaluate) $('#evaluate').prop('checked', settings_evaluate == 'true');
-    if ($('#evaluate').is(':checked')) {
-      $('.warning').show();
-    }
+    settings_textbox = localStorage.getItem('show_textbox');
+    if (settings_textbox) $('#show_textbox').prop('checked', settings_textbox == 'true');
+    if ($('#show_reading').is(':checked')) $('.warning').show();
   }
 });
 
@@ -85,7 +88,7 @@ function show_quiz() {
   // Clear input
   $('#meaning, #kana').empty();
   $('#evaluation').hide().attr('class', '');
-  if ($('#textbox').is(':checked')) {
+  if ($('#show_textbox').is(':checked')) {
     $('#answer').val('').show().focus();
   } else {
     $('#answer').remove();
@@ -133,7 +136,7 @@ function get_questions() {
       if (init) {
         // Basic IME
         wanakana.bind($('#answer')[0]);
-        if (should_evaluate()) {
+        if (show_reading()) {
           $('#kana').show();
           show_quiz();
         } else {
@@ -311,6 +314,11 @@ $('#quiz_container').submit(e => {
           $('#' + ['evaluation', 'kana'][i]).html(html);
         }
       }
+    } else if (show_reading()) {
+      // Show the evaluation div so there's a horizontal divider
+      $('#evaluation').show();
+      // Display the primary reading
+      $('#kana').text(readings[0]);
     }
   } else {
     // Go to the next question
@@ -356,7 +364,7 @@ $('#report_type button').click(function () {
 
 $('#report').on('click', () => {
   $('#report_dialog + .overlay').show();
-  $('#report_dialog').attr('class', should_evaluate() ? '' : 'no_evaluate').show('slow');
+  $('#report_dialog').attr('class', show_reading() ? '' : 'no_evaluate').show('slow');
   show_reference($('#report_dialog summary').attr('data-value'));
 });
 
@@ -389,7 +397,7 @@ $('dialog').each(function () {
 
 // Auto-resize height of answer box
 function resize_answer_box() {
-  if (!$('#textbox').is(':checked')) return;
+  if (!$('#show_textbox').is(':checked')) return;
   let elem = $('#answer')[0];
   $(elem).css('height', 'auto');
   $(elem).css('height', elem.scrollHeight + 'px');
