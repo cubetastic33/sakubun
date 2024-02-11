@@ -15,6 +15,7 @@ $('.reject, .accept').click(function () {
   let id = $(this).parent().parent().attr('class');
   $(`#${dialog} + .overlay`).show();
   $(`#${dialog}`).attr('data-id', id).attr('data-type', is_report ? 'report' : 'override').show('slow');
+  $(`#${dialog} .action`).text(is_report ? 'reject' : 'delete');
   $(`#${dialog} .template`).text(is_report ? 'report' : 'override');
   if (is_report && $(this).hasClass('accept')) {
     $('#question').val($(this).parent().siblings('h2').text());
@@ -59,7 +60,7 @@ $('#confirmation button:last-child').click(() => {
       location.reload();
     } else {
       $('#confirmation button').prop('disabled', false);
-      alert('An error occurred');
+      alert(result);
     }
   }).fail(error => {
     console.log(error);

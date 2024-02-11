@@ -16,7 +16,7 @@
   <dialog id="confirmation">
     <h3>Confirmation</h3>
     <p>
-      Are you sure you want to delete the <span class="template"></span>?
+      Are you sure you want to <span class="action"></span> the <span class="template"></span>?
     </p>
     <div>
       <button class="text close">Cancel</button>
@@ -102,9 +102,12 @@
   <div class="overlay"></div>
   <main>
     <div id="quick_nav">
-      <a href="#reports">
-        {{ reports | length }} report{% if reports | length != 1 %}s{% endif %}
-      </a>
+      <div>
+        {{ rejected }} rejected
+      </div>
+      <div>
+        {{ reports | length }} pending
+      </div>
       <a href="#overrides">
         {{ overrides | length }} override{% if overrides | length != 1 %}s{% endif %}
       </a>
@@ -145,8 +148,14 @@
       {% for override in overrides %}
         <div class="{{ override.override_id }}">
           <h2>{{ override.question }}</h2>
-          {% if override.override_type == "reading" and override.primary_value %}
+          <div class="badges">
+            {% if override.override_type == "reading" and override.primary_value %}
             <div class="primary">Primary</div>
+            {% endif %}
+            <div class="overridden_at">{{ override.overridden_at | date(format="%e %b %Y, %H:%M %:z") }}</div>
+          </div>
+          {% if override.reported_at %}
+          <p><b>Reported at:</b>{{ override.reported_at | date(format="%d %b %Y, %H:%M %:z") }}</p>
           {% endif %}
           <p><b>Translation:</b><span class="translation">{{ override.translation }}</span></p>
           <p><b>Reading:</b><span class="reading">{{ override.reading }}</span></p>

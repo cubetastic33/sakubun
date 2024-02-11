@@ -8,10 +8,12 @@ use std::fs;
 /*
 CREATE TABLE overrides (
     id serial PRIMARY KEY,
+    report_id INTEGER REFERENCES reports (id),
     sentence_id INTEGER NOT NULL,
     override_type VARCHAR NOT NULL,
     value VARCHAR NOT NULL,
-    primary_value BOOLEAN NOT NULL DEFAULT FALSE
+    primary_value BOOLEAN NOT NULL DEFAULT FALSE,
+    reported_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 )
 
 CREATE TABLE reports (
@@ -102,7 +104,7 @@ macro_rules! add_question_and_translation {
     };
 }
 
-pub fn get_admin_stuff(client: &mut Client) -> (Vec<AdminReport>, Vec<AdminOverride>) {
+pub fn get_admin_stuff(client: &mut Client) -> (i64, Vec<AdminReport>, Vec<AdminOverride>) {
     // Variable to store the reports
     let mut reports = Vec::new();
     // Variable to store the overrides
@@ -113,7 +115,7 @@ pub fn get_admin_stuff(client: &mut Client) -> (Vec<AdminReport>, Vec<AdminOverr
     let mut reports_sentence_ids = Vec::new();
     // Get the reports from the database
     for row in client.query(
-        "SELECT * FROM reports ORDER BY id DESC",
+        "SELECT * FROM reports WHERE reviewed = FALSE ORDER BY id DESC",
         &[]
     ).unwrap() {
         reports_sentence_ids.push(row.get::<_, i32>("sentence_id").to_string());
@@ -133,10 +135,15 @@ pub fn get_admin_stuff(client: &mut Client) -> (Vec<AdminReport>, Vec<AdminOverr
     // Get the overrides from the database
     let mut overrides_sentence_ids = Vec::new();
     for row in client.query(
-        "SELECT * FROM overrides ORDER BY id DESC",
+        "SELECT o.*, r.reported_at FROM overrides o LEFT JOIN reports r ON r.id = o.report_id ORDER BY id DESC",
         &[]
     ).unwrap() {
         overrides_sentence_ids.push(row.get::<_, i32>("sentence_id").to_string());
+        let overridden_at: chrono::DateTime<chrono::Utc> = row.get("overridden_at");
+        let reported_at = match row.try_get::<&str, chrono::DateTime<chrono::Utc>>("reported_at") {
+            Ok(date) => Some(date.with_timezone(&chrono_tz::US::Central).to_rfc3339()),
+            Err(_) => None,
+        };
         overrides.push(AdminOverride {
             override_id: row.get("id"),
             sentence_id: row.get("sentence_id"),
@@ -146,6 +153,8 @@ pub fn get_admin_stuff(client: &mut Client) -> (Vec<AdminReport>, Vec<AdminOverr
             override_type: row.get("override_type"),
             value: row.get("value"),
             primary_value: row.get("primary_value"),
+            overridden_at: overridden_at.with_timezone(&chrono_tz::US::Central).to_rfc3339(),
+            reported_at,
         });
     }
     // Iterate over the sentences to add the question and translation
@@ -162,15 +171,18 @@ pub fn get_admin_stuff(client: &mut Client) -> (Vec<AdminReport>, Vec<AdminOverr
     // Fill the readings and overrides
     fill_sentences(client, &mut reports, true);
     fill_sentences(client, &mut overrides, false);
-    (reports, overrides)
+
+    let rows = client.query("SELECT COUNT(*) FROM reports r LEFT JOIN overrides o ON report_id = r.id WHERE reviewed = TRUE AND o.id IS NULL", &[]).unwrap();
+    (rows[0].get(0), reports, overrides)
 }
 
-pub fn delete_from_table(client: &mut Client, table: String, id: i32) -> String {
-    client.execute(format!("DELETE FROM {} WHERE id = $1", table).as_str(), &[&id]).unwrap();
-    String::from("success")
+pub fn mark_reviewed(client: &mut Client, id: i32) -> Result<String, String> {
+    client.execute("UPDATE reports SET reviewed = TRUE WHERE id = $1", &[&id]).unwrap();
+    Ok("success".to_string())
 }
 
-pub fn add_override(client: &mut Client, override_details: Form<AddOverride>) -> String {
+pub fn add_override(client: &mut Client, override_details: Form<AddOverride>) -> Result<String, String> {
+    // Get the sentence ID from the report
     let row = client.query_one(
         "SELECT sentence_id FROM reports WHERE id = $1",
         &[&override_details.report_id]
@@ -222,45 +234,43 @@ pub fn add_override(client: &mut Client, override_details: Form<AddOverride>) ->
     }
     // Add the overrides
     let mut something_changed = false;
+
+    // Prepare the SQL query
+    let statement = client.prepare("INSERT INTO overrides (sentence_id, override_type, value, primary_value, report_id) VALUES ($1, 'question', $2, FALSE, $3);").or_else(|e| Err(e.to_string()))?;
+
     if !skip_question {
-        client.execute(
-            "INSERT INTO overrides VALUES (DEFAULT, $1, 'question', $2, FALSE)",
-            &[&sentence_id, &override_details.question]
-        ).unwrap();
+        client.execute(&statement, &[&sentence_id, &override_details.question, &override_details.report_id]).or_else(|e| Err(e.to_string()))?;
         something_changed = true;
     }
     if !skip_translation {
-        client.execute(
-            "INSERT INTO overrides VALUES (DEFAULT, $1, 'translation', $2, FALSE)",
-            &[&sentence_id, &override_details.translation]
-        ).unwrap();
+        client.execute(&statement, &[&sentence_id, &override_details.translation, &override_details.report_id]).or_else(|e| Err(e.to_string()))?;
         something_changed = true;
     }
     if !skip_reading {
-        client.execute(
-            "INSERT INTO overrides VALUES (DEFAULT, $1, 'reading', $2, TRUE)",
-            &[&sentence_id, &override_details.reading]
-        ).unwrap();
+        client.execute(&statement, &[&sentence_id, &override_details.reading, &override_details.report_id]).or_else(|e| Err(e.to_string()))?;
         something_changed = true;
     }
     if let Some(reading) = override_details.additional_reading.clone() {
-        client.execute(
-            "INSERT INTO overrides VALUES (DEFAULT, $1, 'reading', $2, FALSE)",
-            &[&sentence_id, &reading]
-        ).unwrap();
+        client.execute(&statement, &[&sentence_id, &reading, &override_details.report_id]).or_else(|e| Err(e.to_string()))?;
         something_changed = true;
     }
     if something_changed {
-        delete_from_table(client, String::from("reports"), override_details.report_id)
+        mark_reviewed(client, override_details.report_id)
     } else {
-        String::from("Nothing to override")
+        Err("Nothing to override".to_string())
     }
 }
 
-pub fn edit_override(client: &mut Client, override_details: Form<EditOverride>) -> String {
+pub fn edit_override(client: &mut Client, override_details: Form<EditOverride>) -> Result<String, String> {
     client.execute(
         "UPDATE overrides SET value = $1, primary_value = $2 WHERE id = $3",
         &[&override_details.value, &override_details.primary_value, &override_details.override_id]
-    ).unwrap();
-    String::from("success")
+    ).or_else(|e| Err(e.to_string()))?;
+    Ok(String::from("success"))
+}
+
+pub fn delete_override(client: &mut Client, id: i32) -> Result<String, String> {
+    client.execute("UPDATE reports SET reviewed = FALSE WHERE id = (SELECT report_id FROM overrides WHERE id = $1)", &[&id]).or_else(|e| Err(e.to_string()))?;
+    client.execute("DELETE FROM overrides WHERE id = $1", &[&id]).or_else(|e| Err(e.to_string()))?;
+    Ok(String::from("success"))
 }

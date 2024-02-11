@@ -29,8 +29,8 @@ pub fn extract_kanji_from_anki_deck(
             println!("An error occurred: {:?}", e);
             // Delete the database file since we're returning early from an error
             fs::remove_file(file_name).expect("Couldn't delete the anki database file");
-            fs::remove_file(&format!("{}-shm", file_name)).ok(); // Delete if exists
-            fs::remove_file(&format!("{}-wal", file_name)).ok(); // Delete if exists
+            let _ = fs::remove_file(&format!("{}-shm", file_name)); // Delete if exists
+            let _ = fs::remove_file(&format!("{}-wal", file_name)); // Delete if exists
             Err(Custom(
                 Status::InternalServerError,
                 e.to_string(),
@@ -108,8 +108,8 @@ pub fn extract_kanji_from_anki_deck(
             }
             // Delete the database file
             fs::remove_file(&file_name).expect("Couldn't delete the anki database file");
-            fs::remove_file(&format!("{}-shm", file_name)).ok(); // Delete if exists
-            fs::remove_file(&format!("{}-wal", file_name)).ok(); // Delete if exists
+            let _ = fs::remove_file(&format!("{}-shm", file_name)); // Delete if exists
+            let _ = fs::remove_file(&format!("{}-wal", file_name)); // Delete if exists
             // Return all the extracted kanji
             return Ok(kanji
                 .iter()

@@ -4,21 +4,29 @@
   top: 1.25em;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 main > p {
   padding: 0 .5em;
 }
 
 #quick_nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 1em;
   justify-content: center;
   
-  a {
+  
+  * {
     border: 2px solid var(--direction);
     border-radius: 2em;
     color: var(--foreground);
+    cursor: default;
     padding: .5em 2em;
     text-decoration: none;
+    white-space: nowrap;
   }
 
   a:hover {
@@ -33,19 +41,23 @@ main > p {
   padding: 1em;
   position: relative;
 
-  .primary, .reported_at {
+  .primary, .reported_at, .overridden_at {
     background-color: var(--background-extreme);
     border-radius: 5px;
     padding: .25em 0.5em;
     position: absolute;
     top: 1em;
-    right: 1em;
     white-space: nowrap;
   }
 
-  .reported_at {
+  .primary {
+    left: 1em;
+  }
+
+  .reported_at, .overridden_at {
     background-color: var(--background-dark);
     border: 1px solid var(--direction);
+    right: 1em;
   }
 
   h2 {

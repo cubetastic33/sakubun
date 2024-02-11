@@ -100,12 +100,15 @@ pub struct AdminOverride {
     override_type: String,
     value: String,
     primary_value: bool,
+    overridden_at: String,
+    reported_at: Option<String>,
 }
 
 #[derive(Serialize)]
 struct AdminContext {
     theme: String,
     page: String,
+    rejected: i64,
     reports: Vec<AdminReport>,
     overrides: Vec<AdminOverride>,
 }
@@ -163,7 +166,7 @@ fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Template {
             page = String::from("admin");
         }
     }
-    let (reports, overrides) = get_admin_stuff(&mut client.lock().unwrap());
+    let (rejected, reports, overrides) = get_admin_stuff(&mut client.lock().unwrap());
     Template::render(
         page.clone(),
         AdminContext {
@@ -172,6 +175,7 @@ fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Template {
                 None => "system",
             }),
             page,
+            rejected,
             reports,
             overrides,
         },
@@ -285,43 +289,43 @@ fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> Strin
 }
 
 #[post("/delete_report", data = "<report_id>")]
-fn post_delete_report(client: State<Mutex<Client>>, report_id: Form<SingleField>, mut cookies: Cookies) -> String {
+fn post_delete_report(client: State<Mutex<Client>>, report_id: Form<SingleField>, mut cookies: Cookies) -> Result<String, String> {
     if let Some(hash) = cookies.get_private("admin_hash") {
-        if hash.value() == env::var("ADMIN_HASH").unwrap() {
-            return delete_from_table(&mut client.lock().unwrap(), String::from("reports"), report_id.value.parse().unwrap());
+        if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
+            return mark_reviewed(&mut client.lock().unwrap(), report_id.value.parse().unwrap());
         }
     }
-    String::from("Error: not signed in")
+    Err("Error: not signed in".to_string())
 }
 
 #[post("/add_override", data = "<override_details>")]
-fn post_add_override(client: State<Mutex<Client>>, override_details: Form<AddOverride>, mut cookies: Cookies) -> String {
+fn post_add_override(client: State<Mutex<Client>>, override_details: Form<AddOverride>, mut cookies: Cookies) -> Result<String, String> {
     if let Some(hash) = cookies.get_private("admin_hash") {
-        if hash.value() == env::var("ADMIN_HASH").unwrap() {
+        if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
             return add_override(&mut client.lock().unwrap(), override_details);
         }
     }
-    String::from("Error: not signed in")
+    Err("Error: not signed in".to_string())
 }
 
 #[post("/delete_override", data = "<override_id>")]
-fn post_delete_override(client: State<Mutex<Client>>, override_id: Form<SingleField>, mut cookies: Cookies) -> String {
+fn post_delete_override(client: State<Mutex<Client>>, override_id: Form<SingleField>, mut cookies: Cookies) -> Result<String, String> {
     if let Some(hash) = cookies.get_private("admin_hash") {
-        if hash.value() == env::var("ADMIN_HASH").unwrap() {
-            return delete_from_table(&mut client.lock().unwrap(), String::from("overrides"), override_id.value.parse().unwrap());
+        if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
+            return delete_override(&mut client.lock().unwrap(), override_id.value.parse().unwrap());
         }
     }
-    String::from("Error: not signed in")
+    Err("Error: not signed in".to_string())
 }
 
 #[post("/edit_override", data = "<override_details>")]
-fn post_edit_override(client: State<Mutex<Client>>, override_details: Form<EditOverride>, mut cookies: Cookies) -> String {
+fn post_edit_override(client: State<Mutex<Client>>, override_details: Form<EditOverride>, mut cookies: Cookies) -> Result<String, String> {
     if let Some(hash) = cookies.get_private("admin_hash") {
-        if hash.value() == env::var("ADMIN_HASH").unwrap() {
+        if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
             return edit_override(&mut client.lock().unwrap(), override_details)
         }
     }
-    String::from("Error: not signed in")
+    Err("Error: not signed in".to_string())
 }
 
 #[post("/admin_signout")]
