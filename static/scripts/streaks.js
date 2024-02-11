@@ -54,10 +54,9 @@ function draw_map(end_date, start_year=true) {
     // If the day before days[i] has questions done
     if (days_learnt[numerify(new Date(datify(days[i]) - DAY))] > 0) current_streak++;
     else {
-      if (current_streak + 1 > longest_streak) longest_streak = current_streak + 1;
-      current_streak = 0;
+      if (current_streak > longest_streak) longest_streak = current_streak;
+      current_streak = 1;
     }
-    prev = days_learnt[days[i]];
 
     // If this date is in the range that is displayed
     const date = datify(days[i]);
@@ -71,10 +70,10 @@ function draw_map(end_date, start_year=true) {
   }
 
   const today = new Date();
-  const learnt_today = days_learnt[numerify(today)] || 0;
+  // If they haven't learnt today yet, take yesterday
+  const learnt_today = days_learnt[numerify(today)] || days_learnt[numerify(new Date(today - DAY))] || 0;
   // If the user learnt today, add 1 to the current streak
   if (learnt_today === 0) current_streak = 0;
-  else current_streak++;
 
   if (current_streak > longest_streak) longest_streak = current_streak;
 
