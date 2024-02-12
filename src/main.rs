@@ -165,7 +165,7 @@ fn get_offline(cookies: Cookies) -> Template {
 fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Template {
     let mut page = String::from("admin_signin");
     if let Some(hash) = cookies.get_private("admin_hash") {
-        if hash.value() == env::var("ADMIN_HASH").unwrap() {
+        if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
             page = String::from("admin");
         }
     }
@@ -183,6 +183,13 @@ fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Template {
             overrides,
         },
     )
+}
+
+#[get("/health")]
+fn get_health() -> Result<String, Box<dyn std::error::Error>> {
+    // Make GET request to healthcheck endpoint
+    reqwest::blocking::get(env::var("HEALTH_URL").expect("Env var HEALTH_URL not found"))?;
+    Ok(String::from("元気"))
 }
 
 #[post("/sentences", data = "<quiz_settings>")]
@@ -393,6 +400,7 @@ fn rocket() -> rocket::Rocket {
                 get_custom_text,
                 get_offline,
                 get_admin,
+                get_health,
                 post_sentences,
                 post_report,
                 post_import_anki,
