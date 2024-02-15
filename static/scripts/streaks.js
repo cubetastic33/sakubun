@@ -70,12 +70,11 @@ function draw_map(end_date, start_year=true) {
   }
 
   const today = new Date();
-  // If they haven't learnt today yet, take yesterday
-  const learnt_today = days_learnt[numerify(today)] || days_learnt[numerify(new Date(today - DAY))] || 0;
-  // If the user learnt today, add 1 to the current streak
-  if (learnt_today === 0) current_streak = 0;
-
+  const learnt_today = days_learnt[numerify(today)] || 0;
   if (current_streak > longest_streak) longest_streak = current_streak;
+  
+  // If the user hasn't learnt today OR yesterday, set current_streak to 0
+  if (!learnt_today > 0 && !days_learnt[numerify(new Date(today - DAY))] > 0) current_streak = 0;
 
   $('#longest').text(`${longest_streak} day${longest_streak === 1 ? '' : 's'}`);
   $('#current').text(`${current_streak} day${current_streak === 1 ? '' : 's'}`);
@@ -167,7 +166,15 @@ $('#replace').on('click', async () => {
 $('#merge').on('click', async () => {
   const contents = JSON.parse(await $file[0].files[0].text());
   const current = JSON.parse(localStorage.getItem('days_learnt')) || {};
-  localStorage.setItem('days_learnt', JSON.stringify({ ...current, ...contents }));
+  console.log('current', current);
+  console.log('contents', contents);
+  for (const day in contents) {
+    console.log('day', day);
+    if (current[day]) current[day] += contents[day];
+    else current[day] = contents[day];
+  }
+  console.log('current', current);
+  localStorage.setItem('days_learnt', JSON.stringify(current));
   draw_map(new Date(), false);
   $('#import_streaks_dialog').hide('slow').then($('#import_streaks_dialog + .overlay').hide());
 });
