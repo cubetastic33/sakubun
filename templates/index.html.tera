@@ -153,7 +153,9 @@
     </p>
   </main>
   <footer role="contentinfo">
-    © {{ year }} | Sakubun
+    <span>
+      © {{ year }} | Sakubun - <a href="mailto:aravkasi@gmail.com">Contact Me</a>
+    </span>
     <a class="github-button" href="https://github.com/cubetastic33/sakubun" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star cubetastic33/sakubun on GitHub">Star</a>
   </footer>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
