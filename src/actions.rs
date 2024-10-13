@@ -5,12 +5,13 @@ use rocket::request::Form;
 use std::{
     collections::{HashMap, HashSet},
     error::Error,
+    num::ParseIntError,
     fs,
 };
 
 pub trait Sentence {
     // Method to get the sentence ID
-    fn get_id(&self) -> i32;
+    fn get_id(&self) -> Result<i32, ParseIntError>;
 
     // Method to set a property of the sentence
     fn set(&mut self, property: &str, value: String);
@@ -20,8 +21,8 @@ pub trait Sentence {
 }
 
 impl Sentence for [String; 4] {
-    fn get_id(&self) -> i32 {
-        self[0].parse().unwrap()
+    fn get_id(&self) -> Result<i32, ParseIntError> {
+        self[0].parse()
     }
 
     fn set(&mut self, property: &str, value: String) {
@@ -41,8 +42,8 @@ impl Sentence for [String; 4] {
 
 // (Sentence ID, Japanese sentence, English sentence, Reading, Kanji in sentence, Previous intersection)
 impl Sentence for (String, String, String, String, HashSet<char>, Option<usize>) {
-    fn get_id(&self) -> i32 {
-        self.0.parse().unwrap()
+    fn get_id(&self) -> Result<i32, ParseIntError> {
+        self.0.parse()
     }
 
     fn set(&mut self, property: &str, value: String) {
@@ -64,17 +65,17 @@ pub fn fill_sentences<T: Sentence>(
     client: &mut Client,
     sentences: &mut Vec<T>,
     add_overrides: bool,
-) {
+) -> Result<(), Box<dyn Error>> {
     let mut queue: HashMap<i32, Vec<usize>> = HashMap::new();
     for (i, sentence) in sentences.iter().enumerate() {
-        if queue.contains_key(&sentence.get_id()) {
-            queue.get_mut(&sentence.get_id()).unwrap().push(i);
+        if let Some(x) = queue.get_mut(&sentence.get_id()?) {
+            x.push(i);
         } else {
-            queue.insert(sentence.get_id(), vec![i]);
+            queue.insert(sentence.get_id()?, vec![i]);
         }
     }
     // Add the readings from the file
-    let kana_records = fs::read_to_string("kana_sentences.txt").unwrap();
+    let kana_records = fs::read_to_string("kana_sentences.txt")?;
     for result in kana_records.lines() {
         // Parse the values
         let record: Vec<_> = result.split('\t').collect();
@@ -82,7 +83,7 @@ pub fn fill_sentences<T: Sentence>(
             continue;
         }
         // If this record is in the queue
-        if let Some(indices) = queue.get(&record[0].parse().unwrap()) {
+        if let Some(indices) = queue.get(&record[0].parse()?) {
             for index in indices {
                 sentences[*index].set("reading", record[1].to_owned());
             }
@@ -90,7 +91,7 @@ pub fn fill_sentences<T: Sentence>(
     }
 
     if !add_overrides {
-        return;
+        return Ok(());
     }
 
     // Add the overrides
@@ -98,10 +99,9 @@ pub fn fill_sentences<T: Sentence>(
         .query(
             "SELECT * FROM overrides WHERE sentence_id = ANY($1) ORDER BY primary_value DESC",
             &[&queue.keys().collect::<Vec<_>>()],
-        )
-        .unwrap()
+        )?
     {
-        let indices = queue.get(&row.get("sentence_id")).unwrap();
+        let indices = queue.get(&row.get("sentence_id")).ok_or("Error: Sentence ID from DB not found in queue")?;
         // The concept of a primary value exists only for readings
         let override_type = row.get("override_type");
         if override_type != "reading" || row.get("primary_value") {
@@ -117,6 +117,8 @@ pub fn fill_sentences<T: Sentence>(
             }
         }
     }
+
+    Ok(())
 }
 
 pub fn get_sentences(
@@ -166,18 +168,18 @@ pub fn get_sentences(
         }
     }
     // Fill the readings and overrides
-    fill_sentences(client, &mut sentences, true);
+    fill_sentences(client, &mut sentences, true)?;
     Ok(sentences)
 }
 
-pub fn generate_essay(client: &mut Client, quiz_settings: Form<QuizSettings>) -> Vec<[String; 4]> {
+pub fn generate_essay(client: &mut Client, quiz_settings: Form<QuizSettings>) -> Result<Vec<[String; 4]>, Box<dyn Error>> {
     let mut essay = Vec::new();
     let mut sentences = Vec::new();
     let mut rng = thread_rng();
 
     let mut known_kanji: HashSet<_> = quiz_settings.known_kanji.chars().collect();
     // Read the sentences and shuffle the order
-    let sentence_records = fs::read_to_string("sentences.csv").unwrap();
+    let sentence_records = fs::read_to_string("sentences.csv")?;
     let sentence_records: Vec<_> = sentence_records.lines().collect();
 
     // Filter the sentences so we're left with the ones that only have kanji the user knows
@@ -206,7 +208,7 @@ pub fn generate_essay(client: &mut Client, quiz_settings: Form<QuizSettings>) ->
         }
     }
     // Fill the readings and overrides
-    fill_sentences(client, &mut sentences, true);
+    fill_sentences(client, &mut sentences, true)?;
 
     // As long as we have known kanji that aren't in the essay, keep iterating
     while known_kanji.len() != 0 {
@@ -226,7 +228,8 @@ pub fn generate_essay(client: &mut Client, quiz_settings: Form<QuizSettings>) ->
             *prev_intersection = Some(intersection);
             if intersection < max_intersection || intersection == 0 {
                 continue;
-            } else if intersection > max_intersection {
+            }
+            if intersection > max_intersection {
                 // If the current intersection is greater than the last recorded max intersection
                 max_intersection = intersection;
                 // Reset the pairs vector
@@ -241,7 +244,7 @@ pub fn generate_essay(client: &mut Client, quiz_settings: Form<QuizSettings>) ->
         }
 
         // Add a random sentence with a lot of known kanji to the essay
-        let choice = tuples.choose(&mut rng).unwrap();
+        let choice = tuples.choose(&mut rng).ok_or("Error: Failed to choose from empty vector of tuples")?;
         essay.push([
             choice.0.to_owned(),
             choice.1.to_owned(),
@@ -254,5 +257,5 @@ pub fn generate_essay(client: &mut Client, quiz_settings: Form<QuizSettings>) ->
     // Randomize the order of sentences in the essay
     essay.shuffle(&mut rng);
     // Return the essay as a string
-    essay
+    Ok(essay)
 }

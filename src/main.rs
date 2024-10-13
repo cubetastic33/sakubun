@@ -5,6 +5,8 @@ extern crate rocket;
 #[macro_use]
 extern crate serde_derive;
 
+use std::error::Error;
+
 use argon2::{
     password_hash::{PasswordHash, PasswordVerifier},
     Argon2,
@@ -162,15 +164,15 @@ fn get_offline(cookies: Cookies) -> Template {
 }
 
 #[get("/admin")]
-fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Template {
+fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Result<Template, Box<dyn Error>> {
     let mut page = String::from("admin_signin");
     if let Some(hash) = cookies.get_private("admin_hash") {
         if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
             page = String::from("admin");
         }
     }
-    let (rejected, reports, overrides) = get_admin_stuff(&mut client.lock().unwrap());
-    Template::render(
+    let (rejected, reports, overrides) = get_admin_stuff(&mut client.lock().unwrap())?;
+    Ok(Template::render(
         page.clone(),
         AdminContext {
             theme: String::from(match cookies.get("theme") {
@@ -182,7 +184,7 @@ fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Template {
             reports,
             overrides,
         },
-    )
+    ))
 }
 
 #[get("/health")]
@@ -284,23 +286,26 @@ fn post_import_kanken(import_settings: Form<OrderedImport>) -> Result<String, Cu
 fn post_essay(
     client: State<Mutex<Client>>,
     quiz_settings: Form<QuizSettings>,
-) -> Json<Vec<[String; 4]>> {
-    Json(generate_essay(&mut client.lock().unwrap(), quiz_settings))
+) -> Result<Json<Vec<[String; 4]>>, Box<dyn Error>> {
+    Ok(Json(generate_essay(&mut client.lock().unwrap(), quiz_settings)?))
 }
 
 #[post("/admin_signin", data = "<password>")]
-fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> String {
+fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> Result<String, Box<dyn Error>> {
     let argon2 = Argon2::default();
-    let admin_hash = env::var("ADMIN_HASH").unwrap();
-    let parsed_hash = PasswordHash::new(&admin_hash).unwrap();
+    let admin_hash = env::var("ADMIN_HASH")?;
+    let parsed_hash = match PasswordHash::new(&admin_hash) {
+        Ok(parsed_hash) => parsed_hash,
+        Err(e) => return Err(e.to_string().into()),
+    };
     if argon2
         .verify_password(password.value.as_bytes(), &parsed_hash)
         .is_ok()
     {
         cookies.add_private(Cookie::new("admin_hash", admin_hash));
-        String::from("success")
+        Ok(String::from("success"))
     } else {
-        String::from("error")
+        Ok(String::from("error"))
     }
 }
 
@@ -439,6 +444,6 @@ fn main() {
         &env::var("DATABASE_URL").expect("Env var DATABASE_URL not found"),
         connector,
     )
-    .unwrap();
+    .expect("Error connecting to postgres db");
     rocket().manage(Mutex::new(client)).launch();
 }

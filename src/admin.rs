@@ -6,7 +6,7 @@ use crate::{
 };
 use postgres::Client;
 use rocket::request::Form;
-use std::fs;
+use std::{fs, error::Error, num::ParseIntError};
 
 /*
 CREATE TABLE overrides (
@@ -30,8 +30,8 @@ CREATE TABLE reports (
 */
 
 impl Sentence for AdminReport {
-    fn get_id(&self) -> i32 {
-        self.sentence_id
+    fn get_id(&self) -> Result<i32, ParseIntError> {
+        Ok(self.sentence_id)
     }
 
     fn set(&mut self, property: &str, value: String) {
@@ -50,8 +50,8 @@ impl Sentence for AdminReport {
 }
 
 impl Sentence for AdminOverride {
-    fn get_id(&self) -> i32 {
-        self.sentence_id
+    fn get_id(&self) -> Result<i32, ParseIntError> {
+        Ok(self.sentence_id)
     }
 
     fn set(&mut self, property: &str, value: String) {
@@ -107,13 +107,13 @@ macro_rules! add_question_and_translation {
     };
 }
 
-pub fn get_admin_stuff(client: &mut Client) -> (i64, Vec<AdminReport>, Vec<AdminOverride>) {
+pub fn get_admin_stuff(client: &mut Client) -> Result<(i64, Vec<AdminReport>, Vec<AdminOverride>), Box<dyn Error>> {
     // Variable to store the reports
     let mut reports = Vec::new();
     // Variable to store the overrides
     let mut overrides = Vec::new();
     // Read the sentences
-    let records = fs::read_to_string("sentences.csv").unwrap();
+    let records = fs::read_to_string("sentences.csv").expect("Error: couldn't open sentences.csv");
     // Variable to store a queue of sentence IDs that'll be used after we've collected all of them
     let mut reports_sentence_ids = Vec::new();
     // Get the reports from the database
@@ -121,8 +121,7 @@ pub fn get_admin_stuff(client: &mut Client) -> (i64, Vec<AdminReport>, Vec<Admin
         .query(
             "SELECT * FROM reports WHERE reviewed = FALSE ORDER BY id DESC",
             &[],
-        )
-        .unwrap()
+        )?
     {
         reports_sentence_ids.push(row.get::<_, i32>("sentence_id").to_string());
         let reported_at: chrono::DateTime<chrono::Utc> = row.get("reported_at");
@@ -145,7 +144,7 @@ pub fn get_admin_stuff(client: &mut Client) -> (i64, Vec<AdminReport>, Vec<Admin
     for row in client.query(
         "SELECT o.*, r.reported_at FROM overrides o LEFT JOIN reports r ON r.id = o.report_id ORDER BY id DESC",
         &[]
-    ).unwrap() {
+    )? {
         overrides_sentence_ids.push(row.get::<_, i32>("sentence_id").to_string());
         let overridden_at: chrono::DateTime<chrono::Utc> = row.get("overridden_at");
         let reported_at = match row.try_get::<&str, chrono::DateTime<chrono::Utc>>("reported_at") {
@@ -177,13 +176,13 @@ pub fn get_admin_stuff(client: &mut Client) -> (i64, Vec<AdminReport>, Vec<Admin
         add_question_and_translation!(overrides, overrides_sentence_ids, record);
     }
     // Fill the readings and overrides
-    fill_sentences(client, &mut reports, true);
-    fill_sentences(client, &mut overrides, false);
+    fill_sentences(client, &mut reports, true)?;
+    fill_sentences(client, &mut overrides, false)?;
 
     // Get the number of reviews that have been reviewed but don't have overrides, i.e., have been
     // rejected
-    let rows = client.query("SELECT COUNT(*) FROM reports r LEFT JOIN overrides o ON report_id = r.id WHERE reviewed = TRUE AND o.id IS NULL", &[]).unwrap();
-    (rows[0].get(0), reports, overrides)
+    let rows = client.query("SELECT COUNT(*) FROM reports r LEFT JOIN overrides o ON report_id = r.id WHERE reviewed = TRUE AND o.id IS NULL", &[])?;
+    Ok((rows[0].get(0), reports, overrides))
 }
 
 pub fn mark_reviewed(client: &mut Client, id: i32) -> Result<String, String> {
