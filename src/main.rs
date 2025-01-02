@@ -435,6 +435,7 @@ fn rocket() -> _ {
             "databases.admindb.url",
             env::var("DATABASE_URL").expect("Env var DATABASE_URL not found"),
         ))
+        .merge(("address", env::var("ADDRESS").unwrap_or("127.0.0.1".to_string())))
         .merge(("port", port));
 
     rocket::custom(figment)
