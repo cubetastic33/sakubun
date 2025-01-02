@@ -1,12 +1,13 @@
+use crate::{ErrResponse, FormatError};
+
 use super::QuizSettings;
-use postgres::Client;
 use rand::prelude::*;
-use rocket::request::Form;
+use rocket::{form::Form, futures::TryStreamExt, http::Status, tokio::fs};
+use sqlx::{PgConnection, Row};
 use std::{
     collections::{HashMap, HashSet},
     error::Error,
     num::ParseIntError,
-    fs,
 };
 
 pub trait Sentence {
@@ -61,8 +62,8 @@ impl Sentence for (String, String, String, String, HashSet<char>, Option<usize>)
     }
 }
 
-pub fn fill_sentences<T: Sentence>(
-    client: &mut Client,
+pub async fn fill_sentences<T: Sentence>(
+    db: &mut PgConnection,
     sentences: &mut Vec<T>,
     add_overrides: bool,
 ) -> Result<(), Box<dyn Error>> {
@@ -75,7 +76,7 @@ pub fn fill_sentences<T: Sentence>(
         }
     }
     // Add the readings from the file
-    let kana_records = fs::read_to_string("kana_sentences.txt")?;
+    let kana_records = fs::read_to_string("kana_sentences.txt").await?;
     for result in kana_records.lines() {
         // Parse the values
         let record: Vec<_> = result.split('\t').collect();
@@ -95,12 +96,10 @@ pub fn fill_sentences<T: Sentence>(
     }
 
     // Add the overrides
-    for row in client
-        .query(
-            "SELECT * FROM overrides WHERE sentence_id = ANY($1) ORDER BY primary_value DESC",
-            &[&queue.keys().collect::<Vec<_>>()],
-        )?
-    {
+    let mut rows = sqlx::query(
+            "SELECT * FROM overrides WHERE sentence_id = ANY($1) ORDER BY primary_value DESC"
+        ).bind(queue.keys().copied().collect::<Vec<_>>()).fetch(db);
+    while let Some(row) = rows.try_next().await? {
         let indices = queue.get(&row.get("sentence_id")).ok_or("Error: Sentence ID from DB not found in queue")?;
         // The concept of a primary value exists only for readings
         let override_type = row.get("override_type");
@@ -121,18 +120,18 @@ pub fn fill_sentences<T: Sentence>(
     Ok(())
 }
 
-pub fn get_sentences(
-    client: &mut Client,
+pub async fn get_sentences(
+    db: &mut PgConnection,
     quiz_settings: Form<QuizSettings>,
 ) -> Result<Vec<[String; 4]>, Box<dyn Error>> {
     let mut sentences = Vec::new();
-    let mut rng = thread_rng();
+    let mut rng = rand::rngs::OsRng::default();
 
     let known_kanji: HashSet<_> = quiz_settings.known_kanji.chars().collect();
     let known_priority_kanji: HashSet<_> = quiz_settings.known_priority_kanji.chars().collect();
     // Read the sentences and shuffle the order
-    let sentence_records = fs::read_to_string("sentences.csv")?;
-    let mut sentence_records: Vec<_> = sentence_records.lines().collect();
+    let contents: String = fs::read_to_string("sentences.csv").await?;
+    let mut sentence_records: Vec<_> = contents.lines().collect();
     sentence_records.shuffle(&mut rng);
 
     // Iterate over the sentences
@@ -168,18 +167,18 @@ pub fn get_sentences(
         }
     }
     // Fill the readings and overrides
-    fill_sentences(client, &mut sentences, true)?;
+    fill_sentences(db, &mut sentences, true).await?;
     Ok(sentences)
 }
 
-pub fn generate_essay(client: &mut Client, quiz_settings: Form<QuizSettings>) -> Result<Vec<[String; 4]>, Box<dyn Error>> {
+pub async fn generate_essay(db: &mut PgConnection, quiz_settings: Form<QuizSettings>) -> Result<Vec<[String; 4]>, ErrResponse> {
     let mut essay = Vec::new();
     let mut sentences = Vec::new();
-    let mut rng = thread_rng();
+    let mut rng = rand::rngs::OsRng::default();
 
     let mut known_kanji: HashSet<_> = quiz_settings.known_kanji.chars().collect();
     // Read the sentences and shuffle the order
-    let sentence_records = fs::read_to_string("sentences.csv")?;
+    let sentence_records = fs::read_to_string("sentences.csv").await.format_error("Error reading sentences.csv")?;
     let sentence_records: Vec<_> = sentence_records.lines().collect();
 
     // Filter the sentences so we're left with the ones that only have kanji the user knows
@@ -208,7 +207,7 @@ pub fn generate_essay(client: &mut Client, quiz_settings: Form<QuizSettings>) ->
         }
     }
     // Fill the readings and overrides
-    fill_sentences(client, &mut sentences, true)?;
+    fill_sentences(db, &mut sentences, true).await.format_error("Error in fill_sentences")?;
 
     // As long as we have known kanji that aren't in the essay, keep iterating
     while known_kanji.len() != 0 {
@@ -244,7 +243,7 @@ pub fn generate_essay(client: &mut Client, quiz_settings: Form<QuizSettings>) ->
         }
 
         // Add a random sentence with a lot of known kanji to the essay
-        let choice = tuples.choose(&mut rng).ok_or("Error: Failed to choose from empty vector of tuples")?;
+        let choice = tuples.choose(&mut rng).ok_or((Status::InternalServerError, "Error: Failed to choose from empty vector of tuples".to_string()))?;
         essay.push([
             choice.0.to_owned(),
             choice.1.to_owned(),

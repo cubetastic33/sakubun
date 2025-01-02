@@ -103,16 +103,19 @@
   <main>
     <div id="quick_nav">
       <div>
-        {{ rejected }} rejected
+        {{ num_rejected }} rejected
       </div>
       <div>
-        {{ reports | length }} pending
+        {{ num_pending }} pending
       </div>
       <a href="#overrides">
-        {{ overrides | length }} override{% if overrides | length != 1 %}s{% endif %}
+        {{ num_overrides }} override{% if num_overrides != 1 %}s{% endif %}
       </a>
     </div>
     <h1 id="reports">Reports</h1>
+    {% if num_pending > reports | length %}
+      <div>Only displaying last {{ reports | length }} reports</div>
+    {% endif %}
     <div id="reports_cards">
       {% for report in reports %}
         <div class="{{ report.report_id }}">
@@ -143,7 +146,13 @@
         </div>
       {% endfor %}
     </div>
+    <br><br>
+    <hr>
+    <br>
     <h1 id="overrides">Overrides</h1>
+    {% if num_overrides > overrides | length %}
+      <div>Only displaying last {{ overrides | length }} overrides</div>
+    {% endif %}
     <div id="overrides_cards">
       {% for override in overrides %}
         <div class="{{ override.override_id }}">

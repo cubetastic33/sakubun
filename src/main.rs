@@ -1,35 +1,15 @@
-#![feature(proc_macro_hygiene, decl_macro)]
-
 #[macro_use]
 extern crate rocket;
-#[macro_use]
-extern crate serde_derive;
 
-use std::error::Error;
-
-use argon2::{
-    password_hash::{PasswordHash, PasswordVerifier},
-    Argon2,
-};
+use ::sqlx::types::chrono;
 use dotenv::dotenv;
-use io::Read;
-use multipart::server::Multipart;
-use native_tls::TlsConnector;
-use postgres::Client;
-use postgres_native_tls::MakeTlsConnector;
 use rocket::{
-    http::{ContentType, Cookie, Cookies, Status},
-    request::Form,
-    response::status::Custom,
-    Config, Data, State,
+    form::Form, fs::{FileServer, TempFile}, http::{CookieJar, Status}, serde::{json::Json, Serialize}, tokio::fs,
 };
-use rocket_contrib::{json::Json, serve::StaticFiles, templates::Template};
-use std::{
-    collections::HashMap,
-    env,
-    io::{self, Cursor},
-    sync::Mutex,
-};
+use rocket_db_pools::{sqlx, Connection, Database};
+use rocket_dyn_templates::Template;
+use argon2::{password_hash::{PasswordHash, PasswordVerifier}, Argon2};
+use std::{collections::HashMap, env, fmt::Display};
 
 mod actions;
 mod admin;
@@ -38,6 +18,8 @@ mod kanji_import;
 use actions::*;
 use admin::*;
 use kanji_import::*;
+
+type ErrResponse = (Status, String);
 
 #[derive(FromForm)]
 pub struct QuizSettings {
@@ -58,6 +40,12 @@ pub struct Report {
 #[derive(FromForm)]
 struct SingleField {
     value: String,
+}
+
+#[derive(FromForm)]
+pub struct AnkiImport<'r> {
+    only_learnt: bool,
+    file: TempFile<'r>,
 }
 
 #[derive(FromForm)]
@@ -113,12 +101,49 @@ pub struct AdminOverride {
 struct AdminContext {
     theme: String,
     page: String,
-    rejected: i64,
+    num_rejected: i64,
+    num_pending: i64,
+    num_overrides: i64,
     reports: Vec<AdminReport>,
     overrides: Vec<AdminOverride>,
 }
 
-fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, String> {
+// Trait to provide shorthand that converts errors into a status returnable from a route handler
+pub trait FormatError<T> {
+    // Designed to be used like failable_call().format_error("Error")?
+    fn format_error(self, prefix: &str) -> Result<T, ErrResponse>;
+
+    // Same as format_error but also deletes database files before returning.
+    // Meant for use in the anki extraction function
+    fn error_cleanup(self, file_name: &str) -> impl std::future::Future<Output = Result<T, ErrResponse>>;
+}
+
+impl<T, E: Display> FormatError<T> for Result<T, E> {
+    fn format_error(self, prefix: &str) -> Result<T, ErrResponse> {
+        self.map_err(|e| {
+            // Print the error for debug purposes
+            eprintln!("Logging from format_error: {}: {}", prefix, e);
+            (Status::InternalServerError, format!("{}: {}", prefix, e))
+        })
+    }
+
+    async fn error_cleanup(self, file_name: &str) -> Result<T, ErrResponse> {
+        match self {
+            Ok(x) => Ok(x),
+            Err(e) => {
+                eprintln!("Logging from cleanup_error: {}", e);
+                // Delete the temp db files if they exist
+                let _ = fs::remove_file(&format!("{}-shm", file_name)).await;
+                let _ = fs::remove_file(&format!("{}-wal", file_name)).await;
+                // Delete the database file since we're returning early from an error
+                fs::remove_file(file_name).await.format_error("Error deleting anki database file")?;
+                Err((Status::InternalServerError, e.to_string()))
+            },
+        }
+    }
+}
+
+fn create_context<'a>(cookies: &'a CookieJar, page: &'a str) -> HashMap<&'a str, String> {
     let mut context = HashMap::new();
     context.insert(
         "theme",
@@ -133,45 +158,52 @@ fn create_context<'a>(cookies: &'a Cookies, page: &'a str) -> HashMap<&'a str, S
     context
 }
 
+#[derive(Database)]
+#[database("admindb")]
+struct AdminDB(sqlx::PgPool);
+
 #[get("/")]
-fn get_index(cookies: Cookies) -> Template {
+fn get_index(cookies: &CookieJar<'_>) -> Template {
     Template::render("index", create_context(&cookies, "/"))
 }
 
 #[get("/known_kanji")]
-fn get_known_kanji(cookies: Cookies) -> Template {
+fn get_known_kanji(cookies: &CookieJar<'_>) -> Template {
     Template::render("known_kanji", create_context(&cookies, "known_kanji"))
 }
 
 #[get("/quiz")]
-fn get_quiz(cookies: Cookies) -> Template {
+fn get_quiz(cookies: &CookieJar<'_>) -> Template {
     Template::render("quiz", create_context(&cookies, "quiz"))
 }
 
 #[get("/essay")]
-fn get_essay(cookies: Cookies) -> Template {
+fn get_essay(cookies: &CookieJar<'_>) -> Template {
     Template::render("essay", create_context(&cookies, "essay"))
 }
 
 #[get("/custom_text")]
-fn get_custom_text(cookies: Cookies) -> Template {
+fn get_custom_text(cookies: &CookieJar<'_>) -> Template {
     Template::render("custom_text", create_context(&cookies, "custom_text"))
 }
 
 #[get("/offline")]
-fn get_offline(cookies: Cookies) -> Template {
+fn get_offline(cookies: &CookieJar<'_>) -> Template {
     Template::render("offline", create_context(&cookies, "offline"))
 }
 
 #[get("/admin")]
-fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Result<Template, Box<dyn Error>> {
+async fn get_admin(
+    mut db: Connection<AdminDB>,
+    cookies: &CookieJar<'_>,
+) -> Result<Template, ErrResponse> {
     let mut page = String::from("admin_signin");
     if let Some(hash) = cookies.get_private("admin_hash") {
-        if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
+        if hash.value() == env::var("ADMIN_HASH").format_error("Error in ADMIN_HASH")? {
             page = String::from("admin");
         }
     }
-    let (rejected, reports, overrides) = get_admin_stuff(&mut client.lock().unwrap())?;
+    let (num_rejected, num_pending, num_overrides, reports, overrides) = get_admin_stuff(&mut **db).await.format_error("Error in get_admin_stuff")?;
     Ok(Template::render(
         page.clone(),
         AdminContext {
@@ -180,7 +212,9 @@ fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Result<Templ
                 None => "system",
             }),
             page,
-            rejected,
+            num_rejected,
+            num_pending,
+            num_overrides,
             reports,
             overrides,
         },
@@ -188,213 +222,227 @@ fn get_admin(client: State<Mutex<Client>>, mut cookies: Cookies) -> Result<Templ
 }
 
 #[get("/health")]
-fn get_health() -> Result<String, Box<dyn std::error::Error>> {
+async fn get_health() -> Result<String, ErrResponse> {
     // Make GET request to healthcheck endpoint
-    reqwest::blocking::get(env::var("HEALTH_URL").expect("Env var HEALTH_URL not found"))?;
+    reqwest::get(env::var("HEALTH_URL").format_error("Error in HEALTH_URL")?).await
+        .map_err(|e| (Status::BadGateway, e.to_string()))?;
     Ok(String::from("元気"))
 }
 
 #[post("/sentences", data = "<quiz_settings>")]
-fn post_sentences(client: State<Mutex<Client>>, quiz_settings: Form<QuizSettings>) -> String {
-    get_sentences(&mut client.lock().unwrap(), quiz_settings)
-        .unwrap()
+async fn post_sentences(mut db: Connection<AdminDB>, quiz_settings: Form<QuizSettings>) -> Result<String, ErrResponse> {
+    Ok(get_sentences(&mut **db, quiz_settings).await
+        .format_error("Error in get_sentences")?
         .iter()
         .map(|x| x.join("~"))
         .collect::<Vec<_>>()
-        .join("|")
+        .join("|"))
 }
 
 #[post("/report", data = "<report>")]
-fn post_report(client: State<Mutex<Client>>, report: Form<Report>) -> String {
-    save_report(&mut client.lock().unwrap(), report)
+async fn post_report(mut db: Connection<AdminDB>, report: Form<Report>) -> Result<String, ErrResponse> {
+    save_report(&mut **db, report).await
 }
 
 #[post("/import_anki", data = "<data>")]
-fn post_import_anki(cont_type: &ContentType, data: Data) -> Result<String, Custom<String>> {
-    // Validate data
-    if !cont_type.is_form_data() {
-        return Err(Custom(
-            Status::BadRequest,
-            "Content-Type not multipart/form-data".into(),
-        ));
+async fn post_import_anki(data: Form<AnkiImport<'_>>) -> Result<String, ErrResponse> {
+    if data.file.len() > 4194304 {
+        return Err((Status::PayloadTooLarge, "File too large".to_string()));
     }
-
-    let (_, boundary) = cont_type
-        .params()
-        .find(|&(k, _)| k == "boundary")
-        .ok_or_else(|| {
-            Custom(
-                Status::BadRequest,
-                "`Content-Type: multipart/form-data` boundary param not provided".into(),
-            )
-        })?;
-
-    // Read data
-    let mut only_learnt = String::new();
-    let mut buf = Vec::new();
-    let mut form_data = Multipart::with_body(data.open(), boundary);
-    form_data
-        .read_entry()
-        .unwrap()
-        .unwrap()
-        .data
-        .read_to_string(&mut only_learnt)
-        .unwrap();
-    form_data
-        .read_entry()
-        .unwrap()
-        .unwrap()
-        .data
-        .read_to_end(&mut buf)
-        .unwrap();
-    // The maximum allowed file size is 4 MiB
-    if buf.len() > 4194304 {
-        return Err(Custom(
-            Status::PayloadTooLarge,
-            String::from("File too large"),
-        ));
-    }
-    extract_kanji_from_anki_deck(Cursor::new(buf), only_learnt == "true")
+    extract_kanji_from_anki_deck(&data.file, &data.only_learnt).await
 }
+//
+// #[post("/import_anki", data = "<data>")]
+// fn pst_import_anki(cont_type: &ContentType, data: Data) -> Result<String, ErrResponse> {
+//     // Validate data
+//     if !cont_type.is_form_data() {
+//         return Err((
+//             Status::BadRequest,
+//             "Content-Type not multipart/form-data".to_string(),
+//         ));
+//     }
+//
+//     let (_, boundary) = cont_type
+//         .params()
+//         .find(|&(k, _)| k == "boundary")
+//         .ok_or_else(|| {
+//             (
+//                 Status::BadRequest,
+//                 "`Content-Type: multipart/form-data` boundary param not provided".to_string(),
+//             )
+//         })?;
+//
+//     // Read data
+//     let mut only_learnt = String::new();
+//     let mut buf = Vec::new();
+//     let mut form_data = Multipart::with_body(data.open(), boundary);
+//     form_data
+//         .read_entry()
+//         .unwrap()
+//         .unwrap()
+//         .data
+//         .read_to_string(&mut only_learnt)
+//         .unwrap();
+//     form_data
+//         .read_entry()
+//         .unwrap()
+//         .unwrap()
+//         .data
+//         .read_to_end(&mut buf)
+//         .unwrap();
+//     // The maximum allowed file size is 4 MiB
+//     if buf.len() > 4194304 {
+//         return Err(Custom(
+//             Status::PayloadTooLarge,
+//             String::from("File too large"),
+//         ));
+//     }
+//     extract_kanji_from_anki_deck(Cursor::new(buf), only_learnt == "true")
+// }
 
 #[post("/import_wanikani_api", data = "<api_key>")]
-fn post_import_wanikani_api(api_key: Form<SingleField>) -> Result<String, Custom<String>> {
-    kanji_from_wanikani(&api_key.value)
+async fn post_import_wanikani_api(api_key: Form<SingleField>) -> Result<String, ErrResponse> {
+    kanji_from_wanikani(&api_key.value).await
 }
 
 #[post("/import_wanikani", data = "<import_settings>")]
-fn post_import_wanikani(import_settings: Form<OrderedImport>) -> Result<String, Custom<String>> {
-    kanji_in_order(KanjiOrder::WaniKani, import_settings)
+async fn post_import_wanikani(import_settings: Form<OrderedImport>) -> Result<String, ErrResponse> {
+    kanji_in_order(KanjiOrder::WaniKani, import_settings).await
 }
 
 #[post("/import_rtk", data = "<import_settings>")]
-fn post_import_rtk(import_settings: Form<OrderedImport>) -> Result<String, Custom<String>> {
-    kanji_in_order(KanjiOrder::RTK, import_settings)
+async fn post_import_rtk(import_settings: Form<OrderedImport>) -> Result<String, ErrResponse> {
+    kanji_in_order(KanjiOrder::RTK, import_settings).await
 }
 
 #[post("/import_jlpt", data = "<import_settings>")]
-fn post_import_jlpt(import_settings: Form<OrderedImport>) -> Result<String, Custom<String>> {
-    kanji_in_order(KanjiOrder::JLPT, import_settings)
+async fn post_import_jlpt(import_settings: Form<OrderedImport>) -> Result<String, ErrResponse> {
+    kanji_in_order(KanjiOrder::JLPT, import_settings).await
 }
 
 #[post("/import_kanken", data = "<import_settings>")]
-fn post_import_kanken(import_settings: Form<OrderedImport>) -> Result<String, Custom<String>> {
-    kanji_in_order(KanjiOrder::Kanken, import_settings)
+async fn post_import_kanken(import_settings: Form<OrderedImport>) -> Result<String, ErrResponse> {
+    kanji_in_order(KanjiOrder::Kanken, import_settings).await
 }
 
 #[post("/essay", data = "<quiz_settings>")]
-fn post_essay(
-    client: State<Mutex<Client>>,
+async fn post_essay(
+    mut db: Connection<AdminDB>,
     quiz_settings: Form<QuizSettings>,
-) -> Result<Json<Vec<[String; 4]>>, Box<dyn Error>> {
-    Ok(Json(generate_essay(&mut client.lock().unwrap(), quiz_settings)?))
+) -> Result<Json<Vec<[String; 4]>>, ErrResponse> {
+    Ok(Json(generate_essay(&mut **db, quiz_settings).await?))
 }
 
 #[post("/admin_signin", data = "<password>")]
-fn post_admin_signin(password: Form<SingleField>, mut cookies: Cookies) -> Result<String, Box<dyn Error>> {
+fn post_admin_signin(password: Form<SingleField>, cookies: &CookieJar<'_>) -> Result<String, ErrResponse> {
     let argon2 = Argon2::default();
-    let admin_hash = env::var("ADMIN_HASH")?;
-    let parsed_hash = match PasswordHash::new(&admin_hash) {
-        Ok(parsed_hash) => parsed_hash,
-        Err(e) => return Err(e.to_string().into()),
-    };
+    let admin_hash = env::var("ADMIN_HASH").format_error("Error in ADMIN_HASH")?;
+    let parsed_hash = PasswordHash::new(&admin_hash).format_error("Error parsing admin hash")?;
     if argon2
         .verify_password(password.value.as_bytes(), &parsed_hash)
         .is_ok()
     {
-        cookies.add_private(Cookie::new("admin_hash", admin_hash));
+        cookies.add_private(("admin_hash", admin_hash));
         Ok(String::from("success"))
     } else {
         Ok(String::from("error"))
     }
 }
 
-#[post("/delete_report", data = "<report_id>")]
-fn post_delete_report(
-    client: State<Mutex<Client>>,
-    report_id: Form<SingleField>,
-    mut cookies: Cookies,
-) -> Result<String, String> {
-    if let Some(hash) = cookies.get_private("admin_hash") {
-        if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
-            return mark_reviewed(
-                &mut client.lock().unwrap(),
-                report_id.value.parse().unwrap(),
-            );
-        }
-    }
-    Err("Error: not signed in".to_string())
-}
-
-#[post("/add_override", data = "<override_details>")]
-fn post_add_override(
-    client: State<Mutex<Client>>,
-    override_details: Form<AddOverride>,
-    mut cookies: Cookies,
-) -> Result<String, String> {
-    if let Some(hash) = cookies.get_private("admin_hash") {
-        if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
-            return add_override(&mut client.lock().unwrap(), override_details);
-        }
-    }
-    Err("Error: not signed in".to_string())
-}
-
-#[post("/delete_override", data = "<override_id>")]
-fn post_delete_override(
-    client: State<Mutex<Client>>,
-    override_id: Form<SingleField>,
-    mut cookies: Cookies,
-) -> Result<String, String> {
-    if let Some(hash) = cookies.get_private("admin_hash") {
-        if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
-            return delete_override(
-                &mut client.lock().unwrap(),
-                override_id.value.parse().unwrap(),
-            );
-        }
-    }
-    Err("Error: not signed in".to_string())
-}
-
-#[post("/edit_override", data = "<override_details>")]
-fn post_edit_override(
-    client: State<Mutex<Client>>,
-    override_details: Form<EditOverride>,
-    mut cookies: Cookies,
-) -> Result<String, String> {
-    if let Some(hash) = cookies.get_private("admin_hash") {
-        if hash.value() == env::var("ADMIN_HASH").expect("Env var ADMIN_HASH not found") {
-            return edit_override(&mut client.lock().unwrap(), override_details);
-        }
-    }
-    Err("Error: not signed in".to_string())
-}
-
 #[post("/admin_signout")]
-fn post_admin_signout(mut cookies: Cookies) -> String {
-    cookies.remove_private(Cookie::named("admin_hash"));
+fn post_admin_signout(cookies: &CookieJar<'_>) -> String {
+    cookies.remove_private("admin_hash");
     String::from("success")
 }
 
-fn configure() -> Config {
-    let mut config = Config::active().expect("could not load configuration");
-    // Add secret key
-    config
-        .set_secret_key(env::var("SECRET_KEY").expect("Env var SECRET_KEY not found"))
-        .expect("Secret key could not be set");
+#[post("/delete_report", data = "<report_id>")]
+async fn post_delete_report(
+    mut db: Connection<AdminDB>,
+    report_id: Form<SingleField>,
+    cookies: &CookieJar<'_>,
+) -> Result<String, ErrResponse> {
+    if let Some(hash) = cookies.get_private("admin_hash") {
+        if hash.value() == env::var("ADMIN_HASH").format_error("Error in ADMIN_HASH")? {
+            return mark_reviewed(
+                &mut **db,
+                report_id.value.parse().format_error("Error parsing report_id")?,
+            ).await;
+        }
+    }
+    Err((Status::Unauthorized, "Error: not signed in".to_string()))
+}
+
+#[post("/add_override", data = "<override_details>")]
+async fn post_add_override(
+    mut db: Connection<AdminDB>,
+    override_details: Form<AddOverride>,
+    cookies: &CookieJar<'_>,
+) -> Result<String, ErrResponse> {
+    if let Some(hash) = cookies.get_private("admin_hash") {
+        if hash.value() == env::var("ADMIN_HASH").format_error("Error in ADMIN_HASH")? {
+            return add_override(&mut **db, override_details).await;
+        }
+    }
+    Err((Status::Unauthorized, "Error: not signed in".to_string()))
+}
+
+#[post("/edit_override", data = "<override_details>")]
+async fn post_edit_override(
+    mut db: Connection<AdminDB>,
+    override_details: Form<EditOverride>,
+    cookies: &CookieJar<'_>,
+) -> Result<String, ErrResponse> {
+    if let Some(hash) = cookies.get_private("admin_hash") {
+        if hash.value() == env::var("ADMIN_HASH").format_error("Error in ADMIN_HASH")? {
+            return edit_override(&mut **db, override_details).await;
+        }
+    }
+    Err((Status::Unauthorized, "Error: not signed in".to_string()))
+}
+
+#[post("/delete_override", data = "<override_id>")]
+async fn post_delete_override(
+    mut db: Connection<AdminDB>,
+    override_id: Form<SingleField>,
+    cookies: &CookieJar<'_>,
+) -> Result<String, ErrResponse> {
+    if let Some(hash) = cookies.get_private("admin_hash") {
+        if hash.value() == env::var("ADMIN_HASH").format_error("Error in ADMIN_HASH")? {
+            return delete_override(
+                &mut **db,
+                override_id.value.parse().format_error("Error parsing override_id")?,
+            ).await;
+        }
+    }
+    Err((Status::Unauthorized, "Error: not signed in".to_string()))
+}
+
+#[launch]
+fn rocket() -> _ {
+    dotenv().ok();
     // Configure Rocket to use the PORT env var or fall back to 8000
     let port = if let Ok(port_str) = env::var("PORT") {
-        port_str.parse().expect("could not parse PORT")
+        port_str.parse().expect("could not parse env var PORT")
     } else {
         8000
     };
-    config.set_port(port);
-    config
-}
+    let figment = rocket::Config::figment()
+        .merge((
+            "secret_key",
+            env::var("SECRET_KEY").expect("Env var SECRET_KEY not found"),
+        ))
+        .merge((
+            "databases.admindb.url",
+            env::var("DATABASE_URL").expect("Env var DATABASE_URL not found"),
+        ))
+        .merge(("port", port));
 
-fn rocket() -> rocket::Rocket {
-    rocket::custom(configure())
+    rocket::custom(figment)
+        .mount("/styles", FileServer::from("static/styles"))
+        .mount("/scripts", FileServer::from("static/scripts"))
+        .mount("/fonts", FileServer::from("static/fonts"))
+        .mount("/dict", FileServer::from("static/dict"))
+        .mount("/", FileServer::from("static/pwa").rank(20))
         .mount(
             "/",
             routes![
@@ -419,31 +467,10 @@ fn rocket() -> rocket::Rocket {
                 post_admin_signout,
                 post_delete_report,
                 post_add_override,
-                post_delete_override,
                 post_edit_override,
+                post_delete_override,
             ],
         )
-        .mount("/styles", StaticFiles::from("static/styles"))
-        .mount("/scripts", StaticFiles::from("static/scripts"))
-        .mount("/fonts", StaticFiles::from("static/fonts"))
-        .mount("/dict", StaticFiles::from("static/dict"))
-        .mount("/", StaticFiles::from("static/pwa").rank(20))
         .attach(Template::fairing())
-}
-
-fn main() {
-    dotenv().ok();
-    let connector = MakeTlsConnector::new(
-        TlsConnector::builder()
-            .danger_accept_invalid_certs(true)
-            .build()
-            .unwrap(),
-    );
-
-    let client = Client::connect(
-        &env::var("DATABASE_URL").expect("Env var DATABASE_URL not found"),
-        connector,
-    )
-    .expect("Error connecting to postgres db");
-    rocket().manage(Mutex::new(client)).launch();
+        .attach(AdminDB::init())
 }

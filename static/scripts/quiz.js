@@ -419,10 +419,14 @@ $('#report_dialog form').submit(e => {
     $('#report_dialog button').prop('disabled', false);
     if (result === 'success') {
       $('#report_dialog form').trigger('reset');
-      $('#report_dialog').hide('slow').then($('#report_dialog + .overlay').hide());
+      $('#report_dialog').hide('slow', () => $('#report_dialog + .overlay').hide());
     } else {
       alert(result);
     }
+  }).fail(error => {
+    console.log(error);
+    alert(error.responseText);
+    $('#report_dialog button').prop('disabled', false);
   });
 });
 

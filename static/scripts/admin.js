@@ -50,21 +50,29 @@ $('.reject, .accept').click(function () {
   }
 });
 
+function alert_error(info, error) {
+  console.log(info, error);
+  // Only alert with the responseText if it's an internal server error
+  // This is because 404 errors for example have HTML in the responseText
+  alert(error.status === 500 ? error.responseText : "An error occurred");
+}
+
 $('#confirmation button:last-child').click(() => {
   $('#confirmation button').prop('disabled', true);
-  $.post('/delete_' + $('#confirmation').attr('data-type'), {
+  const delete_type = $('#confirmation').attr('data-type');
+  $.post('/delete_' + delete_type, {
     value: $('#confirmation').attr('data-id'),
   }).done(result => {
     console.log(result);
     if (result === 'success') {
       location.reload();
     } else {
-      $('#confirmation button').prop('disabled', false);
       alert(result);
+      $('#confirmation button').prop('disabled', false);
     }
   }).fail(error => {
-    console.log(error);
-    alert('An error occurred');
+    alert_error("Failed /delete_" + delete_type, error);
+    $('#confirmation button').prop('disabled', false);
   });
 });
 
@@ -87,8 +95,7 @@ $('#override form').submit(e => {
       $('#override button').prop('disabled', false);
     }
   }).fail(error => {
-    console.log(error);
-    alert('An error occurred');
+    alert_error("Failed /add_override", error);
     $('#override button').prop('disabled', false);
   });
 });
@@ -106,12 +113,11 @@ $('#edit_override form').submit(e => {
     if (result === 'success') {
       location.reload();
     } else {
-      alert('An error occurred');
+      alert(result);
       $('#edit_override button').prop('disabled', false);
     }
   }).fail(error => {
-    console.log(error);
-    alert('An error occurred');
+    alert_error("Failed /edit_override", error.responseText);
     $('#edit_override button').prop('disabled', false);
   });
 });
