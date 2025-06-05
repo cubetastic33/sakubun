@@ -8,5 +8,3 @@ RUN cargo build --release
 
 # Run the built binary
 CMD ["./target/release/sakubun"]
-
-EXPOSE 3000
