@@ -251,54 +251,6 @@ async fn post_import_anki(data: Form<AnkiImport<'_>>) -> Result<String, ErrRespo
     }
     extract_kanji_from_anki_deck(&data.file, &data.only_learnt).await
 }
-//
-// #[post("/import_anki", data = "<data>")]
-// fn pst_import_anki(cont_type: &ContentType, data: Data) -> Result<String, ErrResponse> {
-//     // Validate data
-//     if !cont_type.is_form_data() {
-//         return Err((
-//             Status::BadRequest,
-//             "Content-Type not multipart/form-data".to_string(),
-//         ));
-//     }
-//
-//     let (_, boundary) = cont_type
-//         .params()
-//         .find(|&(k, _)| k == "boundary")
-//         .ok_or_else(|| {
-//             (
-//                 Status::BadRequest,
-//                 "`Content-Type: multipart/form-data` boundary param not provided".to_string(),
-//             )
-//         })?;
-//
-//     // Read data
-//     let mut only_learnt = String::new();
-//     let mut buf = Vec::new();
-//     let mut form_data = Multipart::with_body(data.open(), boundary);
-//     form_data
-//         .read_entry()
-//         .unwrap()
-//         .unwrap()
-//         .data
-//         .read_to_string(&mut only_learnt)
-//         .unwrap();
-//     form_data
-//         .read_entry()
-//         .unwrap()
-//         .unwrap()
-//         .data
-//         .read_to_end(&mut buf)
-//         .unwrap();
-//     // The maximum allowed file size is 4 MiB
-//     if buf.len() > 4194304 {
-//         return Err(Custom(
-//             Status::PayloadTooLarge,
-//             String::from("File too large"),
-//         ));
-//     }
-//     extract_kanji_from_anki_deck(Cursor::new(buf), only_learnt == "true")
-// }
 
 #[post("/import_wanikani_api", data = "<api_key>")]
 async fn post_import_wanikani_api(api_key: Form<SingleField>) -> Result<String, ErrResponse> {
