@@ -23,20 +23,24 @@
 </head>
 <body {% if theme != "system" %}class="{{ theme }}"{% endif %}>
   <noscript>Error: Sakubun requires JavaScript to function</noscript>
+  {% block topbar %}
   <header role="banner">
-    {% block header %}{% endblock header %}
-    <a href="/">作文</a>
-    <div aria-label="theme selector">
-      <button id="dark" title="dark theme" aria-label="dark theme" class="exception {% if theme == "dark" %}active{% endif %}">
-        <span class="material-icons">dark_mode</span>
+    <div aria-label="theme selector" id="theme">
+      <button id="system" title="system theme" aria-label="system theme" class="exception {% if theme == "system" %}active{% endif %}">
+        <span class="material-icons">settings_brightness</span>
       </button>
       <button id="light" title="light theme" aria-label="light theme" class="exception {% if theme == "light" %}active{% endif %}">
         <span class="material-icons">light_mode</span>
       </button>
-      <button id="system" title="system theme" aria-label="system theme" class="exception {% if theme == "system" %}active{% endif %}">
-        <span class="material-icons">settings_brightness</span>
+      <button id="dark" title="dark theme" aria-label="dark theme" class="exception {% if theme == "dark" %}active{% endif %}">
+        <span class="material-icons">dark_mode</span>
       </button>
     </div>
+    <a href="/" id="title" class="ja">作文</a>
+    <button id="signin" class="exception">
+      <span class="material-icons">logout</span>
+    </button>
+    {% block header %}{% endblock header %}
   </header>
   <nav>
     <a {% if page == "custom_text" %}class="active"{% endif %} href="/custom_text">
@@ -52,6 +56,7 @@
       Essay
     </a>
   </nav>
+  {% endblock topbar %}
   {% block content %}{% endblock content %}
   <script src="/scripts/jquery-3.5.1.min.js"></script>
   <script>
@@ -70,7 +75,7 @@
     // Set theme when loaded from service worker
     if (get_cookie('theme')) {
       $body.addClass(get_cookie('theme'));
-      $('header button').removeClass('active');
+      $('#theme button').removeClass('active');
       $(`#${get_cookie('theme')}`).addClass('active');
     }
 
@@ -79,18 +84,19 @@
         navigator.serviceWorker.register('/service-worker.js');
       }
     });
+
     function reorder_theme_icons() {
-      $('header div').append($('#system'))
+      $('#theme').append($('#light'))
         .append($('#dark'))
-        .append($('#light'))
-        .append($('header button.active'));
+        .append($('#system'))
+        .prepend($('#theme button.active'));
     }
 
     reorder_theme_icons();
 
-    $('header div button').on('click', function () {
+    $('#theme button').on('click', function () {
       if ($(this).parent().hasClass('open')) {
-        $('header div button').removeClass('active');
+        $('#theme button').removeClass('active');
         $(this).addClass('active');
         // Remove the currently active theme
         $body.removeClass('dark light');

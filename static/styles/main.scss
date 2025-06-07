@@ -184,7 +184,7 @@ header {
     align-content: center;
     padding: .25rem;
     position: absolute;
-    right: .3em;
+    left: .3em;
     top: .3em;
 
     button:not(.active) {
@@ -205,7 +205,7 @@ main {
   padding: 2em 10vw;
 }
 
-button:not(.exception) {
+button:not(.exception), .button:not(.exception) {
   background-color: var(--button);
   border: none;
   border-radius: 5px;
@@ -217,22 +217,26 @@ button:not(.exception) {
   margin: auto;
 }
 
-button:not(:disabled):not(.exception):hover {
+button:not(:disabled):not(.exception):hover, .button:not(.exception) {
   background-color: var(--button-hover);
 }
 
-button.text {
+button.text, .button.text {
   background: none;
   color: var(--foreground);
 }
 
-button.text:not(:disabled):hover {
+button.text:not(:disabled):hover, .button.text:hover {
   background-color: var(--background-light);
 }
 
 button:disabled {
   cursor: default;
   opacity: .7;
+}
+
+.ja {
+  font-family: "Noto Sans JP", "Hiragino Kaku Gothic Pro", "Meiryo", sans-serif;
 }
 
 // Number inputs
