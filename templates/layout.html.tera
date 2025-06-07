@@ -37,9 +37,6 @@
       </button>
     </div>
     <a href="/" id="title" class="ja">作文</a>
-    <button id="signin" class="exception">
-      <span class="material-icons">logout</span>
-    </button>
     {% block header %}{% endblock header %}
   </header>
   <nav>
