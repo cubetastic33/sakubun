@@ -3,6 +3,7 @@
 /.env
 .venv
 .sass-cache
+/static/styles/*.css*
 
 /screenshots
 /scripts
