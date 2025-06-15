@@ -62,7 +62,6 @@
   </nav>
   {% endblock topbar %}
   {% block content %}{% endblock content %}
-  <div id="updated">The website has been updated; reloading now!</div>
   <script src="/scripts/jquery-3.5.1.min.js"></script>
   <script>
     const $body = $('body');
@@ -112,8 +111,7 @@
       function checkUpdate() {
         if (activated && updated) {
           console.log('Application was updated, refreshing the page...');
-          document.getElementById('updated').style = 'display: block';
-          setTimeout(() => location.reload(), 600);
+          location.reload();
         }
       }
     });
