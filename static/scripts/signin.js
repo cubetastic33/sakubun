@@ -19,7 +19,6 @@ $signupForm.submit(async evt => {
   evt.preventDefault();
   // Check if password matches with confirm password
   const password = $('#password').val();
-  console.log(password);
   if (password !== $('#confirm-password').val()) {
     $error.text('Passwords don\'t match!');
     return;
