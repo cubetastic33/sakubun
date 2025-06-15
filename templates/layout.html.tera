@@ -79,7 +79,6 @@
 
     // Set theme when loaded from service worker
     if (get_cookie('theme')) {
-      console.log('removing');
       $body.removeClass('dark light');
       $body.addClass(get_cookie('theme'));
       $('#theme button').removeClass('active');
