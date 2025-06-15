@@ -4,7 +4,12 @@ extern crate rocket;
 use ::sqlx::types::chrono;
 use dotenv::dotenv;
 use rocket::{
-    form::Form, fs::{FileServer, TempFile}, http::{CookieJar, Status}, serde::{json::Json, Serialize}, tokio::fs,
+    data::{Limits, ToByteUnit},
+    form::Form,
+    fs::{FileServer, TempFile},
+    http::{CookieJar, Status},
+    serde::{json::Json, Serialize},
+    tokio::fs,
 };
 use rocket_db_pools::{sqlx, Connection, Database};
 use rocket_dyn_templates::Template;
@@ -256,9 +261,6 @@ async fn post_report(mut db: Connection<AdminDB>, report: Form<Report>) -> Resul
 
 #[post("/import_anki", data = "<data>")]
 async fn post_import_anki(data: Form<AnkiImport<'_>>) -> Result<String, ErrResponse> {
-    if data.file.len() > 4194304 {
-        return Err((Status::PayloadTooLarge, "File too large".to_string()));
-    }
     extract_kanji_from_anki_deck(&data.file, &data.only_learnt).await
 }
 
@@ -398,7 +400,13 @@ fn rocket() -> _ {
             env::var("DATABASE_URL").expect("Env var DATABASE_URL not found"),
         ))
         .merge(("address", env::var("ADDRESS").unwrap_or("127.0.0.1".to_string())))
-        .merge(("port", port));
+        .merge(("port", port))
+        .merge((
+            "limits",
+            Limits::default()
+                .limit("file", 4.mebibytes())
+                .limit("data-form", 5.mebibytes()),
+        ));
 
     rocket::custom(figment)
         .mount("/styles", FileServer::from("static/styles"))
