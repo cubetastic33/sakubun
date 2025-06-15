@@ -79,6 +79,8 @@
 
     // Set theme when loaded from service worker
     if (get_cookie('theme')) {
+      console.log('removing');
+      $body.removeClass('dark light');
       $body.addClass(get_cookie('theme'));
       $('#theme button').removeClass('active');
       $(`#${get_cookie('theme')}`).addClass('active');
@@ -132,14 +134,9 @@
         $(this).addClass('active');
         // Remove the currently active theme
         $body.removeClass('dark light');
-        if (this.id === 'system') {
-          // Delete the cookie
-          document.cookie = 'theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-        } else {
-          document.cookie = 'theme=' + this.id + '; SameSite=Lax;';
-          // Add the new theme
-          $body.addClass(this.id);
-        }
+        document.cookie = 'theme=' + this.id + '; SameSite=Lax;';
+        // Add the new theme
+        $body.addClass(this.id);
         $(this).parent().append($(this));
       } else {
         reorder_theme_icons();
