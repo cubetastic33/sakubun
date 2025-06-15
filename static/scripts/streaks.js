@@ -49,7 +49,7 @@ async function get_days_learnt() {
   const { data: {user} = {} } = await client.auth.getUser();
   if (user) {
     const streaks = await client.from('streaks').select().eq('user_id', user.id);
-    if (streaks.data.length) return streaks.data[0].quiz_days_learnt;
+    if (streaks.data.length) return streaks.data[0].quiz_days_learnt || {};
   } else if (localStorage.getItem('days_learnt')) {
     return JSON.parse(localStorage.getItem('days_learnt'));
   }

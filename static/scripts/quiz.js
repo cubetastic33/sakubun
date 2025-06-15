@@ -34,7 +34,6 @@ async function init_quiz_settings() {
   ({ known_kanji, known_priority_kanji } = await get_known_kanji());
 
   if (!known_kanji.size) {
-    console.log('here')
     $('#settings *:not(.container):not(.always):not(.always *)').hide();
     $('#range').html(
       'Note: You haven\'t chosen any known kanji yet, so the quiz questions will consist only of '
@@ -162,8 +161,8 @@ async function get_questions() {
   let { known_kanji } = await get_known_kanji();
 
   $.post('/sentences', {
-    'min': $min.val() || 0,
-    'max': $max.val() || 0,
+    'min': known_kanji.size ? $min.val() || 0 : 0,
+    'max': known_kanji.size ? $max.val() || 0 : 0,
     'known_kanji': [...known_kanji].join(''),
     'known_priority_kanji': [...known_priority_kanji].join(''),
   }, async result => {
