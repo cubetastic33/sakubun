@@ -80,14 +80,14 @@ a {
 
 .buttons {
   display: flex;
+}
 
-  button:first-child {
-    margin-right: .5em;
-  }
+#import_button {
+  margin-right: .5em;
+}
 
-  button:last-child {
-    margin-left: .5em;
-  }
+#generate {
+  margin-left: .5em;
 }
 
 #info {

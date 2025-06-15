@@ -36,8 +36,15 @@
         <span class="material-icons">dark_mode</span>
       </button>
     </div>
-    <a href="/" id="title" class="ja">作文</a>
-    {% block header %}{% endblock header %}
+    <a href="/" class="ja">作文</a>
+    {% block rightheader %}
+    <a href="/signin" id="login-btn" class="account hide" title="Sign In">
+      <span class="material-icons">login</span>
+    </a>
+    <button id="logout-btn" class="account exception hide" title="Sign Out">
+      <span class="material-icons">logout</span>
+    </button>
+    {% endblock rightheader %}
   </header>
   <nav>
     <a {% if page == "custom_text" %}class="active"{% endif %} href="/custom_text">
@@ -112,6 +119,7 @@
       $(this).parent().toggleClass('open');
     });
   </script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   {% block javascript %}{% endblock javascript %}
 </body>
 </html>

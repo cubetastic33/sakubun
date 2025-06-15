@@ -156,7 +156,7 @@ header {
     text-decoration: none;
   }
 
-  button {
+  button, .account {
     appearance: none;
     background-color: var(--background);
     border: none;
@@ -170,7 +170,7 @@ header {
     margin: 0 5px;
   }
 
-  button:hover {
+  button:hover, .account:hover {
     background-color: var(--accent);
     color: var(--background);
   }
@@ -199,6 +199,16 @@ header {
       display: flex;
     }
   }
+}
+
+.account {
+  position: absolute;
+  right: .75rem;
+  top: 1.1rem;
+}
+
+.hide {
+  display: none !important;
 }
 
 main {
@@ -237,6 +247,19 @@ button:disabled {
 
 .ja {
   font-family: "Noto Sans JP", "Hiragino Kaku Gothic Pro", "Meiryo", sans-serif;
+}
+
+#upload-local section {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  gap: 1em;
+  padding: 0 0 1rem 1rem;
+}
+
+#upload-error {
+  color: var(--error);
+  font-size: 1em;
 }
 
 // Number inputs
@@ -404,7 +427,7 @@ details.select[open] {
 
   position: relative;
 
-  span {
+  .checkbox-label {
     position: absolute;
     top: 0;
     left: 28px;

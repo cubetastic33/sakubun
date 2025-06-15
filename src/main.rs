@@ -192,6 +192,16 @@ fn get_offline(cookies: &CookieJar<'_>) -> Template {
     Template::render("offline", create_context(&cookies, "offline"))
 }
 
+#[get("/signup")]
+fn get_signup(cookies: &CookieJar<'_>) -> Template {
+    Template::render("signup", create_context(&cookies, "signup"))
+}
+
+#[get("/signin")]
+fn get_signin(cookies: &CookieJar<'_>) -> Template {
+    Template::render("signin", create_context(&cookies, "signin"))
+}
+
 #[get("/admin")]
 async fn get_admin(
     mut db: Connection<AdminDB>,
@@ -405,6 +415,8 @@ fn rocket() -> _ {
                 get_essay,
                 get_custom_text,
                 get_offline,
+                get_signup,
+                get_signin,
                 get_admin,
                 get_health,
                 post_sentences,

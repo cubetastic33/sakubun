@@ -6,11 +6,11 @@
   <link rel="stylesheet" href="/styles/admin.css">
 {% endblock head %}
 
-{% block header %}
-  <button id="signout" class="exception">
+{% block rightheader %}
+  <button class="account exception">
     <span class="material-icons">logout</span>
   </button>
-{% endblock header %}
+{% endblock rightheader %}
 
 {% block content %}
   <dialog id="confirmation">
@@ -90,7 +90,7 @@
           <svg viewBox="0 0 21 21">
             <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
           </svg>
-          <span>Primary</span>
+          <span class="checkbox-label">Primary</span>
         </label>
       </div>
       <div>

@@ -76,7 +76,7 @@
     </form>
   </dialog>
   <div class="overlay"></div>
-  <main>
+  <main class="hide">
     <section id="saved">
       <p>View a saved essay:</p>
       <ul>
@@ -122,5 +122,6 @@
 {% endblock content %}
 
 {% block javascript %}
+  <script src="/scripts/main.js"></script>
   <script src="/scripts/essay.js"></script>
 {% endblock javascript %}

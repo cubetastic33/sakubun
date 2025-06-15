@@ -108,7 +108,7 @@
               <svg viewBox="0 0 21 21">
                 <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
               </svg>
-              <span>Only learnt kanji</span>
+              <span class="checkbox-label">Only learnt kanji</span>
             </label>
           </div>
           <div class="upload">
@@ -209,17 +209,19 @@
           <br><br>
           <button type="submit">Import</button>
         </form>
-        <hr>
-        <h2>Export</h2>
-        To import a file that was previously exported from here, just copy-paste the contents
-        of the file into the text boxes at the top.
-        <br><br>
-        <button id="export">Export</button>
-        <br>
-        <button id="export_priority">Export Priority Kanji</button>
-        <hr>
-        <br>
-        <button id="remove_all">Remove All Kanji</button>
+        <div id="export-section">
+          <hr>
+          <h2>Export</h2>
+          To import a file that was previously exported from here, just copy-paste the contents
+          of the file into the text boxes at the top.
+          <br><br>
+          <button id="export">Export</button>
+          <br>
+          <button id="export_priority">Export Priority Kanji</button>
+          </div>
+          <hr>
+          <br>
+          <button id="remove_all">Remove All Kanji</button>
         <hr>
       </div>
     </section>
@@ -235,6 +237,7 @@
 {% endblock content %}
 
 {% block javascript %}
+  <script src="/scripts/main.js"></script>
   <script src="/scripts/ds.min.js"></script>
   <script src="/scripts/known_kanji.js"></script>
 {% endblock javascript %}

@@ -1,0 +1,34 @@
+{% extends "layout" %}
+
+{% block title %}Sign In | Sakubun{% endblock title %}
+
+{% block head %}
+  <link rel="stylesheet" href="/styles/signin.css">
+{% endblock head %}
+
+{% block topbar %}{% endblock topbar %}
+
+{% block content %}
+  <main>
+    <form id="signin-form">
+      <h1>Sign in to <a href="/" class="ja">作文</a></h1>
+      <hr>
+      <p id="info">Sign in to sync your data across any device</p>
+      <div class="input-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password">
+      </div>
+      <p id="error"></p>
+      <div class="buttons">
+        <a href="/signup" class="button text">Create Account</a>
+        <button type="submit">Sign In</button>
+      </div>
+    </form>
+  </main>
+{% endblock content %}
+
+{% block javascript %}
+  <script src="/scripts/signin.js"></script>
+{% endblock javascript %}

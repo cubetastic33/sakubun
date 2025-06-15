@@ -5,6 +5,49 @@
 {% endblock head %}
 
 {% block content %}
+  <dialog id="upload-local">
+    <h3>Upload local data?</h3>
+    <p id="kanji-reasoning">
+      You have some data locally that is not saved to your account. Would you like to upload the
+      data?
+    </p>
+    <section>
+      <div class="grid hide" id="known-kanji-container">
+        <label class="checkbox bounce">
+          <input type="checkbox" id="known-kanji" checked>
+          <svg viewBox="0 0 21 21">
+            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+          </svg>
+          <span class="checkbox-label">Upload <span id="num-kanji"></span> saved kanji</span>
+        </label>
+      </div>
+      <div class="grid hide" id="quiz-streaks-container">
+        <label class="checkbox bounce">
+          <input type="checkbox" id="quiz-streaks" checked>
+          <svg viewBox="0 0 21 21">
+            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+          </svg>
+          <span class="checkbox-label">Upload <span id="num-days"></span> of quiz history</span>
+        </label>
+      </div>
+      <div class="grid hide" id="saved-essays-container">
+        <label class="checkbox bounce">
+          <input type="checkbox" id="saved-essays" checked>
+          <svg viewBox="0 0 21 21">
+            <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
+          </svg>
+          <span class="checkbox-label">Upload <span id="num-essays"></span></span>
+        </label>
+      </div>
+    </section>
+    <p id="upload-error"></p>
+    <div>
+      <button class="text close">Ask me next time</button>
+      <button class="text" id="dont-upload">No</button>
+      <button id="yes-upload">Yes</button>
+    </div>
+  </dialog>
+  <div class="overlay"></div>
   <main>
     <h1>Sakubun</h1>
     <p>
@@ -154,9 +197,13 @@
   </main>
   <footer role="contentinfo">
     <span>
-      © {{ year }} | Sakubun - <a href="mailto:aravkasi@gmail.com">Contact Me</a>
+      © 2021 - {{ year }} | Sakubun - <a href="mailto:aravkasi@gmail.com">Contact Me</a>
     </span>
     <a class="github-button" href="https://github.com/cubetastic33/sakubun" data-color-scheme="no-preference: light; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star cubetastic33/sakubun on GitHub">Star</a>
   </footer>
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 {% endblock content %}
+
+{% block javascript %}
+  <script src="/scripts/upload-local.js"></script>
+{% endblock javascript %}

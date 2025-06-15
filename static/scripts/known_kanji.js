@@ -30,8 +30,60 @@ preview_ds.subscribe('callback', ({items}) => {
   }
 });
 
-function kanji_grid() {
+// Database access functions
+
+async function get_known_kanji(user) {
+  // auth.getUser() performs a network call so share the user by passing it as an argument
+  if (user) {
+    let { data } = await client.from('known_kanji').select('known_kanji, known_priority_kanji').eq('user_id', user.id);
+    return {
+      known_kanji: new Set(data.length ? data[0].known_kanji : []),
+      known_priority_kanji: new Set(data.length ? data[0].known_priority_kanji : []),
+    };
+  } else return {
+    known_kanji: new Set(localStorage.getItem('known_kanji')),
+    known_priority_kanji: new Set(localStorage.getItem('known_priority_kanji')),
+  };
+}
+
+async function upsert_known_kanji(user, known_kanji, priority = false) {
+  const column = `known_${priority ? 'priority_' : ''}kanji`;
+  if (user) {
+    const { error } = await client.from('known_kanji').upsert({
+      user_id: user.id,
+      [column]: [...known_kanji].join(''),
+    });
+    if (error) {
+      console.log('Error updating known kanji', error);
+      alert(error.message);
+    }
+  } else localStorage.setItem(column, [...known_kanji].join(''));
+}
+
+async function delete_all_kanji(user) {
+  if (user) {
+    const { error } = await client.from('known_kanji').upsert({
+      user_id: user.id,
+      known_kanji: null,
+      known_priority_kanji: null,
+    });
+    if (error) {
+      console.log('Error deleting known kanji', error);
+      alert(error.message);
+    }
+  } else {
+    localStorage.removeItem('known_kanji');
+    localStorage.removeItem('known_priority_kanji');
+  }
+}
+
+// End of database access functions
+
+async function kanji_grid() {
   const $kanji = $('#kanji');
+  const { data: {user} = {} } = await client.auth.getUser();
+
+  let { known_kanji, known_priority_kanji } = await get_known_kanji(user);
 
   // Remove any previously added selectables
   ds.removeSelectables(document.querySelectorAll('#kanji .selectable'));
@@ -40,38 +92,49 @@ function kanji_grid() {
   $('#button_overlay').hide();
 
   // Show the number of kanji added
-  let known_kanji = localStorage.getItem('known_kanji') || '';
-  $('#num_known').text(known_kanji.length);
-  let known_priority_kanji = localStorage.getItem('known_priority_kanji') || '';
+  $('#num_known').text(known_kanji.size);
 
   // Fill the kanji grid
-  for (let i = 0; i < known_priority_kanji.length; i++) {
-    $kanji.append(`<div class="selectable priority">${known_priority_kanji[i]}</div>`);
-  }
-  for (let i = 0; i < known_kanji.length; i++) {
-    if (known_priority_kanji.includes(known_kanji[i])) continue;
-    $kanji.append(`<div class="selectable">${known_kanji[i]}</div>`);
+  for (const kanji of known_priority_kanji) $kanji.append(`<div class="selectable priority">${kanji}</div>`);
+  for (const kanji of known_kanji) {
+    if (known_priority_kanji.has(kanji)) continue;
+    $kanji.append(`<div class="selectable">${kanji}</div>`);
   }
 
   ds.addSelectables(document.querySelectorAll('#kanji .selectable'));
 }
 
-$(document).ready(kanji_grid);
+// Overwrite the setAuthView function from main.js
+async function setAuthView(data) {
+  if (data.session) {
+    $('#login-btn').addClass('hide');
+    $logoutBtn.removeClass('hide');
+    $('#export-section').hide();
+  } else {
+    $('#login-btn').removeClass('hide');
+    $logoutBtn.addClass('hide');
+    $('#export-section').show();
+  }
+  await kanji_grid();
+}
 
-function add_kanji(text, priority = false) {
-  let known_kanji = new Set(localStorage.getItem(`known_${priority ? 'priority_' : ''}kanji`));
+async function add_kanji(text, priority = false) {
+  const { data: {user} = {} } = await client.auth.getUser();
+  let { [`known_${priority ? 'priority_' : ''}kanji`]: kanji_list } = await get_known_kanji(user);
+
   // Regex to identify kanji
   let re = /[\u3005\u3400-\u4DB5\u4E00-\u9FCB\uF900-\uFA6A]/gu;
   for (let kanji of text.matchAll(re)) {
-    if (priority && known_kanji.has(kanji[0])) known_kanji.delete(kanji[0]);
-    else known_kanji.add(kanji[0]);
+    if (priority && kanji_list.has(kanji[0])) kanji_list.delete(kanji[0]);
+    else kanji_list.add(kanji[0]);
   }
-  // Save updated kanji list to localStorage
-  localStorage.setItem(`known_${priority ? 'priority_' : ''}kanji`, [...known_kanji].join(''));
+
+  // Save updated kanji list
+  await upsert_known_kanji(user, kanji_list, priority);
   // Update kanji grid
-  if (!priority) kanji_grid();
+  if (!priority) await kanji_grid();
   // Add the kanji to the normal list as well
-  if (priority) add_kanji(text);
+  if (priority) await add_kanji(text);
 }
 
 const $new_kanji = $('#new_kanji');
@@ -128,27 +191,32 @@ $('#remove').on('click', () => {
   $('#confirmation span').text(`the ${$('#kanji div.selected').length} selected`);
 });
 
-$('#remove_all').on('click', () => {
+$('#remove_all').on('click', async () => {
+  const { data: {user} = {} } = await client.auth.getUser();
+  let num_kanji = (await get_known_kanji(user)).known_kanji.size;
+
   $('#confirmation + .overlay').show();
   $confirmation.attr('data-grid', 'all').show('slow');
-  let num_kanji = new Set(localStorage.getItem('known_kanji')).size;
   $('#confirmation span').text(`all ${num_kanji}`);
 });
 
-$('#confirmation button:last-child').on('click', () => {
+$('#confirmation button:last-child').on('click', async () => {
+  const { data: {user} = {} } = await client.auth.getUser();
   // Remove the selected kanji
   if ($confirmation.attr('data-grid') === 'all') {
-    localStorage.removeItem('known_kanji');
-    kanji_grid();
+    await delete_all_kanji(user);
+    await kanji_grid();
   } else if ($confirmation.attr('data-grid') === 'kanji') {
-    let known_kanji = new Set(localStorage.getItem('known_kanji'));
+    let { known_kanji, known_priority_kanji } = await get_known_kanji(user);
     $('#kanji div.selected').each(function () {
       known_kanji.delete($(this).text());
+      known_priority_kanji.delete($(this).text());
     });
-    // Save updated kanji list to localStorage
-    localStorage.setItem('known_kanji', [...known_kanji].join(''));
+    // Save updated kanji list
+    await upsert_known_kanji(user, known_kanji);
+    await upsert_known_kanji(user, known_priority_kanji, priority=true);
     // Update kanji grid
-    kanji_grid();
+    await kanji_grid();
   } else {
     $('#preview_button_overlay').hide();
     $('#preview_kanji div.selected').remove();
@@ -347,7 +415,7 @@ $('#preview button:last-child').on('click', () => {
   $preview.hide('slow', () => $('#preview + .overlay').hide());
 });
 
-// Export kanji
+// Export kanji - this is only implemented with local storage.
 
 function download(filename, text) {
   // Download a file

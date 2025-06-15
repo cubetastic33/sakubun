@@ -35,7 +35,7 @@
             <svg viewBox="0 0 21 21">
               <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
             </svg>
-            <span>Underline</span>
+            <span class="checkbox-label">Underline</span>
           </label>
         </div>
       </div>
@@ -50,7 +50,7 @@
             <svg viewBox="0 0 21 21">
               <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
             </svg>
-            <span>Underline</span>
+            <span class="checkbox-label">Underline</span>
           </label>
         </div>
       </div>
@@ -114,6 +114,9 @@
   </dialog>
   <div class="overlay"></div>
   <main>
+    <div id="loading">
+      Loading...
+    </div>
     <form id="settings">
       <div id="range" class="always">
         <span class="small">Number of known kanji in each question:</span>
@@ -124,8 +127,8 @@
         -
         <input type="number" size="1" id="max" min="0" title="maximum">
         kanji
+        <br><br>
       </div>
-      <br><br>
       <div class="container">
         <div class="grid always">
           <label class="checkbox bounce textbox">
@@ -133,7 +136,7 @@
             <svg viewBox="0 0 21 21">
               <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
             </svg>
-            <span>Include textbox</span>
+            <span class="checkbox-label">Include textbox</span>
           </label>
         </div>
         <div class="grid">
@@ -142,7 +145,7 @@
             <svg viewBox="0 0 21 21">
               <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
             </svg>
-            <span>Show reading</span>
+            <span class="checkbox-label">Show reading</span>
           </label>
         </div>
         <div class="grid" id="diff_checkbox">
@@ -151,7 +154,7 @@
             <svg viewBox="0 0 21 21">
               <polyline points="5 10.75 8.5 14.25 16 6"></polyline>
             </svg>
-            <span>Mark reading</span>
+            <span class="checkbox-label">Mark reading</span>
           </label>
         </div>
       </div>
@@ -163,11 +166,9 @@
       </div>
       <br class="always">
       <span class="warning large">
-          Warning: the readings given are automatically generated, and occasionally have errors.
-          If you notice any such mistakes, feel free to use the report button so that I can fix
-          the issue. It is highly recommended to use this quiz in conjunction with something like
-          <a href="https://foosoft.net/projects/yomichan/">yomichan</a> to get the best
-          experience.
+          Warning: the readings given are automatically generated, and are prone to errors!
+          Additionally, consider using something like <a href="https://yomitan.wiki/">yomitan</a>
+          to get an even better experience.
       </span>
       <hr class="always">
       <div id="streaks_header" class="always">
@@ -238,6 +239,7 @@
 {% endblock content %}
 
 {% block javascript %}
+  <script src="/scripts/main.js"></script>
   <script src="/scripts/wanakana.min.js"></script>
   <script src="/scripts/patience_diff.js"></script>
   <script src="/scripts/streaks.js"></script>

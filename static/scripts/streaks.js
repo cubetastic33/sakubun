@@ -1,5 +1,23 @@
-if (localStorage.getItem('days_learnt') === null) {
-  localStorage.setItem('days_learnt', JSON.stringify({}));
+// Overwrite the setAuthView function from main.js
+async function setAuthView(data) {
+  if (data.session) {
+    $('#login-btn').addClass('hide');
+    $logoutBtn.removeClass('hide');
+    $('#import_streaks').hide();
+    $('#export_streaks').hide();
+  } else {
+    if ($('#quiz_container').is(':visible')) {
+      // The logged in user already started a quiz. It is easier to refresh the page than reset everything.
+      location.reload();
+      return;
+    }
+    $('#login-btn').removeClass('hide');
+    $logoutBtn.addClass('hide');
+    $('#import_streaks').show();
+    $('#export_streaks').show();
+  }
+  await draw_map(new Date(), false);
+  await init_quiz_settings();
 }
 
 const DAY = 24 * 60 * 60 * 1000; // Number of milliseconds in one day
@@ -14,7 +32,47 @@ function datify(number) {
   return new Date(Math.floor(number / 10000), Math.floor(number % 10000 / 100) - 1, number % 100);
 }
 
-function draw_map(end_date, start_year=true) {
+// TODO custom function to get today days learnt
+// TODO upsert only today's date, check if that works if there is no data upstream
+async function questions_today() {
+  const { data: {user} = {} } = await client.auth.getUser();
+  if (user) {
+    const streaks = await client.from('streaks').select().eq('user_id', user.id);
+    if (streaks.data.length) return streaks.data[0].quiz_days_learnt;
+  } else if (localStorage.getItem('days_learnt')) {
+    return JSON.parse(localStorage.getItem('days_learnt'));
+  }
+  return 0;
+}
+
+async function get_days_learnt() {
+  const { data: {user} = {} } = await client.auth.getUser();
+  if (user) {
+    const streaks = await client.from('streaks').select().eq('user_id', user.id);
+    if (streaks.data.length) return streaks.data[0].quiz_days_learnt;
+  } else if (localStorage.getItem('days_learnt')) {
+    return JSON.parse(localStorage.getItem('days_learnt'));
+  }
+  return {};
+}
+
+async function set_days_learnt(days_learnt) {
+  const { data } = await client.auth.getSession();
+  if (data.session) {
+    const { error } = await client.from('streaks').upsert({
+      'user_id': data.session.user.id,
+      'quiz_days_learnt': days_learnt,
+    });
+    if (error) {
+      console.log('Error updating streak', error);
+      alert(error.message);
+    }
+  } else {
+    localStorage.setItem('days_learnt', JSON.stringify(days_learnt));
+  }
+}
+
+async function draw_map(end_date, start_year=true) {
   // Draws the heatmap for 1 year before the end date
   end_date.setHours(0, 0, 0, 0); // Set time to midnight so calculations work as expected
   // Reset the current map
@@ -29,7 +87,7 @@ function draw_map(end_date, start_year=true) {
   // Blank out the days before start_date
   for (let i = 0; i < start_date.getDay(); i++) $('.streak_day').eq(i).addClass('empty');
   
-  const days_learnt = JSON.parse(localStorage.getItem('days_learnt'));
+  const days_learnt = await get_days_learnt();
   const days = Object.keys(days_learnt).map(x => parseInt(x)).sort();
 
   function scale(x) {
@@ -81,28 +139,26 @@ function draw_map(end_date, start_year=true) {
   $('#today').text(`${learnt_today} question${learnt_today === 1 ? '' : 's'}`);
 }
 
-draw_map(new Date(), false);
-
-$('#next_year').on('click', () => {
+$('#next_year').on('click', async () => {
   const current_year = $('#year').text();
   if (current_year === 'Past 1 year') {
     const year = new Date().getFullYear();
-    draw_map(new Date(year, 11, 31));
+    await draw_map(new Date(year, 11, 31));
     $('#year').text(year);
   } else {
-    draw_map(new Date(parseInt(current_year) + 1, 11, 31));
+    await draw_map(new Date(parseInt(current_year) + 1, 11, 31));
     $('#year').text(parseInt(current_year) + 1);
   }
 });
 
-$('#prev_year').on('click', () => {
+$('#prev_year').on('click', async () => {
   const current_year = $('#year').text();
   if (current_year === 'Past 1 year') {
     const year = new Date().getFullYear() - 1;
-    draw_map(new Date(year, 11, 31));
+    await draw_map(new Date(year, 11, 31));
     $('#year').text(year);
   } else {
-    draw_map(new Date(parseInt(current_year) - 1, 11, 31));
+    await draw_map(new Date(parseInt(current_year) - 1, 11, 31));
     $('#year').text(parseInt(current_year) - 1);
   }
 });
@@ -159,7 +215,7 @@ $file.change(async function () {
 $('#replace').on('click', async () => {
   const contents = JSON.parse(await $file[0].files[0].text());
   localStorage.setItem('days_learnt', JSON.stringify({ ...contents }));
-  draw_map(new Date(), false);
+  await draw_map(new Date(), false);
   $('#import_streaks_dialog').hide('slow').then($('#import_streaks_dialog + .overlay').hide());
 });
 
@@ -175,6 +231,6 @@ $('#merge').on('click', async () => {
   }
   console.log('current', current);
   localStorage.setItem('days_learnt', JSON.stringify(current));
-  draw_map(new Date(), false);
+  await draw_map(new Date(), false);
   $('#import_streaks_dialog').hide('slow').then($('#import_streaks_dialog + .overlay').hide());
 });

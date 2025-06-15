@@ -13,27 +13,122 @@ const $num_found = $('#num_found');
 const $import_dialog_ul = $('#import_dialog ul');
 const $import_submit = $('#import_submit');
 
-let known_kanji = new Set(localStorage.getItem('known_kanji'));
-let known_priority_kanji = new Set(localStorage.getItem('known_priority_kanji'));
-
-if (!known_kanji.size) {
-  $('#saved, #settings *:not(.container):not(.always):not(.always *)').hide();
-  $('#range').html(
-    'You don\'t have a kanji list, so you can\'t use this feature yet. Go to '
-    + '<a href="/known_kanji">known kanji</a> and create a list first.',
-  );
-} else {
-  // Set the default values for min and max based on the number of kanji added
-  $min[0].setAttribute('value', Math.min(1, known_kanji.size));
-  $max[0].setAttribute('value', Math.min(15, known_kanji.size));
-
-  let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
-  if (saved_essays && saved_essays.length) {
-    for (let i = 0; i < saved_essays.length; i++) {
-      $saved_ul.append(`<li data-timestamp="${saved_essays[i][0]}">${saved_essays[i][1]}</li>`);
-    }
+// Overwrite the setAuthView function from main.js
+async function setAuthView(data) {
+  if (data.session) {
+    $('#login-btn').addClass('hide');
+    $logoutBtn.removeClass('hide');
+    $('#export').hide();
+    $('#import_button').hide();
+    $('#generate').css('margin-left', 'auto');
   } else {
-    $saved.hide();
+    $('#login-btn').removeClass('hide');
+    $logoutBtn.addClass('hide');
+    $('#export').show();
+    $('#import_button').show();
+    $('#generate').css('margin-left', '.5em');
+  }
+  await list_essays();
+  $('main').removeClass('hide');
+}
+
+// Database access functions
+
+async function get_known_kanji(user) {
+  // auth.getUser() performs a network call so share the user by passing it as an argument
+  if (user) {
+    let { data } = await client.from('known_kanji').select('known_kanji, known_priority_kanji').eq('user_id', user.id);
+    return {
+      known_kanji: new Set(data.length ? data[0].known_kanji : []),
+      known_priority_kanji: new Set(data.length ? data[0].known_priority_kanji : []),
+    };
+  } else return {
+    known_kanji: new Set(localStorage.getItem('known_kanji')),
+    known_priority_kanji: new Set(localStorage.getItem('known_priority_kanji')),
+  };
+}
+
+async function get_saved_essays(user) {
+  if (user) return (await client.from('essays').select('id, name').eq('user_id', user.id)).data;
+  else {
+    const essays = JSON.parse(localStorage.getItem('saved_essays')) || [];
+    return essays.map(essay => {return { id: essay[0], name: essay[1] }});
+  }
+}
+
+async function get_essay(essay_id) {
+  const { data: {user} = {} } = await client.auth.getUser();
+  if (user) {
+    return (await client.from('essays').select('content').eq('id', essay_id)).data[0].content;
+  } else return localStorage.getItem('essay' + essay_id);
+}
+
+async function save_essay(name, content) {
+  const { data: {user} = {} } = await client.auth.getUser();
+  if (user) {
+    const { data, error } = await client.from('essays').insert({ name, content }).select();
+    if (error) {
+      console.log('Error saving essay', error);
+      alert(error.message);
+    }
+    return data[0].id;
+  } else {
+    let saved_essays = JSON.parse(localStorage.getItem('saved_essays')) || [];
+    const timestamp = Date.now();
+    saved_essays.push([timestamp, name]);
+    localStorage.setItem('saved_essays', JSON.stringify(saved_essays));
+    // Save the actual essay
+    localStorage.setItem('essay' + timestamp, content);
+    return timestamp;
+  }
+}
+
+async function unsave_essay(essay_id) {
+  const { data: {user} = {} } = await client.auth.getUser();
+  if (user) {
+    const response = await client.from('essays').delete().eq('id', essay_id);
+    console.log(response);
+  } else {
+    let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
+    if (saved_essays === null) return; // Happens when the essay was deleted from a different tab
+    for (let i = 0; i < saved_essays.length; i++) {
+      if (saved_essays[i][0].toString() === essay_id) {
+        // Remove this essay from the saved essays list
+        saved_essays.splice(i, 1);
+        // Remove the saved essay itself
+        localStorage.removeItem('essay' + essay_id);
+        localStorage.setItem('saved_essays', JSON.stringify(saved_essays));
+        return;
+      }
+    }
+  }
+}
+
+// End of database access functions
+
+async function list_essays() {
+  const { data: {user} = {} } = await client.auth.getUser();
+  let { known_kanji } = await get_known_kanji(user);
+  if (!known_kanji.size) {
+    $('#saved, #settings *:not(.container):not(.always):not(.always *)').hide();
+    $('#range').html(
+      'You don\'t have a kanji list, so you can\'t use this feature yet. Go to '
+      + '<a href="/known_kanji">known kanji</a> and create a list first.',
+    );
+  } else {
+    // Set the default values for min and max based on the number of kanji added
+    $min[0].setAttribute('value', Math.min(1, known_kanji.size));
+    $max[0].setAttribute('value', Math.min(15, known_kanji.size));
+
+    const saved_essays = await get_saved_essays(user);
+    if (saved_essays && saved_essays.length) {
+      for (let i = 0; i < saved_essays.length; i++) {
+        $saved_ul.append(`<li data-id="${saved_essays[i].id}">${saved_essays[i].name}</li>`);
+      }
+      handle_essay_selection();
+    } else {
+      $saved.hide();
+    }
   }
 }
 
@@ -77,15 +172,15 @@ function handle_essay_clicks() {
 
 function handle_essay_selection() {
   // Add click handlers to allow selection of an essay
-  $('#saved li').on('click', function () {
+  $('#saved li').on('click', async function () {
     $settings.hide();
     $saved.hide();
     // Set the direction of text
     $('body').toggleClass('vertical', localStorage.getItem('direction') !== 'horizontal');
     // Show the saved essay
     $essay
-      .html(localStorage.getItem('essay' + this.dataset.timestamp))
-      .data('timestamp', this.dataset.timestamp)
+      .html(await get_essay(this.dataset.id))
+      .data('id', this.dataset.id)
       .show();
     $('#saved_name').text(this.innerText);
     handle_essay_clicks();
@@ -93,10 +188,8 @@ function handle_essay_selection() {
   });
 }
 
-handle_essay_selection();
-
 //
-// Export saved essays
+// Export saved essays - this is only implemented with local storage.
 //
 
 function download(filename, text) {
@@ -126,7 +219,7 @@ $('#export').on('click', function () {
 });
 
 //
-// Import essays from file
+// Import essays from file - this is also only implemented with local storage.
 //
 
 $('#import_button').on('click', () => {
@@ -185,7 +278,7 @@ $('#import_dialog form').on('submit', e => {
         if (saved_essays === null) saved_essays = [];
         for (let i = 0; i < essays.length; i++) {
           if (essays[i].length === 3) {
-            // Check if the essay's timestamp isn't part of the already saved essays
+            // Check if the essay's ID isn't part of the already saved essays
             let exists = false;
             for (let j = 0; j < saved_essays.length; j++) {
               if (saved_essays[j][0] === essays[i][0]) {
@@ -206,7 +299,7 @@ $('#import_dialog form').on('submit', e => {
         $saved_ul.empty();
         if (saved_essays.length) {
           for (let i = 0; i < saved_essays.length; i++) {
-            $saved_ul.append(`<li data-timestamp="${saved_essays[i][0]}">${saved_essays[i][1]}</li>`);
+            $saved_ul.append(`<li data-id="${saved_essays[i][0]}">${saved_essays[i][1]}</li>`);
           }
           $saved.show();
           handle_essay_selection();
@@ -227,9 +320,11 @@ $('#import_dialog form').on('submit', e => {
 // Generate the essay
 //
 
-$settings.submit(e => {
+$settings.submit(async e => {
   e.preventDefault();
   $generate.prop('disabled', true);
+
+  const { data: {user} = {} } = await client.auth.getUser();
 
   // Set the direction of text
   $('body').toggleClass('vertical', localStorage.getItem('direction') !== 'horizontal');
@@ -237,7 +332,7 @@ $settings.submit(e => {
   localStorage.setItem('min_essay', $min.val() || 1);
   localStorage.setItem('max_essay', $max.val() || 3);
 
-  let known_kanji = new Set(localStorage.getItem('known_kanji'));
+  let { known_kanji, known_priority_kanji } = await get_known_kanji(user);
 
   $.post('/essay', {
     'min': $min.val() || 1,
@@ -330,7 +425,7 @@ $('#save').on('click', () => {
   $('#essay_name').focus();
 });
 
-$('#save_dialog form').submit(e => {
+$('#save_dialog form').submit(async e => {
   e.preventDefault();
   let essay_name = $('#essay_name').val().trim();
   if (essay_name.length === 0) {
@@ -339,16 +434,8 @@ $('#save_dialog form').submit(e => {
   }
   $save_dialog_button.prop('disabled', true);
 
-  // Add the essay to the list of saved essays
-  let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
-  if (saved_essays === null) saved_essays = [];
-  const timestamp = Date.now();
-  saved_essays.push([timestamp, essay_name]);
-  localStorage.setItem('saved_essays', JSON.stringify(saved_essays));
-  // Save the actual essay
-  localStorage.setItem('essay' + timestamp, $essay.html());
-  // Set the data-timestamp attribute of the essay so that it can be unsaved
-  $essay.data('timestamp', timestamp);
+  // Save the essay, then set the data-id attribute of the essay so that it can be unsaved
+  $essay.data('id', await save_essay(essay_name, $essay.html()));
 
   $save_dialog_button.prop('disabled', false);
   $('#save_dialog form').trigger('reset');
@@ -357,21 +444,9 @@ $('#save_dialog form').submit(e => {
   $('#unsave, #saved_name, #save').toggle();
 });
 
-$('#unsave').on('click', () => {
+$('#unsave').on('click', async () => {
   $('#unsave, #saved_name, #save').toggle();
-  let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
-  if (saved_essays === null) return; // Happens when the essay was deleted from a different tab
-  const timestamp = $essay.data('timestamp');
-  for (let i = 0; i < saved_essays.length; i++) {
-    if (saved_essays[i][0].toString() === timestamp.toString()) {
-      // Remove this essay from the saved essays list
-      saved_essays.splice(i, 1);
-      // Remove the saved essay itself
-      localStorage.removeItem('essay' + timestamp);
-      localStorage.setItem('saved_essays', JSON.stringify(saved_essays));
-      return;
-    }
-  }
+  await unsave_essay($essay.data('id'));
 });
 
 // Event handlers to close dialogs

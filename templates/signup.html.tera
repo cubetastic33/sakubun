@@ -1,0 +1,35 @@
+{% extends "layout" %}
+
+{% block title %}Sign Up | Sakubun{% endblock title %}
+
+{% block head %}
+  <link rel="stylesheet" href="/styles/signin.css">
+{% endblock head %}
+
+{% block topbar %}{% endblock topbar %}
+
+{% block content %}
+  <main>
+    <form id="signup-form">
+      <h1>Create an account for <a href="/" class="ja">作文</a></h1>
+      <hr>
+      <div class="input-form">
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="kaneki.ken@anteiku.com" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="strong password">
+        <label for="confirm-password">Confirm:</label>
+        <input type="password" id="confirm-password" placeholder="re-type password">
+      </div>
+       <p id="error"></p>
+      <div class="buttons">
+        <a href="/signin" class="button text">Use Existing Account</a>
+        <button type="submit">Sign Up</button>
+      </div>
+    </form>
+  </main>
+{% endblock content %}
+
+{% block javascript %}
+  <script src="/scripts/signin.js"></script>
+{% endblock javascript %}
