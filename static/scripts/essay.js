@@ -29,6 +29,7 @@ async function setAuthView(data) {
     $('#generate').css('margin-left', '.5em');
   }
   await list_essays();
+  $('#loading').hide();
   $('main').removeClass('hide');
 }
 

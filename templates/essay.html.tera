@@ -76,6 +76,9 @@
     </form>
   </dialog>
   <div class="overlay"></div>
+  <div id="loading">
+    Loading...
+  </div>
   <main class="hide">
     <section id="saved">
       <p>View a saved essay:</p>

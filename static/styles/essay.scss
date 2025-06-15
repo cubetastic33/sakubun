@@ -4,6 +4,13 @@ body {
   min-height: 100vh;
 }
 
+#loading {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+
 main {
   display: flex;
   flex-direction: column;
