@@ -1,6 +1,6 @@
 "use strict";
 
-const version = "20250615-2::";
+const version = "20250615-3::";
 
 // Caches for different resources
 const core_cache_name = version + "core";
@@ -100,22 +100,39 @@ self.addEventListener("message", event => {
 });
 
 self.addEventListener("fetch", event => {
-  const request = event.request;
+  let request = event.request, acceptHeader = request.headers.get("Accept");
 
   // Do not respond to non-GET requests
   if (!should_fetch(event)) return;
 
-  event.respondWith(
-    caches.match(request)
-    .then(response => {
-      // Try cache, then network
-      console.log("this is the cached response", response);
-      return response || fetch(request)
-        .then(response => {
-          if (response.ok)
-            add_to_cache(assets_cache_name, request, response.clone());
-          return response;
+  if (acceptHeader.indexOf("text/html") !== -1) {
+    // For HTML requests, try network first
+    event.respondWith(
+      fetch(request)
+      .then(response => {
+        if (response.ok)
+          add_to_cache(pages_cache_name, request, response.clone());
+        return response;
+      })
+      // Try cache second, then offline fallback
+      .catch(async () => {
+        return caches.match(request).then(response => {
+          return response || caches.match("/offline");
         })
-    })
-  );
+      })
+    );
+  } else if (acceptHeader.indexOf("text/html") === -1) {
+    event.respondWith(
+      caches.match(request)
+      .then(response => {
+        // Try cache, then network
+        return response || fetch(request)
+          .then(response => {
+            if (response.ok)
+              add_to_cache(assets_cache_name, request, response.clone());
+            return response;
+          })
+      })
+    );
+  }
 });
