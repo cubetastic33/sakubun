@@ -182,6 +182,14 @@
       <button id="import">Import</button>
       .
     </p>
+    <h2 class="logged-out">Creating an account</h2>
+    <p class="logged-out">
+      All the features of sakubun work without having to sign in, but you can choose to create an
+      account by clicking <a href="/signup">here</a> or the top right icon. If you do sign in, all
+      your kanji and other data will sync between all your logged in devices automatically. When
+      you're not signed in, you can still manually sync your data using the import and export
+      buttons on each page.
+    </p>
     <h2 id="install" class="install">Install</h2>
     <p class="install">
       Sakubun is a PWA, which means it can be installed and used like a native app if your browser

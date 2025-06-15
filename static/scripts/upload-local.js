@@ -17,6 +17,7 @@ async function setAuthView(data) {
   if (data.session) {
     $('#login-btn').addClass('hide');
     $logoutBtn.removeClass('hide');
+    $('.logged-out').hide();
     // Get local and online versions of each data table
     const known_kanji = await client.from('known_kanji').select().eq('user_id', data.session.user.id);
     const local_kanji = localStorage.getItem('known_kanji') || '';
@@ -49,6 +50,7 @@ async function setAuthView(data) {
   } else {
     $('#login-btn').removeClass('hide');
     $logoutBtn.addClass('hide');
+    $('.logged-out').show();
   }
 }
 
