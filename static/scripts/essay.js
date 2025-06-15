@@ -162,7 +162,7 @@ function handle_essay_clicks() {
   // Add click handlers to the essay sentences
   $('#essay > span').on('click', function () {
     $('#floating section').html(`
-            <b>Sentence:</b> <span id="question">${this.innerText}</span><br>
+            <b>Sentence:</b> <span id="question" class="ja">${this.innerText}</span><br>
             <b>Reading:</b> <span id="kana">${this.dataset.reading}</span><br>
             <b>Meaning:</b> <span id="meaning">${this.dataset.meaning}</span>
         `).parent().attr('data-id', this.dataset.id).show('slow');

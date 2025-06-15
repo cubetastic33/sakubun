@@ -9,11 +9,11 @@
 {% block content %}
   <main>
     <form>
-      <textarea></textarea>
+      <textarea class="ja"></textarea>
       <br>
       <button type="submit">Go</button>
     </form>
-    <p id="result">
+    <p id="result" class="ja">
       Enter some Japanese text with kanji in the textbox above and hit go! The text will then
       appear here, with furigana over words that have kanji you don't know yet. Note: text with
       exceptional number + counter readings are prone to errors (like 二十歳)
