@@ -24,7 +24,7 @@ async function setAuthView(data) {
     const streaks = await client.from('streaks').select().eq('user_id', data.session.user.id);
     const local_streaks = Object.keys(JSON.parse(localStorage.getItem('days_learnt')) || {});
     const essays = await client.from('essays').select().eq('user_id', data.session.user.id);
-    const local_essays = JSON.parse(localStorage.getItem('saved_essays'));
+    const local_essays = JSON.parse(localStorage.getItem('saved_essays')) || [];
     // If any of those tables have data locally but not online, show this dialog
     // If they explicitly clicked No, data.length will be 1
     if (known_kanji.data.length === 0 && local_kanji.length) {
