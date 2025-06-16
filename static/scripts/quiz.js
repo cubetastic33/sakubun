@@ -16,9 +16,9 @@ const $report = $('#report');
 const $next = $('#next');
 
 async function get_known_kanji() {
-  const { data: {user} = {} } = await client.auth.getUser();
-  if (user) {
-    let { data } = await client.from('known_kanji').select('known_kanji, known_priority_kanji').eq('user_id', user.id);
+  const { data: {session} } = await client.auth.getSession();
+  if (session) {
+    let { data } = await client.from('known_kanji').select('known_kanji, known_priority_kanji').eq('user_id', session.user.id);
     return {
       known_kanji: new Set(data.length ? data[0].known_kanji : []),
       known_priority_kanji: new Set(data.length ? data[0].known_priority_kanji : []),

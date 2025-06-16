@@ -58,8 +58,8 @@ async function get_saved_essays(user) {
 }
 
 async function get_essay(essay_id) {
-  const { data: {user} = {} } = await client.auth.getUser();
-  if (user) {
+  const { data: {session} } = await client.auth.getSession();
+  if (session) {
     return (await client.from('essays').select('content').eq('id', essay_id)).data[0].content;
   } else return localStorage.getItem('essay' + essay_id);
 }
@@ -85,8 +85,8 @@ async function save_essay(name, content) {
 }
 
 async function unsave_essay(essay_id) {
-  const { data: {user} = {} } = await client.auth.getUser();
-  if (user) {
+  const { data: {session} } = await client.auth.getSession();
+  if (session) {
     const response = await client.from('essays').delete().eq('id', essay_id);
     console.log(response);
   } else {

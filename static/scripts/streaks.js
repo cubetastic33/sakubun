@@ -35,9 +35,9 @@ function datify(number) {
 // TODO custom function to get today days learnt
 // TODO upsert only today's date, check if that works if there is no data upstream
 async function questions_today() {
-  const { data: {user} = {} } = await client.auth.getUser();
-  if (user) {
-    const streaks = await client.from('streaks').select().eq('user_id', user.id);
+  const { data: {session} } = await client.auth.getSession();
+  if (session) {
+    const streaks = await client.from('streaks').select().eq('user_id', session.user.id);
     if (streaks.data.length) return streaks.data[0].quiz_days_learnt;
   } else if (localStorage.getItem('days_learnt')) {
     return JSON.parse(localStorage.getItem('days_learnt'));
@@ -46,9 +46,9 @@ async function questions_today() {
 }
 
 async function get_days_learnt() {
-  const { data: {user} = {} } = await client.auth.getUser();
-  if (user) {
-    const streaks = await client.from('streaks').select().eq('user_id', user.id);
+  const { data: {session} } = await client.auth.getSession();
+  if (session) {
+    const streaks = await client.from('streaks').select().eq('user_id', session.user.id);
     if (streaks.data.length) return streaks.data[0].quiz_days_learnt || {};
   } else if (localStorage.getItem('days_learnt')) {
     return JSON.parse(localStorage.getItem('days_learnt'));
@@ -57,10 +57,10 @@ async function get_days_learnt() {
 }
 
 async function set_days_learnt(days_learnt) {
-  const { data } = await client.auth.getSession();
-  if (data.session) {
+  const { data: {user} = {} } = await client.auth.getUser();
+  if (user) {
     const { error } = await client.from('streaks').upsert({
-      'user_id': data.session.user.id,
+      'user_id': user.id,
       'quiz_days_learnt': days_learnt,
     });
     if (error) {
