@@ -266,12 +266,14 @@ pub async fn add_override(
     // Begin a transaction
     let mut tx = db.begin().await.format_error("Error beginning transaction")?;
     // Prepare the SQL query
-    let statement = tx.prepare("INSERT INTO overrides (sentence_id, override_type, value, primary_value, report_id) VALUES ($1, 'question', $2, FALSE, $3);").await.format_error("Error preparing INSERT")?;
+    let statement = tx.prepare("INSERT INTO overrides (sentence_id, override_type, value, primary_value, report_id) VALUES ($1, $2, $3, $4, $5);").await.format_error("Error preparing INSERT")?;
 
     if !skip_question {
         statement.query()
             .bind(sentence_id)
+            .bind("question")
             .bind(&override_details.question)
+            .bind(false)
             .bind(&override_details.report_id)
             .execute(&mut *tx).await
             .format_error("Error overriding question")?;
@@ -280,7 +282,9 @@ pub async fn add_override(
     if !skip_translation {
         statement.query()
             .bind(sentence_id)
+            .bind("translation")
             .bind(&override_details.translation)
+            .bind(false)
             .bind(&override_details.report_id)
             .execute(&mut *tx).await
             .format_error("Error overriding translation")?;
@@ -289,7 +293,9 @@ pub async fn add_override(
     if !skip_reading {
         statement.query()
             .bind(sentence_id)
+            .bind("reading")
             .bind(&override_details.reading)
+            .bind(true)
             .bind(&override_details.report_id)
             .execute(&mut *tx).await
             .format_error("Error overriding reading")?;
@@ -298,7 +304,9 @@ pub async fn add_override(
     if let Some(reading) = override_details.additional_reading.clone() {
         statement.query()
             .bind(sentence_id)
+            .bind("reading")
             .bind(reading)
+            .bind(false)
             .bind(&override_details.report_id)
             .execute(&mut *tx).await
             .format_error("Error overriding additional reading")?;
