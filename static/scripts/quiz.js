@@ -275,7 +275,7 @@ const katakana = 'ァアィイゥウェエォオカガキギクグケゲコゴ�
 function convert_to_hiragana(text) {
   // Converts katakana to hiragana
   for (let i = 0; i < katakana.length; i++) {
-    text.replaceAll(katakana[i], hiragana[i]);
+    text = text.replaceAll(katakana[i], hiragana[i]);
   }
   return text;
 }
