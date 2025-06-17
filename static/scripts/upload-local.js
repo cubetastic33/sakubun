@@ -17,6 +17,7 @@ async function setAuthView(data) {
   if (data.session) {
     $('#login-btn').addClass('hide');
     $logoutBtn.removeClass('hide');
+    $logoutBtn.prop('title', 'Sign out of ' + data.session.user.email);
     $('.logged-out').hide();
     // Get local and online versions of each data table
     const known_kanji = await client.from('known_kanji').select().eq('user_id', data.session.user.id);
@@ -57,8 +58,10 @@ async function setAuthView(data) {
 $logoutBtn.click(async () => {
   // Sign out the user
   const { error } = await client.auth.signOut();
-  console.error(error);
-  if (error) alert(error.message);
+  if (error) {
+    console.error(error);
+    alert(error.message);
+  }
   else await setAuthView({ session: null });
 });
 

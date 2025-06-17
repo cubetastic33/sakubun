@@ -3,6 +3,7 @@ async function setAuthView(data) {
   if (data.session) {
     $('#login-btn').addClass('hide');
     $logoutBtn.removeClass('hide');
+    $logoutBtn.prop('title', 'Sign out of ' + data.session.user.email);
     $('#import_streaks').hide();
     $('#export_streaks').hide();
   } else {

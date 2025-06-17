@@ -39,7 +39,7 @@
     <a href="/" class="ja">作文</a>
     {% block rightheader %}
     <a href="/signin" id="login-btn" class="account hide" title="Sign In">
-      <span class="material-icons">login</span>
+      <span class="material-icons">account_circle</span>
     </a>
     <button id="logout-btn" class="account exception hide" title="Sign Out">
       <span class="material-icons">logout</span>
