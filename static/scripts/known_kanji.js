@@ -32,10 +32,10 @@ preview_ds.subscribe('callback', ({items}) => {
 
 // Database access functions
 
-async function get_known_kanji(user) {
-  // auth.getUser() performs a network call so share the user by passing it as an argument
-  if (user) {
-    let { data } = await client.from('known_kanji').select('known_kanji, known_priority_kanji').eq('user_id', user.id);
+async function get_known_kanji() {
+  const { data: {session} } = await client.auth.getSession();
+  if (session) {
+    let { data } = await client.from('known_kanji').select('known_kanji, known_priority_kanji').eq('user_id', session.user.id);
     return {
       known_kanji: new Set(data.length ? data[0].known_kanji : []),
       known_priority_kanji: new Set(data.length ? data[0].known_priority_kanji : []),
@@ -46,11 +46,12 @@ async function get_known_kanji(user) {
   };
 }
 
-async function upsert_known_kanji(user, known_kanji, priority = false) {
+async function upsert_known_kanji(known_kanji, priority = false) {
+  const { data: {session} } = await client.auth.getSession();
   const column = `known_${priority ? 'priority_' : ''}kanji`;
-  if (user) {
+  if (session) {
     const { error } = await client.from('known_kanji').upsert({
-      user_id: user.id,
+      user_id: session.user.id,
       [column]: [...known_kanji].join(''),
     });
     if (error) {
@@ -60,10 +61,11 @@ async function upsert_known_kanji(user, known_kanji, priority = false) {
   } else localStorage.setItem(column, [...known_kanji].join(''));
 }
 
-async function delete_all_kanji(user) {
-  if (user) {
+async function delete_all_kanji() {
+  const { data: {session} } = await client.auth.getSession();
+  if (session) {
     const { error } = await client.from('known_kanji').upsert({
-      user_id: user.id,
+      user_id: session.user.id,
       known_kanji: null,
       known_priority_kanji: null,
     });
@@ -81,9 +83,8 @@ async function delete_all_kanji(user) {
 
 async function kanji_grid() {
   const $kanji = $('#kanji');
-  const { data: {user} = {} } = await client.auth.getUser();
 
-  let { known_kanji, known_priority_kanji } = await get_known_kanji(user);
+  let { known_kanji, known_priority_kanji } = await get_known_kanji();
 
   // Remove any previously added selectables
   ds.removeSelectables(document.querySelectorAll('#kanji .selectable'));
@@ -119,8 +120,7 @@ async function setAuthView(data) {
 }
 
 async function add_kanji(text, priority = false) {
-  const { data: {user} = {} } = await client.auth.getUser();
-  let { [`known_${priority ? 'priority_' : ''}kanji`]: kanji_list } = await get_known_kanji(user);
+  let { [`known_${priority ? 'priority_' : ''}kanji`]: kanji_list } = await get_known_kanji();
 
   // Regex to identify kanji
   let re = /[\u3005\u3400-\u4DB5\u4E00-\u9FCB\uF900-\uFA6A]/gu;
@@ -192,8 +192,7 @@ $('#remove').on('click', () => {
 });
 
 $('#remove_all').on('click', async () => {
-  const { data: {user} = {} } = await client.auth.getUser();
-  let num_kanji = (await get_known_kanji(user)).known_kanji.size;
+  let num_kanji = (await get_known_kanji()).known_kanji.size;
 
   $('#confirmation + .overlay').show();
   $confirmation.attr('data-grid', 'all').show('slow');
@@ -201,13 +200,12 @@ $('#remove_all').on('click', async () => {
 });
 
 $('#confirmation button:last-child').on('click', async () => {
-  const { data: {user} = {} } = await client.auth.getUser();
   // Remove the selected kanji
   if ($confirmation.attr('data-grid') === 'all') {
     await delete_all_kanji(user);
     await kanji_grid();
   } else if ($confirmation.attr('data-grid') === 'kanji') {
-    let { known_kanji, known_priority_kanji } = await get_known_kanji(user);
+    let { known_kanji, known_priority_kanji } = await get_known_kanji();
     $('#kanji div.selected').each(function () {
       known_kanji.delete($(this).text());
       known_priority_kanji.delete($(this).text());

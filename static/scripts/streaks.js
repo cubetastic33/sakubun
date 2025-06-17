@@ -57,10 +57,10 @@ async function get_days_learnt() {
 }
 
 async function set_days_learnt(days_learnt) {
-  const { data: {user} = {} } = await client.auth.getUser();
-  if (user) {
+  const { data: {session} } = await client.auth.getSession();
+  if (session) {
     const { error } = await client.from('streaks').upsert({
-      'user_id': user.id,
+      'user_id': session.user.id,
       'quiz_days_learnt': days_learnt,
     });
     if (error) {

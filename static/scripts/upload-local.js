@@ -73,11 +73,11 @@ function showUploadError(error) {
 $('#dont-upload').on('click', async () => {
   // The user clicked No, so write empty rows to the relevant tables. This makes sure we don't show
   // the dialog next time.
-  const { data, error } = await client.auth.getSession();
+  const { data: { session: {user} }, error } = await client.auth.getSession();
   if (showUploadError(error)) return;
   if (!$knownKanjiContainer.hasClass('hide')) {
     // Make sure we're not overwriting upstream data
-    const known_kanji = await client.from('known_kanji').select().eq('user_id', data.session.user.id);
+    const known_kanji = await client.from('known_kanji').select().eq('user_id', user.id);
     if (known_kanji.data.length === 0) {
       const { error } = await client.from('known_kanji').insert({});
       if (showUploadError(error)) return;
@@ -85,7 +85,7 @@ $('#dont-upload').on('click', async () => {
   }
   if (!$quizStreaksContainer.hasClass('hide')) {
     // Make sure we're not overwriting upstream data
-    const streaks = await client.from('streaks').select().eq('user_id', data.session.user.id);
+    const streaks = await client.from('streaks').select().eq('user_id', user.id);
     if (streaks.data.length === 0) {
       const { error } = await client.from('streaks').insert({});
       if (showUploadError(error)) return;
@@ -96,11 +96,11 @@ $('#dont-upload').on('click', async () => {
 
 $('#yes-upload').on('click', async () => {
   // The user clicked Yes, so write empty rows if the checkbox is unselected, and data otherwise
-  const { data, error } = await client.auth.getSession();
+  const { data: { session: {user} }, error } = await client.auth.getSession();
   if (showUploadError(error)) return;
   if (!$knownKanjiContainer.hasClass('hide') && $('#known-kanji').is(':checked')) {
     // Make sure we're not overwriting upstream data
-    const known_kanji = await client.from('known_kanji').select().eq('user_id', data.session.user.id);
+    const known_kanji = await client.from('known_kanji').select().eq('user_id', user.id);
     if (known_kanji.data.length === 0) {
       const { error } = await client.from('known_kanji').insert({
         'known_kanji': localStorage.getItem('known_kanji'),
@@ -111,7 +111,7 @@ $('#yes-upload').on('click', async () => {
   }
   if (!$quizStreaksContainer.hasClass('hide') && $('#quiz-streaks').is(':checked')) {
     // Make sure we're not overwriting upstream data
-    const streaks = await client.from('streaks').select().eq('user_id', data.session.user.id);
+    const streaks = await client.from('streaks').select().eq('user_id', user.id);
     if (streaks.data.length === 0) {
       const { error } = await client.from('streaks').insert({
         'quiz_days_learnt': JSON.parse(localStorage.getItem('days_learnt')),
@@ -121,7 +121,7 @@ $('#yes-upload').on('click', async () => {
   }
   if (!$savedEssaysContainer.hasClass('hide') && $('#saved-essays').is(':checked')) {
     // Make sure we're not overwriting upstream data
-    const essays = await client.from('essays').select().eq('user_id', data.session.user.id);
+    const essays = await client.from('essays').select().eq('user_id', user.id);
     if (essays.data.length === 0) {
       let local_essays = JSON.parse(localStorage.getItem('saved_essays'));
       for (let i = 0; i < local_essays.length; i++) {

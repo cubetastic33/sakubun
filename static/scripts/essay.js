@@ -35,10 +35,10 @@ async function setAuthView(data) {
 
 // Database access functions
 
-async function get_known_kanji(user) {
-  // auth.getUser() performs a network call so share the user by passing it as an argument
-  if (user) {
-    let { data } = await client.from('known_kanji').select('known_kanji, known_priority_kanji').eq('user_id', user.id);
+async function get_known_kanji() {
+  const { data: {session} } = await client.auth.getSession();
+  if (session) {
+    let { data } = await client.from('known_kanji').select('known_kanji, known_priority_kanji').eq('user_id', session.user.id);
     return {
       known_kanji: new Set(data.length ? data[0].known_kanji : []),
       known_priority_kanji: new Set(data.length ? data[0].known_priority_kanji : []),
@@ -49,8 +49,9 @@ async function get_known_kanji(user) {
   };
 }
 
-async function get_saved_essays(user) {
-  if (user) return (await client.from('essays').select('id, name').eq('user_id', user.id)).data;
+async function get_saved_essays() {
+  const { data: {session} } = await client.auth.getSession();
+  if (session) return (await client.from('essays').select('id, name').eq('user_id', session.user.id)).data;
   else {
     const essays = JSON.parse(localStorage.getItem('saved_essays')) || [];
     return essays.map(essay => {return { id: essay[0], name: essay[1] }});
@@ -65,8 +66,8 @@ async function get_essay(essay_id) {
 }
 
 async function save_essay(name, content) {
-  const { data: {user} = {} } = await client.auth.getUser();
-  if (user) {
+  const { data: {session} } = await client.auth.getSession();
+  if (session) {
     const { data, error } = await client.from('essays').insert({ name, content }).select();
     if (error) {
       console.log('Error saving essay', error);
@@ -86,10 +87,8 @@ async function save_essay(name, content) {
 
 async function unsave_essay(essay_id) {
   const { data: {session} } = await client.auth.getSession();
-  if (session) {
-    const response = await client.from('essays').delete().eq('id', essay_id);
-    console.log(response);
-  } else {
+  if (session) await client.from('essays').delete().eq('id', essay_id);
+  else {
     let saved_essays = JSON.parse(localStorage.getItem('saved_essays'));
     if (saved_essays === null) return; // Happens when the essay was deleted from a different tab
     for (let i = 0; i < saved_essays.length; i++) {
@@ -108,8 +107,7 @@ async function unsave_essay(essay_id) {
 // End of database access functions
 
 async function list_essays() {
-  const { data: {user} = {} } = await client.auth.getUser();
-  let { known_kanji } = await get_known_kanji(user);
+  let { known_kanji } = await get_known_kanji();
   if (!known_kanji.size) {
     $('#saved, #settings *:not(.container):not(.always):not(.always *)').hide();
     $('#range').html(
@@ -121,7 +119,7 @@ async function list_essays() {
     $min[0].setAttribute('value', Math.min(1, known_kanji.size));
     $max[0].setAttribute('value', Math.min(15, known_kanji.size));
 
-    const saved_essays = await get_saved_essays(user);
+    const saved_essays = await get_saved_essays();
     if (saved_essays && saved_essays.length) {
       for (let i = 0; i < saved_essays.length; i++) {
         $saved_ul.append(`<li data-id="${saved_essays[i].id}">${saved_essays[i].name}</li>`);
@@ -325,15 +323,13 @@ $settings.submit(async e => {
   e.preventDefault();
   $generate.prop('disabled', true);
 
-  const { data: {user} = {} } = await client.auth.getUser();
-
   // Set the direction of text
   $('body').toggleClass('vertical', localStorage.getItem('direction') !== 'horizontal');
   // Save the min and max preferences
   localStorage.setItem('min_essay', $min.val() || 1);
   localStorage.setItem('max_essay', $max.val() || 3);
 
-  let { known_kanji, known_priority_kanji } = await get_known_kanji(user);
+  let { known_kanji, known_priority_kanji } = await get_known_kanji();
 
   $.post('/essay', {
     'min': $min.val() || 1,

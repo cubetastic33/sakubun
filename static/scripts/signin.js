@@ -5,9 +5,9 @@ const client = supabase.createClient(supabaseUrl, supabaseKey);
 // If the user is signed in, redirect them to the home page
 // They have to sign out before they can see this page again
 (async () => {
-  const { data, error } = await client.auth.getSession();
-  console.log('session:', data, error);
-  if (data.session) location.href = '/';
+  const { data: {session}, error } = await client.auth.getSession();
+  console.log('session:', session, error);
+  if (session) location.href = '/';
 })();
 
 const $signupForm = $('#signup-form');
