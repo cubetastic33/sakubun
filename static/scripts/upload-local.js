@@ -67,7 +67,7 @@ $logoutBtn.click(async () => {
 
 function showUploadError(error) {
   if (error) {
-    console.log(error);
+    console.error(error);
     $('#upload-error').text('Error: ' + error.message);
     return true;
   }

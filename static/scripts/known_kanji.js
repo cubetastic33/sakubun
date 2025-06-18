@@ -131,7 +131,7 @@ async function add_kanji(text, priority = false) {
   }
 
   // Save updated kanji list
-  await upsert_known_kanji(user, kanji_list, priority);
+  await upsert_known_kanji(kanji_list, priority);
   // Update kanji grid
   if (!priority) await kanji_grid();
   // Add the kanji to the normal list as well
@@ -203,7 +203,7 @@ $('#remove_all').on('click', async () => {
 $('#confirmation button:last-child').on('click', async () => {
   // Remove the selected kanji
   if ($confirmation.attr('data-grid') === 'all') {
-    await delete_all_kanji(user);
+    await delete_all_kanji();
     await kanji_grid();
   } else if ($confirmation.attr('data-grid') === 'kanji') {
     let { known_kanji, known_priority_kanji } = await get_known_kanji();
@@ -212,8 +212,8 @@ $('#confirmation button:last-child').on('click', async () => {
       known_priority_kanji.delete($(this).text());
     });
     // Save updated kanji list
-    await upsert_known_kanji(user, known_kanji);
-    await upsert_known_kanji(user, known_priority_kanji, priority=true);
+    await upsert_known_kanji(known_kanji);
+    await upsert_known_kanji(known_priority_kanji, priority=true);
     // Update kanji grid
     await kanji_grid();
   } else {
@@ -341,7 +341,7 @@ $('#anki').submit(e => {
     $('#anki button').prop('disabled', false);
     preview_kanji(result, 'anki');
   }).fail(err => {
-    console.log(err);
+    console.error(err);
     // Enable the import button again
     $('#anki button').prop('disabled', false);
     preview_kanji([], 'anki', err.responseText);
@@ -353,11 +353,10 @@ $('#wanikani form:first-child').submit(e => {
   $('#wanikani button').prop('disabled', true);
   $.post('/import_wanikani_api', {value: $('#api_key').val().trim()}).done(result => {
     // Enable the import buttons again
-    console.log(result);
     $('#wanikani button').prop('disabled', false);
     preview_kanji(result, 'wanikani');
   }).fail(error => {
-    console.log(error);
+    console.error(error);
     alert('An error occurred');
     $('#wanikani button').prop('disabled', false);
   });
@@ -374,7 +373,7 @@ $('#wanikani form:last-child').submit(e => {
     $('#wanikani button').prop('disabled', false);
     preview_kanji(result, 'wanikani');
   }).fail(error => {
-    console.log(error);
+    console.error(error);
     alert('An error occurred');
     $('#wanikani button').prop('disabled', false);
   });
@@ -396,7 +395,7 @@ $('.import_option:not(#anki):not(#wanikani)').submit(function (e) {
     // Enable the import button again
     $(this).children('button').prop('disabled', false);
     preview_kanji(result, this.id);
-  }).fail(console.log);
+  }).fail(console.error);
 });
 
 $('#remove_from_preview').on('click', () => {

@@ -370,7 +370,6 @@ $('#quiz_container').submit(async e => {
         let question_html = $question.html();
         let kana_html = $kana.html();
         let kanji_diff = patienceDiff(question_html.split(''), kana_html.split(''));
-        console.log(kanji_diff);
         // Iterate over the diff in reverse so the indices are still valid
         for (let i = kanji_diff.lines.length - 1; i >= 0; i--) {
           const kanji_index = kanji_diff.lines[i].aIndex;
@@ -456,7 +455,7 @@ $('#report_dialog form').submit(e => {
       alert(result);
     }
   }).fail(error => {
-    console.log(error);
+    console.error(error);
     alert(error.responseText);
     $('#report_dialog button').prop('disabled', false);
   });
