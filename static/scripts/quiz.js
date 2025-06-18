@@ -416,11 +416,11 @@ $('#quiz_container').submit(async e => {
 function show_reference(report_type) {
   $('#report_dialog span').text(report_type);
   if (report_type === 'translation') {
-    $('#reference').text($meaning.text());
+    $('#reference').removeClass('ja').text($meaning.text());
   } else if (report_type === 'question') {
-    $('#reference').text($question.text());
+    $('#reference').addClass('ja').text($question.text());
   } else if (report_type === 'reading') {
-    $('#reference').text($kana.text());
+    $('#reference').addClass('ja').text($kana.text());
     $('#suggested').val($answer.val());
   }
 }

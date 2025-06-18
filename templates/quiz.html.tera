@@ -79,7 +79,7 @@
       </details>
       <br>
       <h3>Reporting <span></span>:</h3>
-      <p id="reference" class="ja"></p>
+      <p id="reference"></p>
       <h3>Suggested <span></span>:</h3>
       <input id="suggested" placeholder="Optional" autocomplete="off">
       <textarea id="comment" rows="2" maxlength="500"

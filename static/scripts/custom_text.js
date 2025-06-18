@@ -23,7 +23,7 @@ $('form').submit(async e => {
   e.preventDefault();
   const known_kanji = await get_known_kanji();
   const result = await kuroshiro.convert($('textarea').val(), {mode: 'furigana', to: 'hiragana'});
-  $('#result').html(result.replaceAll('\n', '<br>'));
+  $('#result').addClass('ja').html(result.replaceAll('\n', '<br>'));
 
   $('ruby').each(function () {
     let word = new Set($(this).html().split('<rp>')[0]);
