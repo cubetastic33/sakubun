@@ -212,7 +212,7 @@ pub async fn kanji_from_wanikani(api_key: &str) -> Result<String, ErrResponse> {
             kanji.push(subject["data"]["characters"].as_str().unwrap().to_owned());
         }
     }
-    Ok(kanji.join(""))
+    Ok(dbg!(kanji.join("")))
 }
 
 pub async fn kanji_in_order(

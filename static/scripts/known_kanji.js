@@ -353,6 +353,7 @@ $('#wanikani form:first-child').submit(e => {
   $('#wanikani button').prop('disabled', true);
   $.post('/import_wanikani_api', {value: $('#api_key').val().trim()}).done(result => {
     // Enable the import buttons again
+    console.log(result);
     $('#wanikani button').prop('disabled', false);
     preview_kanji(result, 'wanikani');
   }).fail(error => {
