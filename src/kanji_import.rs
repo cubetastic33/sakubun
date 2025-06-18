@@ -141,6 +141,8 @@ pub async fn kanji_from_wanikani(api_key: &str) -> Result<String, ErrResponse> {
     let mut url = String::from("https://api.wanikani.com/v2/assignments");
     let mut ids = Vec::new();
 
+    let mut count_less_than_5 = 0;
+
     // Fetch all the subject IDs
     loop {
         let mut response = client.get(&url);
@@ -149,7 +151,7 @@ pub async fn kanji_from_wanikani(api_key: &str) -> Result<String, ErrResponse> {
             response = response.query(&[("subject_types", "kanji")]);
         }
         let json = response
-            .bearer_auth(api_key)
+            .bearer_auth(dbg!(api_key))
             .send().await
             .format_error("Error making GET request")?
             .json::<serde_json::Value>().await
@@ -170,6 +172,8 @@ pub async fn kanji_from_wanikani(api_key: &str) -> Result<String, ErrResponse> {
                         .unwrap()
                         .to_string(),
                 );
+            } else {
+                count_less_than_5 += 1;
             }
         }
 
@@ -180,8 +184,10 @@ pub async fn kanji_from_wanikani(api_key: &str) -> Result<String, ErrResponse> {
         };
     }
 
+    dbg!(count_less_than_5);
+
     // Fetch the actual kanji
-    for i in 0..=(ids.len() / 1000) {
+    for i in 0..=(dbg!(ids.len()) / 1000) {
         // We're looping in batches of 1000 ids because at one point the request seems to start
         // causing errors because it's too long
         // Since we restrict to 1000 ids at a time, we shouldn't need to paginate
