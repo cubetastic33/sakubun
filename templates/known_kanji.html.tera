@@ -228,6 +228,9 @@
     <div>
       <span id="num_known">0</span> kanji added
     </div>
+    <div id="account-banner">
+      Note: You can <a href="/signup">create an account</a> to sync your kanji and other data across devices
+    </div>
     <p>
       Drag to select kanji if you want to remove them. Pressing shift / ctrl / ⌘ while
       selecting will toggle selection.

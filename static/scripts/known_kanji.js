@@ -112,10 +112,12 @@ async function setAuthView(data) {
     $logoutBtn.removeClass('hide');
     $logoutBtn.prop('title', 'Sign out of ' + data.session.user.email);
     $('#export-section').hide();
+    $('#account-banner').hide();
   } else {
     $('#login-btn').removeClass('hide');
     $logoutBtn.addClass('hide');
     $('#export-section').show();
+    $('#account-banner').show();
   }
   await kanji_grid();
 }

@@ -122,6 +122,19 @@ section > div {
   z-index: 11;
 }
 
+#account-banner {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  display: none;
+  padding: .75em !important;
+  margin: .5em 0;
+  text-align: center;
+
+  a {
+    color: var(--link);
+  }
+}
+
 #copied {
   background-color: #333;
   border-radius: 5px;
