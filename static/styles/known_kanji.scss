@@ -127,11 +127,13 @@ section > div {
   border-radius: 5px;
   display: none;
   padding: .75em !important;
-  margin: .5em 0;
+  width: min(max-content, 100%);
+  margin: .5em auto;
   text-align: center;
 
   a {
     color: var(--link);
+    text-decoration: none;
   }
 }
 
