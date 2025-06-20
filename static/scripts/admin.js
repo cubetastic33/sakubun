@@ -17,7 +17,7 @@ $('.reject, .accept').click(function () {
   $(`#${dialog}`).attr('data-id', id).attr('data-type', is_report ? 'report' : 'override').show('slow');
   $(`#${dialog} .action`).text(is_report ? 'reject' : 'delete');
   $(`#${dialog} .template`).text(is_report ? 'report' : 'override');
-  $(`#${dialog} .close`).focus();
+  $(`#${dialog} :submit`).focus();
   if (is_report && $(this).hasClass('accept')) {
     $('#question').val($(this).parent().siblings('h2').text());
     for (let property of ['translation', 'reading']) {
