@@ -88,6 +88,10 @@ async function init_quiz_settings() {
   if (settings_min) $min.val(settings_min);
   if (settings_max) $max.val(settings_max);
   if (settings_textbox) $show_textbox.prop('checked', settings_textbox === 'true');
+  // If there is no saved setting and no saved kanji, the default setting is true
+  else if (!known_kanji.size) $show_textbox.prop('checked', true);
+  // If we do have saved kanji, we set it to false because we want to mark readings by default
+  else $show_textbox.prop('checked', false);
   if (settings_reading) $show_reading.prop('checked', settings_reading === 'true');
   if (settings_diff) $show_diff.prop('checked', settings_diff === 'true');
   $max.prop('min', $min.val());
