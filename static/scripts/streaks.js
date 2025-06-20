@@ -1,26 +1,3 @@
-// Overwrite the setAuthView function from main.js
-async function setAuthView(data) {
-  if (data.session) {
-    $('#login-btn').addClass('hide');
-    $logoutBtn.removeClass('hide');
-    $logoutBtn.prop('title', 'Sign out of ' + data.session.user.email);
-    $('#import_streaks').hide();
-    $('#export_streaks').hide();
-  } else {
-    if ($('#quiz_container').is(':visible')) {
-      // The logged in user already started a quiz. It is easier to refresh the page than reset everything.
-      location.reload();
-      return;
-    }
-    $('#login-btn').removeClass('hide');
-    $logoutBtn.addClass('hide');
-    $('#import_streaks').show();
-    $('#export_streaks').show();
-  }
-  await draw_map(new Date(), false);
-  await init_quiz_settings();
-}
-
 const DAY = 24 * 60 * 60 * 1000; // Number of milliseconds in one day
 
 function numerify(date) {

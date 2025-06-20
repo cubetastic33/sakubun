@@ -22,7 +22,7 @@
 {% endblock content %}
 
 {% block javascript %}
-  <script src="/scripts/main.js"></script>
+  {{ super() }}
   <script src="/scripts/kuroshiro.min.js"></script>
   <script src="/scripts/kuroshiro-analyzer-kuromoji.min.js"></script>
   <script src="/scripts/custom_text.js"></script>

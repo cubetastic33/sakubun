@@ -1,4 +1,5 @@
 // Commonly used selectors
+const $logoutBtn = $('#logout-btn');
 const $min = $('#min');
 const $max = $('#max');
 const $show_textbox = $('#show_textbox');
@@ -27,6 +28,36 @@ async function get_known_kanji() {
     known_kanji: new Set(localStorage.getItem('known_kanji')),
     known_priority_kanji: new Set(localStorage.getItem('known_priority_kanji')),
   };
+}
+
+let known_kanji, known_priority_kanji;
+
+function show_reading() {
+  // Returns whether the reading should be displayed or not
+  return known_kanji.size && $max.val() != 0 && $show_reading.is(':checked');
+}
+
+function should_evaluate() {
+  // Returns whether evaluation is required or not
+  return known_kanji.size && $max.val() != 0 && $show_textbox.is(':checked');
+}
+
+function show_diff() {
+  // Returns whether to mark the kanji diff or not
+  return known_kanji.size && $max.val() != 0 && !$show_textbox.is(':checked') && $show_diff.is(':checked');
+}
+
+function warning(e) {
+  // Save the setting only if this is run as a callback
+  if (e) localStorage.setItem('show_reading', $show_reading.is(':checked'));
+  // Show the "Mark difference" checkbox depending on the conditions
+  $diff_checkbox.toggle(!should_evaluate() && show_reading());
+  if (show_reading()) {
+    // Show the warning that readings are unreliable
+    $('.warning').show();
+  } else {
+    $('.warning').hide();
+  }
 }
 
 async function init_quiz_settings() {
@@ -69,34 +100,26 @@ async function init_quiz_settings() {
   $settings.show();
 }
 
-let known_kanji, known_priority_kanji;
-
-function show_reading() {
-  // Returns whether the reading should be displayed or not
-  return known_kanji.size && $max.val() != 0 && $show_reading.is(':checked');
-}
-
-function should_evaluate() {
-  // Returns whether evaluation is required or not
-  return known_kanji.size && $max.val() != 0 && $show_textbox.is(':checked');
-}
-
-function show_diff() {
-  // Returns whether to mark the kanji diff or not
-  return known_kanji.size && $max.val() != 0 && !$show_textbox.is(':checked') && $show_diff.is(':checked');
-}
-
-function warning(e) {
-  // Save the setting only if this is run as a callback
-  if (e) localStorage.setItem('show_reading', $show_reading.is(':checked'));
-  // Show the "Mark difference" checkbox depending on the conditions
-  $diff_checkbox.toggle(!should_evaluate() && show_reading());
-  if (show_reading()) {
-    // Show the warning that readings are unreliable
-    $('.warning').show();
+async function setAuthView(session) {
+  if (session) {
+    $('#login-btn').addClass('hide');
+    $logoutBtn.removeClass('hide');
+    $logoutBtn.prop('title', 'Sign out of ' + session.user.email);
+    $('#import_streaks').hide();
+    $('#export_streaks').hide();
   } else {
-    $('.warning').hide();
+    if ($('#quiz_container').is(':visible')) {
+      // The logged in user already started a quiz. It is easier to refresh the page than reset everything.
+      location.reload();
+      return;
+    }
+    $('#login-btn').removeClass('hide');
+    $logoutBtn.addClass('hide');
+    $('#import_streaks').show();
+    $('#export_streaks').show();
   }
+  await draw_map(new Date(), false);  // Defined in streaks.js
+  await init_quiz_settings();
 }
 
 $show_textbox.change(() => {
@@ -491,3 +514,17 @@ $(window).keypress(e => {
     }
   }
 });
+
+$logoutBtn.click(async () => {
+  // Sign out the user
+  const { error } = await client.auth.signOut();
+  console.error(error);
+  if (error) alert(error.message);
+  else await setAuthView();
+});
+
+(async () => {
+  const { data: {session}, error } = await client.auth.getSession();
+  if (error) console.error(error);
+  await setAuthView(session);
+})();

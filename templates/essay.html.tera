@@ -125,6 +125,5 @@
 {% endblock content %}
 
 {% block javascript %}
-  <script src="/scripts/main.js"></script>
   <script src="/scripts/essay.js"></script>
 {% endblock javascript %}

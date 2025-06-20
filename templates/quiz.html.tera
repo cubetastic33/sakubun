@@ -239,9 +239,8 @@
 {% endblock content %}
 
 {% block javascript %}
-  <script src="/scripts/main.js"></script>
   <script src="/scripts/wanakana.min.js"></script>
   <script src="/scripts/patience_diff.js"></script>
-  <script src="/scripts/streaks.js"></script>
-  <script src="/scripts/quiz.js"></script>
+  <script src="/scripts/streaks.js" defer></script>
+  <script src="/scripts/quiz.js" defer></script>
 {% endblock javascript %}

@@ -1,12 +1,8 @@
-const supabaseUrl = 'https://uwjfigexpjkojdakgubs.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3amZpZ2V4cGprb2pkYWtndWJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUxNzQ5NTYsImV4cCI6MjA1MDc1MDk1Nn0.aqfaXKeqmejmomkyJzQF2UVd2FoD9E60yeQvQ0DL5pA';
-const client = supabase.createClient(supabaseUrl, supabaseKey);
-
 // If the user is signed in, redirect them to the home page
 // They have to sign out before they can see this page again
 (async () => {
   const { data: {session}, error } = await client.auth.getSession();
-  console.log('session:', session, error);
+  if (error) console.error(error);
   if (session) location.href = '/';
 })();
 

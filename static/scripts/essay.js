@@ -1,4 +1,5 @@
 // Commonly used selectors
+const $logoutBtn = $('#logout-btn');
 const $saved = $('#saved');
 const $saved_ul = $('#saved ul');
 const $settings = $('#settings');
@@ -12,27 +13,6 @@ const $save_dialog_button = $('#save_dialog button');
 const $num_found = $('#num_found');
 const $import_dialog_ul = $('#import_dialog ul');
 const $import_submit = $('#import_submit');
-
-// Overwrite the setAuthView function from main.js
-async function setAuthView(data) {
-  if (data.session) {
-    $('#login-btn').addClass('hide');
-    $logoutBtn.removeClass('hide');
-    $logoutBtn.prop('title', 'Sign out of ' + data.session.user.email);
-    $('#export').hide();
-    $('#import_button').hide();
-    $('#generate').css('margin-left', 'auto');
-  } else {
-    $('#login-btn').removeClass('hide');
-    $logoutBtn.addClass('hide');
-    $('#export').show();
-    $('#import_button').show();
-    $('#generate').css('margin-left', '.5em');
-  }
-  await list_essays();
-  $('#loading').hide();
-  $('main').removeClass('hide');
-}
 
 // Database access functions
 
@@ -130,6 +110,26 @@ async function list_essays() {
       $saved.hide();
     }
   }
+}
+
+async function setAuthView(session) {
+  if (session) {
+    $('#login-btn').addClass('hide');
+    $logoutBtn.removeClass('hide');
+    $logoutBtn.prop('title', 'Sign out of ' + session.user.email);
+    $('#export').hide();
+    $('#import_button').hide();
+    $('#generate').css('margin-left', 'auto');
+  } else {
+    $('#login-btn').removeClass('hide');
+    $logoutBtn.addClass('hide');
+    $('#export').show();
+    $('#import_button').show();
+    $('#generate').css('margin-left', '.5em');
+  }
+  await list_essays();
+  $('#loading').hide();
+  $('main').removeClass('hide');
 }
 
 //
@@ -463,3 +463,9 @@ $(window).on('keypress', e => {
     }
   }
 });
+
+(async () => {
+  const { data: {session}, error } = await client.auth.getSession();
+  if (error) console.error(error);
+  await setAuthView(session);
+})();

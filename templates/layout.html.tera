@@ -63,6 +63,7 @@
   {% endblock topbar %}
   {% block content %}{% endblock content %}
   <script src="/scripts/jquery-3.5.1.min.js"></script>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script>
     const $body = $('body');
     function get_cookie(name) {
@@ -140,8 +141,41 @@
       }
       $(this).parent().toggleClass('open');
     });
+
+    const supabaseUrl = 'https://uwjfigexpjkojdakgubs.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV3amZpZ2V4cGprb2pkYWtndWJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUxNzQ5NTYsImV4cCI6MjA1MDc1MDk1Nn0.aqfaXKeqmejmomkyJzQF2UVd2FoD9E60yeQvQ0DL5pA';
+    const client = supabase.createClient(supabaseUrl, supabaseKey);
   </script>
-  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
-  {% block javascript %}{% endblock javascript %}
+  {% block javascript %}
+  <!-- Default login-logout logic. Will be overwritten in most pages inheriting this template. -->
+  <script>
+    const $logoutBtn = $('#logout-btn');
+
+    async function setAuthView(session) {
+      if (session) {
+        $('#login-btn').addClass('hide');
+        $logoutBtn.removeClass('hide');
+        $logoutBtn.prop('title', 'Sign out of ' + session.user.email);
+      } else {
+        $('#login-btn').removeClass('hide');
+        $logoutBtn.addClass('hide');
+      }
+    }
+
+    $logoutBtn.click(async () => {
+      // Sign out the user
+      const { error } = await client.auth.signOut();
+      console.error(error);
+      if (error) alert(error.message);
+      else await setAuthView();
+    });
+
+    (async () => {
+      const { data: {session}, error } = await client.auth.getSession();
+      if (error) console.error(error);
+      await setAuthView(session);
+    })();
+  </script>
+  {% endblock javascript %}
 </body>
 </html>

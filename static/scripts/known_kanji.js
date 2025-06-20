@@ -105,12 +105,13 @@ async function kanji_grid() {
   ds.addSelectables(document.querySelectorAll('#kanji .selectable'));
 }
 
-// Overwrite the setAuthView function from main.js
-async function setAuthView(data) {
-  if (data.session) {
+const $logoutBtn = $('#logout-btn');
+
+async function setAuthView(session) {
+  if (session) {
     $('#login-btn').addClass('hide');
     $logoutBtn.removeClass('hide');
-    $logoutBtn.prop('title', 'Sign out of ' + data.session.user.email);
+    $logoutBtn.prop('title', 'Sign out of ' + session.user.email);
     $('#export-section').hide();
     $('#account-banner').hide();
   } else {
@@ -440,3 +441,17 @@ $('#export_priority').on('click', () => {
   let filename = `sakubun_priority_kanji_list_${d.getFullYear()}_${d.getMonth() + 1}_${d.getDate()}.txt`;
   download(filename, localStorage.getItem('known_priority_kanji'));
 });
+
+$logoutBtn.click(async () => {
+  // Sign out the user
+  const { error } = await client.auth.signOut();
+  console.error(error);
+  if (error) alert(error.message);
+  else await setAuthView();
+});
+
+(async () => {
+  const { data: {session}, error } = await client.auth.getSession();
+  if (error) console.error(error);
+  await setAuthView(session);
+})();
