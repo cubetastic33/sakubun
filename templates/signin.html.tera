@@ -13,13 +13,14 @@
     <form id="signin-form">
       <h1>Sign in to <a href="/" class="ja">作文</a></h1>
       <hr>
-      <p id="info">Sign in to sync your data across any device</p>
+      <p id="info">Sign in to sync your data across any device!</p>
       <div class="input-form">
         <label for="email">Email:</label>
         <input type="email" id="email" required>
         <label for="password">Password:</label>
-        <input type="password" id="password">
+        <input type="password" id="password" required>
       </div>
+      <div id="forgot-password">Forgot Password?</div>
       <p id="error"></p>
       <div class="buttons">
         <a href="/signup" class="button text">Create Account</a>

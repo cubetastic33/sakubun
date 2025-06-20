@@ -17,9 +17,9 @@
         <label for="email">Email:</label>
         <input type="email" id="email" placeholder="kaneki.ken@anteiku.com" required>
         <label for="password">Password:</label>
-        <input type="password" id="password" placeholder="strong password">
+        <input type="password" id="password" placeholder="strong password" required>
         <label for="confirm-password">Confirm:</label>
-        <input type="password" id="confirm-password" placeholder="re-type password">
+        <input type="password" id="confirm-password" placeholder="re-type password" required>
       </div>
        <p id="error"></p>
       <div class="buttons">

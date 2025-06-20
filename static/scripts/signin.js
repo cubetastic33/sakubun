@@ -6,12 +6,10 @@
   if (session) location.href = '/';
 })();
 
-const $signupForm = $('#signup-form');
-const $signinForm = $('#signin-form');
 const $error = $('#error');
 
 // Handle sign up form submit
-$signupForm.submit(async evt => {
+$('#signup-form').submit(async evt => {
   evt.preventDefault();
   // Check if password matches with confirm password
   const password = $('#password').val();
@@ -34,7 +32,7 @@ $signupForm.submit(async evt => {
 });
 
 // Handle sign in form submit
-$signinForm.submit(async evt => {
+$('#signin-form').submit(async evt => {
   evt.preventDefault();
   // Clear any error messages
   $error.empty();
@@ -45,4 +43,17 @@ $signinForm.submit(async evt => {
   console.log(data, error);
   if (error) $error.text('Error: ' + error.message);
   else location.href = '/';
+});
+
+$('#forgot-password').on('click', async evt => {
+  evt.preventDefault();
+  const email = prompt('What is your email address?').trim();
+  if (!email.length) return;
+  const { error } = await client.auth.resetPasswordForEmail(email, {
+    redirectTo: `${new URL(window.location.href).origin}/reset_password`,
+  });
+  if (error) {
+    console.error(error);
+    alert(error.message);
+  } else alert('Please check your inbox for password reset instructions.');
 });

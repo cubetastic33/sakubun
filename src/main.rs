@@ -207,6 +207,11 @@ fn get_signin(cookies: &CookieJar<'_>) -> Template {
     Template::render("signin", create_context(&cookies, "signin"))
 }
 
+#[get("/reset_password")]
+fn get_reset_password(cookies: &CookieJar<'_>) -> Template {
+    Template::render("reset_password", create_context(&cookies, "reset_password"))
+}
+
 #[get("/admin")]
 async fn get_admin(
     mut db: Connection<AdminDB>,
@@ -425,6 +430,7 @@ fn rocket() -> _ {
                 get_offline,
                 get_signup,
                 get_signin,
+                get_reset_password,
                 get_admin,
                 get_health,
                 post_sentences,
