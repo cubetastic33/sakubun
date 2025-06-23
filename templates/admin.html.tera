@@ -182,5 +182,6 @@
 {% endblock content %}
 
 {% block javascript %}
+  <script src="/scripts/patience_diff.js"></script>
   <script src="/scripts/admin.js"></script>
 {% endblock javascript %}

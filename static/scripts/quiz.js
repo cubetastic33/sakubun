@@ -307,6 +307,26 @@ function convert_to_hiragana(text) {
   return text;
 }
 
+function mark_reading(question_html, kana_html) {
+  const kanji_diff = patienceDiff(question_html.split(''), kana_html.split(''));
+  // Iterate over the diff in reverse so the indices are still valid
+  for (let i = kanji_diff.lines.length - 1; i >= 0; i--) {
+    const kanji_index = kanji_diff.lines[i].aIndex;
+    const kana_index = kanji_diff.lines[i].bIndex;
+    // If this diff refers to the kanji
+    if (kana_index === -1) {
+      question_html = question_html.slice(0, kanji_index + 1) + '</span>' + question_html.slice(kanji_index + 1);
+      question_html = question_html.slice(0, kanji_index) + '<span class="marked-reading">' + question_html.slice(kanji_index);
+    }
+    // If this diff refers to the kana
+    if (kanji_index === -1) {
+      kana_html = kana_html.slice(0, kana_index + 1) + '</span>' + kana_html.slice(kana_index + 1);
+      kana_html = kana_html.slice(0, kana_index) + '<span class="marked-reading">' + kana_html.slice(kana_index);
+    }
+  }
+  return [question_html, kana_html];
+}
+
 $('#quiz_container').submit(async e => {
   e.preventDefault();
   $next.prop('disabled', true);
@@ -394,24 +414,7 @@ $('#quiz_container').submit(async e => {
       $kana.text(readings[0]);
       if (show_diff()) {
         // Find the readings of the kanji so we can mark them
-        let question_html = $question.html();
-        let kana_html = $kana.html();
-        let kanji_diff = patienceDiff(question_html.split(''), kana_html.split(''));
-        // Iterate over the diff in reverse so the indices are still valid
-        for (let i = kanji_diff.lines.length - 1; i >= 0; i--) {
-          const kanji_index = kanji_diff.lines[i].aIndex;
-          const kana_index = kanji_diff.lines[i].bIndex;
-          // If this diff refers to the kanji
-          if (kana_index === -1) {
-            question_html = question_html.slice(0, kanji_index + 1) + '</span>' + question_html.slice(kanji_index + 1);
-            question_html = question_html.slice(0, kanji_index) + '<span class="reading">' + question_html.slice(kanji_index);
-          }
-          // If this diff refers to the kana
-          if (kanji_index === -1) {
-            kana_html = kana_html.slice(0, kana_index + 1) + '</span>' + kana_html.slice(kana_index + 1);
-            kana_html = kana_html.slice(0, kana_index) + '<span class="reading">' + kana_html.slice(kana_index);
-          }
-        }
+        const [question_html, kana_html] = mark_reading($question.html(), $kana.html());
         $question.html(question_html);
         $kana.html(kana_html);
       }

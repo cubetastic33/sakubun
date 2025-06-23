@@ -134,6 +134,10 @@ dialog hr, #override .form_input {
   --tick: var(--background-extreme);
 }
 
+.marked-reading {
+  color: var(--reading);
+}
+
 @media screen and (max-width: 1000px) {
   .primary, .reported_at {
     position: static !important;

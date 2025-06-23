@@ -122,3 +122,39 @@ $('#edit_override form').submit(e => {
     $('#edit_override button').prop('disabled', false);
   });
 });
+
+function mark_reading(question_html, kana_html) {
+  const kanji_diff = patienceDiff(question_html.split(''), kana_html.split(''));
+  // Iterate over the diff in reverse so the indices are still valid
+  for (let i = kanji_diff.lines.length - 1; i >= 0; i--) {
+    const kanji_index = kanji_diff.lines[i].aIndex;
+    const kana_index = kanji_diff.lines[i].bIndex;
+    // If this diff refers to the kanji
+    if (kana_index === -1) {
+      question_html = question_html.slice(0, kanji_index + 1) + '</span>' + question_html.slice(kanji_index + 1);
+      question_html = question_html.slice(0, kanji_index) + '<span class="marked-reading">' + question_html.slice(kanji_index);
+    }
+    // If this diff refers to the kana
+    if (kanji_index === -1) {
+      kana_html = kana_html.slice(0, kana_index + 1) + '</span>' + kana_html.slice(kana_index + 1);
+      kana_html = kana_html.slice(0, kana_index) + '<span class="marked-reading">' + kana_html.slice(kana_index);
+    }
+  }
+  return [question_html, kana_html];
+}
+
+// Mark readings in all the reports
+$('#reports_cards > div').each(function () {
+  const $question = $(this).children('h2');
+  const $reading = $('.reading', this);
+  const question = $question.html();
+  console.log('here');
+  const [marked_question, marked_reading] = mark_reading(question, $reading.html());
+  $question.html(marked_question);
+  $reading.html(marked_reading);
+  if ($('.report_type', this).text() === 'reading') {
+    console.log($('.report_type', this).text());
+    const $suggested = $('.suggested', this);
+    if ($suggested.html()) $suggested.html(mark_reading(question, $suggested.html())[1]);
+  }
+});
