@@ -60,7 +60,7 @@
   <main>
     <form id="add_kanji" class="add_kanji">
       <label for="new_kanji">Enter kanji you want to add to the list:</label>
-      <input type="text" id="new_kanji" class="ja" placeholder="Eg: 愛案以育胃寒崖" autocomplete="off">
+      <input type="text" id="new_kanji" lang="ja" placeholder="Eg: 愛案以育胃寒崖" autocomplete="off">
       <p>
         Tip: your input can contain other characters as well, and only the kanji will be
         considered. You don't need to worry about duplicate kanji because they won't get added
@@ -70,7 +70,7 @@
     </form>
     <form id="add_priority_kanji" class="add_kanji">
       <label for="new_priority_kanji">Or, enter priority kanji (enter again to de-prioritize):</label>
-      <input type="text" id="new_priority_kanji" class="ja" placeholder="Eg: 愛案以育胃寒崖" autocomplete="off">
+      <input type="text" id="new_priority_kanji" lang="ja" placeholder="Eg: 愛案以育胃寒崖" autocomplete="off">
       <p>
         Kanji you add here will be stored as "priority" kanji - all your quiz questions will have
         at least one kanji from this list. Any kanji you add here will also be added to your regular

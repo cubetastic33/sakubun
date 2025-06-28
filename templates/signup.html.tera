@@ -11,7 +11,7 @@
 {% block content %}
   <main>
     <form id="signup-form">
-      <h1>Create an account for <a href="/" class="ja">作文</a></h1>
+      <h1>Create an account for <a href="/" lang="ja">作文</a></h1>
       <hr>
       <div class="input-form">
         <label for="email">Email:</label>

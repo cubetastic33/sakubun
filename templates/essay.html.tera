@@ -37,7 +37,7 @@
       </details>
       <br>
       <h3>Reporting <span></span>:</h3>
-      <p id="reference"></p>
+      <p id="reference" lang="ja"></p>
       <h3>Suggested <span></span>:</h3>
       <input id="suggested" placeholder="Optional" autocomplete="off">
       <textarea id="comment" rows="2" maxlength="500"
@@ -113,7 +113,7 @@
         <button id="direction">Vertical</button>
       </div>
     </div>
-    <p id="essay" class="ja"></p>
+    <p id="essay" lang="ja"></p>
     <dialog id="floating">
       <section></section>
       <div>

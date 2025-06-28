@@ -446,11 +446,11 @@ $('#quiz_container').submit(async e => {
 function show_reference(report_type) {
   $('#report_dialog span').text(report_type);
   if (report_type === 'translation') {
-    $('#reference').removeClass('ja').text($meaning.text());
+    $('#reference').text($meaning.text());
   } else if (report_type === 'question') {
-    $('#reference').addClass('ja').text($question.text());
+    $('#reference').text($question.text());
   } else if (report_type === 'reading') {
-    $('#reference').addClass('ja').text($kana.text());
+    $('#reference').text($kana.text());
     $('#suggested').val($answer.val());
   }
 }

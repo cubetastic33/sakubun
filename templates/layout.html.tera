@@ -36,7 +36,7 @@
         <span class="material-icons">dark_mode</span>
       </button>
     </div>
-    <a href="/" class="ja">作文</a>
+    <a href="/" lang="ja">作文</a>
     {% block rightheader %}
     <a href="/signin" id="login-btn" class="account hide" title="Sign In">
       <span class="material-icons">account_circle</span>

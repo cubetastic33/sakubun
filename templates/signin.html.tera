@@ -11,7 +11,7 @@
 {% block content %}
   <main>
     <form id="signin-form">
-      <h1>Sign in to <a href="/" class="ja">作文</a></h1>
+      <h1>Sign in to <a href="/" lang="ja">作文</a></h1>
       <hr>
       <p id="info">Sign in to sync your data across any device!</p>
       <div class="input-form">

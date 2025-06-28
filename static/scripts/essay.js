@@ -161,7 +161,7 @@ function handle_essay_clicks() {
   // Add click handlers to the essay sentences
   $('#essay > span').on('click', function () {
     $('#floating section').html(`
-            <b>Sentence:</b> <span id="question" class="ja">${this.innerText}</span><br>
+            <b>Sentence:</b> <span id="question" lang="ja">${this.innerText}</span><br>
             <b>Reading:</b> <span id="kana">${this.dataset.reading}</span><br>
             <b>Meaning:</b> <span id="meaning">${this.dataset.meaning}</span>
         `).parent().attr('data-id', this.dataset.id).show('slow');
@@ -377,11 +377,11 @@ $settings.submit(async e => {
 function show_reference(report_type) {
   $('#report_dialog span').text(report_type);
   if (report_type === 'translation') {
-    $('#reference').removeClass('ja').text($('#meaning').text());
+    $('#reference').text($('#meaning').text());
   } else if (report_type === 'question') {
-    $('#reference').addClass('ja').text($('#question').text());
+    $('#reference').text($('#question').text());
   } else if (report_type === 'reading') {
-    $('#reference').addClass('ja').text($('#kana').text());
+    $('#reference').text($('#kana').text());
   }
 }
 
