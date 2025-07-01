@@ -224,7 +224,7 @@
     <form id="quiz_container">
       <div id="quiz">
         <div id="question_no"></div>
-        <div id="question" class="ja"></div>
+        <div id="question" lang="ja"></div>
         <textarea type="text" id="answer" rows="1" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
         <div id="evaluation"></div>
         <div id="kana"></div>
