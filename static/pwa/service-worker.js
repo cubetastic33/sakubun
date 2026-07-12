@@ -1,6 +1,6 @@
 "use strict";
 
-const version = "20250628-0::";
+const version = "20260712-1::";
 
 // Caches for different resources
 const core_cache_name = version + "core";
@@ -22,6 +22,7 @@ const core_cache_urls = [
   "/scripts/known_kanji.js",
   "/scripts/quiz.js",
   "/scripts/streaks.js",
+  "/scripts/push.js",
   "/scripts/wanakana.min.js",
   "/fonts/SourceSansPro-Regular.ttf",
   "/fonts/MaterialIcons-Round.woff2",
@@ -97,6 +98,44 @@ self.addEventListener("message", event => {
     trimCache(pages_cache_name, 20);
     trimCache(assets_cache_name, 20);
   }
+});
+
+self.addEventListener("push", event => {
+  let data = {};
+  try {
+    data = event.data.json();
+  } catch (e) {}
+  event.waitUntil(
+    self.registration.showNotification(data.title || "Sakubun", {
+      body: data.body || "Time for some quiz questions!",
+      icon: "/icon-192x192.png",
+      badge: "/icon-96x96.png",
+      // Collapse duplicate reminders into one notification
+      tag: "streak-reminder",
+      data: { url: data.url || "/quiz" },
+    })
+  );
+});
+
+self.addEventListener("notificationclick", event => {
+  event.notification.close();
+  const url = event.notification.data && event.notification.data.url || "/quiz";
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(clients => {
+      // Focus an existing tab with the target page if there is one
+      for (const client of clients) {
+        if (new URL(client.url).pathname === url && "focus" in client) return client.focus();
+      }
+      return self.clients.openWindow(url);
+    })
+  );
+});
+
+self.addEventListener("pushsubscriptionchange", event => {
+  // The push service invalidated this subscription, so re-subscribe to get a working
+  // one. The database can't be updated here (no Supabase session in the worker); the
+  // next quiz page load reconciles the new endpoint against the push_endpoint marker.
+  event.waitUntil(self.registration.pushManager.subscribe(event.oldSubscription.options));
 });
 
 self.addEventListener("fetch", event => {

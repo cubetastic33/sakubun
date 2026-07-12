@@ -50,6 +50,44 @@ async function set_days_learnt(days_learnt) {
   }
 }
 
+function compute_streaks(days_learnt) {
+  // Computes streak statistics from a days_learnt object
+  const days = Object.keys(days_learnt).map(x => parseInt(x)).sort();
+
+  let longest_streak = 0;
+  let current_streak = 0;
+
+  for (let i = 0; i < days.length; i++) {
+    // If the day before days[i] has questions done
+    if (days_learnt[numerify(new Date(datify(days[i]) - DAY))] > 0) current_streak++;
+    else {
+      if (current_streak > longest_streak) longest_streak = current_streak;
+      current_streak = 1;
+    }
+  }
+
+  const today = new Date();
+  const learnt_today = days_learnt[numerify(today)] || 0;
+  if (current_streak > longest_streak) longest_streak = current_streak;
+
+  // If the user hasn't learnt today OR yesterday, set current_streak to 0
+  if (!learnt_today > 0 && !days_learnt[numerify(new Date(today - DAY))] > 0) current_streak = 0;
+
+  // The most recent day with questions done, as YYYY-MM-DD
+  let last_active_date = null;
+  for (let i = days.length - 1; i >= 0; i--) {
+    if (days_learnt[days[i]] > 0) {
+      const date = datify(days[i]);
+      last_active_date = date.getFullYear() + '-'
+        + String(date.getMonth() + 1).padStart(2, '0') + '-'
+        + String(date.getDate()).padStart(2, '0');
+      break;
+    }
+  }
+
+  return { longest_streak, current_streak, learnt_today, last_active_date };
+}
+
 async function draw_map(end_date, start_year=true) {
   // Draws the heatmap for 1 year before the end date
   end_date.setHours(0, 0, 0, 0); // Set time to midnight so calculations work as expected
@@ -82,18 +120,7 @@ async function draw_map(end_date, start_year=true) {
     $('#months span').eq(1).text('Dec');
   }
 
-  let longest_streak = 0;
-  let current_streak = 0;
-
   for (let i = 0; i < days.length; i++) {
-    // Streak length calculation
-    // If the day before days[i] has questions done
-    if (days_learnt[numerify(new Date(datify(days[i]) - DAY))] > 0) current_streak++;
-    else {
-      if (current_streak > longest_streak) longest_streak = current_streak;
-      current_streak = 1;
-    }
-
     // If this date is in the range that is displayed
     const date = datify(days[i]);
     if (date >= start_date && date <= end_date) {
@@ -105,12 +132,7 @@ async function draw_map(end_date, start_year=true) {
     }
   }
 
-  const today = new Date();
-  const learnt_today = days_learnt[numerify(today)] || 0;
-  if (current_streak > longest_streak) longest_streak = current_streak;
-  
-  // If the user hasn't learnt today OR yesterday, set current_streak to 0
-  if (!learnt_today > 0 && !days_learnt[numerify(new Date(today - DAY))] > 0) current_streak = 0;
+  const { longest_streak, current_streak, learnt_today } = compute_streaks(days_learnt);
 
   $('#longest').text(`${longest_streak} day${longest_streak === 1 ? '' : 's'}`);
   $('#current').text(`${current_streak} day${current_streak === 1 ? '' : 's'}`);

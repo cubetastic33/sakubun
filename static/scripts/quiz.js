@@ -124,6 +124,7 @@ async function setAuthView(session) {
   }
   await draw_map(new Date(), false);  // Defined in streaks.js
   await init_quiz_settings();
+  await update_toggle_visibility();  // Defined in push.js
 }
 
 $show_textbox.change(() => {
@@ -180,8 +181,15 @@ async function questions_today() {
 async function increment_questions() {
   // Increments the number of questions done today
   let days_learnt = await get_days_learnt();
-  days_learnt[numerify(new Date())] = (days_learnt[numerify(new Date())] || 0) + 1;
+  const today = numerify(new Date());
+  const first_of_the_day = !(days_learnt[today] > 0);
+  days_learnt[today] = (days_learnt[today] || 0) + 1;
   await set_days_learnt(days_learnt);
+  if (first_of_the_day) {
+    // The streak state only changes on the first question of the day, so this is the
+    // only time the push subscription needs updating (defined in push.js)
+    await sync_push_subscription();
+  }
 }
 
 async function get_questions() {

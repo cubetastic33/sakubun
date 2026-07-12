@@ -78,6 +78,28 @@ svg {
   font-size: 1rem;
   max-width: 800px;
   margin: auto;
+
+  button {
+    background: none;
+    border: none;
+    color: var(--foreground);
+    font-size: .9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3em;
+    padding: 0;
+    opacity: .7;
+
+    .material-icons {
+      font-size: 1.2em;
+    }
+
+    .push-label {
+      display: none;
+    }
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -97,16 +119,24 @@ svg {
   #stats {
     flex-direction: column-reverse;
     gap: 0.5em;
+
+    button {
+      font-size: .7rem;
+    }
+
+    .push-label {
+      display: block !important;
+    }
   }
 }
 
-#import_error, #confirmation {
+#import_error, #confirmation, #push_denied {
   text-align: center;
   display: none;
   margin-top: 1em;
 }
 
-#import_error {
+#import_error, #push_denied {
   color: var(--error);
 }
 

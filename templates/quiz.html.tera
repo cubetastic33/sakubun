@@ -113,6 +113,23 @@
     </div>
   </dialog>
   <div class="overlay"></div>
+  <dialog id="push_dialog">
+    <h3>Streak Reminders</h3>
+    <p>
+      Enable notifications, and sakubun will remind you at 7pm whenever you're about to lose a
+      streak of 2 or more days. If you've already done your quiz questions for the day, no
+      notification is sent.
+    </p>
+    <p id="push_denied">
+      Notifications are blocked for this site. To get streak reminders, allow notifications in
+      your browser's site settings and try again.
+    </p>
+    <div>
+      <button type="button" class="text close">Cancel</button>
+      <button type="button" id="enable_push">Enable</button>
+    </div>
+  </dialog>
+  <div class="overlay"></div>
   <main>
     <div id="loading">
       Loading...
@@ -219,6 +236,12 @@
         <div>
           <b>Today:</b> <span id="today"></span>
         </div>
+        <button type="button" id="push_toggle" class="exception" style="display: none"
+                title="Remind me at 7pm if my streak is at risk"
+                data-vapid="{{ vapid_public_key }}">
+          <span class="material-icons">notifications_off</span>
+          <span class="push-label">Reminders Enabled</span>
+        </button>
       </div>
     </form>
     <form id="quiz_container">
@@ -242,5 +265,6 @@
   <script src="/scripts/wanakana.min.js"></script>
   <script src="/scripts/patience_diff.js"></script>
   <script src="/scripts/streaks.js" defer></script>
+  <script src="/scripts/push.js" defer></script>
   <script src="/scripts/quiz.js" defer></script>
 {% endblock javascript %}
