@@ -19,10 +19,12 @@ use std::{collections::HashMap, env, fmt::Display};
 mod actions;
 mod admin;
 mod kanji_import;
+mod notifications;
 
 use actions::*;
 use admin::*;
 use kanji_import::*;
+use notifications::*;
 
 type ErrResponse = (Status, String);
 
@@ -160,6 +162,10 @@ fn create_context<'a>(cookies: &'a CookieJar, page: &'a str) -> HashMap<&'a str,
     let current_date = chrono::Utc::now().date_naive();
     context.insert("year", current_date.format("%Y").to_string());
     context.insert("page", page.to_owned());
+    context.insert(
+        "vapid_public_key",
+        env::var("VAPID_PUBLIC_KEY").unwrap(),
+    );
     context
 }
 
@@ -452,4 +458,5 @@ fn rocket() -> _ {
         )
         .attach(Template::fairing())
         .attach(AdminDB::init())
+        .attach(notification_fairing())
 }
