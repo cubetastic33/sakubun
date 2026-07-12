@@ -132,10 +132,9 @@ self.addEventListener("notificationclick", event => {
 });
 
 self.addEventListener("pushsubscriptionchange", event => {
-  // The push service rotated the subscription. There's no Supabase session in the
-  // service worker, so the database row can't be updated from here; re-subscribe so
-  // the next quiz page load (which checks the push_endpoint localStorage marker) can
-  // save the new endpoint and delete the old row.
+  // The push service invalidated this subscription, so re-subscribe to get a working
+  // one. The database can't be updated here (no Supabase session in the worker); the
+  // next quiz page load reconciles the new endpoint against the push_endpoint marker.
   event.waitUntil(self.registration.pushManager.subscribe(event.oldSubscription.options));
 });
 
