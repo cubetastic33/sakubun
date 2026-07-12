@@ -3,7 +3,10 @@
 // Subscriptions are written by the frontend directly through Supabase (push.js).
 // This backend only reads the table to send reminders.
 
-use ::sqlx::types::{chrono::{NaiveDate, Utc}, Uuid};
+use ::sqlx::types::{
+    chrono::{NaiveDate, Utc},
+    Uuid,
+};
 use chrono_tz::Tz;
 use rocket::{fairing::AdHoc, tokio};
 use rocket_db_pools::sqlx::{self, PgPool, Row};
@@ -46,21 +49,9 @@ pub fn notification_fairing() -> AdHoc {
 }
 
 async fn notification_loop(pool: PgPool) {
-    // Without a VAPID key we can't send anything, so don't bother running the loop
-    let private_key = match env::var("VAPID_PRIVATE_KEY") {
-        Ok(key) => key,
-        Err(_) => {
-            eprintln!("VAPID_PRIVATE_KEY not set, streak reminders are disabled");
-            return;
-        }
-    };
-    let signature_builder = match VapidSignatureBuilder::from_base64_no_sub(&private_key) {
-        Ok(builder) => builder,
-        Err(e) => {
-            eprintln!("Error parsing VAPID_PRIVATE_KEY, streak reminders are disabled: {}", e);
-            return;
-        }
-    };
+    let private_key = env::var("VAPID_PRIVATE_KEY").expect("Env var VAPID_PRIVATE_KEY not found");
+    let signature_builder = VapidSignatureBuilder::from_base64_no_sub(&private_key)
+        .expect("Error parsing VAPID_PRIVATE_KEY");
     let subject = env::var("VAPID_SUBJECT").expect("Env var VAPID_SUBJECT not found");
     // The client is reused for all the requests
     let client = HyperWebPushClient::new();
@@ -86,7 +77,8 @@ async fn process_tick(
 ) -> Result<(), Box<dyn Error>> {
     // Delete subscriptions from browsers that haven't opened the quiz page in a long time
     sqlx::query("DELETE FROM push_subscriptions WHERE updated_at < NOW() - INTERVAL '90 days'")
-        .execute(pool).await?;
+        .execute(pool)
+        .await?;
 
     let rows = sqlx::query(
         "SELECT * FROM push_subscriptions WHERE current_streak >= $1 AND last_active_date IS NOT NULL",
@@ -143,19 +135,22 @@ async fn process_tick(
             subject,
             &subscription,
             row.get("current_streak"),
-        ).await;
+        )
+        .await;
         match result {
             Ok(_) => {
                 sqlx::query("UPDATE push_subscriptions SET last_notified_date = $1 WHERE id = $2")
                     .bind(today)
                     .bind(id)
-                    .execute(pool).await?;
+                    .execute(pool)
+                    .await?;
             }
             // The subscription no longer exists, so delete it
             Err(WebPushError::EndpointNotFound(_)) | Err(WebPushError::EndpointNotValid(_)) => {
                 sqlx::query("DELETE FROM push_subscriptions WHERE id = $1")
                     .bind(id)
-                    .execute(pool).await?;
+                    .execute(pool)
+                    .await?;
             }
             // Other errors might be temporary, so keep the subscription for the next tick
             Err(e) => eprintln!("Error sending push notification: {}", e),
