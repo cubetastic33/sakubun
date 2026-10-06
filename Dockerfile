@@ -1,4 +1,4 @@
-FROM rustlang/rust:nightly
+FROM rust:1.99.0
 
 # Install Node.js and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y nodejs
