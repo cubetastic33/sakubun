@@ -392,8 +392,24 @@ async fn post_delete_override(
     Err((Status::Unauthorized, "Error: not signed in".to_string()))
 }
 
+// Ensure the .env file (if present) isn't readable/writable by other users before
+// loading secrets from it, to guard against accidental exposure of credentials.
+#[cfg(unix)]
+fn check_env_file_permissions() {
+    use std::os::unix::fs::PermissionsExt;
+    if let Ok(metadata) = std::fs::metadata(".env") {
+        if metadata.permissions().mode() & 0o077 != 0 {
+            panic!(".env file has overly permissive permissions; run `chmod 600 .env` before starting");
+        }
+    }
+}
+
+#[cfg(not(unix))]
+fn check_env_file_permissions() {}
+
 #[launch]
 fn rocket() -> _ {
+    check_env_file_permissions();
     dotenv().ok();
     // Configure Rocket to use the PORT env var or fall back to 8000
     let port = if let Ok(port_str) = env::var("PORT") {
