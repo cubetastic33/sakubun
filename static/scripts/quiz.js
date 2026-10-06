@@ -103,6 +103,7 @@ async function init_quiz_settings() {
 
   if ($max.val() === '0') $('#settings *:not(.container):not(.always):not(.always *)').hide();
 
+  $ime_checkbox.toggle($show_textbox.is(':checked'));
   warning();
   $('#loading').hide();
   $settings.show();
