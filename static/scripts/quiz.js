@@ -6,6 +6,8 @@ const $show_textbox = $('#show_textbox');
 const $show_reading = $('#show_reading');
 const $show_diff = $('#show_diff');
 const $settings = $('#settings');
+const $ime_checkbox = $('#ime_checkbox');
+const $enable_ime = $('#enable_ime');
 const $diff_checkbox = $('#diff_checkbox');
 const $question_no = $('#question_no');
 const $question = $('#question');
@@ -82,6 +84,7 @@ async function init_quiz_settings() {
   let settings_min = localStorage.getItem('min');
   let settings_max = localStorage.getItem('max');
   let settings_textbox = localStorage.getItem('show_textbox');
+  let settings_enable_ime = localStorage.getItem('enable_ime');
   let settings_reading = localStorage.getItem('show_reading');
   let settings_diff = localStorage.getItem('show_diff');
 
@@ -92,6 +95,7 @@ async function init_quiz_settings() {
   else if (!known_kanji.size) $show_textbox.prop('checked', true);
   // If we do have saved kanji, we set it to false because we want to mark readings by default
   else $show_textbox.prop('checked', false);
+  if (settings_enable_ime) $enable_ime.prop('checked', settings_enable_ime === 'true');
   if (settings_reading) $show_reading.prop('checked', settings_reading === 'true');
   if (settings_diff) $show_diff.prop('checked', settings_diff === 'true');
   $max.prop('min', $min.val());
@@ -131,7 +135,9 @@ $show_textbox.change(() => {
   localStorage.setItem('show_textbox', $show_textbox.is(':checked'));
   // Show the "Mark difference" checkbox depending on the conditions
   $diff_checkbox.toggle(!should_evaluate() && show_reading());
+  $ime_checkbox.toggle($show_textbox.is(':checked'));
 });
+$enable_ime.change(() => localStorage.setItem('enable_ime', $enable_ime.is(':checked')));
 $show_reading.change(warning);
 $show_diff.change(() => localStorage.setItem('show_diff', $show_diff.is(':checked')));
 $min.change(function () {
@@ -216,7 +222,7 @@ async function get_questions() {
       $question_no.text('Question ' + (await questions_today() + 1));
       if (init) {
         // Basic IME
-        wanakana.bind($answer[0]);
+        if ($enable_ime.is(':checked')) wanakana.bind($answer[0]);
         if (show_reading()) {
           $kana.show();
           show_quiz();
